@@ -1,0 +1,14 @@
+{
+  "name": "file-trail",
+  "version": "0.1.0",
+  "description": "/trail abre um painel com os arquivos lidos e alterados na sessão",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

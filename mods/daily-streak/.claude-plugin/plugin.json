@@ -1,0 +1,13 @@
+{
+  "name": "daily-streak",
+  "version": "0.1.0",
+  "description": "Conta seus dias seguidos de Claude Code; toast ao abrir e comando /streak",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "foco"
+  ]
+}

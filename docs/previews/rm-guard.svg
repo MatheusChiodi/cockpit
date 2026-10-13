@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="192" viewBox="0 0 760 192" role="img" aria-label="Prévia do mod rm-guard no terminal">
+<rect width="760" height="192" rx="10" fill="#141922"/>
+<rect width="760" height="34" rx="10" fill="#1d2433"/>
+<rect y="24" width="760" height="10" fill="#1d2433"/>
+<circle cx="20" cy="17" r="6" fill="#ff5f57"/><circle cx="40" cy="17" r="6" fill="#febc2e"/><circle cx="60" cy="17" r="6" fill="#28c840"/>
+<text x="380" y="22" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" fill="#8792a8">claude — rm-guard</text>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="13">
+<text y="58" xml:space="preserve"><tspan x="22.0" textLength="47.0" lengthAdjust="spacingAndGlyphs" fill="#7fd1a8">● Bash</tspan><tspan x="69.0" textLength="86.1" lengthAdjust="spacingAndGlyphs" fill="#d8dee9">(rm -rf ~/)</tspan></text>
+<text y="78" xml:space="preserve"><tspan x="22.0" textLength="469.8" lengthAdjust="spacingAndGlyphs" fill="#ff7a7a">  ⎿ rm-guard bloqueou o comando: apagar recursivamente "~/".</tspan></text>
+<text y="98" xml:space="preserve"><tspan x="22.0" textLength="540.3" lengthAdjust="spacingAndGlyphs" fill="#ff7a7a">    Se for mesmo intencional, peça ao usuário para rodar manualmente.</tspan></text>
+<text y="118" xml:space="preserve"></text>
+<text y="138" xml:space="preserve"><tspan x="22.0" textLength="47.0" lengthAdjust="spacingAndGlyphs" fill="#7fd1a8">● Bash</tspan><tspan x="69.0" textLength="164.4" lengthAdjust="spacingAndGlyphs" fill="#d8dee9">(rm -rf node_modules)</tspan></text>
+<text y="158" xml:space="preserve"><tspan x="22.0" textLength="125.3" lengthAdjust="spacingAndGlyphs" fill="#6b7689">  ⎿ (ok, passou)</tspan></text>
+</g>
+</svg>

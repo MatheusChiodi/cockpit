@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="192" viewBox="0 0 760 192" role="img" aria-label="Prévia do mod concise-mode no terminal">
+<rect width="760" height="192" rx="10" fill="#141922"/>
+<rect width="760" height="34" rx="10" fill="#1d2433"/>
+<rect y="24" width="760" height="10" fill="#1d2433"/>
+<circle cx="20" cy="17" r="6" fill="#ff5f57"/><circle cx="40" cy="17" r="6" fill="#febc2e"/><circle cx="60" cy="17" r="6" fill="#28c840"/>
+<text x="380" y="22" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" fill="#8792a8">claude — concise-mode</text>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="13">
+<text y="58" xml:space="preserve"><tspan x="22.0" textLength="101.8" lengthAdjust="spacingAndGlyphs" fill="#e6edf7">&gt; /concise on</tspan></text>
+<text y="78" xml:space="preserve"><tspan x="22.0" textLength="454.1" lengthAdjust="spacingAndGlyphs" fill="#6b7689">  ⎿ Modo conciso ligado (vale a partir do próximo prompt).</tspan></text>
+<text y="98" xml:space="preserve"></text>
+<text y="118" xml:space="preserve"><tspan x="22.0" textLength="242.7" lengthAdjust="spacingAndGlyphs" fill="#e6edf7">&gt; como desfaço o último commit?</tspan></text>
+<text y="138" xml:space="preserve"></text>
+<text y="158" xml:space="preserve"><tspan x="22.0" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d97757">●</tspan><tspan x="29.8" textLength="203.6" lengthAdjust="spacingAndGlyphs" fill="#d8dee9"> `git reset --soft HEAD~1`</tspan></text>
+</g>
+</svg>

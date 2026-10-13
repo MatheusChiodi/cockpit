@@ -1,0 +1,5 @@
+node_modules/
+engine-types/
+mods/*/.claude-plugin/types/
+mods/*/tsconfig.json
+*.log

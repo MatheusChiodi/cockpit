@@ -1,0 +1,13 @@
+{
+  "name": "context-meter",
+  "version": "0.1.0",
+  "description": "Status line com barra de contexto e custo; avisa em 80% e 90%",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

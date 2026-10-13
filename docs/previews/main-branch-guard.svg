@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="132" viewBox="0 0 760 132" role="img" aria-label="Prévia do mod main-branch-guard no terminal">
+<rect width="760" height="132" rx="10" fill="#141922"/>
+<rect width="760" height="34" rx="10" fill="#1d2433"/>
+<rect y="24" width="760" height="10" fill="#1d2433"/>
+<circle cx="20" cy="17" r="6" fill="#ff5f57"/><circle cx="40" cy="17" r="6" fill="#febc2e"/><circle cx="60" cy="17" r="6" fill="#28c840"/>
+<text x="380" y="22" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" fill="#8792a8">claude — main-branch-guard</text>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="13">
+<text y="58" xml:space="preserve"><tspan x="22.0" textLength="47.0" lengthAdjust="spacingAndGlyphs" fill="#7fd1a8">● Bash</tspan><tspan x="69.0" textLength="219.2" lengthAdjust="spacingAndGlyphs" fill="#d8dee9">(git commit -m "fix: login")</tspan></text>
+<text y="78" xml:space="preserve"><tspan x="22.0" textLength="462.0" lengthAdjust="spacingAndGlyphs" fill="#ff7a7a">  ⎿ main-branch-guard: você está em "main". Crie uma branch</tspan></text>
+<text y="98" xml:space="preserve"><tspan x="22.0" textLength="422.8" lengthAdjust="spacingAndGlyphs" fill="#ff7a7a">    (git switch -c &lt;nome&gt;) antes de commit/push/merge.</tspan></text>
+</g>
+</svg>

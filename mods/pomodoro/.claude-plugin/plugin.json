@@ -1,0 +1,13 @@
+{
+  "name": "pomodoro",
+  "version": "0.1.0",
+  "description": "/pomodoro [min] com contagem na status line, toast e notificação ao final",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "comandos"
+  ]
+}

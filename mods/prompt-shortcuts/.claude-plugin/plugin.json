@@ -1,0 +1,13 @@
+{
+  "name": "prompt-shortcuts",
+  "version": "0.1.0",
+  "description": "Atalhos ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit viram prompts completos",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

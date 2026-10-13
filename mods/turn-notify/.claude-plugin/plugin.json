@@ -1,0 +1,13 @@
+{
+  "name": "turn-notify",
+  "version": "0.1.0",
+  "description": "Notificação nativa quando um turno de 30s ou mais termina",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "foco"
+  ]
+}

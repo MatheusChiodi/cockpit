@@ -1,0 +1,13 @@
+{
+  "name": "session-stats",
+  "version": "0.1.0",
+  "description": "/stats resume a sessão: tempo, prompts, tools, tokens, contexto e custo",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "comandos"
+  ]
+}

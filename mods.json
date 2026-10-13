@@ -1,0 +1,383 @@
+{
+  "marketplace": "turbina",
+  "description": "Turbina: 30 mods para o Claude Code no terminal — segurança, interface, prompt, comandos e foco",
+  "version": "0.1.0",
+  "owner": { "name": "Matheus Chiodi" },
+  "categories": {
+    "seguranca": "Segurança",
+    "interface": "Interface",
+    "prompt": "Prompt e modelo",
+    "comandos": "Comandos",
+    "foco": "Foco e notificações"
+  },
+  "mods": [
+    {
+      "name": "rm-guard",
+      "category": "seguranca",
+      "description": "Bloqueia rm -rf / Remove-Item -Recurse em raiz, home e drives, além de mkfs, dd e format",
+      "preview": [
+        "[[tool|● Bash]](rm -rf ~/)",
+        "[[err|  ⎿ rm-guard bloqueou o comando: apagar recursivamente \"~/\".]]",
+        "[[err|    Se for mesmo intencional, peça ao usuário para rodar manualmente.]]",
+        "",
+        "[[tool|● Bash]](rm -rf node_modules)",
+        "[[dim|  ⎿ (ok, passou)]]"
+      ]
+    },
+    {
+      "name": "env-guard",
+      "category": "seguranca",
+      "description": "Protege arquivos .env contra leitura e escrita (Read, Edit, Write, cat e @menção)",
+      "preview": [
+        "[[tool|● Read]](.env.production)",
+        "[[err|  ⎿ env-guard: .env.production guarda segredos e está protegido.]]",
+        "[[err|    Use um .env.example ou peça ao usuário.]]",
+        "",
+        "[[tool|● Read]](.env.example)",
+        "[[dim|  ⎿ Read 12 lines]]"
+      ]
+    },
+    {
+      "name": "git-guard",
+      "category": "seguranca",
+      "description": "Bloqueia git destrutivo: push --force, reset --hard, clean -f, --no-verify, branch -D",
+      "preview": [
+        "[[tool|● Bash]](git push --force origin main)",
+        "[[err|  ⎿ git-guard bloqueou o comando: git push --force reescreve o]]",
+        "[[err|    histórico remoto (use --force-with-lease).]]",
+        "",
+        "[[tool|● Bash]](git push --force-with-lease)",
+        "[[dim|  ⎿ (ok, passou)]]"
+      ]
+    },
+    {
+      "name": "secret-scan",
+      "category": "seguranca",
+      "description": "Recusa Write/Edit cujo conteúdo traz chaves de API, tokens ou chaves privadas",
+      "preview": [
+        "[[tool|● Write]](src/config.ts)",
+        "[[err|  ⎿ secret-scan: o conteúdo para src/config.ts contém token do GitHub.]]",
+        "[[err|    Use variável de ambiente em vez de gravar o segredo no arquivo.]]"
+      ]
+    },
+    {
+      "name": "prompt-secret-guard",
+      "category": "seguranca",
+      "description": "Barra o envio de prompts que contenham segredos colados por engano",
+      "preview": [
+        "[[user|> por que esse deploy falha? AWS_KEY=AKIA················]]",
+        "[[warn|  ⎿ prompt-secret-guard: o prompt contém chave de acesso AWS.]]",
+        "[[warn|    Remova o segredo e envie de novo.]]"
+      ]
+    },
+    {
+      "name": "lockfile-guard",
+      "category": "seguranca",
+      "description": "Impede edição manual de lockfiles (package-lock, yarn.lock, pnpm-lock, Cargo.lock...)",
+      "preview": [
+        "[[tool|● Edit]](package-lock.json)",
+        "[[err|  ⎿ lockfile-guard: package-lock.json é gerado pelo gerenciador de]]",
+        "[[err|    pacotes. Rode o comando de install/update em vez de editar à mão.]]"
+      ]
+    },
+    {
+      "name": "path-jail",
+      "category": "seguranca",
+      "description": "Restringe Write/Edit à raiz do projeto, ao temp e a ~/.claude (resolve symlinks)",
+      "preview": [
+        "[[tool|● Write]](C:\\Windows\\System32\\drivers\\etc\\hosts)",
+        "[[err|  ⎿ path-jail: C:\\Windows\\System32\\drivers\\etc\\hosts fica fora do]]",
+        "[[err|    projeto. Escritas só dentro da raiz da sessão, do temp ou de ~/.claude.]]"
+      ]
+    },
+    {
+      "name": "main-branch-guard",
+      "category": "seguranca",
+      "description": "Recusa commit, push, merge e rebase quando a branch atual é main/master",
+      "preview": [
+        "[[tool|● Bash]](git commit -m \"fix: login\")",
+        "[[err|  ⎿ main-branch-guard: você está em \"main\". Crie uma branch]]",
+        "[[err|    (git switch -c <nome>) antes de commit/push/merge.]]"
+      ]
+    },
+    {
+      "name": "turn-timer",
+      "category": "interface",
+      "description": "Faixa acima do prompt com duração, tools e tokens do último turno",
+      "preview": [
+        "[[accent|●]] Pronto: 3 arquivos atualizados e testes passando.",
+        "",
+        "[[dim|Último turno: 42s · 7 tools · 1.8k tokens]]  [[btn|[ Ocultar ]]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "tool-tally",
+      "category": "interface",
+      "description": "/tally abre um painel com a contagem de chamadas por ferramenta",
+      "preview": [
+        "[[user|> /tally]]",
+        "[[rule|┌─ Ferramentas ─────────────────────────┐]]",
+        "[[rule|│]] [[bold|37 chamadas]]",
+        "[[rule|│]]   14 [[accent|████████████]] Read",
+        "[[rule|│]]   11 [[accent|█████████]] Bash",
+        "[[rule|│]]    8 [[accent|███████]] Edit",
+        "[[rule|│]]    4 [[accent|███]] Grep",
+        "[[rule|└───────────────────────────────────────┘]]"
+      ]
+    },
+    {
+      "name": "file-trail",
+      "category": "interface",
+      "description": "/trail abre um painel com os arquivos lidos e alterados na sessão",
+      "preview": [
+        "[[user|> /trail]]",
+        "[[rule|┌─ Arquivos ────────────────────────────┐]]",
+        "[[rule|│]] [[bold|5 arquivos · 2 alterados]]",
+        "[[rule|│]] [[warn|M]] src/auth/login.ts [[dim|×3]]",
+        "[[rule|│]] [[warn|W]] src/auth/login.test.ts [[dim|×1]]",
+        "[[rule|│]] [[dim|R src/auth/session.ts ×2]]",
+        "[[rule|│]] [[dim|R package.json ×1]]",
+        "[[rule|└───────────────────────────────────────┘]]"
+      ]
+    },
+    {
+      "name": "cmd-log",
+      "category": "interface",
+      "description": "/cmdlog abre um painel com os comandos de shell, status e duração",
+      "preview": [
+        "[[user|> /cmdlog]]",
+        "[[rule|┌─ Comandos ────────────────────────────┐]]",
+        "[[rule|│]] [[bold|4 comandos · 1 falharam]]",
+        "[[rule|│]] [[ok|✓]] npm install [[dim|8.4s]]",
+        "[[rule|│]] [[err|✗]] npm test [[dim|3.1s]]",
+        "[[rule|│]] [[ok|✓]] npm test [[dim|2.9s]]",
+        "[[rule|│]] [[warn|…]] npm run build",
+        "[[rule|└───────────────────────────────────────┘]]"
+      ]
+    },
+    {
+      "name": "git-status-line",
+      "category": "interface",
+      "description": "Status line com branch, arquivos alterados e commits à frente/atrás",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ⎇ feat/login ±3 ↑1]]"
+      ]
+    },
+    {
+      "name": "context-meter",
+      "category": "interface",
+      "description": "Status line com barra de contexto e custo; avisa em 80% e 90%",
+      "preview": [
+        "[[toast| context-meter  Contexto em 82%. Considere /compact ou /clear. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ctx ████████░░ 82% · US$ 1.47]]"
+      ]
+    },
+    {
+      "name": "rate-limit-watch",
+      "category": "interface",
+      "description": "Toast quando a janela de 5h ou 7 dias passa de 75/90/95%; /limits lista o uso",
+      "preview": [
+        "[[toast| rate-limit-watch  Rate limit: janela de 5h em 90% (reseta 14:30) ]]",
+        "",
+        "[[user|> /limits]]",
+        "[[dim|  ⎿]] janela de 5h: 90% (reseta 13/10, 14:30)",
+        "    janela de 7 dias: 41% (reseta 17/10, 09:00)"
+      ]
+    },
+    {
+      "name": "session-clock",
+      "category": "interface",
+      "description": "Status line com tempo de sessão e número de prompts",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ⏱ 1h12 · 23 prompts]]"
+      ]
+    },
+    {
+      "name": "pt-br",
+      "category": "prompt",
+      "description": "Faz o Claude responder sempre em português do Brasil (seção no system prompt)",
+      "preview": [
+        "[[user|> explain this stack trace]]",
+        "",
+        "[[accent|●]] O erro acontece porque `user` chega `undefined` em",
+        "  `getProfile()`: a chamada roda antes do login terminar."
+      ]
+    },
+    {
+      "name": "concise-mode",
+      "category": "prompt",
+      "description": "/concise liga respostas curtas e diretas, sem introdução nem recapitulação",
+      "preview": [
+        "[[user|> /concise on]]",
+        "[[dim|  ⎿ Modo conciso ligado (vale a partir do próximo prompt).]]",
+        "",
+        "[[user|> como desfaço o último commit?]]",
+        "",
+        "[[accent|●]] `git reset --soft HEAD~1`"
+      ]
+    },
+    {
+      "name": "persona",
+      "category": "prompt",
+      "description": "/persona troca a voz do Claude: mentor, senior, rubberduck, pirata, yoda, zen",
+      "preview": [
+        "[[user|> /persona pirata]]",
+        "[[dim|  ⎿ Persona \"pirata\" ativa a partir do próximo prompt.]]",
+        "",
+        "[[user|> o build quebrou]]",
+        "",
+        "[[accent|●]] Arr, marujo! Faltou um import no convés de `App.tsx`. Já remendei."
+      ]
+    },
+    {
+      "name": "prompt-shortcuts",
+      "category": "prompt",
+      "description": "Atalhos ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit viram prompts completos",
+      "preview": [
+        "[[user|> ::fix TypeError: cannot read properties of undefined]]",
+        "",
+        "[[dim|  vira →]]",
+        "[[user|> Encontre a causa raiz do erro abaixo, corrija e explique em uma]]",
+        "[[user|  linha o que estava errado.]]",
+        "[[user|  TypeError: cannot read properties of undefined]]"
+      ]
+    },
+    {
+      "name": "tldr",
+      "category": "prompt",
+      "description": "Acrescenta um TL;DR de 2 frases (via haiku) abaixo de respostas longas",
+      "preview": [
+        "[[accent|●]] ...e por isso o cache precisa ser invalidado nos três pontos",
+        "  descritos acima, na ordem em que as migrações rodam.",
+        "",
+        "[[bold|  TL;DR:]] o bug vem do cache não invalidado após a migração; a",
+        "  correção limpa o cache em três pontos e os testes passam."
+      ]
+    },
+    {
+      "name": "quick-notes",
+      "category": "comandos",
+      "description": "/note e /notes: notas rápidas por projeto, persistentes entre sessões",
+      "preview": [
+        "[[user|> /note revisar timeout do endpoint /orders]]",
+        "[[dim|  ⎿ Nota 2 salva.]]",
+        "",
+        "[[user|> /notes]]",
+        "[[dim|  ⎿]] 1. trocar lib de datas  (12/10/2026)",
+        "    2. revisar timeout do endpoint /orders  (13/10/2026)"
+      ]
+    },
+    {
+      "name": "pomodoro",
+      "category": "comandos",
+      "description": "/pomodoro [min] com contagem na status line, toast e notificação ao final",
+      "preview": [
+        "[[user|> /pomodoro 25]]",
+        "[[dim|  ⎿ Pomodoro de 25 min iniciado.]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  🍅 18 min]]"
+      ]
+    },
+    {
+      "name": "copy-last",
+      "category": "comandos",
+      "description": "/copy-last copia a última resposta; /copy-code copia o último bloco de código",
+      "preview": [
+        "[[user|> /copy-code]]",
+        "[[dim|  ⎿ Código copiado (214 caracteres).]]",
+        "",
+        "[[user|> /copy-last]]",
+        "[[dim|  ⎿ Resposta copiada (1032 caracteres).]]"
+      ]
+    },
+    {
+      "name": "session-stats",
+      "category": "comandos",
+      "description": "/stats resume a sessão: tempo, prompts, tools, tokens, contexto e custo",
+      "preview": [
+        "[[user|> /stats]]",
+        "[[dim|  ⎿]] Sessão      1h12 em D:\\VibeCode\\turbina",
+        "    Modelo      claude-opus-5-5",
+        "    Prompts     23",
+        "    Tools       148 (3 com erro ou bloqueadas)",
+        "    Saída       41.870 tokens",
+        "    Contexto    38% de 200.000 tokens",
+        "    Custo       US$ 2.31"
+      ]
+    },
+    {
+      "name": "quote-selection",
+      "category": "comandos",
+      "description": "/quote cita no prompt o trecho selecionado com o mouse",
+      "preview": [
+        "[[accent|●]] O timeout padrão é [[sel|30 segundos e não é configurável por rota]].",
+        "",
+        "[[user|> /quote]]",
+        "[[dim|  ⎿ Seleção citada no prompt.]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> > 30 segundos e não é configurável por rota]]",
+        "[[user|  ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "git-peek",
+      "category": "comandos",
+      "description": "/gs, /gl e /gd: status, log e diff do git na hora, sem gastar turno do modelo",
+      "preview": [
+        "[[user|> /gs]]",
+        "[[dim|  ⎿]] ## feat/login...origin/feat/login [ahead 1]",
+        "     M src/auth/login.ts",
+        "    ?? src/auth/login.test.ts",
+        "",
+        "[[user|> /gl 2]]",
+        "[[dim|  ⎿]] a1b2c3d (HEAD -> feat/login) feat: valida token",
+        "    9f8e7d6 chore: atualiza deps"
+      ]
+    },
+    {
+      "name": "turn-notify",
+      "category": "foco",
+      "description": "Notificação nativa quando um turno de 30s ou mais termina",
+      "preview": [
+        "[[accent|●]] Refatoração concluída: 12 arquivos, testes passando.",
+        "",
+        "[[notify| 🔔 Claude Code                          ]]",
+        "[[notify|    Turno concluído em 94s.              ]]"
+      ]
+    },
+    {
+      "name": "break-reminder",
+      "category": "foco",
+      "description": "Toast a cada 50 minutos de sessão lembrando de fazer uma pausa",
+      "preview": [
+        "[[toast| break-reminder  50 min de sessão. Olhe para longe por 20 segundos. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "daily-streak",
+      "category": "foco",
+      "description": "Conta seus dias seguidos de Claude Code; toast ao abrir e comando /streak",
+      "preview": [
+        "[[toast| daily-streak  🔥 7 dias seguidos de Claude Code (recorde: 12) ]]",
+        "",
+        "[[user|> /streak]]",
+        "[[dim|  ⎿ 🔥 7 dias seguidos de Claude Code (recorde: 12)]]"
+      ]
+    }
+  ]
+}

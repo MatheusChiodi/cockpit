@@ -1,0 +1,13 @@
+{
+  "name": "prompt-secret-guard",
+  "version": "0.1.0",
+  "description": "Barra o envio de prompts que contenham segredos colados por engano",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "seguranca"
+  ]
+}

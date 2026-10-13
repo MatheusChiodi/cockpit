@@ -1,0 +1,13 @@
+{
+  "name": "rate-limit-watch",
+  "version": "0.1.0",
+  "description": "Toast quando a janela de 5h ou 7 dias passa de 75/90/95%; /limits lista o uso",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

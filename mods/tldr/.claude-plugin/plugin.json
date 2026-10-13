@@ -1,0 +1,13 @@
+{
+  "name": "tldr",
+  "version": "0.1.0",
+  "description": "Acrescenta um TL;DR de 2 frases (via haiku) abaixo de respostas longas",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

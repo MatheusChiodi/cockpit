@@ -1,0 +1,13 @@
+{
+  "name": "session-clock",
+  "version": "0.1.0",
+  "description": "Status line com tempo de sessão e número de prompts",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

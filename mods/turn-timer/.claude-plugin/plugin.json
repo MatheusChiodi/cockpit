@@ -1,0 +1,14 @@
+{
+  "name": "turn-timer",
+  "version": "0.1.0",
+  "description": "Faixa acima do prompt com duração, tools e tokens do último turno",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

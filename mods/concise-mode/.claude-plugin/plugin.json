@@ -1,0 +1,13 @@
+{
+  "name": "concise-mode",
+  "version": "0.1.0",
+  "description": "/concise liga respostas curtas e diretas, sem introdução nem recapitulação",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

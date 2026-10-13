@@ -1,0 +1,189 @@
+{
+  "name": "turbina",
+  "description": "Turbina: 30 mods para o Claude Code no terminal — segurança, interface, prompt, comandos e foco",
+  "owner": {
+    "name": "Matheus Chiodi"
+  },
+  "plugins": [
+    {
+      "name": "rm-guard",
+      "source": "./mods/rm-guard",
+      "description": "Bloqueia rm -rf / Remove-Item -Recurse em raiz, home e drives, além de mkfs, dd e format",
+      "category": "seguranca"
+    },
+    {
+      "name": "env-guard",
+      "source": "./mods/env-guard",
+      "description": "Protege arquivos .env contra leitura e escrita (Read, Edit, Write, cat e @menção)",
+      "category": "seguranca"
+    },
+    {
+      "name": "git-guard",
+      "source": "./mods/git-guard",
+      "description": "Bloqueia git destrutivo: push --force, reset --hard, clean -f, --no-verify, branch -D",
+      "category": "seguranca"
+    },
+    {
+      "name": "secret-scan",
+      "source": "./mods/secret-scan",
+      "description": "Recusa Write/Edit cujo conteúdo traz chaves de API, tokens ou chaves privadas",
+      "category": "seguranca"
+    },
+    {
+      "name": "prompt-secret-guard",
+      "source": "./mods/prompt-secret-guard",
+      "description": "Barra o envio de prompts que contenham segredos colados por engano",
+      "category": "seguranca"
+    },
+    {
+      "name": "lockfile-guard",
+      "source": "./mods/lockfile-guard",
+      "description": "Impede edição manual de lockfiles (package-lock, yarn.lock, pnpm-lock, Cargo.lock...)",
+      "category": "seguranca"
+    },
+    {
+      "name": "path-jail",
+      "source": "./mods/path-jail",
+      "description": "Restringe Write/Edit à raiz do projeto, ao temp e a ~/.claude (resolve symlinks)",
+      "category": "seguranca"
+    },
+    {
+      "name": "main-branch-guard",
+      "source": "./mods/main-branch-guard",
+      "description": "Recusa commit, push, merge e rebase quando a branch atual é main/master",
+      "category": "seguranca"
+    },
+    {
+      "name": "turn-timer",
+      "source": "./mods/turn-timer",
+      "description": "Faixa acima do prompt com duração, tools e tokens do último turno",
+      "category": "interface"
+    },
+    {
+      "name": "tool-tally",
+      "source": "./mods/tool-tally",
+      "description": "/tally abre um painel com a contagem de chamadas por ferramenta",
+      "category": "interface"
+    },
+    {
+      "name": "file-trail",
+      "source": "./mods/file-trail",
+      "description": "/trail abre um painel com os arquivos lidos e alterados na sessão",
+      "category": "interface"
+    },
+    {
+      "name": "cmd-log",
+      "source": "./mods/cmd-log",
+      "description": "/cmdlog abre um painel com os comandos de shell, status e duração",
+      "category": "interface"
+    },
+    {
+      "name": "git-status-line",
+      "source": "./mods/git-status-line",
+      "description": "Status line com branch, arquivos alterados e commits à frente/atrás",
+      "category": "interface"
+    },
+    {
+      "name": "context-meter",
+      "source": "./mods/context-meter",
+      "description": "Status line com barra de contexto e custo; avisa em 80% e 90%",
+      "category": "interface"
+    },
+    {
+      "name": "rate-limit-watch",
+      "source": "./mods/rate-limit-watch",
+      "description": "Toast quando a janela de 5h ou 7 dias passa de 75/90/95%; /limits lista o uso",
+      "category": "interface"
+    },
+    {
+      "name": "session-clock",
+      "source": "./mods/session-clock",
+      "description": "Status line com tempo de sessão e número de prompts",
+      "category": "interface"
+    },
+    {
+      "name": "pt-br",
+      "source": "./mods/pt-br",
+      "description": "Faz o Claude responder sempre em português do Brasil (seção no system prompt)",
+      "category": "prompt"
+    },
+    {
+      "name": "concise-mode",
+      "source": "./mods/concise-mode",
+      "description": "/concise liga respostas curtas e diretas, sem introdução nem recapitulação",
+      "category": "prompt"
+    },
+    {
+      "name": "persona",
+      "source": "./mods/persona",
+      "description": "/persona troca a voz do Claude: mentor, senior, rubberduck, pirata, yoda, zen",
+      "category": "prompt"
+    },
+    {
+      "name": "prompt-shortcuts",
+      "source": "./mods/prompt-shortcuts",
+      "description": "Atalhos ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit viram prompts completos",
+      "category": "prompt"
+    },
+    {
+      "name": "tldr",
+      "source": "./mods/tldr",
+      "description": "Acrescenta um TL;DR de 2 frases (via haiku) abaixo de respostas longas",
+      "category": "prompt"
+    },
+    {
+      "name": "quick-notes",
+      "source": "./mods/quick-notes",
+      "description": "/note e /notes: notas rápidas por projeto, persistentes entre sessões",
+      "category": "comandos"
+    },
+    {
+      "name": "pomodoro",
+      "source": "./mods/pomodoro",
+      "description": "/pomodoro [min] com contagem na status line, toast e notificação ao final",
+      "category": "comandos"
+    },
+    {
+      "name": "copy-last",
+      "source": "./mods/copy-last",
+      "description": "/copy-last copia a última resposta; /copy-code copia o último bloco de código",
+      "category": "comandos"
+    },
+    {
+      "name": "session-stats",
+      "source": "./mods/session-stats",
+      "description": "/stats resume a sessão: tempo, prompts, tools, tokens, contexto e custo",
+      "category": "comandos"
+    },
+    {
+      "name": "quote-selection",
+      "source": "./mods/quote-selection",
+      "description": "/quote cita no prompt o trecho selecionado com o mouse",
+      "category": "comandos"
+    },
+    {
+      "name": "git-peek",
+      "source": "./mods/git-peek",
+      "description": "/gs, /gl e /gd: status, log e diff do git na hora, sem gastar turno do modelo",
+      "category": "comandos"
+    },
+    {
+      "name": "turn-notify",
+      "source": "./mods/turn-notify",
+      "description": "Notificação nativa quando um turno de 30s ou mais termina",
+      "category": "foco"
+    },
+    {
+      "name": "break-reminder",
+      "source": "./mods/break-reminder",
+      "description": "Toast a cada 50 minutos de sessão lembrando de fazer uma pausa",
+      "category": "foco"
+    },
+    {
+      "name": "daily-streak",
+      "source": "./mods/daily-streak",
+      "description": "Conta seus dias seguidos de Claude Code; toast ao abrir e comando /streak",
+      "category": "foco"
+    }
+  ]
+}

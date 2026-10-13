@@ -1,0 +1,14 @@
+{
+  "name": "tool-tally",
+  "version": "0.1.0",
+  "description": "/tally abre um painel com a contagem de chamadas por ferramenta",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

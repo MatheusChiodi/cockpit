@@ -1,0 +1,13 @@
+{
+  "name": "persona",
+  "version": "0.1.0",
+  "description": "/persona troca a voz do Claude: mentor, senior, rubberduck, pirata, yoda, zen",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

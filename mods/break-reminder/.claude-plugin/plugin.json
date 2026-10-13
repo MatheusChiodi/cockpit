@@ -1,0 +1,13 @@
+{
+  "name": "break-reminder",
+  "version": "0.1.0",
+  "description": "Toast a cada 50 minutos de sessão lembrando de fazer uma pausa",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "foco"
+  ]
+}

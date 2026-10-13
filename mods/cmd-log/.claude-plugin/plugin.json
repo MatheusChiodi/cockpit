@@ -1,0 +1,14 @@
+{
+  "name": "cmd-log",
+  "version": "0.1.0",
+  "description": "/cmdlog abre um painel com os comandos de shell, status e duração",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

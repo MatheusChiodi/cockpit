@@ -1,0 +1,13 @@
+{
+  "name": "git-status-line",
+  "version": "0.1.0",
+  "description": "Status line com branch, arquivos alterados e commits à frente/atrás",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}
