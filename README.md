@@ -1,11 +1,29 @@
 # Turbina
 
-**30 mods para turbinar o Claude Code no terminal.** Segurança, interface, prompt, comandos e foco — cada mod é um plugin pequeno, independente e instalável com uma linha.
+**80 mods para turbinar o Claude Code no terminal.** 40 painéis que ficam sempre à vista e você liga ou desliga em `/turbina`, mais guards de segurança, automações de prompt, comandos e foco. Cada mod é um plugin pequeno, instalável com uma linha.
 
 ```
 /plugin marketplace add MatheusChiodi/turbina
-/plugin install rm-guard@turbina
+/plugin install git-band@turbina
+/turbina
 ```
+
+## Painéis e o painel de configuração
+
+Os 40 mods da categoria **Sempre visível** são painéis: faixas acima do prompt ou entradas na status line que se atualizam sozinhas (git, contexto, custo, testes, CI, tarefas, prazo, clima...). Nenhum precisa de comando para aparecer.
+
+O mod `turbina` é o painel de configuração deles e vem junto como dependência de qualquer painel:
+
+| Ação | Como |
+| --- | --- |
+| Abrir o painel | `/turbina` — Tab/setas navegam, Enter ou clique alterna, Esc fecha |
+| Desligar um painel | `/turbina off git-band` |
+| Ligar um painel | `/turbina on git-band` |
+| Tudo de uma vez | `/turbina off all` · `/turbina on all` |
+
+A escolha fica salva entre sessões. Uma faixa some ou volta na hora; uma entrada de status line some na hora e volta na próxima atualização dela. Painel desligado continua instalado, só não desenha.
+
+As faixas se empilham na ordem em que os mods carregam, e a status line guarda uma entrada por mod. Com muitos painéis ligados o terminal fica cheio: comece com 4 ou 5 e ajuste em `/turbina`.
 
 > Mods são funções TypeScript que rodam dentro do Claude Code e mudam como ele se comporta: interceptam tool calls, reescrevem prompts, desenham painéis e faixas, registram slash commands. Exigem Claude Code **2.1.287+** (testado na 2.1.296).
 
@@ -39,13 +57,426 @@ Remover: `/plugin uninstall <mod>@turbina`. Desligar tudo de uma vez: `claude --
 <!-- catalogo:inicio (gerado por scripts/build-docs.mjs, não edite à mão) -->
 | Categoria | Mods |
 | --- | --- |
-| **Segurança** | [`rm-guard`](#rm-guard) · [`env-guard`](#env-guard) · [`git-guard`](#git-guard) · [`secret-scan`](#secret-scan) · [`prompt-secret-guard`](#prompt-secret-guard) · [`lockfile-guard`](#lockfile-guard) · [`path-jail`](#path-jail) · [`main-branch-guard`](#main-branch-guard) |
+| **Sempre visível** | [`turbina`](#turbina) · [`git-band`](#git-band) · [`todo-band`](#todo-band) · [`usage-band`](#usage-band) · [`files-band`](#files-band) · [`error-band`](#error-band) · [`goal-band`](#goal-band) · [`agents-band`](#agents-band) · [`activity-status`](#activity-status) · [`test-status`](#test-status) · [`ci-status`](#ci-status) · [`stash-status`](#stash-status) · [`uncommitted-band`](#uncommitted-band) · [`pr-status`](#pr-status) · [`main-warning-band`](#main-warning-band) · [`conflict-band`](#conflict-band) · [`project-status`](#project-status) · [`ports-band`](#ports-band) · [`deps-status`](#deps-status) · [`todo-count-status`](#todo-count-status) · [`quality-status`](#quality-status) · [`model-status`](#model-status) · [`cost-ticker`](#cost-ticker) · [`idle-clock`](#idle-clock) · [`turn-progress`](#turn-progress) · [`last-prompt-band`](#last-prompt-band) · [`compact-nudge`](#compact-nudge) · [`session-diff-band`](#session-diff-band) · [`shield-band`](#shield-band) · [`reset-countdown`](#reset-countdown) · [`spend-today`](#spend-today) · [`focus-band`](#focus-band) · [`deadline-band`](#deadline-band) · [`pin-band`](#pin-band) · [`clock-status`](#clock-status) · [`day-timer`](#day-timer) · [`commits-today`](#commits-today) · [`dolar-status`](#dolar-status) · [`weather-status`](#weather-status) · [`api-status`](#api-status) · [`terminal-pet`](#terminal-pet) |
+| **Segurança** | [`rm-guard`](#rm-guard) · [`env-guard`](#env-guard) · [`git-guard`](#git-guard) · [`secret-scan`](#secret-scan) · [`prompt-secret-guard`](#prompt-secret-guard) · [`lockfile-guard`](#lockfile-guard) · [`path-jail`](#path-jail) · [`main-branch-guard`](#main-branch-guard) · [`generated-guard`](#generated-guard) · [`sql-guard`](#sql-guard) · [`prod-guard`](#prod-guard) · [`install-ask`](#install-ask) · [`pipe-shell-guard`](#pipe-shell-guard) · [`big-read-guard`](#big-read-guard) |
 | **Interface** | [`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) |
-| **Prompt e modelo** | [`pt-br`](#pt-br) · [`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) |
+| **Prompt e modelo** | [`pt-br`](#pt-br) · [`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) |
 | **Comandos** | [`quick-notes`](#quick-notes) · [`pomodoro`](#pomodoro) · [`copy-last`](#copy-last) · [`session-stats`](#session-stats) · [`quote-selection`](#quote-selection) · [`git-peek`](#git-peek) |
 | **Foco e notificações** | [`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) |
 
-## Segurança (8)
+## Sempre visível (41)
+
+### `turbina`
+
+Painel de configuração: /turbina liga e desliga cada painel da Turbina.
+
+```
+/plugin install turbina@turbina
+```
+
+![Prévia do turbina](docs/previews/turbina.svg)
+
+### `git-band`
+
+Faixa fixa com branch, arquivos alterados, +/- linhas, ahead/behind e último commit.
+
+```
+/plugin install git-band@turbina
+```
+
+![Prévia do git-band](docs/previews/git-band.svg)
+
+### `todo-band`
+
+Lista de tarefas do projeto fixa acima do prompt, clicável e persistente (/todo).
+
+```
+/plugin install todo-band@turbina
+```
+
+![Prévia do todo-band](docs/previews/todo-band.svg)
+
+### `usage-band`
+
+Faixa fixa com barras coloridas de contexto, janelas de 5h e 7 dias e custo.
+
+```
+/plugin install usage-band@turbina
+```
+
+![Prévia do usage-band](docs/previews/usage-band.svg)
+
+### `files-band`
+
+Faixa fixa com os arquivos que o Claude alterou nesta sessão.
+
+```
+/plugin install files-band@turbina
+```
+
+![Prévia do files-band](docs/previews/files-band.svg)
+
+### `error-band`
+
+Mantém à vista o último comando que falhou e a linha do erro, até um comando passar.
+
+```
+/plugin install error-band@turbina
+```
+
+![Prévia do error-band](docs/previews/error-band.svg)
+
+### `goal-band`
+
+/goal fixa o objetivo do projeto acima do prompt e no contexto do Claude.
+
+```
+/plugin install goal-band@turbina
+```
+
+![Prévia do goal-band](docs/previews/goal-band.svg)
+
+### `agents-band`
+
+Faixa que mostra em tempo real quantos subagentes estão rodando e quais.
+
+```
+/plugin install agents-band@turbina
+```
+
+![Prévia do agents-band](docs/previews/agents-band.svg)
+
+### `activity-status`
+
+Status line ao vivo com a ferramenta que o Claude está executando agora.
+
+```
+/plugin install activity-status@turbina
+```
+
+![Prévia do activity-status](docs/previews/activity-status.svg)
+
+### `test-status`
+
+Status line com o resultado da última execução de testes: passou ou falhou, hora e duração.
+
+```
+/plugin install test-status@turbina
+```
+
+![Prévia do test-status](docs/previews/test-status.svg)
+
+### `ci-status`
+
+Status line com o estado do último workflow do GitHub Actions (via gh).
+
+```
+/plugin install ci-status@turbina
+```
+
+![Prévia do ci-status](docs/previews/ci-status.svg)
+
+### `stash-status`
+
+Status line que lembra quantos stashes estão guardados.
+
+```
+/plugin install stash-status@turbina
+```
+
+![Prévia do stash-status](docs/previews/stash-status.svg)
+
+### `uncommitted-band`
+
+Faixa de aviso quando há alterações sem commit há mais de 45 minutos.
+
+```
+/plugin install uncommitted-band@turbina
+```
+
+![Prévia do uncommitted-band](docs/previews/uncommitted-band.svg)
+
+### `pr-status`
+
+Status line com o pull request da branch atual e o estado do review (via gh).
+
+```
+/plugin install pr-status@turbina
+```
+
+![Prévia do pr-status](docs/previews/pr-status.svg)
+
+### `main-warning-band`
+
+Faixa vermelha enquanto você estiver na main/master.
+
+```
+/plugin install main-warning-band@turbina
+```
+
+![Prévia do main-warning-band](docs/previews/main-warning-band.svg)
+
+### `conflict-band`
+
+Faixa que avisa de merge/rebase em andamento e arquivos em conflito.
+
+```
+/plugin install conflict-band@turbina
+```
+
+![Prévia do conflict-band](docs/previews/conflict-band.svg)
+
+### `project-status`
+
+Status line com nome e versão do projeto, versão do Node e gerenciador de pacotes.
+
+```
+/plugin install project-status@turbina
+```
+
+![Prévia do project-status](docs/previews/project-status.svg)
+
+### `ports-band`
+
+Faixa com os servidores de dev que estão no ar em localhost.
+
+```
+/plugin install ports-band@turbina
+```
+
+![Prévia do ports-band](docs/previews/ports-band.svg)
+
+### `deps-status`
+
+Status line com quantas dependências npm estão desatualizadas.
+
+```
+/plugin install deps-status@turbina
+```
+
+![Prévia do deps-status](docs/previews/deps-status.svg)
+
+### `todo-count-status`
+
+Status line com a contagem de TODO, FIXME e HACK no código versionado.
+
+```
+/plugin install todo-count-status@turbina
+```
+
+![Prévia do todo-count-status](docs/previews/todo-count-status.svg)
+
+### `quality-status`
+
+Status line com o último resultado de lint, tipos e build.
+
+```
+/plugin install quality-status@turbina
+```
+
+![Prévia do quality-status](docs/previews/quality-status.svg)
+
+### `model-status`
+
+Status line com o modelo em uso na sessão.
+
+```
+/plugin install model-status@turbina
+```
+
+![Prévia do model-status](docs/previews/model-status.svg)
+
+### `cost-ticker`
+
+Status line com o custo do último turno e o total da sessão.
+
+```
+/plugin install cost-ticker@turbina
+```
+
+![Prévia do cost-ticker](docs/previews/cost-ticker.svg)
+
+### `idle-clock`
+
+Status line com há quanto tempo a sessão está parada.
+
+```
+/plugin install idle-clock@turbina
+```
+
+![Prévia do idle-clock](docs/previews/idle-clock.svg)
+
+### `turn-progress`
+
+Status line ao vivo com tempo decorrido e tools do turno em andamento.
+
+```
+/plugin install turn-progress@turbina
+```
+
+![Prévia do turn-progress](docs/previews/turn-progress.svg)
+
+### `last-prompt-band`
+
+Faixa com o seu último pedido, para não se perder depois de respostas longas.
+
+```
+/plugin install last-prompt-band@turbina
+```
+
+![Prévia do last-prompt-band](docs/previews/last-prompt-band.svg)
+
+### `compact-nudge`
+
+Faixa com botão de compactar quando o contexto passa de 75%.
+
+```
+/plugin install compact-nudge@turbina
+```
+
+![Prévia do compact-nudge](docs/previews/compact-nudge.svg)
+
+### `session-diff-band`
+
+Faixa com o total de linhas que o Claude escreveu e removeu na sessão.
+
+```
+/plugin install session-diff-band@turbina
+```
+
+![Prévia do session-diff-band](docs/previews/session-diff-band.svg)
+
+### `shield-band`
+
+Faixa com a contagem de chamadas bloqueadas pelos guards e o último motivo.
+
+```
+/plugin install shield-band@turbina
+```
+
+![Prévia do shield-band](docs/previews/shield-band.svg)
+
+### `reset-countdown`
+
+Status line com a contagem regressiva até o reset do rate limit mais apertado.
+
+```
+/plugin install reset-countdown@turbina
+```
+
+![Prévia do reset-countdown](docs/previews/reset-countdown.svg)
+
+### `spend-today`
+
+Status line com o gasto do dia somando todas as sessões.
+
+```
+/plugin install spend-today@turbina
+```
+
+![Prévia do spend-today](docs/previews/spend-today.svg)
+
+### `focus-band`
+
+/focus inicia um bloco de foco com barra de progresso fixa.
+
+```
+/plugin install focus-band@turbina
+```
+
+![Prévia do focus-band](docs/previews/focus-band.svg)
+
+### `deadline-band`
+
+/deadline fixa uma contagem regressiva para o prazo do projeto.
+
+```
+/plugin install deadline-band@turbina
+```
+
+![Prévia do deadline-band](docs/previews/deadline-band.svg)
+
+### `pin-band`
+
+/pin fixa até 4 lembretes do projeto acima do prompt.
+
+```
+/plugin install pin-band@turbina
+```
+
+![Prévia do pin-band](docs/previews/pin-band.svg)
+
+### `clock-status`
+
+Status line com dia e hora (útil no modo fullscreen).
+
+```
+/plugin install clock-status@turbina
+```
+
+![Prévia do clock-status](docs/previews/clock-status.svg)
+
+### `day-timer`
+
+Status line com o tempo ativo de Claude Code no dia, somando as sessões.
+
+```
+/plugin install day-timer@turbina
+```
+
+![Prévia do day-timer](docs/previews/day-timer.svg)
+
+### `commits-today`
+
+Status line com quantos commits você fez hoje neste repositório.
+
+```
+/plugin install commits-today@turbina
+```
+
+![Prévia do commits-today](docs/previews/commits-today.svg)
+
+### `dolar-status`
+
+Status line com a cotação do dólar em reais (AwesomeAPI).
+
+```
+/plugin install dolar-status@turbina
+```
+
+![Prévia do dolar-status](docs/previews/dolar-status.svg)
+
+### `weather-status`
+
+Status line com o clima da sua cidade (wttr.in).
+
+```
+/plugin install weather-status@turbina
+```
+
+![Prévia do weather-status](docs/previews/weather-status.svg)
+
+### `api-status`
+
+Status line com o estado da API da Anthropic pela página pública de status.
+
+```
+/plugin install api-status@turbina
+```
+
+![Prévia do api-status](docs/previews/api-status.svg)
+
+### `terminal-pet`
+
+Mascote acima do prompt que reage: trabalhando, feliz, triste ou com sono.
+
+```
+/plugin install terminal-pet@turbina
+```
+
+![Prévia do terminal-pet](docs/previews/terminal-pet.svg)
+
+## Segurança (14)
 
 ### `rm-guard`
 
@@ -126,6 +557,66 @@ Recusa commit, push, merge e rebase quando a branch atual é main/master.
 ```
 
 ![Prévia do main-branch-guard](docs/previews/main-branch-guard.svg)
+
+### `generated-guard`
+
+Impede edição em node_modules, dist, build, .next, coverage, .git e afins.
+
+```
+/plugin install generated-guard@turbina
+```
+
+![Prévia do generated-guard](docs/previews/generated-guard.svg)
+
+### `sql-guard`
+
+Bloqueia DROP, TRUNCATE e DELETE/UPDATE sem WHERE em comandos de shell.
+
+```
+/plugin install sql-guard@turbina
+```
+
+![Prévia do sql-guard](docs/previews/sql-guard.svg)
+
+### `prod-guard`
+
+Exige sua confirmação para deploy, publish, terraform apply, kubectl e migrações.
+
+```
+/plugin install prod-guard@turbina
+```
+
+![Prévia do prod-guard](docs/previews/prod-guard.svg)
+
+### `install-ask`
+
+Exige sua confirmação sempre que o Claude for instalar uma dependência nova.
+
+```
+/plugin install install-ask@turbina
+```
+
+![Prévia do install-ask](docs/previews/install-ask.svg)
+
+### `pipe-shell-guard`
+
+Bloqueia curl | sh, wget | bash, iwr | iex e variantes.
+
+```
+/plugin install pipe-shell-guard@turbina
+```
+
+![Prévia do pipe-shell-guard](docs/previews/pipe-shell-guard.svg)
+
+### `big-read-guard`
+
+Recusa ler inteiro um arquivo com mais de 512 KB e pede um recorte.
+
+```
+/plugin install big-read-guard@turbina
+```
+
+![Prévia do big-read-guard](docs/previews/big-read-guard.svg)
 
 ## Interface (8)
 
@@ -209,7 +700,7 @@ Status line com tempo de sessão e número de prompts.
 
 ![Prévia do session-clock](docs/previews/session-clock.svg)
 
-## Prompt e modelo (5)
+## Prompt e modelo (8)
 
 ### `pt-br`
 
@@ -260,6 +751,36 @@ Acrescenta um TL;DR de 2 frases (via haiku) abaixo de respostas longas.
 ```
 
 ![Prévia do tldr](docs/previews/tldr.svg)
+
+### `git-context`
+
+Anexa o estado do git (branch e arquivos alterados) a cada prompt, como contexto oculto.
+
+```
+/plugin install git-context@turbina
+```
+
+![Prévia do git-context](docs/previews/git-context.svg)
+
+### `stack-context`
+
+Detecta a stack do projeto (package.json, pom.xml...) e informa o Claude no system prompt.
+
+```
+/plugin install stack-context@turbina
+```
+
+![Prévia do stack-context](docs/previews/stack-context.svg)
+
+### `commit-style`
+
+Faz o Claude escrever commits em Conventional Commits, curtos e no imperativo.
+
+```
+/plugin install commit-style@turbina
+```
+
+![Prévia do commit-style](docs/previews/commit-style.svg)
 
 ## Comandos (6)
 
@@ -360,33 +881,25 @@ Conta seus dias seguidos de Claude Code; toast ao abrir e comando /streak.
 
 | Objetivo | Mods |
 | --- | --- |
-| **Cinto de segurança** | `rm-guard` `git-guard` `env-guard` `secret-scan` `prompt-secret-guard` |
-| **Painel de bordo** | `git-status-line` `turn-timer` `rate-limit-watch` |
-| **Vibe coder BR** | `pt-br` `concise-mode` `prompt-shortcuts` `git-peek` |
-| **Foco** | `pomodoro` `turn-notify` `break-reminder` `daily-streak` |
-
-A status line guarda uma entrada por mod, então `git-status-line`, `context-meter`, `session-clock` e `pomodoro` convivem lado a lado.
+| **Painel de bordo do dia a dia** | `git-band` `usage-band` `todo-band` `error-band` `test-status` |
+| **Git sem surpresa** | `git-band` `conflict-band` `uncommitted-band` `main-warning-band` `pr-status` `ci-status` |
+| **De olho no gasto** | `usage-band` `cost-ticker` `spend-today` `reset-countdown` `compact-nudge` |
+| **Cinto de segurança** | `rm-guard` `git-guard` `env-guard` `secret-scan` `pipe-shell-guard` `prod-guard` `shield-band` |
+| **Vibe coder BR** | `pt-br` `concise-mode` `stack-context` `git-context` `commit-style` |
+| **Foco** | `focus-band` `deadline-band` `pin-band` `turn-notify` `break-reminder` |
 
 ## O que saber antes de instalar
 
-- **Mods não são sandboxed.** Rodam com o mesmo alcance do Claude Code. Leia o `hooks/register.ts` do mod antes de instalar — todos aqui têm menos de 130 linhas.
-- **Os guards são cinto de segurança, não cofre.** Casam padrões conhecidos de comandos e caminhos; um comando ofuscado pode passar. Mantenha as permissões do Claude Code configuradas.
+- **Mods não são sandboxed.** Rodam com o mesmo alcance do Claude Code. Leia o `hooks/register.ts` do mod antes de instalar — todos aqui são curtos.
+- **Os guards são cinto de segurança, não cofre.** Casam padrões conhecidos de comandos e caminhos; um comando ofuscado pode passar, e um caminho legítimo pode ser barrado. Mantenha as permissões do Claude Code configuradas.
+- **`prod-guard` e `install-ask` não bloqueiam:** forçam o pedido de confirmação, mesmo quando o comando já estava liberado.
 - **`tldr` gasta tokens:** faz uma chamada curta ao haiku por resposta longa.
-- **`main-branch-guard` e `path-jail` são restritivos de propósito.** Instale só se o fluxo combinar com o seu.
-- **Sem som.** `$.audio.play` só toca no macOS nesta versão; por isso `turn-notify` e `pomodoro` usam a notificação nativa.
+- **`main-branch-guard` e `path-jail` são restritivos de propósito.** Instale só se o fluxo combinar com o seu. `main-warning-band` é a versão que só avisa.
+- **Painéis que usam rede:** `dolar-status` (AwesomeAPI), `weather-status` (wttr.in, localiza por IP), `api-status` (página de status da Anthropic) e `ports-band` (só `localhost`). Sem resposta, ficam ocultos.
+- **Painéis que precisam do `gh` autenticado:** `ci-status` e `pr-status`.
+- **Painéis que rodam `git` periodicamente:** os do grupo Git consultam o repositório a cada 30–60 s.
+- **Sem som.** `$.audio.play` só toca no macOS nesta versão; por isso `turn-notify`, `pomodoro` e `focus-band` usam a notificação nativa.
 - A API de mods é **early access** e pode mudar entre versões do Claude Code.
-
-## Alcance de cada mod
-
-| Alcance | Mods |
-| --- | --- |
-| Só observa e desenha | `turn-timer` `tool-tally` `file-trail` `cmd-log` `context-meter` `rate-limit-watch` `session-clock` `session-stats` `turn-notify` `break-reminder` |
-| Bloqueia chamadas | `rm-guard` `env-guard` `git-guard` `secret-scan` `prompt-secret-guard` `lockfile-guard` `path-jail` `main-branch-guard` |
-| Altera prompt | `pt-br` `concise-mode` `persona` `prompt-shortcuts` `quote-selection` |
-| Roda `git` no host | `git-status-line` `git-peek` `main-branch-guard` |
-| Guarda dados entre sessões | `quick-notes` `concise-mode` `persona` `daily-streak` |
-| Chama o modelo | `tldr` |
-| Área de transferência | `copy-last` |
 
 ## Desenvolvimento
 
@@ -411,7 +924,9 @@ mods/<nome>/
 
 O type-check usa as declarações da API que o próprio Claude Code escreve. Elas não vão no repositório: rode um mod com `claude --plugin-dir mods/<nome>` e copie `mods/<nome>/.claude-plugin/types/claude-code/index.d.ts` (mais `claude-code-tools/index.d.ts`) para `engine-types/`.
 
-**Cobertura de testes:** `rm-guard`, `env-guard`, `git-guard`, `secret-scan`, `prompt-secret-guard`, `lockfile-guard`, `main-branch-guard` e `prompt-shortcuts` têm testes automatizados. Os outros 22 passam em `tsc` e `claude plugin validate`, mas não têm teste automatizado.
+Um mod novo de painel entra em `mods.json` com `"category": "painel"`; `node scripts/add-toggle.mjs` liga ele ao `/turbina` e o build regenera a lista que o painel de configuração desenha (`mods/turbina/hooks/panels.ts`).
+
+**Cobertura de testes:** 12 mods têm testes automatizados — `turbina`, `rm-guard`, `env-guard`, `git-guard`, `secret-scan`, `prompt-secret-guard`, `lockfile-guard`, `main-branch-guard`, `generated-guard`, `sql-guard`, `pipe-shell-guard` e `prompt-shortcuts`. Os outros 68 passam em `tsc` e `claude plugin validate`, mas não têm teste automatizado.
 
 ## Pesquisa: o ecossistema de mods
 

@@ -1,0 +1,17 @@
+{
+  "name": "files-band",
+  "version": "0.1.0",
+  "description": "Faixa fixa com os arquivos que o Claude alterou nesta sessão",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

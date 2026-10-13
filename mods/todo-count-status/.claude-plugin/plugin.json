@@ -1,0 +1,16 @@
+{
+  "name": "todo-count-status",
+  "version": "0.1.0",
+  "description": "Status line com a contagem de TODO, FIXME e HACK no código versionado",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "dependencies": [
+    "turbina"
+  ]
+}

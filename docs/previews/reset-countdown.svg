@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="152" viewBox="0 0 760 152" role="img" aria-label="Prévia do mod reset-countdown no terminal">
+<rect width="760" height="152" rx="10" fill="#141922"/>
+<rect width="760" height="34" rx="10" fill="#1d2433"/>
+<rect y="24" width="760" height="10" fill="#1d2433"/>
+<circle cx="20" cy="17" r="6" fill="#ff5f57"/><circle cx="40" cy="17" r="6" fill="#febc2e"/><circle cx="60" cy="17" r="6" fill="#28c840"/>
+<text x="380" y="22" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" fill="#8792a8">claude — reset-countdown</text>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="13">
+<text y="58" xml:space="preserve"><tspan x="22.0" textLength="532.4" lengthAdjust="spacingAndGlyphs" fill="#3b4458">────────────────────────────────────────────────────────────────────</tspan></text>
+<text y="78" xml:space="preserve"><tspan x="22.0" textLength="15.7" lengthAdjust="spacingAndGlyphs" fill="#e6edf7">&gt; </tspan><tspan x="37.7" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d8dee9">█</tspan></text>
+<text y="98" xml:space="preserve"><tspan x="22.0" textLength="532.4" lengthAdjust="spacingAndGlyphs" fill="#3b4458">────────────────────────────────────────────────────────────────────</tspan></text>
+<text y="118" xml:space="preserve"><tspan x="22.0" textLength="250.6" lengthAdjust="spacingAndGlyphs" fill="#6b7689">  limite 5h 62% · reseta em 1h12</tspan></text>
+</g>
+</svg>

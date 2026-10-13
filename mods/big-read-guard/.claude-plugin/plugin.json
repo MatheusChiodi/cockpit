@@ -1,0 +1,13 @@
+{
+  "name": "big-read-guard",
+  "version": "0.1.0",
+  "description": "Recusa ler inteiro um arquivo com mais de 512 KB e pede um recorte",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "seguranca"
+  ]
+}

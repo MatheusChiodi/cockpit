@@ -1,0 +1,13 @@
+{
+  "name": "sql-guard",
+  "version": "0.1.0",
+  "description": "Bloqueia DROP, TRUNCATE e DELETE/UPDATE sem WHERE em comandos de shell",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "seguranca"
+  ]
+}

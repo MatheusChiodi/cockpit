@@ -1,0 +1,17 @@
+{
+  "name": "deadline-band",
+  "version": "0.1.0",
+  "description": "/deadline fixa uma contagem regressiva para o prazo do projeto",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

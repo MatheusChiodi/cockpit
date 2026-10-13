@@ -1,0 +1,17 @@
+{
+  "name": "conflict-band",
+  "version": "0.1.0",
+  "description": "Faixa que avisa de merge/rebase em andamento e arquivos em conflito",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

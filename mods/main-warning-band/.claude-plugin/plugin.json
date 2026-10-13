@@ -1,0 +1,17 @@
+{
+  "name": "main-warning-band",
+  "version": "0.1.0",
+  "description": "Faixa vermelha enquanto você estiver na main/master",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

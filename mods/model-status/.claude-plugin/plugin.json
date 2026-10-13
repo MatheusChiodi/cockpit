@@ -1,0 +1,16 @@
+{
+  "name": "model-status",
+  "version": "0.1.0",
+  "description": "Status line com o modelo em uso na sessão",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "dependencies": [
+    "turbina"
+  ]
+}

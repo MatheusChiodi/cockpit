@@ -1,6 +1,6 @@
 {
   "name": "turbina",
-  "description": "Turbina: 30 mods para o Claude Code no terminal — segurança, interface, prompt, comandos e foco",
+  "description": "Turbina: 80 mods para o Claude Code no terminal — 40 painéis ligáveis em /turbina, guards, prompt, comandos e foco",
   "owner": {
     "name": "Matheus Chiodi"
   },
@@ -184,6 +184,306 @@
       "source": "./mods/daily-streak",
       "description": "Conta seus dias seguidos de Claude Code; toast ao abrir e comando /streak",
       "category": "foco"
+    },
+    {
+      "name": "turbina",
+      "source": "./mods/turbina",
+      "description": "Painel de configuração: /turbina liga e desliga cada painel da Turbina",
+      "category": "painel"
+    },
+    {
+      "name": "git-band",
+      "source": "./mods/git-band",
+      "description": "Faixa fixa com branch, arquivos alterados, +/- linhas, ahead/behind e último commit",
+      "category": "painel"
+    },
+    {
+      "name": "todo-band",
+      "source": "./mods/todo-band",
+      "description": "Lista de tarefas do projeto fixa acima do prompt, clicável e persistente (/todo)",
+      "category": "painel"
+    },
+    {
+      "name": "usage-band",
+      "source": "./mods/usage-band",
+      "description": "Faixa fixa com barras coloridas de contexto, janelas de 5h e 7 dias e custo",
+      "category": "painel"
+    },
+    {
+      "name": "files-band",
+      "source": "./mods/files-band",
+      "description": "Faixa fixa com os arquivos que o Claude alterou nesta sessão",
+      "category": "painel"
+    },
+    {
+      "name": "error-band",
+      "source": "./mods/error-band",
+      "description": "Mantém à vista o último comando que falhou e a linha do erro, até um comando passar",
+      "category": "painel"
+    },
+    {
+      "name": "goal-band",
+      "source": "./mods/goal-band",
+      "description": "/goal fixa o objetivo do projeto acima do prompt e no contexto do Claude",
+      "category": "painel"
+    },
+    {
+      "name": "agents-band",
+      "source": "./mods/agents-band",
+      "description": "Faixa que mostra em tempo real quantos subagentes estão rodando e quais",
+      "category": "painel"
+    },
+    {
+      "name": "activity-status",
+      "source": "./mods/activity-status",
+      "description": "Status line ao vivo com a ferramenta que o Claude está executando agora",
+      "category": "painel"
+    },
+    {
+      "name": "test-status",
+      "source": "./mods/test-status",
+      "description": "Status line com o resultado da última execução de testes: passou ou falhou, hora e duração",
+      "category": "painel"
+    },
+    {
+      "name": "ci-status",
+      "source": "./mods/ci-status",
+      "description": "Status line com o estado do último workflow do GitHub Actions (via gh)",
+      "category": "painel"
+    },
+    {
+      "name": "stash-status",
+      "source": "./mods/stash-status",
+      "description": "Status line que lembra quantos stashes estão guardados",
+      "category": "painel"
+    },
+    {
+      "name": "uncommitted-band",
+      "source": "./mods/uncommitted-band",
+      "description": "Faixa de aviso quando há alterações sem commit há mais de 45 minutos",
+      "category": "painel"
+    },
+    {
+      "name": "pr-status",
+      "source": "./mods/pr-status",
+      "description": "Status line com o pull request da branch atual e o estado do review (via gh)",
+      "category": "painel"
+    },
+    {
+      "name": "main-warning-band",
+      "source": "./mods/main-warning-band",
+      "description": "Faixa vermelha enquanto você estiver na main/master",
+      "category": "painel"
+    },
+    {
+      "name": "conflict-band",
+      "source": "./mods/conflict-band",
+      "description": "Faixa que avisa de merge/rebase em andamento e arquivos em conflito",
+      "category": "painel"
+    },
+    {
+      "name": "project-status",
+      "source": "./mods/project-status",
+      "description": "Status line com nome e versão do projeto, versão do Node e gerenciador de pacotes",
+      "category": "painel"
+    },
+    {
+      "name": "ports-band",
+      "source": "./mods/ports-band",
+      "description": "Faixa com os servidores de dev que estão no ar em localhost",
+      "category": "painel"
+    },
+    {
+      "name": "deps-status",
+      "source": "./mods/deps-status",
+      "description": "Status line com quantas dependências npm estão desatualizadas",
+      "category": "painel"
+    },
+    {
+      "name": "todo-count-status",
+      "source": "./mods/todo-count-status",
+      "description": "Status line com a contagem de TODO, FIXME e HACK no código versionado",
+      "category": "painel"
+    },
+    {
+      "name": "quality-status",
+      "source": "./mods/quality-status",
+      "description": "Status line com o último resultado de lint, tipos e build",
+      "category": "painel"
+    },
+    {
+      "name": "model-status",
+      "source": "./mods/model-status",
+      "description": "Status line com o modelo em uso na sessão",
+      "category": "painel"
+    },
+    {
+      "name": "cost-ticker",
+      "source": "./mods/cost-ticker",
+      "description": "Status line com o custo do último turno e o total da sessão",
+      "category": "painel"
+    },
+    {
+      "name": "idle-clock",
+      "source": "./mods/idle-clock",
+      "description": "Status line com há quanto tempo a sessão está parada",
+      "category": "painel"
+    },
+    {
+      "name": "turn-progress",
+      "source": "./mods/turn-progress",
+      "description": "Status line ao vivo com tempo decorrido e tools do turno em andamento",
+      "category": "painel"
+    },
+    {
+      "name": "last-prompt-band",
+      "source": "./mods/last-prompt-band",
+      "description": "Faixa com o seu último pedido, para não se perder depois de respostas longas",
+      "category": "painel"
+    },
+    {
+      "name": "compact-nudge",
+      "source": "./mods/compact-nudge",
+      "description": "Faixa com botão de compactar quando o contexto passa de 75%",
+      "category": "painel"
+    },
+    {
+      "name": "session-diff-band",
+      "source": "./mods/session-diff-band",
+      "description": "Faixa com o total de linhas que o Claude escreveu e removeu na sessão",
+      "category": "painel"
+    },
+    {
+      "name": "shield-band",
+      "source": "./mods/shield-band",
+      "description": "Faixa com a contagem de chamadas bloqueadas pelos guards e o último motivo",
+      "category": "painel"
+    },
+    {
+      "name": "reset-countdown",
+      "source": "./mods/reset-countdown",
+      "description": "Status line com a contagem regressiva até o reset do rate limit mais apertado",
+      "category": "painel"
+    },
+    {
+      "name": "spend-today",
+      "source": "./mods/spend-today",
+      "description": "Status line com o gasto do dia somando todas as sessões",
+      "category": "painel"
+    },
+    {
+      "name": "focus-band",
+      "source": "./mods/focus-band",
+      "description": "/focus inicia um bloco de foco com barra de progresso fixa",
+      "category": "painel"
+    },
+    {
+      "name": "deadline-band",
+      "source": "./mods/deadline-band",
+      "description": "/deadline fixa uma contagem regressiva para o prazo do projeto",
+      "category": "painel"
+    },
+    {
+      "name": "pin-band",
+      "source": "./mods/pin-band",
+      "description": "/pin fixa até 4 lembretes do projeto acima do prompt",
+      "category": "painel"
+    },
+    {
+      "name": "clock-status",
+      "source": "./mods/clock-status",
+      "description": "Status line com dia e hora (útil no modo fullscreen)",
+      "category": "painel"
+    },
+    {
+      "name": "day-timer",
+      "source": "./mods/day-timer",
+      "description": "Status line com o tempo ativo de Claude Code no dia, somando as sessões",
+      "category": "painel"
+    },
+    {
+      "name": "commits-today",
+      "source": "./mods/commits-today",
+      "description": "Status line com quantos commits você fez hoje neste repositório",
+      "category": "painel"
+    },
+    {
+      "name": "dolar-status",
+      "source": "./mods/dolar-status",
+      "description": "Status line com a cotação do dólar em reais (AwesomeAPI)",
+      "category": "painel"
+    },
+    {
+      "name": "weather-status",
+      "source": "./mods/weather-status",
+      "description": "Status line com o clima da sua cidade (wttr.in)",
+      "category": "painel"
+    },
+    {
+      "name": "api-status",
+      "source": "./mods/api-status",
+      "description": "Status line com o estado da API da Anthropic pela página pública de status",
+      "category": "painel"
+    },
+    {
+      "name": "terminal-pet",
+      "source": "./mods/terminal-pet",
+      "description": "Mascote acima do prompt que reage: trabalhando, feliz, triste ou com sono",
+      "category": "painel"
+    },
+    {
+      "name": "git-context",
+      "source": "./mods/git-context",
+      "description": "Anexa o estado do git (branch e arquivos alterados) a cada prompt, como contexto oculto",
+      "category": "prompt"
+    },
+    {
+      "name": "stack-context",
+      "source": "./mods/stack-context",
+      "description": "Detecta a stack do projeto (package.json, pom.xml...) e informa o Claude no system prompt",
+      "category": "prompt"
+    },
+    {
+      "name": "commit-style",
+      "source": "./mods/commit-style",
+      "description": "Faz o Claude escrever commits em Conventional Commits, curtos e no imperativo",
+      "category": "prompt"
+    },
+    {
+      "name": "generated-guard",
+      "source": "./mods/generated-guard",
+      "description": "Impede edição em node_modules, dist, build, .next, coverage, .git e afins",
+      "category": "seguranca"
+    },
+    {
+      "name": "sql-guard",
+      "source": "./mods/sql-guard",
+      "description": "Bloqueia DROP, TRUNCATE e DELETE/UPDATE sem WHERE em comandos de shell",
+      "category": "seguranca"
+    },
+    {
+      "name": "prod-guard",
+      "source": "./mods/prod-guard",
+      "description": "Exige sua confirmação para deploy, publish, terraform apply, kubectl e migrações",
+      "category": "seguranca"
+    },
+    {
+      "name": "install-ask",
+      "source": "./mods/install-ask",
+      "description": "Exige sua confirmação sempre que o Claude for instalar uma dependência nova",
+      "category": "seguranca"
+    },
+    {
+      "name": "pipe-shell-guard",
+      "source": "./mods/pipe-shell-guard",
+      "description": "Bloqueia curl | sh, wget | bash, iwr | iex e variantes",
+      "category": "seguranca"
+    },
+    {
+      "name": "big-read-guard",
+      "source": "./mods/big-read-guard",
+      "description": "Recusa ler inteiro um arquivo com mais de 512 KB e pede um recorte",
+      "category": "seguranca"
     }
   ]
 }

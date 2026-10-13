@@ -1,0 +1,16 @@
+{
+  "name": "turn-progress",
+  "version": "0.1.0",
+  "description": "Status line ao vivo com tempo decorrido e tools do turno em andamento",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "dependencies": [
+    "turbina"
+  ]
+}

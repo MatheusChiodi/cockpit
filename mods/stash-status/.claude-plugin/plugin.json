@@ -1,0 +1,16 @@
+{
+  "name": "stash-status",
+  "version": "0.1.0",
+  "description": "Status line que lembra quantos stashes estão guardados",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "dependencies": [
+    "turbina"
+  ]
+}

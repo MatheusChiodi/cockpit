@@ -1,0 +1,17 @@
+{
+  "name": "shield-band",
+  "version": "0.1.0",
+  "description": "Faixa com a contagem de chamadas bloqueadas pelos guards e o último motivo",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

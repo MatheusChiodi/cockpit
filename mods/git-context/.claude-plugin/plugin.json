@@ -1,0 +1,13 @@
+{
+  "name": "git-context",
+  "version": "0.1.0",
+  "description": "Anexa o estado do git (branch e arquivos alterados) a cada prompt, como contexto oculto",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

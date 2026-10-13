@@ -1,0 +1,17 @@
+{
+  "name": "session-diff-band",
+  "version": "0.1.0",
+  "description": "Faixa com o total de linhas que o Claude escreveu e removeu na sessão",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

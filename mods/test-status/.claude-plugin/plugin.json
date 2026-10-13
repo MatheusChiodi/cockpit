@@ -1,0 +1,16 @@
+{
+  "name": "test-status",
+  "version": "0.1.0",
+  "description": "Status line com o resultado da última execução de testes: passou ou falhou, hora e duração",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "dependencies": [
+    "turbina"
+  ]
+}

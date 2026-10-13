@@ -1,0 +1,16 @@
+{
+  "name": "reset-countdown",
+  "version": "0.1.0",
+  "description": "Status line com a contagem regressiva até o reset do rate limit mais apertado",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "dependencies": [
+    "turbina"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "pin-band",
+  "version": "0.1.0",
+  "description": "/pin fixa até 4 lembretes do projeto acima do prompt",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

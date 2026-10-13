@@ -1,0 +1,13 @@
+{
+  "name": "generated-guard",
+  "version": "0.1.0",
+  "description": "Impede edição em node_modules, dist, build, .next, coverage, .git e afins",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "seguranca"
+  ]
+}

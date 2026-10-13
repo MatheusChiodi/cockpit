@@ -8,6 +8,20 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const catalog = JSON.parse(readFileSync(join(root, 'mods.json'), 'utf8'))
 const json = value => `${JSON.stringify(value, null, 2)}\n`
 
+const hub = catalog.mods.find(mod => mod.hub === true)
+const panels = catalog.mods
+  .filter(mod => mod.category === 'painel' && mod.hub !== true)
+  .map(({ name, description, group = 'Geral' }) => ({ name, description, group }))
+  .sort((a, b) => a.group.localeCompare(b.group, 'pt-BR'))
+
+// A lista que o painel de configuração desenha: gerada, para nunca divergir do catálogo.
+writeFileSync(
+  join(root, 'mods', hub.name, 'hooks', 'panels.ts'),
+  `// Gerado por scripts/build-manifests.mjs a partir de mods.json. Não edite à mão.
+export const PANELS: readonly { name: string; description: string; group: string }[] = ${JSON.stringify(panels, null, 2)}
+`,
+)
+
 const plugins = catalog.mods.map(mod => {
   const dir = join(root, 'mods', mod.name)
   const module = ['register.tsx', 'register.ts'].find(file => existsSync(join(dir, 'hooks', file)))
@@ -26,6 +40,10 @@ const plugins = catalog.mods.map(mod => {
 
   if (existsSync(join(dir, 'types', 'index.d.ts'))) {
     manifest.types = './types/index.d.ts'
+  }
+
+  if (mod.category === 'painel' && mod.hub !== true) {
+    manifest.dependencies = [hub.name]
   }
 
   mkdirSync(join(dir, '.claude-plugin'), { recursive: true })

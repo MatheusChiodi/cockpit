@@ -1,0 +1,17 @@
+{
+  "name": "goal-band",
+  "version": "0.1.0",
+  "description": "/goal fixa o objetivo do projeto acima do prompt e no contexto do Claude",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "last-prompt-band",
+  "version": "0.1.0",
+  "description": "Faixa com o seu último pedido, para não se perder depois de respostas longas",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

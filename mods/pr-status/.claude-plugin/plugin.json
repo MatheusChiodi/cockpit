@@ -1,0 +1,16 @@
+{
+  "name": "pr-status",
+  "version": "0.1.0",
+  "description": "Status line com o pull request da branch atual e o estado do review (via gh)",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "dependencies": [
+    "turbina"
+  ]
+}

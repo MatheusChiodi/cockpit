@@ -1,0 +1,13 @@
+{
+  "name": "prod-guard",
+  "version": "0.1.0",
+  "description": "Exige sua confirmação para deploy, publish, terraform apply, kubectl e migrações",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "seguranca"
+  ]
+}

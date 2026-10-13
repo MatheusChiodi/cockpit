@@ -42,21 +42,26 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
+    // Desenha abaixo das faixas dos outros mods, sem escondê-las.
+    const below = await next(e)
     const turn = await read($, last)
 
     if (e.props.hasSurvey || turn === null || (await read($, isHidden))) {
-      return next(e)
+      return below
     }
 
     const { Box, Button, Text } = $.ui.resolve(e)
 
     return (
-      <Box>
+      <Box flexDirection="column">
+        {below}
+        <Box>
         <Text dimColor>
           Último turno: {turn.seconds}s · {turn.tools} tools · {compact(turn.outputTokens)} tokens
           {turn.isAborted ? ' · interrompido' : ''}{' '}
         </Text>
         <Button key="hide" label="Ocultar" onPress={() => update($, isHidden, () => true)} />
+        </Box>
       </Box>
     )
   })

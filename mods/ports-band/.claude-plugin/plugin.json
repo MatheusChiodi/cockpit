@@ -1,0 +1,17 @@
+{
+  "name": "ports-band",
+  "version": "0.1.0",
+  "description": "Faixa com os servidores de dev que estão no ar em localhost",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

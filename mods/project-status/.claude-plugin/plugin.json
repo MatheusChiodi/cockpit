@@ -1,0 +1,16 @@
+{
+  "name": "project-status",
+  "version": "0.1.0",
+  "description": "Status line com nome e versão do projeto, versão do Node e gerenciador de pacotes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "dependencies": [
+    "turbina"
+  ]
+}

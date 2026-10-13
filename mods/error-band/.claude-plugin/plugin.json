@@ -1,0 +1,17 @@
+{
+  "name": "error-band",
+  "version": "0.1.0",
+  "description": "Mantém à vista o último comando que falhou e a linha do erro, até um comando passar",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

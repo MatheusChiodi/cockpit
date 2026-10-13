@@ -1,0 +1,17 @@
+{
+  "name": "usage-band",
+  "version": "0.1.0",
+  "description": "Faixa fixa com barras coloridas de contexto, janelas de 5h e 7 dias e custo",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

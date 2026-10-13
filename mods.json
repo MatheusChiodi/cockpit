@@ -1,9 +1,12 @@
 {
   "marketplace": "turbina",
-  "description": "Turbina: 30 mods para o Claude Code no terminal — segurança, interface, prompt, comandos e foco",
+  "description": "Turbina: 80 mods para o Claude Code no terminal — 40 painéis ligáveis em /turbina, guards, prompt, comandos e foco",
   "version": "0.1.0",
-  "owner": { "name": "Matheus Chiodi" },
+  "owner": {
+    "name": "Matheus Chiodi"
+  },
   "categories": {
+    "painel": "Sempre visível",
     "seguranca": "Segurança",
     "interface": "Interface",
     "prompt": "Prompt e modelo",
@@ -377,6 +380,583 @@
         "",
         "[[user|> /streak]]",
         "[[dim|  ⎿ 🔥 7 dias seguidos de Claude Code (recorde: 12)]]"
+      ]
+    },
+    {
+      "name": "turbina",
+      "category": "painel",
+      "hub": true,
+      "description": "Painel de configuração: /turbina liga e desliga cada painel da Turbina",
+      "preview": [
+        "[[user|> /turbina]]",
+        "[[rule|┌─ Turbina ─────────────────────────────────────────────────────────────┐]]",
+        "[[rule|│]] [[bold|38 de 40 painéis ligados]]",
+        "[[rule|│]] [[btn|[ Ligar todos ]]] [[btn|[ Desligar todos ]]]",
+        "[[rule|│]] [[dim|── Git]]",
+        "[[rule|│]] [[ok|●]] git-band             [[dim|Faixa fixa com branch, alterações e último commit]]",
+        "[[rule|│]] [[ok|●]] ci-status            [[dim|Status do último workflow do GitHub Actions]]",
+        "[[rule|│]] [[dim|○ pr-status            Status do pull request da branch atual]]",
+        "[[rule|│]] [[dim|── Sessão]]",
+        "[[rule|│]] [[ok|●]] usage-band           [[dim|Barras de contexto, janelas de 5h/7d e custo]]",
+        "[[rule|│]] [[dim|○ agents-band          Subagentes rodando em tempo real]]",
+        "[[rule|└───────────────────────────────────────────────────────────────────────┘]]"
+      ]
+    },
+    {
+      "name": "git-band",
+      "category": "painel",
+      "description": "Faixa fixa com branch, arquivos alterados, +/- linhas, ahead/behind e último commit",
+      "preview": [
+        "[[btn|⎇ feat/login]] · 3 arq [[ok|+42]] [[err|−7]][[warn| ↑1]][[dim| · feat: valida token (2 hours ago)]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ],
+      "group": "Git"
+    },
+    {
+      "name": "todo-band",
+      "category": "painel",
+      "description": "Lista de tarefas do projeto fixa acima do prompt, clicável e persistente (/todo)",
+      "preview": [
+        "[[dim|Tarefas 1/3]]",
+        "[[warn|☐]] revisar timeout do endpoint /orders",
+        "[[warn|☐]] escrever teste do login",
+        "[[ok|☑]] [[dim|atualizar dependências]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ],
+      "group": "Dia a dia"
+    },
+    {
+      "name": "usage-band",
+      "category": "painel",
+      "description": "Faixa fixa com barras coloridas de contexto, janelas de 5h e 7 dias e custo",
+      "preview": [
+        "[[dim|contexto ]][[ok|█████░░░░░░░]] 38%[[dim| · 5h ]][[warn|████░░]] 62%[[dim| · 7d ]][[ok|██░░░░]] 41%[[dim| · US$ 2.31]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ],
+      "group": "Sessão"
+    },
+    {
+      "name": "files-band",
+      "category": "painel",
+      "description": "Faixa fixa com os arquivos que o Claude alterou nesta sessão",
+      "preview": [
+        "[[warn|✎ 5]][[dim| alterados na sessão: ]]login.ts, login.test.ts, session.ts, api.ts[[dim| +1]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ],
+      "group": "Sessão"
+    },
+    {
+      "name": "error-band",
+      "category": "painel",
+      "description": "Mantém à vista o último comando que falhou e a linha do erro, até um comando passar",
+      "preview": [
+        "[[err|✗ npm test]][[dim| → ]]TypeError: Cannot read properties of undefined  [[btn|[ Dispensar ]]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ],
+      "group": "Sessão"
+    },
+    {
+      "name": "goal-band",
+      "category": "painel",
+      "description": "/goal fixa o objetivo do projeto acima do prompt e no contexto do Claude",
+      "preview": [
+        "[[accent|◎ Objetivo:]] migrar o checkout para a API v2 sem quebrar os testes",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ],
+      "group": "Dia a dia"
+    },
+    {
+      "name": "agents-band",
+      "category": "painel",
+      "description": "Faixa que mostra em tempo real quantos subagentes estão rodando e quais",
+      "preview": [
+        "[[btn|⚙ 3 agentes]][[dim| rodando: ]]researcher · executor · reviewer",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ],
+      "group": "Sessão"
+    },
+    {
+      "name": "activity-status",
+      "category": "painel",
+      "description": "Status line ao vivo com a ferramenta que o Claude está executando agora",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ▶ Bash: npm run build]]"
+      ],
+      "group": "Sessão"
+    },
+    {
+      "name": "test-status",
+      "category": "painel",
+      "description": "Status line com o resultado da última execução de testes: passou ou falhou, hora e duração",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  testes ✓ passaram · 14:32 · 3.1s]]"
+      ],
+      "group": "Projeto"
+    },
+    {
+      "name": "ci-status",
+      "category": "painel",
+      "description": "Status line com o estado do último workflow do GitHub Actions (via gh)",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  CI ✓ · build · feat/login]]"
+      ],
+      "group": "Git"
+    },
+    {
+      "name": "stash-status",
+      "category": "painel",
+      "group": "Git",
+      "description": "Status line que lembra quantos stashes estão guardados",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  stash: 2 guardados]]"
+      ]
+    },
+    {
+      "name": "uncommitted-band",
+      "category": "painel",
+      "group": "Git",
+      "description": "Faixa de aviso quando há alterações sem commit há mais de 45 minutos",
+      "preview": [
+        "[[warn|⚠ 12 arquivos sem commit · último commit há 1h40]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "pr-status",
+      "category": "painel",
+      "group": "Git",
+      "description": "Status line com o pull request da branch atual e o estado do review (via gh)",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  PR #42 ✓ aprovado]]"
+      ]
+    },
+    {
+      "name": "main-warning-band",
+      "category": "painel",
+      "group": "Git",
+      "description": "Faixa vermelha enquanto você estiver na main/master",
+      "preview": [
+        "[[err|⚠ Você está na branch main. Crie uma branch antes de alterar: git switch -c nome]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "conflict-band",
+      "category": "painel",
+      "group": "Git",
+      "description": "Faixa que avisa de merge/rebase em andamento e arquivos em conflito",
+      "preview": [
+        "[[err|⚠ rebase em andamento · 2 arquivos em conflito]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "project-status",
+      "category": "painel",
+      "group": "Projeto",
+      "description": "Status line com nome e versão do projeto, versão do Node e gerenciador de pacotes",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  turbina@0.1.0 · node 24.14.1 · npm]]"
+      ]
+    },
+    {
+      "name": "ports-band",
+      "category": "painel",
+      "group": "Projeto",
+      "description": "Faixa com os servidores de dev que estão no ar em localhost",
+      "preview": [
+        "[[ok|● no ar:]] localhost:3000  localhost:5173",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "deps-status",
+      "category": "painel",
+      "group": "Projeto",
+      "description": "Status line com quantas dependências npm estão desatualizadas",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  deps: 7 desatualizadas (2 major)]]"
+      ]
+    },
+    {
+      "name": "todo-count-status",
+      "category": "painel",
+      "group": "Projeto",
+      "description": "Status line com a contagem de TODO, FIXME e HACK no código versionado",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  TODO 12 · FIXME 3 · HACK 1]]"
+      ]
+    },
+    {
+      "name": "quality-status",
+      "category": "painel",
+      "group": "Projeto",
+      "description": "Status line com o último resultado de lint, tipos e build",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  lint ✓ · tipos ✗ · build ✓]]"
+      ]
+    },
+    {
+      "name": "model-status",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Status line com o modelo em uso na sessão",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  modelo: opus-5-5]]"
+      ]
+    },
+    {
+      "name": "cost-ticker",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Status line com o custo do último turno e o total da sessão",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  turno US$ 0.12 · sessão US$ 2.31]]"
+      ]
+    },
+    {
+      "name": "idle-clock",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Status line com há quanto tempo a sessão está parada",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  parado há 6min]]"
+      ]
+    },
+    {
+      "name": "turn-progress",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Status line ao vivo com tempo decorrido e tools do turno em andamento",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ⏳ 1m12s · 9 tools]]"
+      ]
+    },
+    {
+      "name": "last-prompt-band",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Faixa com o seu último pedido, para não se perder depois de respostas longas",
+      "preview": [
+        "[[dim|↑ você pediu: refatore o hook de login e rode os testes]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "compact-nudge",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Faixa com botão de compactar quando o contexto passa de 75%",
+      "preview": [
+        "[[warn|Contexto em 82%. ]][[btn|[ Compactar agora ]]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "session-diff-band",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Faixa com o total de linhas que o Claude escreveu e removeu na sessão",
+      "preview": [
+        "[[dim|Claude escreveu ]][[ok|+120]] [[err|−34]][[dim| linhas em 9 edições]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "shield-band",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Faixa com a contagem de chamadas bloqueadas pelos guards e o último motivo",
+      "preview": [
+        "[[warn|◈ 2 bloqueios]][[dim| · último: Bash: rm-guard bloqueou o comando: apagar recursivamente \"~/\"]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "reset-countdown",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Status line com a contagem regressiva até o reset do rate limit mais apertado",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  limite 5h 62% · reseta em 1h12]]"
+      ]
+    },
+    {
+      "name": "spend-today",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Status line com o gasto do dia somando todas as sessões",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  hoje US$ 4.10 em 3 sessões]]"
+      ]
+    },
+    {
+      "name": "focus-band",
+      "category": "painel",
+      "group": "Dia a dia",
+      "description": "/focus inicia um bloco de foco com barra de progresso fixa",
+      "preview": [
+        "[[accent|◷ foco ██████████]][[dim|░░░░░░░░░░]] 12 min restantes",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "deadline-band",
+      "category": "painel",
+      "group": "Dia a dia",
+      "description": "/deadline fixa uma contagem regressiva para o prazo do projeto",
+      "preview": [
+        "[[warn|⏰ entrega do checkout em 18h 20min ]][[dim|(14/10)]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "pin-band",
+      "category": "painel",
+      "group": "Dia a dia",
+      "description": "/pin fixa até 4 lembretes do projeto acima do prompt",
+      "preview": [
+        "[[accent|▸ 1]] API de staging: usar o token novo",
+        "[[accent|▸ 2]] não mexer em legacy/ sem avisar o time",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "clock-status",
+      "category": "painel",
+      "group": "Dia a dia",
+      "description": "Status line com dia e hora (útil no modo fullscreen)",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ter 13/10 · 14:32]]"
+      ]
+    },
+    {
+      "name": "day-timer",
+      "category": "painel",
+      "group": "Dia a dia",
+      "description": "Status line com o tempo ativo de Claude Code no dia, somando as sessões",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  hoje: 3h40 de Claude Code]]"
+      ]
+    },
+    {
+      "name": "commits-today",
+      "category": "painel",
+      "group": "Git",
+      "description": "Status line com quantos commits você fez hoje neste repositório",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  commits hoje: 5]]"
+      ]
+    },
+    {
+      "name": "dolar-status",
+      "category": "painel",
+      "group": "Dia a dia",
+      "description": "Status line com a cotação do dólar em reais (AwesomeAPI)",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  US$ 1 = R$ 5,42 ▲0,31%]]"
+      ]
+    },
+    {
+      "name": "weather-status",
+      "category": "painel",
+      "group": "Dia a dia",
+      "description": "Status line com o clima da sua cidade (wttr.in)",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  São Paulo: ⛅ 22°C]]"
+      ]
+    },
+    {
+      "name": "api-status",
+      "category": "painel",
+      "group": "Sessão",
+      "description": "Status line com o estado da API da Anthropic pela página pública de status",
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  API ✓ operacional]]"
+      ]
+    },
+    {
+      "name": "terminal-pet",
+      "category": "painel",
+      "group": "Dia a dia",
+      "description": "Mascote acima do prompt que reage: trabalhando, feliz, triste ou com sono",
+      "preview": [
+        "[[accent|(＾▽＾)]] [[dim|deu certo!]]",
+        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
+    },
+    {
+      "name": "git-context",
+      "category": "prompt",
+      "description": "Anexa o estado do git (branch e arquivos alterados) a cada prompt, como contexto oculto",
+      "preview": [
+        "[[user|> por que o teste de login quebra?]]",
+        "[[dim|  + contexto oculto: Estado do git agora (feat/login...origin/feat/login [ahead 1])]]",
+        "[[dim|     M src/auth/login.ts]]",
+        "[[dim|    ?? src/auth/login.test.ts]]"
+      ]
+    },
+    {
+      "name": "stack-context",
+      "category": "prompt",
+      "description": "Detecta a stack do projeto (package.json, pom.xml...) e informa o Claude no system prompt",
+      "preview": [
+        "[[dim|  seção no system prompt →]]",
+        "[[bold|  # Stack deste projeto]]",
+        "  React, Tailwind CSS, TypeScript, Vite, Vitest.",
+        "  Use os padrões e as APIs dessas ferramentas."
+      ]
+    },
+    {
+      "name": "commit-style",
+      "category": "prompt",
+      "description": "Faz o Claude escrever commits em Conventional Commits, curtos e no imperativo",
+      "preview": [
+        "[[tool|● Bash]](git commit -m \"fix(auth): valida token expirado no login\")",
+        "[[dim|  ⎿ [feat/login a1b2c3d] fix(auth): valida token expirado no login]]"
+      ]
+    },
+    {
+      "name": "generated-guard",
+      "category": "seguranca",
+      "description": "Impede edição em node_modules, dist, build, .next, coverage, .git e afins",
+      "preview": [
+        "[[tool|● Edit]](node_modules/react/index.js)",
+        "[[err|  ⎿ generated-guard: node_modules/react/index.js fica em pasta gerada ou de]]",
+        "[[err|    dependências. Altere o código-fonte e gere de novo.]]"
+      ]
+    },
+    {
+      "name": "sql-guard",
+      "category": "seguranca",
+      "description": "Bloqueia DROP, TRUNCATE e DELETE/UPDATE sem WHERE em comandos de shell",
+      "preview": [
+        "[[tool|● Bash]](psql -c \"DELETE FROM users;\")",
+        "[[err|  ⎿ sql-guard bloqueou o comando: DELETE sem WHERE apaga a tabela toda.]]"
+      ]
+    },
+    {
+      "name": "prod-guard",
+      "category": "seguranca",
+      "description": "Exige sua confirmação para deploy, publish, terraform apply, kubectl e migrações",
+      "preview": [
+        "[[tool|● Bash]](vercel --prod)",
+        "[[warn|  ⎿ Permissão necessária]]",
+        "[[warn|    prod-guard: deploy em produção. Confirme antes de rodar.]]",
+        "    [[btn|[ Sim ]]] [[btn|[ Não ]]]"
+      ]
+    },
+    {
+      "name": "install-ask",
+      "category": "seguranca",
+      "description": "Exige sua confirmação sempre que o Claude for instalar uma dependência nova",
+      "preview": [
+        "[[tool|● Bash]](npm install left-pad)",
+        "[[warn|  ⎿ Permissão necessária]]",
+        "[[warn|    install-ask: o comando adiciona uma dependência nova. Confirme.]]",
+        "    [[btn|[ Sim ]]] [[btn|[ Não ]]]"
+      ]
+    },
+    {
+      "name": "pipe-shell-guard",
+      "category": "seguranca",
+      "description": "Bloqueia curl | sh, wget | bash, iwr | iex e variantes",
+      "preview": [
+        "[[tool|● Bash]](curl -fsSL https://exemplo.dev/install.sh | sh)",
+        "[[err|  ⎿ pipe-shell-guard bloqueou o comando: baixar um script e executar direto]]",
+        "[[err|    no shell. Baixe o arquivo, leia e só então execute.]]"
+      ]
+    },
+    {
+      "name": "big-read-guard",
+      "category": "seguranca",
+      "description": "Recusa ler inteiro um arquivo com mais de 512 KB e pede um recorte",
+      "preview": [
+        "[[tool|● Read]](logs/app.log)",
+        "[[err|  ⎿ big-read-guard: logs/app.log tem 8421 KB. Leia um trecho com]]",
+        "[[err|    offset/limit ou procure com Grep.]]"
       ]
     }
   ]

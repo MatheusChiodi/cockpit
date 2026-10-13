@@ -1,0 +1,17 @@
+{
+  "name": "git-band",
+  "version": "0.1.0",
+  "description": "Faixa fixa com branch, arquivos alterados, +/- linhas, ahead/behind e último commit",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "painel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "turbina"
+  ]
+}

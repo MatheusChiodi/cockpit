@@ -1,0 +1,13 @@
+{
+  "name": "commit-style",
+  "version": "0.1.0",
+  "description": "Faz o Claude escrever commits em Conventional Commits, curtos e no imperativo",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}
