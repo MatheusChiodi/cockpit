@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row, INDENT } from './kit'
+
 // turbina: liga/desliga pelo painel /turbina
 const OFF = { plugin: 'turbina', key: 'off' } as const
 
@@ -81,14 +83,27 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Box, Text } = ui
+    const [first = '', ...rest] = list
 
     return (
       <Box flexDirection="column">
-        {below}
-        {list.map((pin, index) => (
+        {row(
+          ui,
+          'dia',
+          'lembrete',
           <Text wrap="truncate-end">
-            <Text color="remember">▸ {index + 1}</Text> {pin}
+            <Text dimColor>1 </Text>
+            {first}
+          </Text>,
+          below,
+        )}
+        {rest.map((pin, index) => (
+          <Text wrap="truncate-end">
+            {INDENT}
+            <Text dimColor>{index + 2} </Text>
+            {pin}
           </Text>
         ))}
       </Box>

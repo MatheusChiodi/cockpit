@@ -47,7 +47,7 @@ export const register: Register = on => {
     }
 
     const what = detail(e as unknown as Readonly<Record<string, unknown>>)
-    running.set(e.tool_use_id, `▶ ${String(e.tool)}${what === '' ? '' : `: ${what}`}`)
+    running.set(e.tool_use_id, `▸ ${String(e.tool)}${what === '' ? '' : ` ${what}`}`)
     void show($, [...running.values()].at(-1))
 
     try {

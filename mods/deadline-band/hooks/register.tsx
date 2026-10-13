@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 import type { Countdown } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -90,15 +92,22 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text color={now.tone} wrap="truncate-end">
-          ⏰ {now.label} {now.left} <Text dimColor>({now.date})</Text>
+    return row(
+      ui,
+      'dia',
+      'prazo',
+      <Text wrap="truncate-end">
+        <Text color={now.tone} bold>
+          {now.left}
         </Text>
-      </Box>
+        {'  '}
+        {now.label}
+        <Text dimColor>  {now.date}</Text>
+      </Text>,
+      below,
     )
   })
 }

@@ -18,7 +18,7 @@ const idle = { since: 0 }
 const tick = async ($: EngineInterface): Promise<void> => {
   const minutes = idle.since === 0 ? 0 : Math.floor(((await $.clock.now()) - idle.since) / 60000)
 
-  void show($, minutes < MIN_MINUTES ? undefined : `parado há ${minutes >= 60 ? `${Math.floor(minutes / 60)}h${String(minutes % 60).padStart(2, '0')}` : `${minutes}min`}`)
+  void show($, minutes < MIN_MINUTES ? undefined : `parado ${minutes >= 60 ? `${Math.floor(minutes / 60)}h${String(minutes % 60).padStart(2, '0')}` : `${minutes}min`}`)
 }
 
 export const register: Register = on => {

@@ -15,7 +15,7 @@ const refresh = async ($: EngineInterface): Promise<void> => {
   const count = ran === undefined || ran.exitCode !== 0 ? 0 : ran.stdout.split('\n').filter(line => line !== '').length
 
   // Stash esquecido é trabalho perdido: só aparece quando existe.
-  void show($, count === 0 ? undefined : `stash: ${count} guardado${count === 1 ? '' : 's'}`)
+  void show($, count === 0 ? undefined : `stash ${count}`)
 }
 
 export const register: Register = on => {

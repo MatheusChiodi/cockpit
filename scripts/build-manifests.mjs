@@ -22,12 +22,20 @@ export const PANELS: readonly { name: string; description: string; group: string
 `,
 )
 
+const kit = `// Gerado por scripts/build-manifests.mjs a partir de kit/kit.tsx. Não edite à mão.
+${readFileSync(join(root, 'kit', 'kit.tsx'), 'utf8')}`
+
 const plugins = catalog.mods.map(mod => {
   const dir = join(root, 'mods', mod.name)
   const module = ['register.tsx', 'register.ts'].find(file => existsSync(join(dir, 'hooks', file)))
 
   if (module === undefined) {
     throw new Error(`${mod.name}: falta hooks/register.ts(x)`)
+  }
+
+  // Cada plugin é independente: quem usa o kit visual recebe a própria cópia.
+  if (readFileSync(join(dir, 'hooks', module), 'utf8').includes("from './kit'")) {
+    writeFileSync(join(dir, 'hooks', 'kit.tsx'), kit)
   }
 
   const manifest = {

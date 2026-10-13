@@ -5,7 +5,7 @@ const STEPS = [90, 80] as const
 const bar = (percent: number): string => {
   const filled = Math.round(Math.min(100, percent) / 10)
 
-  return `${'█'.repeat(filled)}${'░'.repeat(10 - filled)}`
+  return `${'━'.repeat(filled)}${'─'.repeat(10 - filled)}`
 }
 
 export const register: Register = on => {

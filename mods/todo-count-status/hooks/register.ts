@@ -27,7 +27,7 @@ const refresh = async ($: EngineInterface): Promise<void> => {
   const found = ran.stdout.split('\n')
   const parts = TAGS.map(tag => [tag, found.filter(line => line === tag).length] as const)
     .filter(([, count]) => count > 0)
-    .map(([tag, count]) => `${tag} ${count}`)
+    .map(([tag, count]) => `${tag.toLowerCase()} ${count}`)
 
   void show($, parts.length === 0 ? undefined : parts.join(' · '))
 }

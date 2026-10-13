@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 import type { Mood } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -73,15 +75,18 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text>
-          <Text color="claude">{now.face}</Text> <Text dimColor>{now.line}</Text>
-        </Text>
-      </Box>
+    return row(
+      ui,
+      'dia',
+      'pet',
+      <Text>
+        <Text color="remember">{now.face}</Text>
+        <Text dimColor>  {now.line}</Text>
+      </Text>,
+      below,
     )
   })
 }

@@ -21,7 +21,7 @@ const dayOf = (ms: number): string => {
 }
 
 const display = async ($: EngineInterface, minutes: number): Promise<void> => {
-  void show($, `hoje: ${Math.floor(minutes / 60)}h${String(minutes % 60).padStart(2, '0')} de Claude Code`)
+  void show($, `ativo ${Math.floor(minutes / 60)}h${String(minutes % 60).padStart(2, '0')} hoje`)
 }
 
 // A cada minuto com atividade recente (prompt ou tool), soma um minuto ao dia, entre sessões.

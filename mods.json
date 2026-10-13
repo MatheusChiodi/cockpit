@@ -110,8 +110,8 @@
       "preview": [
         "[[accent|●]] Pronto: 3 arquivos atualizados e testes passando.",
         "",
-        "[[dim|Último turno: 42s · 7 tools · 1.8k tokens]]  [[btn|[ Ocultar ]]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[sessao|▍ ]][[dim|TURNO     ]][[bold|42s]][[dim|  7 tools  1.8k tokens  ]][[btn|[ Ocultar ]]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -121,13 +121,12 @@
       "description": "/tally abre um painel com a contagem de chamadas por ferramenta",
       "preview": [
         "[[user|> /tally]]",
-        "[[rule|┌─ Ferramentas ─────────────────────────┐]]",
-        "[[rule|│]] [[bold|37 chamadas]]",
-        "[[rule|│]]   14 [[accent|████████████]] Read",
-        "[[rule|│]]   11 [[accent|█████████]] Bash",
-        "[[rule|│]]    8 [[accent|███████]] Edit",
-        "[[rule|│]]    4 [[accent|███]] Grep",
-        "[[rule|└───────────────────────────────────────┘]]"
+        "[[sessao|▍ ]][[bold|FERRAMENTAS]][[dim|  37 chamadas]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[bold|  14]] [[accent|━━━━━━━━━━━━━━]][[rule|]] Read",
+        "[[bold|  11]] [[accent|━━━━━━━━━━━]][[rule|───]] Bash",
+        "[[bold|   8]] [[accent|━━━━━━━━]][[rule|──────]] Edit",
+        "[[bold|   4]] [[accent|━━━━]][[rule|──────────]] Grep"
       ]
     },
     {
@@ -136,13 +135,12 @@
       "description": "/trail abre um painel com os arquivos lidos e alterados na sessão",
       "preview": [
         "[[user|> /trail]]",
-        "[[rule|┌─ Arquivos ────────────────────────────┐]]",
-        "[[rule|│]] [[bold|5 arquivos · 2 alterados]]",
-        "[[rule|│]] [[warn|M]] src/auth/login.ts [[dim|×3]]",
-        "[[rule|│]] [[warn|W]] src/auth/login.test.ts [[dim|×1]]",
-        "[[rule|│]] [[dim|R src/auth/session.ts ×2]]",
-        "[[rule|│]] [[dim|R package.json ×1]]",
-        "[[rule|└───────────────────────────────────────┘]]"
+        "[[sessao|▍ ]][[bold|ARQUIVOS]][[dim|  5 tocados · 2 alterados]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[warn|M]] [[dim| 3×]] src/auth/login.ts",
+        "[[ok|W]] [[dim| 1×]] src/auth/login.test.ts",
+        "[[dim|R  2× src/auth/session.ts]]",
+        "[[dim|R  1× package.json]]"
       ]
     },
     {
@@ -151,13 +149,12 @@
       "description": "/cmdlog abre um painel com os comandos de shell, status e duração",
       "preview": [
         "[[user|> /cmdlog]]",
-        "[[rule|┌─ Comandos ────────────────────────────┐]]",
-        "[[rule|│]] [[bold|4 comandos · 1 falharam]]",
-        "[[rule|│]] [[ok|✓]] npm install [[dim|8.4s]]",
-        "[[rule|│]] [[err|✗]] npm test [[dim|3.1s]]",
-        "[[rule|│]] [[ok|✓]] npm test [[dim|2.9s]]",
-        "[[rule|│]] [[warn|…]] npm run build",
-        "[[rule|└───────────────────────────────────────┘]]"
+        "[[sessao|▍ ]][[bold|COMANDOS]][[dim|  4 rodados · 1 com erro]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[ok|✓]] [[dim|  8.4s]] npm install",
+        "[[err|✗]] [[dim|  3.1s]] [[err|npm test]]",
+        "[[ok|✓]] [[dim|  2.9s]] npm test",
+        "[[warn|…]] [[dim|      ]] npm run build"
       ]
     },
     {
@@ -165,9 +162,9 @@
       "category": "interface",
       "description": "Status line com branch, arquivos alterados e commits à frente/atrás",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  ⎇ feat/login ±3 ↑1]]"
       ]
     },
@@ -177,10 +174,10 @@
       "description": "Status line com barra de contexto e custo; avisa em 80% e 90%",
       "preview": [
         "[[toast| context-meter  Contexto em 82%. Considere /compact ou /clear. ]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  ctx ████████░░ 82% · US$ 1.47]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ctx ━━━━━━━━── 82% · US$ 1.47]]"
       ]
     },
     {
@@ -200,10 +197,10 @@
       "category": "interface",
       "description": "Status line com tempo de sessão e número de prompts",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  ⏱ 1h12 · 23 prompts]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  sessão 1h12 · 23 prompts]]"
       ]
     },
     {
@@ -288,10 +285,10 @@
       "preview": [
         "[[user|> /pomodoro 25]]",
         "[[dim|  ⎿ Pomodoro de 25 min iniciado.]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  🍅 18 min]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  foco 18 min]]"
       ]
     },
     {
@@ -330,7 +327,7 @@
         "",
         "[[user|> /quote]]",
         "[[dim|  ⎿ Seleção citada no prompt.]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> > 30 segundos e não é configurável por rota]]",
         "[[user|  ]][[cursor|█]]"
       ]
@@ -367,7 +364,7 @@
       "description": "Toast a cada 50 minutos de sessão lembrando de fazer uma pausa",
       "preview": [
         "[[toast| break-reminder  50 min de sessão. Olhe para longe por 20 segundos. ]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -389,17 +386,18 @@
       "description": "Painel de configuração: /turbina liga e desliga cada painel da Turbina",
       "preview": [
         "[[user|> /turbina]]",
-        "[[rule|┌─ Turbina ─────────────────────────────────────────────────────────────┐]]",
-        "[[rule|│]] [[bold|38 de 40 painéis ligados]]",
-        "[[rule|│]] [[btn|[ Ligar todos ]]] [[btn|[ Desligar todos ]]]",
-        "[[rule|│]] [[dim|── Git]]",
-        "[[rule|│]] [[ok|●]] git-band             [[dim|Faixa fixa com branch, alterações e último commit]]",
-        "[[rule|│]] [[ok|●]] ci-status            [[dim|Status do último workflow do GitHub Actions]]",
-        "[[rule|│]] [[dim|○ pr-status            Status do pull request da branch atual]]",
-        "[[rule|│]] [[dim|── Sessão]]",
-        "[[rule|│]] [[ok|●]] usage-band           [[dim|Barras de contexto, janelas de 5h/7d e custo]]",
-        "[[rule|│]] [[dim|○ agents-band          Subagentes rodando em tempo real]]",
-        "[[rule|└───────────────────────────────────────────────────────────────────────┘]]"
+        "[[sessao|▍ ]][[bold|TURBINA]][[dim|  38 de 40 painéis ligados]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[accent|━━━━━━━━━━━━━━━━━━━]][[rule|─]] [[btn|[ Ligar todos ]]] [[btn|[ Desligar todos ]]]",
+        "",
+        "[[dim|GIT]]",
+        "[[ok|━━● ]][[bold|git-band            ]] [[dim|Faixa fixa com branch, alterações e último commit]]",
+        "[[ok|━━● ]][[bold|ci-status           ]] [[dim|Estado do último workflow do GitHub Actions]]",
+        "[[dim|●── pr-status            Pull request da branch atual e estado do review]]",
+        "",
+        "[[dim|SESSÃO]]",
+        "[[ok|━━● ]][[bold|usage-band          ]] [[dim|Medidores de contexto, janelas de 5h/7d e custo]]",
+        "[[dim|●── agents-band          Subagentes rodando em tempo real]]"
       ]
     },
     {
@@ -407,8 +405,8 @@
       "category": "painel",
       "description": "Faixa fixa com branch, arquivos alterados, +/- linhas, ahead/behind e último commit",
       "preview": [
-        "[[btn|⎇ feat/login]] · 3 arq [[ok|+42]] [[err|−7]][[warn| ↑1]][[dim| · feat: valida token (2 hours ago)]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[git|▍ ]][[dim|GIT       ]][[bold|feat/login]]  ±3 [[ok|+42]] [[err|−7]][[warn|  ↑1]][[dim|  feat: valida token · 2 hours ago]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
       "group": "Git"
@@ -418,11 +416,11 @@
       "category": "painel",
       "description": "Lista de tarefas do projeto fixa acima do prompt, clicável e persistente (/todo)",
       "preview": [
-        "[[dim|Tarefas 1/3]]",
-        "[[warn|☐]] revisar timeout do endpoint /orders",
-        "[[warn|☐]] escrever teste do login",
-        "[[ok|☑]] [[dim|atualizar dependências]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dia|▍ ]][[dim|TAREFAS   ]][[ok|━━━]][[rule|───────]] [[bold|1/3]]",
+        "            [[warn|◇]] revisar timeout do endpoint /orders",
+        "            [[warn|◇]] escrever teste do login",
+        "            [[ok|◆]] [[dim|atualizar dependências]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
       "group": "Dia a dia"
@@ -432,8 +430,8 @@
       "category": "painel",
       "description": "Faixa fixa com barras coloridas de contexto, janelas de 5h e 7 dias e custo",
       "preview": [
-        "[[dim|contexto ]][[ok|█████░░░░░░░]] 38%[[dim| · 5h ]][[warn|████░░]] 62%[[dim| · 7d ]][[ok|██░░░░]] 41%[[dim| · US$ 2.31]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[sessao|▍ ]][[dim|CONTEXTO  ]][[ok|━━━━━]][[rule|─────────]] [[ok|38%]][[dim|   5H ]][[warn|━━━━]][[rule|──]] [[warn|62%]][[dim|   7D ]][[ok|━━]][[rule|────]] [[ok|41%]][[dim|   US$ 2.31]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
       "group": "Sessão"
@@ -443,8 +441,8 @@
       "category": "painel",
       "description": "Faixa fixa com os arquivos que o Claude alterou nesta sessão",
       "preview": [
-        "[[warn|✎ 5]][[dim| alterados na sessão: ]]login.ts, login.test.ts, session.ts, api.ts[[dim| +1]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[sessao|▍ ]][[dim|ARQUIVOS  ]][[warn|5 alterados]]  login.ts  login.test.ts  session.ts  api.ts[[dim|  +1]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
       "group": "Sessão"
@@ -454,8 +452,8 @@
       "category": "painel",
       "description": "Mantém à vista o último comando que falhou e a linha do erro, até um comando passar",
       "preview": [
-        "[[err|✗ npm test]][[dim| → ]]TypeError: Cannot read properties of undefined  [[btn|[ Dispensar ]]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[sessao|▍ ]][[dim|ERRO      ]][[err|✗ npm test]][[dim|  TypeError: Cannot read properties of undefined  ]][[btn|[ Dispensar ]]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
       "group": "Sessão"
@@ -465,8 +463,8 @@
       "category": "painel",
       "description": "/goal fixa o objetivo do projeto acima do prompt e no contexto do Claude",
       "preview": [
-        "[[accent|◎ Objetivo:]] migrar o checkout para a API v2 sem quebrar os testes",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dia|▍ ]][[dim|OBJETIVO  ]][[bold|migrar o checkout para a API v2 sem quebrar os testes]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
       "group": "Dia a dia"
@@ -476,8 +474,8 @@
       "category": "painel",
       "description": "Faixa que mostra em tempo real quantos subagentes estão rodando e quais",
       "preview": [
-        "[[btn|⚙ 3 agentes]][[dim| rodando: ]]researcher · executor · reviewer",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[sessao|▍ ]][[dim|AGENTES   ]][[bold|3]] rodando[[dim|  researcher  executor  reviewer]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
       "group": "Sessão"
@@ -487,10 +485,10 @@
       "category": "painel",
       "description": "Status line ao vivo com a ferramenta que o Claude está executando agora",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  ▶ Bash: npm run build]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ▸ Bash npm run build]]"
       ],
       "group": "Sessão"
     },
@@ -499,10 +497,10 @@
       "category": "painel",
       "description": "Status line com o resultado da última execução de testes: passou ou falhou, hora e duração",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  testes ✓ passaram · 14:32 · 3.1s]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  testes ✓ 14:32 · 3.1s]]"
       ],
       "group": "Projeto"
     },
@@ -511,10 +509,10 @@
       "category": "painel",
       "description": "Status line com o estado do último workflow do GitHub Actions (via gh)",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  CI ✓ · build · feat/login]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ci ✓ build · feat/login]]"
       ],
       "group": "Git"
     },
@@ -524,10 +522,10 @@
       "group": "Git",
       "description": "Status line que lembra quantos stashes estão guardados",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  stash: 2 guardados]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  stash 2]]"
       ]
     },
     {
@@ -536,8 +534,8 @@
       "group": "Git",
       "description": "Faixa de aviso quando há alterações sem commit há mais de 45 minutos",
       "preview": [
-        "[[warn|⚠ 12 arquivos sem commit · último commit há 1h40]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[git|▍ ]][[dim|COMMIT    ]][[warn|12 arquivos sem commit]][[dim|  último há 1h40]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -547,10 +545,10 @@
       "group": "Git",
       "description": "Status line com o pull request da branch atual e o estado do review (via gh)",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  PR #42 ✓ aprovado]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  pr #42 ✓ aprovado]]"
       ]
     },
     {
@@ -559,8 +557,8 @@
       "group": "Git",
       "description": "Faixa vermelha enquanto você estiver na main/master",
       "preview": [
-        "[[err|⚠ Você está na branch main. Crie uma branch antes de alterar: git switch -c nome]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[git|▍ ]][[dim|BRANCH    ]][[err|main é protegida]][[dim|  crie outra antes de alterar: git switch -c nome]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -570,8 +568,8 @@
       "group": "Git",
       "description": "Faixa que avisa de merge/rebase em andamento e arquivos em conflito",
       "preview": [
-        "[[err|⚠ rebase em andamento · 2 arquivos em conflito]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[git|▍ ]][[dim|CONFLITO  ]][[err|rebase em andamento]][[dim|  2 arquivos para resolver]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -581,9 +579,9 @@
       "group": "Projeto",
       "description": "Status line com nome e versão do projeto, versão do Node e gerenciador de pacotes",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  turbina@0.1.0 · node 24.14.1 · npm]]"
       ]
     },
@@ -593,8 +591,8 @@
       "group": "Projeto",
       "description": "Faixa com os servidores de dev que estão no ar em localhost",
       "preview": [
-        "[[ok|● no ar:]] localhost:3000  localhost:5173",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[projeto|▍ ]][[dim|NO AR     ]][[ok|● ]]localhost:3000   [[ok|● ]]localhost:5173",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -604,10 +602,10 @@
       "group": "Projeto",
       "description": "Status line com quantas dependências npm estão desatualizadas",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  deps: 7 desatualizadas (2 major)]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  deps 7 atrás · 2 major]]"
       ]
     },
     {
@@ -616,10 +614,10 @@
       "group": "Projeto",
       "description": "Status line com a contagem de TODO, FIXME e HACK no código versionado",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  TODO 12 · FIXME 3 · HACK 1]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  todo 12 · fixme 3 · hack 1]]"
       ]
     },
     {
@@ -628,9 +626,9 @@
       "group": "Projeto",
       "description": "Status line com o último resultado de lint, tipos e build",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  lint ✓ · tipos ✗ · build ✓]]"
       ]
     },
@@ -640,10 +638,10 @@
       "group": "Sessão",
       "description": "Status line com o modelo em uso na sessão",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  modelo: opus-5-5]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  modelo opus-5-5]]"
       ]
     },
     {
@@ -652,9 +650,9 @@
       "group": "Sessão",
       "description": "Status line com o custo do último turno e o total da sessão",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  turno US$ 0.12 · sessão US$ 2.31]]"
       ]
     },
@@ -664,10 +662,10 @@
       "group": "Sessão",
       "description": "Status line com há quanto tempo a sessão está parada",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  parado há 6min]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  parado 6min]]"
       ]
     },
     {
@@ -676,10 +674,10 @@
       "group": "Sessão",
       "description": "Status line ao vivo com tempo decorrido e tools do turno em andamento",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  ⏳ 1m12s · 9 tools]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  turno 1m12s · 9 tools]]"
       ]
     },
     {
@@ -688,8 +686,8 @@
       "group": "Sessão",
       "description": "Faixa com o seu último pedido, para não se perder depois de respostas longas",
       "preview": [
-        "[[dim|↑ você pediu: refatore o hook de login e rode os testes]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[sessao|▍ ]][[dim|PEDIDO    ]][[dim|refatore o hook de login e rode os testes]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -699,8 +697,8 @@
       "group": "Sessão",
       "description": "Faixa com botão de compactar quando o contexto passa de 75%",
       "preview": [
-        "[[warn|Contexto em 82%. ]][[btn|[ Compactar agora ]]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[sessao|▍ ]][[dim|COMPACTAR ]][[warn|━━━━━━━━━━━]][[rule|───]] [[warn|82%]][[dim|  contexto quase cheio  ]][[btn|[ Compactar agora ]]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -710,8 +708,8 @@
       "group": "Sessão",
       "description": "Faixa com o total de linhas que o Claude escreveu e removeu na sessão",
       "preview": [
-        "[[dim|Claude escreveu ]][[ok|+120]] [[err|−34]][[dim| linhas em 9 edições]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[sessao|▍ ]][[dim|ESCRITO   ]][[ok|+120]] [[err|−34]][[dim|  linhas em 9 edições]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -721,8 +719,8 @@
       "group": "Sessão",
       "description": "Faixa com a contagem de chamadas bloqueadas pelos guards e o último motivo",
       "preview": [
-        "[[warn|◈ 2 bloqueios]][[dim| · último: Bash: rm-guard bloqueou o comando: apagar recursivamente \"~/\"]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[sessao|▍ ]][[dim|GUARDS    ]][[warn|2 bloqueios]][[dim|  Bash: rm-guard bloqueou o comando: apagar recursivamente \"~/\"]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -732,10 +730,10 @@
       "group": "Sessão",
       "description": "Status line com a contagem regressiva até o reset do rate limit mais apertado",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  limite 5h 62% · reseta em 1h12]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  limite 5h 62% · reseta 1h12]]"
       ]
     },
     {
@@ -744,10 +742,10 @@
       "group": "Sessão",
       "description": "Status line com o gasto do dia somando todas as sessões",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  hoje US$ 4.10 em 3 sessões]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  hoje US$ 4.10 · 3 sessões]]"
       ]
     },
     {
@@ -756,8 +754,8 @@
       "group": "Dia a dia",
       "description": "/focus inicia um bloco de foco com barra de progresso fixa",
       "preview": [
-        "[[accent|◷ foco ██████████]][[dim|░░░░░░░░░░]] 12 min restantes",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dia|▍ ]][[dim|FOCO      ]][[dia|━━━━━━━━━━━━]][[rule|────────────]] [[bold|12 min]][[dim| de 25]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -767,8 +765,8 @@
       "group": "Dia a dia",
       "description": "/deadline fixa uma contagem regressiva para o prazo do projeto",
       "preview": [
-        "[[warn|⏰ entrega do checkout em 18h 20min ]][[dim|(14/10)]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dia|▍ ]][[dim|PRAZO     ]][[warn|em 18h 20min]]  entrega do checkout[[dim|  14/10]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -778,9 +776,9 @@
       "group": "Dia a dia",
       "description": "/pin fixa até 4 lembretes do projeto acima do prompt",
       "preview": [
-        "[[accent|▸ 1]] API de staging: usar o token novo",
-        "[[accent|▸ 2]] não mexer em legacy/ sem avisar o time",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dia|▍ ]][[dim|LEMBRETE  ]][[dim|1 ]]API de staging: usar o token novo",
+        "            [[dim|2 ]]não mexer em legacy/ sem avisar o time",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -790,9 +788,9 @@
       "group": "Dia a dia",
       "description": "Status line com dia e hora (útil no modo fullscreen)",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  ter 13/10 · 14:32]]"
       ]
     },
@@ -802,10 +800,10 @@
       "group": "Dia a dia",
       "description": "Status line com o tempo ativo de Claude Code no dia, somando as sessões",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  hoje: 3h40 de Claude Code]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  ativo 3h40 hoje]]"
       ]
     },
     {
@@ -814,10 +812,10 @@
       "group": "Git",
       "description": "Status line com quantos commits você fez hoje neste repositório",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  commits hoje: 5]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  commits 5 hoje]]"
       ]
     },
     {
@@ -826,10 +824,10 @@
       "group": "Dia a dia",
       "description": "Status line com a cotação do dólar em reais (AwesomeAPI)",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  US$ 1 = R$ 5,42 ▲0,31%]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  usd R$ 5,42 ▲0,31%]]"
       ]
     },
     {
@@ -838,9 +836,9 @@
       "group": "Dia a dia",
       "description": "Status line com o clima da sua cidade (wttr.in)",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  São Paulo: ⛅ 22°C]]"
       ]
     },
@@ -850,10 +848,10 @@
       "group": "Sessão",
       "description": "Status line com o estado da API da Anthropic pela página pública de status",
       "preview": [
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  API ✓ operacional]]"
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  api ✓]]"
       ]
     },
     {
@@ -862,8 +860,8 @@
       "group": "Dia a dia",
       "description": "Mascote acima do prompt que reage: trabalhando, feliz, triste ou com sono",
       "preview": [
-        "[[accent|(＾▽＾)]] [[dim|deu certo!]]",
-        "[[rule|────────────────────────────────────────────────────────────────────]]",
+        "[[dia|▍ ]][[dim|PET       ]][[dia|(^_^)]][[dim|  deu certo!]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
@@ -959,5 +957,20 @@
         "[[err|    offset/limit ou procure com Grep.]]"
       ]
     }
+  ],
+  "hero": [
+    "[[git|▍ ]][[dim|GIT       ]][[bold|feat/login]]  ±3 [[ok|+42]] [[err|−7]][[warn|  ↑1]][[dim|  feat: valida token · 2 hours ago]]",
+    "[[sessao|▍ ]][[dim|CONTEXTO  ]][[ok|━━━━━]][[rule|─────────]] [[ok|38%]][[dim|   5H ]][[warn|━━━━]][[rule|──]] [[warn|62%]][[dim|   7D ]][[ok|━━]][[rule|────]] [[ok|41%]][[dim|   US$ 2.31]]",
+    "[[sessao|▍ ]][[dim|ERRO      ]][[err|✗ npm test]][[dim|  TypeError: Cannot read properties of undefined  ]][[btn|[ Dispensar ]]]",
+    "[[projeto|▍ ]][[dim|NO AR     ]][[ok|● ]]localhost:3000   [[ok|● ]]localhost:5173",
+    "[[dia|▍ ]][[dim|TAREFAS   ]][[ok|━━━]][[rule|───────]] [[bold|1/3]]",
+    "            [[warn|◇]] revisar timeout do endpoint /orders",
+    "            [[warn|◇]] escrever teste do login",
+    "            [[ok|◆]] [[dim|atualizar dependências]]",
+    "[[dia|▍ ]][[dim|PRAZO     ]][[warn|em 18h 20min]]  entrega do checkout[[dim|  14/10]]",
+    "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+    "[[user|> ]][[cursor|█]]",
+    "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+    "[[dim|  ⎇ feat/login ±3 ↑1 · testes ✓ 14:32 · 3.1s · ci ✓ build · turno US$ 0.12 · sessão US$ 2.31]]"
   ]
 }

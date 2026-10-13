@@ -24,7 +24,7 @@ const refresh = async ($: EngineInterface): Promise<void> => {
 
   const count = ran.stdout.split('\n').filter(line => line !== '').length
 
-  void show($, `commits hoje: ${count}`)
+  void show($, `commits ${count} hoje`)
 }
 
 export const register: Register = on => {

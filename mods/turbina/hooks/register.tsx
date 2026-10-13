@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { heading, meter } from './kit'
+
 import { PANELS } from './panels'
 
 const PANE = 'turbina'
@@ -65,29 +67,39 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => {
-    const { Box, Button, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Box, Button, Text } = ui
     const disabled = await read($, off)
-    const width = Math.max(20, e.props.bodyColumns - 26)
+    const width = Math.max(20, e.props.bodyColumns - 28)
+    const active = names.length - disabled.length
     let group = ''
 
     return (
       <Box flexDirection="column">
-        <Text bold>{summary(disabled)}</Text>
+        {heading(ui, 'sessao', 'turbina', `${active} de ${names.length} painéis ligados`, e.props.bodyColumns)}
         <Box gap={1}>
+          {meter(ui, (active / names.length) * 100, 20, 'claude')}
           <Button key="all-on" label="Ligar todos" onPress={() => apply($, [])} />
           <Button key="all-off" label="Desligar todos" onPress={() => apply($, names)} />
         </Box>
         {PANELS.map(panel => {
           const isOn = !disabled.includes(panel.name)
-          const heading = panel.group === group ? null : <Text dimColor>── {panel.group}</Text>
+          const title = panel.group === group ? null : (
+            <Text dimColor bold>
+              {'\n'}
+              {panel.group.toUpperCase()}
+            </Text>
+          )
           group = panel.group
 
           return (
             <Box flexDirection="column">
-              {heading}
+              {title}
               <Button key={`panel:${panel.name}`} plain onPress={() => toggle($, panel.name)}>
-                <Text color={isOn ? 'success' : 'inactive'}>{isOn ? '●' : '○'}</Text>{' '}
-                <Text dimColor={!isOn}>{panel.name.padEnd(20)}</Text>{' '}
+                <Text color={isOn ? 'success' : 'inactive'}>{isOn ? '━━● ' : '●── '}</Text>
+                <Text bold={isOn} dimColor={!isOn}>
+                  {panel.name.padEnd(20)}
+                </Text>{' '}
                 <Text dimColor>{panel.description.slice(0, width)}</Text>
               </Button>
             </Box>

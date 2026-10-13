@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row, meter, toneOf } from './kit'
+
 import type { Usage } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -12,15 +14,6 @@ const isOff = async ($: EngineInterface): Promise<boolean> =>
 const usage = atom({ plugin: 'usage-band', key: 'usage' } as const, null)
 
 const LABEL: Record<string, string> = { five_hour: '5h', seven_day: '7d', spend_limit: 'gasto' }
-
-const tone = (percent: number): 'success' | 'warning' | 'error' =>
-  percent >= 85 ? 'error' : percent >= 60 ? 'warning' : 'success'
-
-const bar = (percent: number, width: number): string => {
-  const filled = Math.round((Math.min(100, Math.max(0, percent)) / 100) * width)
-
-  return `${'█'.repeat(filled)}${'░'.repeat(width - filled)}`
-}
 
 export const register: Register = on => {
   on('session.measure', async ($, e, next) => {
@@ -42,23 +35,27 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text wrap="truncate-end">
-          <Text dimColor>contexto </Text>
-          <Text color={tone(measured.percent)}>{bar(measured.percent, 12)}</Text> {measured.percent}%
-          {measured.limits.map(limit => (
-            <Text>
-              <Text dimColor> · {LABEL[limit.kind] ?? limit.kind} </Text>
-              <Text color={tone(limit.percent)}>{bar(limit.percent, 6)}</Text> {Math.round(limit.percent)}%
+    return row(
+      ui,
+      'sessao',
+      'contexto',
+      <Text wrap="truncate-end">
+        {meter(ui, measured.percent, 14)} <Text color={toneOf(measured.percent)}>{measured.percent}%</Text>
+        {measured.limits.map(limit => (
+          <Text>
+            <Text dimColor>
+              {'   '}
+              {(LABEL[limit.kind] ?? limit.kind).toUpperCase()}{' '}
             </Text>
-          ))}
-          {measured.usd !== null && <Text dimColor> · US$ {measured.usd.toFixed(2)}</Text>}
-        </Text>
-      </Box>
+            {meter(ui, limit.percent, 6)} <Text color={toneOf(limit.percent)}>{Math.round(limit.percent)}%</Text>
+          </Text>
+        ))}
+        {measured.usd !== null && <Text dimColor>   US$ {measured.usd.toFixed(2)}</Text>}
+      </Text>,
+      below,
     )
   })
 }

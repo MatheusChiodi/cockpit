@@ -47,7 +47,7 @@ const refresh = async ($: EngineInterface): Promise<void> => {
   const mark =
     last.status !== 'completed' ? '… rodando' : last.conclusion === 'success' ? '✓' : `✗ ${last.conclusion ?? 'falhou'}`
 
-  void show($, `CI ${mark} · ${last.workflowName ?? 'workflow'} · ${last.headBranch ?? '?'}`)
+  void show($, `ci ${mark} ${last.workflowName ?? 'workflow'} · ${last.headBranch ?? '?'}`)
 }
 
 export const register: Register = on => {

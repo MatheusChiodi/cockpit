@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 import type { Worker } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -51,21 +53,25 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text wrap="truncate-end">
-          <Text color="suggestion">⚙ {list.length} agente{list.length === 1 ? '' : 's'}</Text>
-          <Text dimColor> rodando: </Text>
+    return row(
+      ui,
+      'sessao',
+      'agentes',
+      <Text wrap="truncate-end">
+        <Text bold>{list.length}</Text> rodando
+        <Text dimColor>
+          {'  '}
           {list
             .slice(0, 5)
             .map(worker => worker.label)
-            .join(' · ')}
-          {list.length > 5 && <Text dimColor> +{list.length - 5}</Text>}
+            .join('  ')}
+          {list.length > 5 ? `  +${list.length - 5}` : ''}
         </Text>
-      </Box>
+      </Text>,
+      below,
     )
   })
 }

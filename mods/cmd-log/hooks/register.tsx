@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { heading } from './kit'
+
 import type { Run } from '../types'
 
 const PANE = 'cmd-log'
@@ -56,24 +58,24 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => {
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Box, Text } = ui
     const list = await read($, runs)
-    const room = Math.max(1, (e.viewport?.rows ?? 24) - 5)
+    const room = Math.max(1, (e.viewport?.rows ?? 24) - 6)
     const width = Math.max(12, e.props.bodyColumns - 12)
     const failed = list.filter(run => run.status === 'failed').length
 
     return (
       <Box flexDirection="column">
-        <Text bold>
-          {list.length} comandos · {failed} falharam
-        </Text>
+        {heading(ui, 'sessao', 'comandos', `${list.length} rodados · ${failed} com erro`, e.props.bodyColumns)}
         {list.length === 0 && <Text dimColor>Nenhum comando executado ainda.</Text>}
         {list.slice(-room).map(run => (
           <Text wrap="truncate-end">
-            <Text color={run.status === 'failed' ? 'error' : run.status === 'ok' ? 'success' : 'warning'}>
+            <Text color={run.status === 'failed' ? 'error' : run.status === 'ok' ? 'success' : 'warning'} bold>
               {run.status === 'failed' ? '✗' : run.status === 'ok' ? '✓' : '…'}
             </Text>{' '}
-            {run.command.slice(0, width)} <Text dimColor>{run.status === 'running' ? '' : took(run.ms)}</Text>
+            <Text dimColor>{(run.status === 'running' ? '' : took(run.ms)).padStart(6)}</Text>{' '}
+            <Text color={run.status === 'failed' ? 'error' : 'text'}>{run.command.slice(0, width)}</Text>
           </Text>
         ))}
       </Box>

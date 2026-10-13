@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 import type { Trouble } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -68,16 +70,23 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text color="error" wrap="truncate-end">
-          ⚠ {found.operation === '' ? 'conflitos' : `${found.operation} em andamento`}
-          {found.conflicts > 0 ? ` · ${found.conflicts} arquivo${found.conflicts === 1 ? '' : 's'} em conflito` : ' · sem conflitos pendentes'}
+    return row(
+      ui,
+      'git',
+      'conflito',
+      <Text wrap="truncate-end">
+        <Text color="error" bold>
+          {found.operation === '' ? 'arquivos em conflito' : `${found.operation} em andamento`}
         </Text>
-      </Box>
+        <Text dimColor>
+          {'  '}
+          {found.conflicts > 0 ? `${found.conflicts} arquivo${found.conflicts === 1 ? '' : 's'} para resolver` : 'nada pendente, falta concluir'}
+        </Text>
+      </Text>,
+      below,
     )
   })
 }

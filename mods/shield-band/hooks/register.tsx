@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 // turbina: liga/desliga pelo painel /turbina
 const OFF = { plugin: 'turbina', key: 'off' } as const
 
@@ -30,18 +32,20 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text wrap="truncate-end">
-          <Text color="permission">
-            ◈ {held.count} bloqueio{held.count === 1 ? '' : 's'}
-          </Text>
-          <Text dimColor> · último: {held.last}</Text>
+    return row(
+      ui,
+      'sessao',
+      'guards',
+      <Text wrap="truncate-end">
+        <Text color="permission" bold>
+          {held.count} bloqueio{held.count === 1 ? '' : 's'}
         </Text>
-      </Box>
+        <Text dimColor>  {held.last}</Text>
+      </Text>,
+      below,
     )
   })
 }

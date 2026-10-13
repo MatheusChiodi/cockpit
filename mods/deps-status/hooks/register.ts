@@ -43,8 +43,8 @@ const check = async ($: EngineInterface): Promise<void> => {
 
   void show($, 
     entries.length === 0
-      ? 'deps ✓ em dia'
-      : `deps: ${entries.length} desatualizada${entries.length === 1 ? '' : 's'}${majors > 0 ? ` (${majors} major)` : ''}`,
+      ? 'deps ✓'
+      : `deps ${entries.length} atrás${majors > 0 ? ` · ${majors} major` : ''}`,
   )
 }
 

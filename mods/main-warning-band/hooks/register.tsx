@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 // turbina: liga/desliga pelo painel /turbina
 const OFF = { plugin: 'turbina', key: 'off' } as const
 
@@ -43,15 +45,21 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
+    return row(
+      ui,
+      'git',
+      'branch',
+      <Text wrap="truncate-end">
         <Text color="error" bold>
-          ⚠ Você está na branch {current}. Crie uma branch antes de alterar: git switch -c nome
+          {current}
         </Text>
-      </Box>
+        <Text color="error"> é protegida</Text>
+        <Text dimColor>  crie outra antes de alterar: git switch -c nome</Text>
+      </Text>,
+      below,
     )
   })
 }

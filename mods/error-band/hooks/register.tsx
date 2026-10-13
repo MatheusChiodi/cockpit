@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 import type { Failure } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -57,20 +59,23 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Button, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Button, Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Box>
-          <Text wrap="truncate-end">
-            <Text color="error">✗ {held.command}</Text>
-            <Text dimColor> → </Text>
-            {held.line}{' '}
+    return row(
+      ui,
+      'sessao',
+      'erro',
+      [
+        <Text wrap="truncate-end">
+          <Text color="error" bold>
+            ✗ {held.command}
           </Text>
-          <Button key="dismiss" label="Dispensar" onPress={() => update($, failure, () => null)} />
-        </Box>
-      </Box>
+          <Text dimColor>  {held.line}  </Text>
+        </Text>,
+        <Button key="dismiss" label="Dispensar" onPress={() => update($, failure, () => null)} />,
+      ],
+      below,
     )
   })
 }

@@ -14,7 +14,7 @@ const tick = async ($: EngineInterface): Promise<void> => {
     $.session.turns(),
   ])
 
-  $.ui.status(`⏱ ${elapsed(now - startedAt)} · ${turns} prompts`)
+  $.ui.status(`sessão ${elapsed(now - startedAt)} · ${turns} prompts`)
 }
 
 export const register: Register = on => {

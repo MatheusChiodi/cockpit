@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register, Timer } from 'claude-code'
 
+import { row, meter } from './kit'
+
 import type { Focus } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -76,18 +78,18 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
-    const filled = Math.round(((now.total - now.left) / now.total) * 20)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text>
-          <Text color="claude">◷ foco </Text>
-          <Text color="claude">{'█'.repeat(filled)}</Text>
-          <Text dimColor>{'░'.repeat(20 - filled)}</Text> {now.left} min restantes
-        </Text>
-      </Box>
+    return row(
+      ui,
+      'dia',
+      'foco',
+      <Text>
+        {meter(ui, ((now.total - now.left) / now.total) * 100, 24, 'remember')} <Text bold>{now.left} min</Text>
+        <Text dimColor> de {now.total}</Text>
+      </Text>,
+      below,
     )
   })
 }

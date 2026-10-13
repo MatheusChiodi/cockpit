@@ -29,7 +29,7 @@ const record = async ($: EngineInterface, usd: number): Promise<void> => {
   const total = Object.values(ledger).reduce((sum, value) => sum + value, 0)
   const sessions = Object.keys(ledger).length
 
-  void show($, `hoje US$ ${total.toFixed(2)} em ${sessions} sess${sessions === 1 ? 'ão' : 'ões'}`)
+  void show($, `hoje US$ ${total.toFixed(2)} · ${sessions} sess${sessions === 1 ? 'ão' : 'ões'}`)
 }
 
 export const register: Register = on => {

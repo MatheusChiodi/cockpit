@@ -1,4 +1,4 @@
-// Gera docs/previews/<mod>.svg (mockup de terminal de cada mod) e o catálogo do README.md.
+// Gera docs/previews/<mod>.svg (mockup de terminal de cada mod), docs/cockpit.svg e o catálogo do README.md.
 // Uso: node scripts/build-docs.mjs
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -9,24 +9,41 @@ const catalog = JSON.parse(readFileSync(join(root, 'mods.json'), 'utf8'))
 
 const WIDTH = 760
 const CHAR = 7.83
-const LINE = 20
-const TOP = 58
-const LEFT = 22
+const LINE = 21
+const TOP = 66
+const LEFT = 24
+const MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace"
+
+// Mesma paleta do kit: um matiz por assunto; verde, âmbar e vermelho só para estado.
+const HUE = { git: '#b39df2', sessao: '#e58c62', projeto: '#74a8f5', dia: '#5fc9b8' }
 
 const COLORS = {
-  text: '#d8dee9',
-  dim: '#6b7689',
-  rule: '#3b4458',
-  user: '#e6edf7',
-  tool: '#7fd1a8',
-  ok: '#7fd1a8',
-  err: '#ff7a7a',
-  warn: '#f2c06b',
-  accent: '#d97757',
+  ...HUE,
+  text: '#d5dbe6',
+  dim: '#677185',
+  rule: '#2a3242',
+  user: '#eef2f8',
+  tool: '#8fd18b',
+  ok: '#8fd18b',
+  err: '#f07b7b',
+  warn: '#e8bd6a',
+  accent: '#e58c62',
   bold: '#ffffff',
-  btn: '#8fb8ff',
-  cursor: '#d8dee9',
+  btn: '#74a8f5',
+  cursor: '#d5dbe6',
 }
+
+const GROUP_HUE = { Git: HUE.git, Sessão: HUE.sessao, Projeto: HUE.projeto, 'Dia a dia': HUE.dia }
+
+const CATEGORY_HUE = {
+  seguranca: COLORS.err,
+  interface: HUE.sessao,
+  prompt: HUE.git,
+  comandos: HUE.projeto,
+  foco: HUE.dia,
+}
+
+const hueOf = mod => GROUP_HUE[mod.group] ?? CATEGORY_HUE[mod.category] ?? HUE.sessao
 
 const escape = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
@@ -55,9 +72,9 @@ const segments = line => {
 const cells = text => [...text].reduce((sum, char) => sum + (char.codePointAt(0) > 0x1f000 ? 2 : 1), 0)
 
 const BOXED = {
-  toast: { fill: '#1d2433', stroke: '#d97757', color: '#f3e3dc' },
-  notify: { fill: '#262c3a', stroke: '#4a5470', color: '#e6edf7' },
-  sel: { fill: '#3a5a9c', stroke: 'none', color: '#ffffff' },
+  toast: { fill: '#1a2130', stroke: COLORS.accent, color: '#f6e7df' },
+  notify: { fill: '#222a38', stroke: '#3b4660', color: COLORS.user },
+  sel: { fill: '#35508a', stroke: 'none', color: '#ffffff' },
 }
 
 const renderLine = (line, row) => {
@@ -72,7 +89,7 @@ const renderLine = (line, row) => {
 
     if (box !== undefined) {
       backgrounds.push(
-        `<rect x="${(LEFT + column * CHAR - 2).toFixed(1)}" y="${y - 14}" width="${(width * CHAR + 4).toFixed(1)}" height="${LINE}" rx="3" fill="${box.fill}" stroke="${box.stroke}"/>`,
+        `<rect x="${(LEFT + column * CHAR - 2).toFixed(1)}" y="${y - 15}" width="${(width * CHAR + 4).toFixed(1)}" height="${LINE}" rx="4" fill="${box.fill}" stroke="${box.stroke}"/>`,
       )
     }
 
@@ -87,17 +104,25 @@ const renderLine = (line, row) => {
   return `${backgrounds.join('')}<text y="${y}" xml:space="preserve">${spans.join('')}</text>`
 }
 
-const svg = mod => {
-  const height = TOP + mod.preview.length * LINE + 14
+// Moldura própria da Turbina: fio no matiz do assunto, rotor, nome do mod e a categoria à direita.
+const frame = ({ name, tag, hue, lines }) => {
+  const height = TOP + lines.length * LINE + 10
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${height}" viewBox="0 0 ${WIDTH} ${height}" role="img" aria-label="Prévia do mod ${mod.name} no terminal">
-<rect width="${WIDTH}" height="${height}" rx="10" fill="#141922"/>
-<rect width="${WIDTH}" height="34" rx="10" fill="#1d2433"/>
-<rect y="24" width="${WIDTH}" height="10" fill="#1d2433"/>
-<circle cx="20" cy="17" r="6" fill="#ff5f57"/><circle cx="40" cy="17" r="6" fill="#febc2e"/><circle cx="60" cy="17" r="6" fill="#28c840"/>
-<text x="${WIDTH / 2}" y="22" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,monospace" font-size="12" fill="#8792a8">claude — ${escape(mod.name)}</text>
-<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="13">
-${mod.preview.map(renderLine).join('\n')}
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${height}" viewBox="0 0 ${WIDTH} ${height}" role="img" aria-label="Prévia de ${escape(name)} no terminal">
+<defs><clipPath id="card"><rect width="${WIDTH}" height="${height}" rx="12"/></clipPath></defs>
+<g clip-path="url(#card)">
+<rect width="${WIDTH}" height="${height}" fill="#0f131a"/>
+<rect width="${WIDTH}" height="38" fill="#141a24"/>
+<rect y="38" width="${WIDTH}" height="1" fill="#222a38"/>
+<rect width="${WIDTH}" height="3" fill="${hue}"/>
+</g>
+<g transform="translate(30 21)" fill="none" stroke="${hue}" stroke-width="1.6" stroke-linecap="round">
+<circle r="7.5" opacity="0.45"/><path d="M0 0L0 -6.5M0 0L5.6 3.3M0 0L-5.6 3.3"/><circle r="1.4" fill="${hue}" stroke="none"/>
+</g>
+<text y="26" font-family="${MONO}" font-size="12.5"><tspan x="46" fill="#eef2f8" font-weight="700">turbina</tspan><tspan fill="#677185"> / </tspan><tspan fill="#d5dbe6">${escape(name)}</tspan></text>
+<text x="${WIDTH - 24}" y="26" text-anchor="end" font-family="${MONO}" font-size="10.5" letter-spacing="1.4" fill="#677185">${escape(tag.toUpperCase())}</text>
+<g font-family="${MONO}" font-size="13">
+${lines.map(renderLine).join('\n')}
 </g>
 </svg>
 `
@@ -106,8 +131,16 @@ ${mod.preview.map(renderLine).join('\n')}
 mkdirSync(join(root, 'docs', 'previews'), { recursive: true })
 
 for (const mod of catalog.mods) {
-  writeFileSync(join(root, 'docs', 'previews', `${mod.name}.svg`), svg(mod))
+  writeFileSync(
+    join(root, 'docs', 'previews', `${mod.name}.svg`),
+    frame({ name: mod.name, tag: mod.group ?? catalog.categories[mod.category], hue: hueOf(mod), lines: mod.preview }),
+  )
 }
+
+writeFileSync(
+  join(root, 'docs', 'cockpit.svg'),
+  frame({ name: 'painel completo', tag: 'sempre visível', hue: HUE.sessao, lines: catalog.hero }),
+)
 
 const section = ([key, title]) => {
   const mods = catalog.mods.filter(mod => mod.category === key)
@@ -131,7 +164,7 @@ const index = Object.entries(catalog.categories)
   .map(([key, title]) => {
     const names = catalog.mods.filter(mod => mod.category === key).map(mod => `[\`${mod.name}\`](#${mod.name})`)
 
-    return `| **${title}** | ${names.join(' · ')} |`
+    return `| **${title}** (${names.length}) | ${names.join(' · ')} |`
   })
   .join('\n')
 
@@ -144,6 +177,11 @@ ${Object.entries(catalog.categories).map(section).join('\n')}<!-- catalogo:fim -
 
 const readmePath = join(root, 'README.md')
 const readme = readFileSync(readmePath, 'utf8')
-writeFileSync(readmePath, readme.replace(/<!-- catalogo:inicio[\s\S]*<!-- catalogo:fim -->/, generated))
+writeFileSync(
+  readmePath,
+  readme
+    .replace(/<!-- catalogo:inicio[\s\S]*<!-- catalogo:fim -->/, generated)
+    .replace(/\*\*\d+ mods para turbinar/, `**${catalog.mods.length} mods para turbinar`),
+)
 
 console.log(`${catalog.mods.length} prévias em docs/previews e catálogo do README atualizado`)

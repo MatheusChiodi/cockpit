@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 // turbina: liga/desliga pelo painel /turbina
 const OFF = { plugin: 'turbina', key: 'off' } as const
 
@@ -73,15 +75,17 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text wrap="truncate-end">
-          <Text color="claude">◎ Objetivo:</Text> {text}
-        </Text>
-      </Box>
+    return row(
+      ui,
+      'dia',
+      'objetivo',
+      <Text bold wrap="truncate-end">
+        {text}
+      </Text>,
+      below,
     )
   })
 }

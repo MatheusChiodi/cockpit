@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row, meter, INDENT } from './kit'
+
 import type { Todo } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -92,25 +94,37 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Button, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Box, Button, Text } = ui
     const done = list.filter(todo => todo.isDone).length
     // Pendentes primeiro: é o que importa ver o tempo todo.
     const shown = [...list].sort((a, b) => Number(a.isDone) - Number(b.isDone)).slice(0, VISIBLE)
 
     return (
       <Box flexDirection="column">
-        {below}
-        <Text dimColor>
-          Tarefas {done}/{list.length}
-          {list.length > VISIBLE ? ` · +${list.length - VISIBLE} ocultas` : ''}
-        </Text>
-        {shown.map(todo => (
-          <Button key={`todo:${todo.id}`} plain onPress={() => toggle($, todo.id)}>
-            <Text color={todo.isDone ? 'success' : 'warning'}>{todo.isDone ? '☑' : '☐'}</Text>{' '}
-            <Text dimColor={todo.isDone} strikethrough={todo.isDone}>
-              {todo.text}
+        {row(
+          ui,
+          'dia',
+          'tarefas',
+          <Text>
+            {meter(ui, (done / list.length) * 100, 10, 'success')}{' '}
+            <Text bold>
+              {done}/{list.length}
             </Text>
-          </Button>
+            {list.length > VISIBLE && <Text dimColor>  +{list.length - VISIBLE} ocultas</Text>}
+          </Text>,
+          below,
+        )}
+        {shown.map(todo => (
+          <Box>
+            <Text>{INDENT}</Text>
+            <Button key={`todo:${todo.id}`} plain onPress={() => toggle($, todo.id)}>
+              <Text color={todo.isDone ? 'success' : 'warning'}>{todo.isDone ? '◆' : '◇'}</Text>{' '}
+              <Text dimColor={todo.isDone} strikethrough={todo.isDone}>
+                {todo.text}
+              </Text>
+            </Button>
+          </Box>
         ))}
       </Box>
     )

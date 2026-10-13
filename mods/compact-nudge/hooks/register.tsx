@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row, meter, toneOf } from './kit'
+
 // turbina: liga/desliga pelo painel /turbina
 const OFF = { plugin: 'turbina', key: 'off' } as const
 
@@ -34,16 +36,21 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Button, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Button, Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Box>
-          <Text color={used >= 90 ? 'error' : 'warning'}>Contexto em {used}%. </Text>
-          <Button key="compact" label="Compactar agora" onPress={() => compact($)} />
-        </Box>
-      </Box>
+    return row(
+      ui,
+      'sessao',
+      'compactar',
+      [
+        <Text>
+          {meter(ui, used, 14)} <Text color={toneOf(used)}>{used}%</Text>
+          <Text dimColor>  contexto quase cheio  </Text>
+        </Text>,
+        <Button key="compact" label="Compactar agora" variant="primary" onPress={() => compact($)} />,
+      ],
+      below,
     )
   })
 }

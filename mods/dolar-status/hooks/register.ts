@@ -37,7 +37,7 @@ const refresh = async ($: EngineInterface): Promise<void> => {
 
   const trend = !Number.isFinite(change) || change === 0 ? '' : ` ${change > 0 ? '▲' : '▼'}${Math.abs(change).toFixed(2).replace('.', ',')}%`
 
-  void show($, `US$ 1 = R$ ${bid.toFixed(2).replace('.', ',')}${trend}`)
+  void show($, `usd R$ ${bid.toFixed(2).replace('.', ',')}${trend}`)
 }
 
 export const register: Register = on => {

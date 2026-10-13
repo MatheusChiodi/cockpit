@@ -11,7 +11,7 @@ const show = async ($: EngineInterface, text: string | undefined): Promise<void>
 }
 
 const refresh = async ($: EngineInterface): Promise<void> => {
-  void show($, `modelo: ${(await $.session.model()).replace(/^claude-/, '')}`)
+  void show($, `modelo ${(await $.session.model()).replace(/^claude-/, '')}`)
 }
 
 export const register: Register = on => {

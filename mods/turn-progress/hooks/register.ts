@@ -20,7 +20,7 @@ const tick = async ($: EngineInterface): Promise<void> => {
   const seconds = Math.max(0, Math.round(((await $.clock.now()) - turn.startedAt) / 1000))
   const clock = seconds >= 60 ? `${Math.floor(seconds / 60)}m${String(seconds % 60).padStart(2, '0')}s` : `${seconds}s`
 
-  void show($, `⏳ ${clock} · ${turn.tools} tool${turn.tools === 1 ? '' : 's'}`)
+  void show($, `turno ${clock} · ${turn.tools} tool${turn.tools === 1 ? '' : 's'}`)
 }
 
 const stop = ($: EngineInterface): void => {

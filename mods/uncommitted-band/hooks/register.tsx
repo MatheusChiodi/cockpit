@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 import type { Pending } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -49,15 +51,20 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text color="warning" wrap="truncate-end">
-          ⚠ {found.changed} arquivo{found.changed === 1 ? '' : 's'} sem commit · último commit há {span(found.minutes)}
+    return row(
+      ui,
+      'git',
+      'commit',
+      <Text wrap="truncate-end">
+        <Text color="warning">
+          {found.changed} arquivo{found.changed === 1 ? '' : 's'} sem commit
         </Text>
-      </Box>
+        <Text dimColor>  último há {span(found.minutes)}</Text>
+      </Text>,
+      below,
     )
   })
 }

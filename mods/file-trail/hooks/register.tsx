@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { heading } from './kit'
+
 import type { Touch, TouchKind } from '../types'
 
 const PANE = 'file-trail'
@@ -71,25 +73,26 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => {
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Box, Text } = ui
     const list = await read($, touches)
-    const room = Math.max(1, (e.viewport?.rows ?? 24) - 5)
-    const width = Math.max(16, e.props.bodyColumns - 8)
+    const room = Math.max(1, (e.viewport?.rows ?? 24) - 6)
+    const width = Math.max(16, e.props.bodyColumns - 10)
     const changed = list.filter(touch => touch.kind !== 'read').length
 
     return (
       <Box flexDirection="column">
-        <Text bold>
-          {list.length} arquivos · {changed} alterados
-        </Text>
+        {heading(ui, 'sessao', 'arquivos', `${list.length} tocados · ${changed} alterados`, e.props.bodyColumns)}
         {list.length === 0 && <Text dimColor>Nenhum arquivo tocado ainda.</Text>}
         {list
           .slice(-room)
           .reverse()
           .map(touch => (
-            <Text dimColor={touch.kind === 'read'}>
-              <Text color={touch.kind === 'read' ? 'inactive' : 'warning'}>{MARK[touch.kind]}</Text>{' '}
-              {short(touch.path, width)} <Text dimColor>×{touch.count}</Text>
+            <Text dimColor={touch.kind === 'read'} wrap="truncate-end">
+              <Text color={touch.kind === 'read' ? 'inactive' : touch.kind === 'write' ? 'success' : 'warning'} bold>
+                {MARK[touch.kind]}
+              </Text>{' '}
+              <Text dimColor>{String(touch.count).padStart(2)}×</Text> {short(touch.path, width)}
             </Text>
           ))}
       </Box>

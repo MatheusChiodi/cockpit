@@ -36,8 +36,8 @@ const refresh = async ($: EngineInterface): Promise<void> => {
     indicator === undefined
       ? undefined
       : indicator === 'none'
-        ? 'API ✓ operacional'
-        : `API ⚠ ${(page.status?.description ?? indicator).slice(0, 60)}`,
+        ? 'api ✓'
+        : `api ⚠ ${(page.status?.description ?? indicator).slice(0, 60)}`,
   )
 }
 

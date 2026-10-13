@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 import type { GitInfo } from '../types'
 
 // turbina: liga/desliga pelo painel /turbina
@@ -72,32 +74,32 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text wrap="truncate-end">
-          <Text color="suggestion">⎇ {found.branch}</Text>
-          {found.changed === 0 ? (
-            <Text color="success"> ✓ limpo</Text>
-          ) : (
-            <Text>
-              {' '}
-              · {found.changed} arq <Text color="success">+{found.added}</Text>{' '}
-              <Text color="error">−{found.removed}</Text>
-            </Text>
-          )}
-          {found.ahead > 0 && <Text color="warning"> ↑{found.ahead}</Text>}
-          {found.behind > 0 && <Text color="warning"> ↓{found.behind}</Text>}
-          {found.subject !== '' && (
-            <Text dimColor>
-              {' '}
-              · {found.subject} ({found.age})
-            </Text>
-          )}
-        </Text>
-      </Box>
+    return row(
+      ui,
+      'git',
+      'git',
+      <Text wrap="truncate-end">
+        <Text bold>{found.branch}</Text>
+        {found.changed === 0 ? (
+          <Text color="success">  ✓ limpo</Text>
+        ) : (
+          <Text>
+            {'  '}±{found.changed} <Text color="success">+{found.added}</Text> <Text color="error">−{found.removed}</Text>
+          </Text>
+        )}
+        {found.ahead > 0 && <Text color="warning">  ↑{found.ahead}</Text>}
+        {found.behind > 0 && <Text color="warning">  ↓{found.behind}</Text>}
+        {found.subject !== '' && (
+          <Text dimColor>
+            {'  '}
+            {found.subject} · {found.age}
+          </Text>
+        )}
+      </Text>,
+      below,
     )
   })
 }

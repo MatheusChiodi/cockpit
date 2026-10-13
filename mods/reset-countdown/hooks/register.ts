@@ -31,7 +31,7 @@ const tick = async ($: EngineInterface): Promise<void> => {
         ? `${Math.floor(minutes / 60)}h${String(minutes % 60).padStart(2, '0')}`
         : `${minutes}min`
 
-  void show($, `limite ${LABEL[tightest.kind] ?? tightest.kind} ${Math.round(tightest.percent)}% · reseta em ${left}`)
+  void show($, `limite ${LABEL[tightest.kind] ?? tightest.kind} ${Math.round(tightest.percent)}% · reseta ${left}`)
 }
 
 export const register: Register = on => {

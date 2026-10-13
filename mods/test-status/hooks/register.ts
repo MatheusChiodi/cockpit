@@ -29,12 +29,12 @@ const watch = async <R extends { deny?: string; isError?: boolean }>(
   }
 
   const startedAt = await $.clock.now()
-  void show($, 'testes … rodando')
+  void show($, 'testes …')
   const ran = await run()
   const endedAt = await $.clock.now()
 
   if (ran.deny === undefined) {
-    void show($, `testes ${ran.isError === true ? '✗ falharam' : '✓ passaram'} · ${clock(endedAt)} · ${took(endedAt - startedAt)}`)
+    void show($, `testes ${ran.isError === true ? '✗' : '✓'} ${clock(endedAt)} · ${took(endedAt - startedAt)}`)
   }
 
   return ran

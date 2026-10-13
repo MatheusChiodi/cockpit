@@ -53,7 +53,7 @@ const refresh = async ($: EngineInterface): Promise<void> => {
           ? 'rascunho'
           : (REVIEW[pr.reviewDecision ?? ''] ?? 'aberto')
 
-  void show($, `PR #${pr.number} ${state}`)
+  void show($, `pr #${pr.number} ${state}`)
 }
 
 export const register: Register = on => {

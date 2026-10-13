@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { Register } from 'claude-code'
 
+import { row } from './kit'
+
 import type { Turn } from '../types'
 
 const last = atom({ plugin: 'turn-timer', key: 'last' } as const, null)
@@ -50,19 +52,24 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Button, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Button, Text } = ui
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Box>
-        <Text dimColor>
-          Último turno: {turn.seconds}s · {turn.tools} tools · {compact(turn.outputTokens)} tokens
-          {turn.isAborted ? ' · interrompido' : ''}{' '}
-        </Text>
-        <Button key="hide" label="Ocultar" onPress={() => update($, isHidden, () => true)} />
-        </Box>
-      </Box>
+    return row(
+      ui,
+      'sessao',
+      'turno',
+      [
+        <Text>
+          <Text bold>{turn.seconds}s</Text>
+          <Text dimColor>
+            {'  '}
+            {turn.tools} tools  {compact(turn.outputTokens)} tokens{turn.isAborted ? '  interrompido' : ''}{'  '}
+          </Text>
+        </Text>,
+        <Button key="hide" label="Ocultar" onPress={() => update($, isHidden, () => true)} />,
+      ],
+      below,
     )
   })
 }

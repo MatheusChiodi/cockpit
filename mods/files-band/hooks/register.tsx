@@ -1,6 +1,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
+import { row } from './kit'
+
 // turbina: liga/desliga pelo painel /turbina
 const OFF = { plugin: 'turbina', key: 'off' } as const
 
@@ -54,19 +56,23 @@ export const register: Register = on => {
       return below
     }
 
-    const { Box, Text } = $.ui.resolve(e)
+    const ui = $.ui.resolve(e)
+    const { Text } = ui
     const shown = list.slice(0, 4).map(base)
 
-    return (
-      <Box flexDirection="column">
-        {below}
-        <Text wrap="truncate-end">
-          <Text color="warning">✎ {list.length}</Text>
-          <Text dimColor> alterado{list.length === 1 ? '' : 's'} na sessão: </Text>
-          {shown.join(', ')}
-          {list.length > shown.length && <Text dimColor> +{list.length - shown.length}</Text>}
+    return row(
+      ui,
+      'sessao',
+      'arquivos',
+      <Text wrap="truncate-end">
+        <Text color="warning">
+          {list.length} alterado{list.length === 1 ? '' : 's'}
         </Text>
-      </Box>
+        {'  '}
+        {shown.join('  ')}
+        {list.length > shown.length && <Text dimColor>  +{list.length - shown.length}</Text>}
+      </Text>,
+      below,
     )
   })
 }

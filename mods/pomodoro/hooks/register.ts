@@ -15,7 +15,7 @@ const tick = async ($: EngineInterface): Promise<void> => {
   const left = running.endsAt - (await $.clock.now())
 
   if (left > 0) {
-    $.ui.status(`🍅 ${Math.ceil(left / 60000)} min`)
+    $.ui.status(`foco ${Math.ceil(left / 60000)} min`)
 
     return
   }
