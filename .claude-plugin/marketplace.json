@@ -520,6 +520,12 @@
       "source": "./mods/ports",
       "description": "/ports probes the common dev ports on localhost and lists which ones answer",
       "category": "commands"
+    },
+    {
+      "name": "kill-port",
+      "source": "./mods/kill-port",
+      "description": "/killport finds the process listening on a port, names it and ends it after you confirm",
+      "category": "commands"
     }
   ]
 }

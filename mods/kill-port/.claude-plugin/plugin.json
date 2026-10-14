@@ -1,0 +1,13 @@
+{
+  "name": "kill-port",
+  "version": "0.1.0",
+  "description": "/killport finds the process listening on a port, names it and ends it after you confirm",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

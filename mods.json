@@ -1402,6 +1402,20 @@
         "[[ok|● ]]8080  [[dim|404]]",
         "[[dim|3 of 9 ports answer]]"
       ]
+    },
+    {
+      "name": "kill-port",
+      "category": "commands",
+      "description": {
+        "en": "/killport finds the process listening on a port, names it and ends it after you confirm",
+        "pt": "/killport encontra o processo que escuta numa porta, mostra o nome e o encerra após confirmar",
+        "es": "/killport encuentra el proceso que escucha en un puerto, muestra su nombre y lo termina tras confirmar"
+      },
+      "preview": [
+        "[[user|> /killport 3000]]",
+        "[[warn|Port 3000 is held by node.exe (pid 4812). End it?]] [[btn|[ yes ]]] [[btn|[ no ]]]",
+        "[[ok|Ended node.exe (pid 4812).]]"
+      ]
     }
   ],
   "hero": [
