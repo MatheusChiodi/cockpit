@@ -3986,6 +3986,20 @@
         "[[tool|● Bash]](gh pr create --title \"fix(auth): reject expired tokens\")",
         "[[dim|  ⎿ What changed · Why · How tested · Risks]]"
       ]
+    },
+    {
+      "name": "a11y-rules",
+      "category": "prompt",
+      "description": {
+        "en": "In web projects, keeps Claude to accessibility rules when editing markup: labels, alt text, keyboard, focus, contrast",
+        "pt": "Em projetos web, mantém o Claude nas regras de acessibilidade ao editar markup: labels, alt, teclado, foco e contraste",
+        "es": "En proyectos web, mantiene a Claude en las reglas de accesibilidad al editar markup: labels, alt, teclado, foco y contraste"
+      },
+      "preview": [
+        "[[dim|system prompt +]] [[accent|Accessibility rules]]",
+        "[[dim|  labels on controls · alt on images · keyboard reach]]",
+        "[[dim|  visible focus · semantic elements · 4.5:1 contrast]]"
+      ]
     }
   ],
   "hero": [

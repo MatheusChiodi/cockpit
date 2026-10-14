@@ -1,0 +1,13 @@
+{
+  "name": "a11y-rules",
+  "version": "0.1.0",
+  "description": "In web projects, keeps Claude to accessibility rules when editing markup: labels, alt text, keyboard, focus, contrast",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

@@ -1534,6 +1534,12 @@
       "source": "./mods/pr-style",
       "description": "Makes pull request descriptions follow what changed, why, how tested and risks, with a Conventional Commits title",
       "category": "prompt"
+    },
+    {
+      "name": "a11y-rules",
+      "source": "./mods/a11y-rules",
+      "description": "In web projects, keeps Claude to accessibility rules when editing markup: labels, alt text, keyboard, focus, contrast",
+      "category": "prompt"
     }
   ]
 }
