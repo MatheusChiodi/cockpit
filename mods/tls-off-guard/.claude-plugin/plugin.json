@@ -1,0 +1,13 @@
+{
+  "name": "tls-off-guard",
+  "version": "0.1.0",
+  "description": "Asks before TLS certificate verification is switched off in code or in a command",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

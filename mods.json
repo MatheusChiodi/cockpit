@@ -3737,6 +3737,20 @@
         "[[warn|  ⎿ sql-concat-guard: builds an SQL statement by joining strings in src/repo.ts.]]",
         "[[warn|    Use bind parameters (? or $1) instead.]]"
       ]
+    },
+    {
+      "name": "tls-off-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before TLS certificate verification is switched off in code or in a command",
+        "pt": "Pergunta antes de desligar a verificação do certificado TLS no código ou em um comando",
+        "es": "Pregunta antes de desactivar la verificación del certificado TLS en el código o en un comando"
+      },
+      "preview": [
+        "[[tool|● Bash]](curl -k https://staging.example.com/health)",
+        "[[warn|  ⎿ tls-off-guard: runs a command with TLS verification off (curl -k https://...).]]",
+        "[[warn|    Fix the certificate or point to the CA bundle instead.]]"
+      ]
     }
   ],
   "hero": [
