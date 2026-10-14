@@ -1,0 +1,13 @@
+{
+  "name": "time-context",
+  "version": "0.1.0",
+  "description": "Every prompt carries the current local date, weekday, time and UTC offset so relative dates resolve right",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

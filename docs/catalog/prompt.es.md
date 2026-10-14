@@ -1,8 +1,8 @@
-# Prompt y modelo — 8 mods
+# Prompt y modelo — 9 mods
 
 [← Volver al README](../../README.es.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context)
 
 ## `concise-mode`
 
@@ -83,3 +83,13 @@ Hace que Claude responda siempre en el idioma definido en el hub Cockpit, manten
 ```
 
 ![reply-language](../previews/reply-language.svg)
+
+## `time-context`
+
+Cada prompt lleva la fecha, el día de la semana, la hora y el huso locales para resolver bien las fechas relativas.
+
+```
+/plugin install time-context@cockpit
+```
+
+![time-context](../previews/time-context.svg)

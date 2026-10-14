@@ -2388,6 +2388,21 @@
         "[[dim|  ⎿ 84,310 characters]]",
         "[[toast| Bash returned 84,310 characters: that eats the context ]]"
       ]
+    },
+    {
+      "name": "time-context",
+      "category": "prompt",
+      "description": {
+        "en": "Every prompt carries the current local date, weekday, time and UTC offset so relative dates resolve right",
+        "pt": "Todo prompt leva a data, o dia da semana, a hora e o fuso locais para as datas relativas saírem certas",
+        "es": "Cada prompt lleva la fecha, el día de la semana, la hora y el huso locales para resolver bien las fechas relativas"
+      },
+      "preview": [
+        "[[user|> what was due last Friday?]]",
+        "[[dim|  + Current local time: Tuesday 2026-10-13 14:05 (UTC-03:00)]]",
+        "",
+        "[[accent|●]] Last Friday was 2026-10-09."
+      ]
     }
   ],
   "hero": [

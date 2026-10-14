@@ -880,6 +880,12 @@
       "source": "./mods/big-output-toast",
       "description": "A toast when one tool result is larger than 20,000 characters, since that much output eats the context",
       "category": "interface"
+    },
+    {
+      "name": "time-context",
+      "source": "./mods/time-context",
+      "description": "Every prompt carries the current local date, weekday, time and UTC offset so relative dates resolve right",
+      "category": "prompt"
     }
   ]
 }
