@@ -1522,6 +1522,12 @@
       "source": "./mods/timeline",
       "description": "/timeline opens a chronological log of the session: prompts, tool calls, failures and turn ends with their clock time",
       "category": "interface"
+    },
+    {
+      "name": "branch-naming",
+      "source": "./mods/branch-naming",
+      "description": "Teaches Claude the branch naming convention: feat/, fix/, chore/, refactor/, docs/ and never new work on main",
+      "category": "prompt"
     }
   ]
 }

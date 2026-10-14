@@ -3960,6 +3960,19 @@
         "[[dim|14:02:19]] [[err|✗]] Bash npm test",
         "[[dim|14:02:31]] [[ok|✓]] turn ended  20.1s"
       ]
+    },
+    {
+      "name": "branch-naming",
+      "category": "prompt",
+      "description": {
+        "en": "Teaches Claude the branch naming convention: feat/, fix/, chore/, refactor/, docs/ and never new work on main",
+        "pt": "Ensina ao Claude a convenção de nomes de branch: feat/, fix/, chore/, refactor/, docs/ e nunca trabalho novo na main",
+        "es": "Enseña a Claude la convención de nombres de rama: feat/, fix/, chore/, refactor/, docs/ y nunca trabajo nuevo en main"
+      },
+      "preview": [
+        "[[tool|● Bash]](git switch -c fix/login-token-expiry)",
+        "[[dim|  ⎿ Switched to a new branch fix/login-token-expiry]]"
+      ]
     }
   ],
   "hero": [
