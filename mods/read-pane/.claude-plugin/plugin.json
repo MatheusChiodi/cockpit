@@ -1,0 +1,14 @@
+{
+  "name": "read-pane",
+  "version": "0.1.0",
+  "description": "/reads opens a pane with the files read this session and how often; files read 3 or more times are flagged as wasted context",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

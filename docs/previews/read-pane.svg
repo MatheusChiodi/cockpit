@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="202" viewBox="0 0 760 202" role="img" aria-label="read-pane in the terminal">
+<defs><clipPath id="card"><rect width="760" height="202" rx="12"/></clipPath></defs>
+<g clip-path="url(#card)">
+<rect width="760" height="202" fill="#0f131a"/>
+<rect width="760" height="38" fill="#141a24"/>
+<rect y="38" width="760" height="1" fill="#222a38"/>
+<rect width="760" height="3" fill="#e58c62"/>
+</g>
+<g transform="translate(30 21)" fill="none" stroke="#e58c62" stroke-width="1.6" stroke-linecap="round">
+<circle r="7.5" opacity="0.45"/><path d="M0 0L0 -6.5M0 0L5.6 3.3M0 0L-5.6 3.3"/><circle r="1.4" fill="#e58c62" stroke="none"/>
+</g>
+<text y="26" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="12.5"><tspan x="46" fill="#eef2f8" font-weight="700">cockpit</tspan><tspan fill="#677185"> / </tspan><tspan fill="#d5dbe6">read-pane</tspan></text>
+<text x="736" y="26" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="10.5" letter-spacing="1.4" fill="#677185">INTERFACE</text>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="13">
+<text y="66" xml:space="preserve"><tspan x="24.0" textLength="62.6" lengthAdjust="spacingAndGlyphs" fill="#eef2f8">&gt; /reads</tspan></text>
+<text y="87" xml:space="preserve"><tspan x="24.0" textLength="15.7" lengthAdjust="spacingAndGlyphs" fill="#e58c62">▍ </tspan><tspan x="39.7" textLength="39.1" lengthAdjust="spacingAndGlyphs" fill="#ffffff" font-weight="700">READS</tspan><tspan x="78.8" textLength="203.6" lengthAdjust="spacingAndGlyphs" fill="#677185">  5 files  1 read 3+ times</tspan></text>
+<text y="108" xml:space="preserve"><tspan x="24.0" textLength="438.5" lengthAdjust="spacingAndGlyphs" fill="#2a3242">────────────────────────────────────────────────────────</tspan></text>
+<text y="129" xml:space="preserve"><tspan x="24.0" textLength="23.5" lengthAdjust="spacingAndGlyphs" fill="#e8bd6a"> 4×</tspan><tspan x="47.5" textLength="156.6" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> src/engine/loop.ts </tspan><tspan x="204.1" textLength="109.6" lengthAdjust="spacingAndGlyphs" fill="#e8bd6a">wasted context</tspan></text>
+<text y="150" xml:space="preserve"><tspan x="24.0" textLength="23.5" lengthAdjust="spacingAndGlyphs" fill="#677185"> 2×</tspan><tspan x="47.5" textLength="101.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> package.json</tspan></text>
+<text y="171" xml:space="preserve"><tspan x="24.0" textLength="23.5" lengthAdjust="spacingAndGlyphs" fill="#677185"> 1×</tspan><tspan x="47.5" textLength="78.3" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> README.md</tspan></text>
+</g>
+</svg>

@@ -1,8 +1,8 @@
-# Interface — 16 mods
+# Interface — 17 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane) · [`token-chart`](#token-chart) · [`cost-pane`](#cost-pane) · [`error-pane`](#error-pane) · [`context-pane`](#context-pane)
+[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane) · [`token-chart`](#token-chart) · [`cost-pane`](#cost-pane) · [`error-pane`](#error-pane) · [`context-pane`](#context-pane) · [`read-pane`](#read-pane)
 
 ## `turn-timer`
 
@@ -163,3 +163,13 @@ Status line com tempo de sessão e número de prompts.
 ```
 
 ![context-pane](../previews/context-pane.svg)
+
+## `read-pane`
+
+/reads abre um painel com os arquivos lidos nesta sessão e quantas vezes; arquivos lidos 3 vezes ou mais são marcados como contexto desperdiçado.
+
+```
+/plugin install read-pane@cockpit
+```
+
+![read-pane](../previews/read-pane.svg)

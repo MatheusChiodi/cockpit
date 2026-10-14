@@ -802,6 +802,12 @@
       "source": "./mods/context-pane",
       "description": "/window opens a pane with the context window by category, each with a gauge and its share, and a Refresh button",
       "category": "interface"
+    },
+    {
+      "name": "read-pane",
+      "source": "./mods/read-pane",
+      "description": "/reads opens a pane with the files read this session and how often; files read 3 or more times are flagged as wasted context",
+      "category": "interface"
     }
   ]
 }

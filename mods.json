@@ -2169,6 +2169,23 @@
         "[[bold|  16.0k]] [[dim|   8%]] [[accent|━●]][[rule|─────────────────]] System tools",
         "[[bold| 115.8k]] [[dim|  58%]] [[rule|●────────────────────]] Free space"
       ]
+    },
+    {
+      "name": "read-pane",
+      "category": "interface",
+      "description": {
+        "en": "/reads opens a pane with the files read this session and how often; files read 3 or more times are flagged as wasted context",
+        "pt": "/reads abre um painel com os arquivos lidos nesta sessão e quantas vezes; arquivos lidos 3 vezes ou mais são marcados como contexto desperdiçado",
+        "es": "/reads abre un panel con los archivos leídos en esta sesión y cuántas veces; los leídos 3 o más veces se marcan como contexto desperdiciado"
+      },
+      "preview": [
+        "[[user|> /reads]]",
+        "[[session|▍ ]][[bold|READS]][[dim|  5 files  1 read 3+ times]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[warn| 4×]] src/engine/loop.ts [[warn|wasted context]]",
+        "[[dim| 2×]] package.json",
+        "[[dim| 1×]] README.md"
+      ]
     }
   ],
   "hero": [
