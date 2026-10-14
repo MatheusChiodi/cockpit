@@ -334,6 +334,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "todo-new-status",
+    "group": "project",
+    "description": {
+      "en": "Status line counting the TODO, FIXME and HACK lines added to the code in this session",
+      "pt": "Status line contando as linhas TODO, FIXME e HACK adicionadas ao código nesta sessão",
+      "es": "Línea de estado que cuenta las líneas TODO, FIXME y HACK añadidas al código en esta sesión"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {

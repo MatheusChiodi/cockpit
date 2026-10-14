@@ -1360,6 +1360,12 @@
       "source": "./mods/deploy-status",
       "description": "Status line entry with the result of the last deploy command: vercel, netlify, eas, firebase, fly and others",
       "category": "panel"
+    },
+    {
+      "name": "todo-new-status",
+      "source": "./mods/todo-new-status",
+      "description": "Status line counting the TODO, FIXME and HACK lines added to the code in this session",
+      "category": "panel"
     }
   ]
 }

@@ -3553,6 +3553,22 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  deploy ✓ 14:32 · 48s]]"
       ]
+    },
+    {
+      "name": "todo-new-status",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "en": "Status line counting the TODO, FIXME and HACK lines added to the code in this session",
+        "pt": "Status line contando as linhas TODO, FIXME e HACK adicionadas ao código nesta sessão",
+        "es": "Línea de estado que cuenta las líneas TODO, FIXME y HACK añadidas al código en esta sesión"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  todo +3 new]]"
+      ]
     }
   ],
   "hero": [

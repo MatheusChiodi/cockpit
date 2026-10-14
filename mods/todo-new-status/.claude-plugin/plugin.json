@@ -1,0 +1,17 @@
+{
+  "name": "todo-new-status",
+  "version": "0.1.0",
+  "description": "Status line counting the TODO, FIXME and HACK lines added to the code in this session",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}
