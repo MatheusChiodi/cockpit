@@ -1300,6 +1300,12 @@
       "source": "./mods/esm-guard",
       "description": "Refuses require, module.exports and __dirname in .js files of a package that declares \"type\": \"module\"",
       "category": "stack"
+    },
+    {
+      "name": "alias-import-guard",
+      "source": "./mods/alias-import-guard",
+      "description": "Refuses deep ../../ imports when tsconfig paths has an alias for the folder, and names the alias to use",
+      "category": "stack"
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "name": "alias-import-guard",
+  "version": "0.1.0",
+  "description": "Refuses deep ../../ imports when tsconfig paths has an alias for the folder, and names the alias to use",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

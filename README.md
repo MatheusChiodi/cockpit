@@ -2,7 +2,7 @@
 
 **English** · [Português](README.pt-BR.md) · [Español](README.es.md)
 
-**An instrument panel for Claude Code.** 216 mods for the terminal: 40 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
+**An instrument panel for Claude Code.** 217 mods for the terminal: 40 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
 
 ![The full Cockpit panel in a terminal](docs/cockpit.svg)
 
@@ -74,7 +74,7 @@ Slash command descriptions in the typeahead are read when a session starts, so t
 | [**Focus and notifications**](docs/catalog/focus.md) | 24 | `turn-notify` `break-reminder` `daily-streak` `error-notify` `needs-you-notify` `agent-done-notify` `long-cmd-notify` `tests-notify` `ci-notify` `pr-review-notify` `rate-limit-notify` `hydrate` `posture` `eye-rest` `stand-up` `alarms` `remind` `timebox` `session-cap` `late-night` `intent-check` `daily-target` `weekly-recap` `breathe` |
 | [**Git and GitHub**](docs/catalog/git.md) | 12 | `commit-review` `wip-commit-guard` `marker-guard` `amend-guard` `stage-guard` `git-stage` `git-fixup` `git-sync` `behind-toast` `git-switch` `git-tag` `staged-status` |
 | [**Quality**](docs/catalog/quality.md) | 12 | `untested-turn-toast` `red-turn-toast` `debugger-guard` `leftovers-toast` `any-guard` `long-file-toast` `dup-block-guard` `untested` `coverage-status` `empty-test-guard` `snapshot-update-guard` `catch-swallow-guard` |
-| [**Stacks**](docs/catalog/stack.md) | 6 | `pm-guard` `script-guard` `missing-import-guard` `client-env-guard` `next-boundary-guard` `esm-guard` |
+| [**Stacks**](docs/catalog/stack.md) | 7 | `pm-guard` `script-guard` `missing-import-guard` `client-env-guard` `next-boundary-guard` `esm-guard` `alias-import-guard` |
 | [**Context and cost**](docs/catalog/context.md) | 12 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` `heavy-calls` `tree-flood-guard` |
 
 ## Visual language

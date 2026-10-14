@@ -1,8 +1,8 @@
-# Stacks — 6 mods
+# Stacks — 7 mods
 
 [← Volver al README](../../README.es.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard)
 
 ## `pm-guard`
 
@@ -63,3 +63,13 @@ Rechaza require, module.exports y __dirname en archivos .js de un paquete que de
 ```
 
 ![esm-guard](../previews/esm-guard.svg)
+
+## `alias-import-guard`
+
+Rechaza imports profundos con ../../ cuando tsconfig paths tiene un alias para la carpeta e indica el alias.
+
+```
+/plugin install alias-import-guard@cockpit
+```
+
+![alias-import-guard](../previews/alias-import-guard.svg)
