@@ -1,8 +1,8 @@
-# Interfaz — 12 mods
+# Interfaz — 13 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane)
+[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane) · [`token-chart`](#token-chart)
 
 ## `turn-timer`
 
@@ -123,3 +123,13 @@ Status line con tiempo de sesión y número de prompts.
 ```
 
 ![agent-pane](../previews/agent-pane.svg)
+
+## `token-chart`
+
+/tokens abre un panel con los tokens de salida por turno en medidores finos proporcionales al mayor turno.
+
+```
+/plugin install token-chart@cockpit
+```
+
+![token-chart](../previews/token-chart.svg)

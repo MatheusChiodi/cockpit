@@ -1,0 +1,14 @@
+{
+  "name": "token-chart",
+  "version": "0.1.0",
+  "description": "/tokens opens a pane with output tokens per turn as thin gauges scaled to the largest turn",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

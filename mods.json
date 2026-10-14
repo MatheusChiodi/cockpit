@@ -2099,6 +2099,23 @@
         "[[ok|✓]] [[dim|completed]] [[bold|general-purpose]] [[dim|fix the failing test]]",
         "[[err|✗]] [[dim|failed   ]] [[bold|reviewer       ]] [[dim|review the diff]]"
       ]
+    },
+    {
+      "name": "token-chart",
+      "category": "interface",
+      "description": {
+        "en": "/tokens opens a pane with output tokens per turn as thin gauges scaled to the largest turn",
+        "pt": "/tokens abre um painel com os tokens de saída por turno em medidores finos proporcionais ao maior turno",
+        "es": "/tokens abre un panel con los tokens de salida por turno en medidores finos proporcionales al mayor turno"
+      },
+      "preview": [
+        "[[user|> /tokens]]",
+        "[[session|▍ ]][[bold|TOKENS]][[dim|  6.4k out  4 turns]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[dim|  #4]] [[bold|  0.8k]] [[accent|━●]][[rule|──────────────────────────]]",
+        "[[dim|  #3]] [[bold|  4.1k]] [[accent|━━━━━━━━━━━━━━━━━━━━━━━━━━━●]]",
+        "[[dim|  #2]] [[bold|  1.2k]] [[accent|━━━━━━●]][[rule|─────────────────────]]"
+      ]
     }
   ],
   "hero": [

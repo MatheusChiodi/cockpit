@@ -778,6 +778,12 @@
       "source": "./mods/agent-pane",
       "description": "/crew opens a pane with the session's subagents, their type and status, refreshed while any is running",
       "category": "interface"
+    },
+    {
+      "name": "token-chart",
+      "source": "./mods/token-chart",
+      "description": "/tokens opens a pane with output tokens per turn as thin gauges scaled to the largest turn",
+      "category": "interface"
     }
   ]
 }
