@@ -4147,6 +4147,20 @@
         "     yesterday    package.json",
         "     3 days ago   README.md"
       ]
+    },
+    {
+      "name": "symbol-def",
+      "category": "commands",
+      "description": {
+        "en": "/def finds where a function, class, type or variable is defined in the tracked files",
+        "pt": "/def acha onde uma função, classe, tipo ou variável é definida nos arquivos versionados",
+        "es": "/def encuentra dónde se define una función, clase, tipo o variable en los archivos versionados"
+      },
+      "preview": [
+        "[[user|> /def parseToken]]",
+        "[[dim|  ⎿]] src/auth/token.ts:14  export const parseToken = (raw: string) => {",
+        "     src/legacy/token.js:8  function parseToken(raw) {"
+      ]
     }
   ],
   "hero": [

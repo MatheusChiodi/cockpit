@@ -1,0 +1,13 @@
+{
+  "name": "symbol-def",
+  "version": "0.1.0",
+  "description": "/def finds where a function, class, type or variable is defined in the tracked files",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

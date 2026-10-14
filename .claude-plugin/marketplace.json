@@ -1600,6 +1600,12 @@
       "source": "./mods/recent-files",
       "description": "/recent lists the files changed most recently, with when, from the last 100 commits",
       "category": "commands"
+    },
+    {
+      "name": "symbol-def",
+      "source": "./mods/symbol-def",
+      "description": "/def finds where a function, class, type or variable is defined in the tracked files",
+      "category": "commands"
     }
   ]
 }
