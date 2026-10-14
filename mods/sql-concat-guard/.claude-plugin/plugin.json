@@ -1,0 +1,13 @@
+{
+  "name": "sql-concat-guard",
+  "version": "0.1.0",
+  "description": "Asks before an edit builds an SQL statement by joining strings or interpolating values",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

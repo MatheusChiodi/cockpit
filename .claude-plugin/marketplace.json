@@ -1426,6 +1426,12 @@
       "source": "./mods/dynamic-exec-guard",
       "description": "Asks before an edit adds eval, new Function, innerHTML or a shell command built from a variable",
       "category": "security"
+    },
+    {
+      "name": "sql-concat-guard",
+      "source": "./mods/sql-concat-guard",
+      "description": "Asks before an edit builds an SQL statement by joining strings or interpolating values",
+      "category": "security"
     }
   ]
 }

@@ -3723,6 +3723,20 @@
         "[[warn|  ⎿ dynamic-exec-guard: writes raw HTML into the page in src/view.ts.]]",
         "[[warn|    Use textContent, or sanitise it with DOMPurify first.]]"
       ]
+    },
+    {
+      "name": "sql-concat-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before an edit builds an SQL statement by joining strings or interpolating values",
+        "pt": "Pergunta antes de uma edição montar SQL juntando strings ou interpolando valores",
+        "es": "Pregunta antes de que una edición arme SQL uniendo strings o interpolando valores"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/repo.ts)",
+        "[[warn|  ⎿ sql-concat-guard: builds an SQL statement by joining strings in src/repo.ts.]]",
+        "[[warn|    Use bind parameters (? or $1) instead.]]"
+      ]
     }
   ],
   "hero": [
