@@ -1,0 +1,13 @@
+{
+  "name": "churn",
+  "version": "0.1.0",
+  "description": "/churn lists the files changed in the most commits among the last 300, lockfiles left out",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

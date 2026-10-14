@@ -1642,6 +1642,12 @@
       "source": "./mods/file-compare",
       "description": "/cmp shows how one project file differs from another, and refuses files that hold secrets",
       "category": "commands"
+    },
+    {
+      "name": "churn",
+      "source": "./mods/churn",
+      "description": "/churn lists the files changed in the most commits among the last 300, lockfiles left out",
+      "category": "commands"
     }
   ]
 }

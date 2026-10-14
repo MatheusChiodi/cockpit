@@ -4257,6 +4257,22 @@
         "     [[err|-    \"noEmit\": true]]",
         "     [[ok|+    \"outDir\": \"dist\"]]"
       ]
+    },
+    {
+      "name": "churn",
+      "category": "commands",
+      "description": {
+        "en": "/churn lists the files changed in the most commits among the last 300, lockfiles left out",
+        "pt": "/churn lista os arquivos alterados em mais commits entre os últimos 300, sem lockfiles",
+        "es": "/churn lista los archivos cambiados en más commits entre los últimos 300, sin lockfiles"
+      },
+      "preview": [
+        "[[user|> /churn 3]]",
+        "[[dim|  ⎿]] changes per file in the last 300 commits",
+        "      41  src/app.tsx",
+        "      27  src/api/client.ts",
+        "      19  package.json"
+      ]
     }
   ],
   "hero": [
