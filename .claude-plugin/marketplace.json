@@ -1366,6 +1366,12 @@
       "source": "./mods/todo-new-status",
       "description": "Status line counting the TODO, FIXME and HACK lines added to the code in this session",
       "category": "panel"
+    },
+    {
+      "name": "release-status",
+      "source": "./mods/release-status",
+      "description": "Status line with the package version, the latest tag and the commits waiting for the next release",
+      "category": "panel"
     }
   ]
 }

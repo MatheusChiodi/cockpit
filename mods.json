@@ -3569,6 +3569,22 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  todo +3 new]]"
       ]
+    },
+    {
+      "name": "release-status",
+      "category": "panel",
+      "group": "git",
+      "description": {
+        "en": "Status line with the package version, the latest tag and the commits waiting for the next release",
+        "pt": "Status line com a versão do pacote, a última tag e os commits que esperam o próximo release",
+        "es": "Línea de estado con la versión del paquete, la última tag y los commits que esperan el próximo release"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  release 1.4.0 · 12 since v1.3.0]]"
+      ]
     }
   ],
   "hero": [

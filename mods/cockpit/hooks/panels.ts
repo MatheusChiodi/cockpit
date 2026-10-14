@@ -100,6 +100,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "release-status",
+    "group": "git",
+    "description": {
+      "en": "Status line with the package version, the latest tag and the commits waiting for the next release",
+      "pt": "Status line com a versão do pacote, a última tag e os commits que esperam o próximo release",
+      "es": "Línea de estado con la versión del paquete, la última tag y los commits que esperan el próximo release"
+    }
+  },
+  {
     "name": "usage-band",
     "group": "session",
     "description": {

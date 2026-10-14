@@ -1,0 +1,17 @@
+{
+  "name": "release-status",
+  "version": "0.1.0",
+  "description": "Status line with the package version, the latest tag and the commits waiting for the next release",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}
