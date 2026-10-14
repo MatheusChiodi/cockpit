@@ -3695,6 +3695,20 @@
         "[[warn|  ⎿ hardcoded-secret-guard: adds a hardcoded password or key to src/db.ts.]]",
         "[[warn|    Read it from an environment variable or a secret store instead.]]"
       ]
+    },
+    {
+      "name": "private-host-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before an edit adds a private IP address or an internal hostname to source",
+        "pt": "Pergunta antes de uma edição adicionar IP privado ou hostname interno ao código",
+        "es": "Pregunta antes de que una edición agregue una IP privada o un hostname interno al código"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/api.ts)",
+        "[[warn|  ⎿ private-host-guard: adds a private IP address to src/api.ts.]]",
+        "[[warn|    Take it from configuration or an environment variable.]]"
+      ]
     }
   ],
   "hero": [

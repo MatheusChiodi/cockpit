@@ -1,0 +1,13 @@
+{
+  "name": "private-host-guard",
+  "version": "0.1.0",
+  "description": "Asks before an edit adds a private IP address or an internal hostname to source",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}
