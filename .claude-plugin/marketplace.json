@@ -1828,6 +1828,12 @@
       "source": "./mods/agent-cap",
       "description": "/agentcap <n> caps how many subagents run at once and asks before each one past the cap",
       "category": "context"
+    },
+    {
+      "name": "agent-straggler",
+      "source": "./mods/agent-straggler",
+      "description": "A toast when a subagent has been running more than three times as long as the ones that finished",
+      "category": "context"
     }
   ]
 }

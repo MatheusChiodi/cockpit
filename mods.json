@@ -4718,6 +4718,19 @@
         "[[tool|● Agent]](map the billing module)",
         "[[warn|  agent-cap: 3 subagents already running (cap 3). Start another?]]"
       ]
+    },
+    {
+      "name": "agent-straggler",
+      "category": "context",
+      "description": {
+        "en": "A toast when a subagent has been running more than three times as long as the ones that finished",
+        "pt": "Um toast quando um subagente roda há mais de três vezes o tempo dos que já terminaram",
+        "es": "Un toast cuando un subagente lleva más de tres veces el tiempo de los que ya terminaron"
+      },
+      "preview": [
+        "[[dim|  ⎿ 3 subagents working]]",
+        "[[toast| Subagent \"migrate the schema\" running for 7 min, others took about 2 min ]]"
+      ]
     }
   ],
   "hero": [

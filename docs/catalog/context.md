@@ -1,8 +1,8 @@
-# Context and cost — 13 mods
+# Context and cost — 14 mods
 
 [← Back to the README](../../README.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap) · [`agent-straggler`](#agent-straggler)
 
 ## `reread-guard`
 
@@ -133,3 +133,13 @@ Refuses an unfiltered find, ls -R or dir /s that would list node_modules, and su
 ```
 
 ![agent-cap](../previews/agent-cap.svg)
+
+## `agent-straggler`
+
+A toast when a subagent has been running more than three times as long as the ones that finished.
+
+```
+/plugin install agent-straggler@cockpit
+```
+
+![agent-straggler](../previews/agent-straggler.svg)

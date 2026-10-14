@@ -1,8 +1,8 @@
-# Contexto e custo — 13 mods
+# Contexto e custo — 14 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap) · [`agent-straggler`](#agent-straggler)
 
 ## `reread-guard`
 
@@ -133,3 +133,13 @@ Recusa find, ls -R ou dir /s sem filtro que listaria node_modules, e sugere git 
 ```
 
 ![agent-cap](../previews/agent-cap.svg)
+
+## `agent-straggler`
+
+Um toast quando um subagente roda há mais de três vezes o tempo dos que já terminaram.
+
+```
+/plugin install agent-straggler@cockpit
+```
+
+![agent-straggler](../previews/agent-straggler.svg)

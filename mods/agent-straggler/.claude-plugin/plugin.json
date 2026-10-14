@@ -1,0 +1,13 @@
+{
+  "name": "agent-straggler",
+  "version": "0.1.0",
+  "description": "A toast when a subagent has been running more than three times as long as the ones that finished",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}
