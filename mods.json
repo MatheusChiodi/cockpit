@@ -1306,6 +1306,23 @@
         "  Always answer in Brazilian Portuguese, with correct accents.",
         "  Technical terms, API names, commands and code identifiers stay in the original."
       ]
+    },
+    {
+      "name": "git-branch",
+      "category": "commands",
+      "description": {
+        "en": "/gb lists local branches with the current one marked, or switches to a branch and creates it when missing",
+        "pt": "/gb lista as branches locais com a atual marcada, ou troca para uma branch e a cria se não existir",
+        "es": "/gb lista las ramas locales con la actual marcada, o cambia a una rama y la crea si no existe"
+      },
+      "preview": [
+        "[[user|> /gb]]",
+        "[[dim|  dev]]",
+        "[[ok|● main]]",
+        "[[dim|  feat/login]]",
+        "[[user|> /gb feat/search]]",
+        "[[ok|Created and switched to feat/search.]]"
+      ]
     }
   ],
   "hero": [

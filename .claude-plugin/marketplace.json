@@ -484,6 +484,12 @@
       "source": "./mods/reply-language",
       "description": "Makes Claude always answer in the language set in the Cockpit hub, keeping code and commands in the original",
       "category": "prompt"
+    },
+    {
+      "name": "git-branch",
+      "source": "./mods/git-branch",
+      "description": "/gb lists local branches with the current one marked, or switches to a branch and creates it when missing",
+      "category": "commands"
     }
   ]
 }

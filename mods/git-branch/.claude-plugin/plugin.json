@@ -1,0 +1,13 @@
+{
+  "name": "git-branch",
+  "version": "0.1.0",
+  "description": "/gb lists local branches with the current one marked, or switches to a branch and creates it when missing",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
