@@ -1451,6 +1451,21 @@
         "[[dim|tests/login.test.ts]]",
         "[[dim|3 files]]"
       ]
+    },
+    {
+      "name": "last-error",
+      "category": "commands",
+      "description": {
+        "en": "/lasterr recalls the most recent shell command that failed this session and the end of its output",
+        "pt": "/lasterr lembra o último comando de shell que falhou nesta sessão e o final da sua saída",
+        "es": "/lasterr recuerda el último comando de shell que falló en esta sesión y el final de su salida"
+      },
+      "preview": [
+        "[[user|> /lasterr]]",
+        "[[err|✗ npm run build]]",
+        "[[dim|src/app.ts(12,5): error TS2322: Type 'string' is not assignable to 'number'.]]",
+        "[[dim|Found 1 error.]]"
+      ]
     }
   ],
   "hero": [

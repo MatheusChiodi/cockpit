@@ -538,6 +538,12 @@
       "source": "./mods/find-file",
       "description": "/ff lists the tracked files whose path contains a text, best matches first",
       "category": "commands"
+    },
+    {
+      "name": "last-error",
+      "source": "./mods/last-error",
+      "description": "/lasterr recalls the most recent shell command that failed this session and the end of its output",
+      "category": "commands"
     }
   ]
 }

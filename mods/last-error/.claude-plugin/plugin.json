@@ -1,0 +1,13 @@
+{
+  "name": "last-error",
+  "version": "0.1.0",
+  "description": "/lasterr recalls the most recent shell command that failed this session and the end of its output",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
