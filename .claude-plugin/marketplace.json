@@ -652,6 +652,12 @@
       "source": "./mods/long-cmd-notify",
       "description": "Sends a native notification when a shell command that ran two minutes or more finishes",
       "category": "focus"
+    },
+    {
+      "name": "tests-notify",
+      "source": "./mods/tests-notify",
+      "description": "Sends a native notification with pass or fail when a test run of 30 seconds or more finishes",
+      "category": "focus"
     }
   ]
 }

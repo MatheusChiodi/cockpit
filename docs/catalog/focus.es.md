@@ -1,8 +1,8 @@
-# Foco y notificaciones — 7 mods
+# Foco y notificaciones — 8 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify)
 
 ## `turn-notify`
 
@@ -73,3 +73,13 @@ Envía una notificación nativa cuando termina un comando de shell que corrió d
 ```
 
 ![long-cmd-notify](../previews/long-cmd-notify.svg)
+
+## `tests-notify`
+
+Envía una notificación nativa con aprobado o fallido cuando termina una ejecución de tests de 30 segundos o más.
+
+```
+/plugin install tests-notify@cockpit
+```
+
+![tests-notify](../previews/tests-notify.svg)

@@ -1,0 +1,13 @@
+{
+  "name": "tests-notify",
+  "version": "0.1.0",
+  "description": "Sends a native notification with pass or fail when a test run of 30 seconds or more finishes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

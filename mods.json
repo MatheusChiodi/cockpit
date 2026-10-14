@@ -1774,6 +1774,22 @@
         "[[tool|● Bash]](npm run build)",
         "[[dim|  ⎿ done]]"
       ]
+    },
+    {
+      "name": "tests-notify",
+      "category": "focus",
+      "description": {
+        "en": "Sends a native notification with pass or fail when a test run of 30 seconds or more finishes",
+        "pt": "Envia uma notificação nativa com passou ou falhou quando uma execução de testes de 30 segundos ou mais termina",
+        "es": "Envía una notificación nativa con aprobado o fallido cuando termina una ejecución de tests de 30 segundos o más"
+      },
+      "preview": [
+        "[[notify|Claude Code]]",
+        "[[notify|Tests failed after 48s: npm test]]",
+        "",
+        "[[tool|● Bash]](npm test)",
+        "[[err|  ⎿ 2 failed, 41 passed]]"
+      ]
     }
   ],
   "hero": [
