@@ -1576,6 +1576,12 @@
       "source": "./mods/oracle-rules",
       "description": "In Oracle projects, makes Claude write SQL that runs on Oracle 11g: ROWNUM, sequences with triggers, bind variables, MERGE",
       "category": "prompt"
+    },
+    {
+      "name": "answer-format",
+      "source": "./mods/answer-format",
+      "description": "/format sets the shape of answers (bullets, steps, table or prose) and shows it in the status line",
+      "category": "prompt"
     }
   ]
 }

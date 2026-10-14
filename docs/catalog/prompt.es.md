@@ -1,8 +1,8 @@
-# Prompt y modelo — 29 mods
+# Prompt y modelo — 30 mods
 
 [← Volver al README](../../README.es.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first) · [`verify-claims`](#verify-claims) · [`paste-fence`](#paste-fence) · [`file-mention-hint`](#file-mention-hint) · [`trace-helper`](#trace-helper) · [`branch-naming`](#branch-naming) · [`pr-style`](#pr-style) · [`a11y-rules`](#a11y-rules) · [`security-rules`](#security-rules) · [`react-rules`](#react-rules) · [`tailwind-rules`](#tailwind-rules) · [`rn-rules`](#rn-rules) · [`java-rules`](#java-rules) · [`oracle-rules`](#oracle-rules)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first) · [`verify-claims`](#verify-claims) · [`paste-fence`](#paste-fence) · [`file-mention-hint`](#file-mention-hint) · [`trace-helper`](#trace-helper) · [`branch-naming`](#branch-naming) · [`pr-style`](#pr-style) · [`a11y-rules`](#a11y-rules) · [`security-rules`](#security-rules) · [`react-rules`](#react-rules) · [`tailwind-rules`](#tailwind-rules) · [`rn-rules`](#rn-rules) · [`java-rules`](#java-rules) · [`oracle-rules`](#oracle-rules) · [`answer-format`](#answer-format)
 
 ## `concise-mode`
 
@@ -293,3 +293,13 @@ En proyectos Oracle, hace que Claude escriba SQL que corre en Oracle 11g: ROWNUM
 ```
 
 ![oracle-rules](../previews/oracle-rules.svg)
+
+## `answer-format`
+
+/format define el formato de las respuestas (bullets, steps, table o prose) y lo muestra en la línea de estado.
+
+```
+/plugin install answer-format@cockpit
+```
+
+![answer-format](../previews/answer-format.svg)

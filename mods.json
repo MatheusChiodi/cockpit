@@ -4084,6 +4084,21 @@
         "[[dim|  ROWNUM, not FETCH FIRST/LIMIT · sequence + trigger, no IDENTITY]]",
         "[[dim|  VARCHAR2 · bind variables · MERGE for upserts]]"
       ]
+    },
+    {
+      "name": "answer-format",
+      "category": "prompt",
+      "description": {
+        "en": "/format sets the shape of answers (bullets, steps, table or prose) and shows it in the status line",
+        "pt": "/format define o formato das respostas (bullets, steps, table ou prose) e mostra na linha de status",
+        "es": "/format define el formato de las respuestas (bullets, steps, table o prose) y lo muestra en la línea de estado"
+      },
+      "preview": [
+        "[[user|> ]]/format table",
+        "[[dim|  Answer format set to table (applies from the next prompt).]]",
+        "[[rule|────────────────────────────────────────]]",
+        "[[dim|  format table]]"
+      ]
     }
   ],
   "hero": [

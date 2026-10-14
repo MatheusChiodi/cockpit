@@ -1,0 +1,13 @@
+{
+  "name": "answer-format",
+  "version": "0.1.0",
+  "description": "/format sets the shape of answers (bullets, steps, table or prose) and shows it in the status line",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}
