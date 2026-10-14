@@ -4627,6 +4627,20 @@
         "  - login form",
         "[[btn| yes ]] [[btn| no ]]"
       ]
+    },
+    {
+      "name": "merged-branches",
+      "category": "git",
+      "description": {
+        "en": "/merged finds local branches already merged upstream and deletes them after asking",
+        "pt": "/merged encontra branches locais já mescladas no remoto e as apaga depois de perguntar",
+        "es": "/merged encuentra ramas locales ya fusionadas en el remoto y las elimina tras preguntar"
+      },
+      "preview": [
+        "[[user|> /merged]]",
+        "Delete 3 merged branch(es)? feat/login, fix/typo, chore/deps",
+        "[[btn| yes ]] [[btn| no ]]"
+      ]
     }
   ],
   "hero": [

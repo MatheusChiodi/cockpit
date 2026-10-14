@@ -1,0 +1,13 @@
+{
+  "name": "merged-branches",
+  "version": "0.1.0",
+  "description": "/merged finds local branches already merged upstream and deletes them after asking",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

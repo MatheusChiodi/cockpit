@@ -1,8 +1,8 @@
-# Git e GitHub — 23 mods
+# Git e GitHub — 24 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context) · [`issue-link`](#issue-link) · [`draft-nag`](#draft-nag) · [`pr-diff`](#pr-diff) · [`merge-ready`](#merge-ready) · [`release-notes`](#release-notes) · [`changelog-entry`](#changelog-entry)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context) · [`issue-link`](#issue-link) · [`draft-nag`](#draft-nag) · [`pr-diff`](#pr-diff) · [`merge-ready`](#merge-ready) · [`release-notes`](#release-notes) · [`changelog-entry`](#changelog-entry) · [`merged-branches`](#merged-branches)
 
 ## `commit-review`
 
@@ -233,3 +233,13 @@ Aviso quando um dos seus pull requests está como rascunho há três dias sem at
 ```
 
 ![changelog-entry](../previews/changelog-entry.svg)
+
+## `merged-branches`
+
+/merged encontra branches locais já mescladas no remoto e as apaga depois de perguntar.
+
+```
+/plugin install merged-branches@cockpit
+```
+
+![merged-branches](../previews/merged-branches.svg)

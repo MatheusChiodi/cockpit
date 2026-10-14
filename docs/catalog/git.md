@@ -1,8 +1,8 @@
-# Git and GitHub — 23 mods
+# Git and GitHub — 24 mods
 
 [← Back to the README](../../README.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context) · [`issue-link`](#issue-link) · [`draft-nag`](#draft-nag) · [`pr-diff`](#pr-diff) · [`merge-ready`](#merge-ready) · [`release-notes`](#release-notes) · [`changelog-entry`](#changelog-entry)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context) · [`issue-link`](#issue-link) · [`draft-nag`](#draft-nag) · [`pr-diff`](#pr-diff) · [`merge-ready`](#merge-ready) · [`release-notes`](#release-notes) · [`changelog-entry`](#changelog-entry) · [`merged-branches`](#merged-branches)
 
 ## `commit-review`
 
@@ -233,3 +233,13 @@ Toast when one of your pull requests has sat as a draft for three days without a
 ```
 
 ![changelog-entry](../previews/changelog-entry.svg)
+
+## `merged-branches`
+
+/merged finds local branches already merged upstream and deletes them after asking.
+
+```
+/plugin install merged-branches@cockpit
+```
+
+![merged-branches](../previews/merged-branches.svg)
