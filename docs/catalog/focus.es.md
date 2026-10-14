@@ -1,8 +1,8 @@
-# Foco y notificaciones — 9 mods
+# Foco y notificaciones — 10 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify)
 
 ## `turn-notify`
 
@@ -93,3 +93,13 @@ Consulta GitHub Actions cada dos minutos y avisa una vez cuando termina un workf
 ```
 
 ![ci-notify](../previews/ci-notify.svg)
+
+## `pr-review-notify`
+
+Consulta el pull request de la rama actual cada tres minutos y avisa una vez cuando cambia la decisión de revisión.
+
+```
+/plugin install pr-review-notify@cockpit
+```
+
+![pr-review-notify](../previews/pr-review-notify.svg)

@@ -1,0 +1,13 @@
+{
+  "name": "pr-review-notify",
+  "version": "0.1.0",
+  "description": "Polls the current branch's pull request every three minutes and notifies once when its review decision changes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

@@ -1807,6 +1807,23 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "pr-review-notify",
+      "category": "focus",
+      "description": {
+        "en": "Polls the current branch's pull request every three minutes and notifies once when its review decision changes",
+        "pt": "Consulta o pull request da branch atual a cada três minutos e avisa uma vez quando a decisão de revisão muda",
+        "es": "Consulta el pull request de la rama actual cada tres minutos y avisa una vez cuando cambia la decisión de revisión"
+      },
+      "preview": [
+        "[[notify|Claude Code]]",
+        "[[notify|PR #42: changes requested]]",
+        "",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [

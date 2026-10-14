@@ -664,6 +664,12 @@
       "source": "./mods/ci-notify",
       "description": "Polls GitHub Actions every two minutes and notifies once when a running workflow completes",
       "category": "focus"
+    },
+    {
+      "name": "pr-review-notify",
+      "source": "./mods/pr-review-notify",
+      "description": "Polls the current branch's pull request every three minutes and notifies once when its review decision changes",
+      "category": "focus"
     }
   ]
 }
