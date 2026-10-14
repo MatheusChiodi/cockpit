@@ -1,0 +1,13 @@
+{
+  "name": "coverage-status",
+  "version": "0.1.0",
+  "description": "Status line with the line coverage of the last report in the project, and how far it moved",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

@@ -1,8 +1,8 @@
-# Qualidade — 8 mods
+# Qualidade — 9 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status)
 
 ## `untested-turn-toast`
 
@@ -83,3 +83,13 @@ Recusa uma edição cujo código novo repete um bloco de 6 ou mais linhas que j�
 ```
 
 ![untested](../previews/untested.svg)
+
+## `coverage-status`
+
+Linha de status com a cobertura de linhas do último relatório do projeto e quanto ela mudou.
+
+```
+/plugin install coverage-status@cockpit
+```
+
+![coverage-status](../previews/coverage-status.svg)

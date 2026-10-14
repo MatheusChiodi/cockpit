@@ -1,8 +1,8 @@
-# Quality — 8 mods
+# Quality — 9 mods
 
 [← Back to the README](../../README.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status)
 
 ## `untested-turn-toast`
 
@@ -83,3 +83,13 @@ Refuses an edit whose new code repeats a block of 6 or more lines already in the
 ```
 
 ![untested](../previews/untested.svg)
+
+## `coverage-status`
+
+Status line with the line coverage of the last report in the project, and how far it moved.
+
+```
+/plugin install coverage-status@cockpit
+```
+
+![coverage-status](../previews/coverage-status.svg)

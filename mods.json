@@ -3274,6 +3274,21 @@
         "  src/cart.ts",
         "  src/discount.ts"
       ]
+    },
+    {
+      "name": "coverage-status",
+      "category": "quality",
+      "description": {
+        "en": "Status line with the line coverage of the last report in the project, and how far it moved",
+        "pt": "Linha de status com a cobertura de linhas do último relatório do projeto e quanto ela mudou",
+        "es": "Línea de estado con la cobertura de líneas del último informe del proyecto y cuánto cambió"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[dim|  cov 84% ↓2]]"
+      ]
     }
   ],
   "hero": [

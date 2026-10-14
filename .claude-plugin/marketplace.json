@@ -1240,6 +1240,12 @@
       "source": "./mods/untested",
       "description": "/untested lists the changed files that have no test file, without spending a model turn",
       "category": "quality"
+    },
+    {
+      "name": "coverage-status",
+      "source": "./mods/coverage-status",
+      "description": "Status line with the line coverage of the last report in the project, and how far it moved",
+      "category": "quality"
     }
   ]
 }
