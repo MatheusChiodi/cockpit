@@ -1,0 +1,14 @@
+{
+  "name": "deps-pane",
+  "version": "0.1.0",
+  "description": "/deps opens a pane with npm outdated as a table, major jumps in red and minor ones in amber",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

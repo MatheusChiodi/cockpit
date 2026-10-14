@@ -2274,6 +2274,24 @@
         "[[dim|  src/auth/login.ts:12  ]] validate email",
         "[[accent|HACK]] [[dim|1]]"
       ]
+    },
+    {
+      "name": "deps-pane",
+      "category": "interface",
+      "description": {
+        "en": "/deps opens a pane with npm outdated as a table, major jumps in red and minor ones in amber",
+        "pt": "/deps abre um painel com o npm outdated em tabela, saltos major em vermelho e minor em âmbar",
+        "es": "/deps abre un panel con npm outdated en tabla, saltos major en rojo y minor en ámbar"
+      },
+      "preview": [
+        "[[user|> /deps]]",
+        "[[project|▍ ]][[bold|DEPS]][[dim|  3 outdated]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[dim|package         current  wanted   latest]]",
+        "[[err|react           18.3.1   18.3.1   19.1.0]]",
+        "[[warn|vite            5.2.0    5.4.8    5.5.0]]",
+        "[[dim|typescript      5.4.2    5.4.5    5.4.5]]"
+      ]
     }
   ],
   "hero": [

@@ -838,6 +838,12 @@
       "source": "./mods/code-todo-pane",
       "description": "/codetodo opens a pane with the TODO, FIXME and HACK lines in tracked files, grouped by tag",
       "category": "interface"
+    },
+    {
+      "name": "deps-pane",
+      "source": "./mods/deps-pane",
+      "description": "/deps opens a pane with npm outdated as a table, major jumps in red and minor ones in amber",
+      "category": "interface"
     }
   ]
 }
