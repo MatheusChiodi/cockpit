@@ -1,0 +1,145 @@
+# Security — 14 mods
+
+[← Back to the README](../../README.md)
+
+[`rm-guard`](#rm-guard) · [`env-guard`](#env-guard) · [`git-guard`](#git-guard) · [`secret-scan`](#secret-scan) · [`prompt-secret-guard`](#prompt-secret-guard) · [`lockfile-guard`](#lockfile-guard) · [`path-jail`](#path-jail) · [`main-branch-guard`](#main-branch-guard) · [`generated-guard`](#generated-guard) · [`sql-guard`](#sql-guard) · [`prod-guard`](#prod-guard) · [`install-ask`](#install-ask) · [`pipe-shell-guard`](#pipe-shell-guard) · [`big-read-guard`](#big-read-guard)
+
+## `rm-guard`
+
+Blocks rm -rf and Remove-Item -Recurse on root, home and drives, plus mkfs, dd and format.
+
+```
+/plugin install rm-guard@cockpit
+```
+
+![rm-guard](../previews/rm-guard.svg)
+
+## `env-guard`
+
+Protects .env files from reading and writing (Read, Edit, Write, cat and @mention).
+
+```
+/plugin install env-guard@cockpit
+```
+
+![env-guard](../previews/env-guard.svg)
+
+## `git-guard`
+
+Blocks destructive git: push --force, reset --hard, clean -f, --no-verify, branch -D.
+
+```
+/plugin install git-guard@cockpit
+```
+
+![git-guard](../previews/git-guard.svg)
+
+## `secret-scan`
+
+Refuses Write/Edit whose content carries API keys, tokens or private keys.
+
+```
+/plugin install secret-scan@cockpit
+```
+
+![secret-scan](../previews/secret-scan.svg)
+
+## `prompt-secret-guard`
+
+Stops prompts that contain secrets pasted by mistake from being sent.
+
+```
+/plugin install prompt-secret-guard@cockpit
+```
+
+![prompt-secret-guard](../previews/prompt-secret-guard.svg)
+
+## `lockfile-guard`
+
+Prevents hand edits to lockfiles (package-lock, yarn.lock, pnpm-lock, Cargo.lock...).
+
+```
+/plugin install lockfile-guard@cockpit
+```
+
+![lockfile-guard](../previews/lockfile-guard.svg)
+
+## `path-jail`
+
+Restricts Write/Edit to the project root, the temp folder and ~/.claude (resolves symlinks).
+
+```
+/plugin install path-jail@cockpit
+```
+
+![path-jail](../previews/path-jail.svg)
+
+## `main-branch-guard`
+
+Refuses commit, push, merge and rebase while the current branch is main/master.
+
+```
+/plugin install main-branch-guard@cockpit
+```
+
+![main-branch-guard](../previews/main-branch-guard.svg)
+
+## `generated-guard`
+
+Prevents edits in node_modules, dist, build, .next, coverage, .git and the like.
+
+```
+/plugin install generated-guard@cockpit
+```
+
+![generated-guard](../previews/generated-guard.svg)
+
+## `sql-guard`
+
+Blocks DROP, TRUNCATE and DELETE/UPDATE without WHERE in shell commands.
+
+```
+/plugin install sql-guard@cockpit
+```
+
+![sql-guard](../previews/sql-guard.svg)
+
+## `prod-guard`
+
+Requires your confirmation for deploys, publishes, terraform apply, kubectl and migrations.
+
+```
+/plugin install prod-guard@cockpit
+```
+
+![prod-guard](../previews/prod-guard.svg)
+
+## `install-ask`
+
+Requires your confirmation whenever Claude is about to install a new dependency.
+
+```
+/plugin install install-ask@cockpit
+```
+
+![install-ask](../previews/install-ask.svg)
+
+## `pipe-shell-guard`
+
+Blocks curl | sh, wget | bash, iwr | iex and variants.
+
+```
+/plugin install pipe-shell-guard@cockpit
+```
+
+![pipe-shell-guard](../previews/pipe-shell-guard.svg)
+
+## `big-read-guard`
+
+Refuses reading a file over 512 KB whole and asks for a slice.
+
+```
+/plugin install big-read-guard@cockpit
+```
+
+![big-read-guard](../previews/big-read-guard.svg)

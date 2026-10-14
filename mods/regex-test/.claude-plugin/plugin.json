@@ -1,0 +1,13 @@
+{
+  "name": "regex-test",
+  "version": "0.1.0",
+  "description": "/re tests a regular expression on a text and lists each match with its position and capture groups",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

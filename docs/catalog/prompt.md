@@ -1,0 +1,85 @@
+# Prompt and model — 8 mods
+
+[← Back to the README](../../README.md)
+
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language)
+
+## `concise-mode`
+
+/concise turns on short, direct answers, with no introduction or recap.
+
+```
+/plugin install concise-mode@cockpit
+```
+
+![concise-mode](../previews/concise-mode.svg)
+
+## `persona`
+
+/persona changes Claude's voice: mentor, senior, rubberduck, pirata, yoda, zen.
+
+```
+/plugin install persona@cockpit
+```
+
+![persona](../previews/persona.svg)
+
+## `prompt-shortcuts`
+
+Shortcuts ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit become full prompts.
+
+```
+/plugin install prompt-shortcuts@cockpit
+```
+
+![prompt-shortcuts](../previews/prompt-shortcuts.svg)
+
+## `tldr`
+
+Adds a 2-sentence TL;DR (via haiku) below long answers.
+
+```
+/plugin install tldr@cockpit
+```
+
+![tldr](../previews/tldr.svg)
+
+## `git-context`
+
+Attaches the git state (branch and changed files) to every prompt as hidden context.
+
+```
+/plugin install git-context@cockpit
+```
+
+![git-context](../previews/git-context.svg)
+
+## `stack-context`
+
+Detects the project stack (package.json, pom.xml...) and tells Claude in the system prompt.
+
+```
+/plugin install stack-context@cockpit
+```
+
+![stack-context](../previews/stack-context.svg)
+
+## `commit-style`
+
+Makes Claude write short, imperative Conventional Commits.
+
+```
+/plugin install commit-style@cockpit
+```
+
+![commit-style](../previews/commit-style.svg)
+
+## `reply-language`
+
+Makes Claude always answer in the language set in the Cockpit hub, keeping code and commands in the original.
+
+```
+/plugin install reply-language@cockpit
+```
+
+![reply-language](../previews/reply-language.svg)

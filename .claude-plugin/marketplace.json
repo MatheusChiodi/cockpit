@@ -598,6 +598,12 @@
       "source": "./mods/color-tool",
       "description": "/color converts a color between hex, rgb and hsl and reports its WCAG contrast on white and black",
       "category": "commands"
+    },
+    {
+      "name": "regex-test",
+      "source": "./mods/regex-test",
+      "description": "/re tests a regular expression on a text and lists each match with its position and capture groups",
+      "category": "commands"
     }
   ]
 }

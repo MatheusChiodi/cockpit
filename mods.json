@@ -1608,6 +1608,23 @@
         "vs white  2.39:1  fail",
         "vs black  8.77:1  AAA"
       ]
+    },
+    {
+      "name": "regex-test",
+      "category": "commands",
+      "description": {
+        "en": "/re tests a regular expression on a text and lists each match with its position and capture groups",
+        "pt": "/re testa uma expressão regular num texto e lista cada ocorrência com posição e grupos de captura",
+        "es": "/re prueba una expresión regular en un texto y lista cada coincidencia con su posición y grupos de captura"
+      },
+      "preview": [
+        "[[user|> /re /(\\d+)-(\\w+)/ order 12-ab 7-cd]]",
+        "/(\\d+)-(\\w+)/  2 match(es)",
+        "#1  @6  \"12-ab\"",
+        "      $1  \"12\"",
+        "      $2  \"ab\"",
+        "#2  @12  \"7-cd\""
+      ]
     }
   ],
   "hero": [
