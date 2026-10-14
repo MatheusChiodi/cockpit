@@ -826,6 +826,12 @@
       "source": "./mods/branch-pane",
       "description": "/branches opens a pane with the local branches, the current one marked, ahead and behind and the age of the last commit",
       "category": "interface"
+    },
+    {
+      "name": "stash-pane",
+      "source": "./mods/stash-pane",
+      "description": "/stashes opens a pane with the stash list: index, branch, message and how old each one is",
+      "category": "interface"
     }
   ]
 }

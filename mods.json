@@ -2239,6 +2239,22 @@
         "[[dim|  main                ↑0 ↓3  4d]]",
         "[[dim|  fix/typo            no upstream  3w]]"
       ]
+    },
+    {
+      "name": "stash-pane",
+      "category": "interface",
+      "description": {
+        "en": "/stashes opens a pane with the stash list: index, branch, message and how old each one is",
+        "pt": "/stashes abre um painel com a lista de stashes: índice, branch, mensagem e a idade de cada um",
+        "es": "/stashes abre un panel con la lista de stashes: índice, rama, mensaje y la edad de cada uno"
+      },
+      "preview": [
+        "[[user|> /stashes]]",
+        "[[git|▍ ]][[bold|STASHES]][[dim|  2 saved]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[bold|0]] [[dim|feat/login  ]] wip login form  [[dim|3h]]",
+        "[[bold|1]] [[dim|main        ]] try new cache  [[dim|6d]]"
+      ]
     }
   ],
   "hero": [

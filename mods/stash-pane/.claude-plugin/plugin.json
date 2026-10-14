@@ -1,0 +1,14 @@
+{
+  "name": "stash-pane",
+  "version": "0.1.0",
+  "description": "/stashes opens a pane with the stash list: index, branch, message and how old each one is",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}
