@@ -1,0 +1,13 @@
+{
+  "name": "stand-up",
+  "version": "0.1.0",
+  "description": "Toast after two hours of use without a 10 minute break: stand up and walk",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

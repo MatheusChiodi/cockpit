@@ -1883,6 +1883,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
+    },
+    {
+      "name": "stand-up",
+      "category": "focus",
+      "description": {
+        "en": "Toast after two hours of use without a 10 minute break: stand up and walk",
+        "pt": "Toast após duas horas de uso sem uma pausa de 10 minutos: levante e ande um pouco",
+        "es": "Toast tras dos horas de uso sin una pausa de 10 minutos: levántate y camina un poco"
+      },
+      "preview": [
+        "[[toast| stand-up  Two hours without a break. Stand up and walk a little. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
     }
   ],
   "hero": [

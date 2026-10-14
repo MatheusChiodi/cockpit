@@ -694,6 +694,12 @@
       "source": "./mods/eye-rest",
       "description": "The 20-20-20 rule: every 20 minutes of use, look 20 feet away for 20 seconds",
       "category": "focus"
+    },
+    {
+      "name": "stand-up",
+      "source": "./mods/stand-up",
+      "description": "Toast after two hours of use without a 10 minute break: stand up and walk",
+      "category": "focus"
     }
   ]
 }

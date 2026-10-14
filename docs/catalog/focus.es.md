@@ -1,8 +1,8 @@
-# Foco y notificaciones — 14 mods
+# Foco y notificaciones — 15 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture) · [`eye-rest`](#eye-rest)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture) · [`eye-rest`](#eye-rest) · [`stand-up`](#stand-up)
 
 ## `turn-notify`
 
@@ -143,3 +143,13 @@ Regla 20-20-20: cada 20 minutos de uso, mira a 6 metros de distancia durante 20 
 ```
 
 ![eye-rest](../previews/eye-rest.svg)
+
+## `stand-up`
+
+Toast tras dos horas de uso sin una pausa de 10 minutos: levántate y camina un poco.
+
+```
+/plugin install stand-up@cockpit
+```
+
+![stand-up](../previews/stand-up.svg)
