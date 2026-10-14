@@ -3912,6 +3912,21 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "push-reminder",
+      "category": "focus",
+      "description": {
+        "en": "Shows a toast when the branch has been three or more commits ahead of its upstream for an hour",
+        "pt": "Mostra um aviso quando a branch está três ou mais commits à frente do upstream há uma hora",
+        "es": "Muestra un aviso cuando la rama lleva una hora con tres o más commits por delante del upstream"
+      },
+      "preview": [
+        "[[toast| 4 commits not pushed for over an hour ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [

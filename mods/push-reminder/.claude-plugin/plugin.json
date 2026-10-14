@@ -1,0 +1,13 @@
+{
+  "name": "push-reminder",
+  "version": "0.1.0",
+  "description": "Shows a toast when the branch has been three or more commits ahead of its upstream for an hour",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

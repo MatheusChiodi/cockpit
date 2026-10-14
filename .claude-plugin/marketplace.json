@@ -1504,6 +1504,12 @@
       "source": "./mods/milestone-toast",
       "description": "Shows a toast when the session reaches 10, 25, 50 and 100 prompts",
       "category": "focus"
+    },
+    {
+      "name": "push-reminder",
+      "source": "./mods/push-reminder",
+      "description": "Shows a toast when the branch has been three or more commits ahead of its upstream for an hour",
+      "category": "focus"
     }
   ]
 }
