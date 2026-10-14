@@ -1,0 +1,13 @@
+{
+  "name": "os-context",
+  "version": "0.1.0",
+  "description": "Tells Claude your operating system, shell and installed node, python, java and git versions",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

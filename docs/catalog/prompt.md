@@ -1,8 +1,8 @@
-# Prompt and model — 9 mods
+# Prompt and model — 10 mods
 
 [← Back to the README](../../README.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context)
 
 ## `concise-mode`
 
@@ -93,3 +93,13 @@ Every prompt carries the current local date, weekday, time and UTC offset so rel
 ```
 
 ![time-context](../previews/time-context.svg)
+
+## `os-context`
+
+Tells Claude your operating system, shell and installed node, python, java and git versions.
+
+```
+/plugin install os-context@cockpit
+```
+
+![os-context](../previews/os-context.svg)

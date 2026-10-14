@@ -2403,6 +2403,22 @@
         "",
         "[[accent|●]] Last Friday was 2026-10-09."
       ]
+    },
+    {
+      "name": "os-context",
+      "category": "prompt",
+      "description": {
+        "en": "Tells Claude your operating system, shell and installed node, python, java and git versions",
+        "pt": "Informa ao Claude seu sistema operacional, shell e as versões instaladas de node, python, java e git",
+        "es": "Informa a Claude tu sistema operativo, shell y las versiones instaladas de node, python, java y git"
+      },
+      "preview": [
+        "[[dim|# Environment]]",
+        "[[dim|OS: Windows]]",
+        "[[dim|Shell: cmd.exe]]",
+        "[[dim|Installed: node 22.4.0, python 3.12.1, git 2.45.1]]",
+        "[[dim|Write commands for this OS and shell.]]"
+      ]
     }
   ],
   "hero": [

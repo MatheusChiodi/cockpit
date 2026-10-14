@@ -886,6 +886,12 @@
       "source": "./mods/time-context",
       "description": "Every prompt carries the current local date, weekday, time and UTC offset so relative dates resolve right",
       "category": "prompt"
+    },
+    {
+      "name": "os-context",
+      "source": "./mods/os-context",
+      "description": "Tells Claude your operating system, shell and installed node, python, java and git versions",
+      "category": "prompt"
     }
   ]
 }

@@ -1,8 +1,8 @@
-# Prompt e modelo — 9 mods
+# Prompt e modelo — 10 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context)
 
 ## `concise-mode`
 
@@ -93,3 +93,13 @@ Todo prompt leva a data, o dia da semana, a hora e o fuso locais para as datas r
 ```
 
 ![time-context](../previews/time-context.svg)
+
+## `os-context`
+
+Informa ao Claude seu sistema operacional, shell e as versões instaladas de node, python, java e git.
+
+```
+/plugin install os-context@cockpit
+```
+
+![os-context](../previews/os-context.svg)
