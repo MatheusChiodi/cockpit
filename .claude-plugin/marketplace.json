@@ -868,6 +868,12 @@
       "source": "./mods/slow-toast",
       "description": "A toast when a shell command took a minute or more, with the command and how long it ran",
       "category": "interface"
+    },
+    {
+      "name": "deny-toast",
+      "source": "./mods/deny-toast",
+      "description": "A toast whenever a tool call is refused, naming the tool and the first line of the reason",
+      "category": "interface"
     }
   ]
 }

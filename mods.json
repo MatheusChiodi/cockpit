@@ -2360,6 +2360,20 @@
         "[[dim|  ⎿ done]]",
         "[[toast| slow command: npm run build took 1m 12s ]]"
       ]
+    },
+    {
+      "name": "deny-toast",
+      "category": "interface",
+      "description": {
+        "en": "A toast whenever a tool call is refused, naming the tool and the first line of the reason",
+        "pt": "Um aviso sempre que uma chamada de ferramenta é recusada, com o nome da ferramenta e a primeira linha do motivo",
+        "es": "Un aviso cada vez que se rechaza una llamada a una herramienta, con el nombre de la herramienta y la primera línea del motivo"
+      },
+      "preview": [
+        "[[tool|● Bash]](rm -rf ~/)",
+        "[[err|  ⎿ rm-guard blocked the command: recursively deleting \"~/\".]]",
+        "[[toast| Bash refused: rm-guard blocked the command ]]"
+      ]
     }
   ],
   "hero": [
