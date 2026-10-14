@@ -1,8 +1,8 @@
-# Qualidade — 9 mods
+# Qualidade — 10 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status) · [`empty-test-guard`](#empty-test-guard)
 
 ## `untested-turn-toast`
 
@@ -93,3 +93,13 @@ Linha de status com a cobertura de linhas do último relatório do projeto e qua
 ```
 
 ![coverage-status](../previews/coverage-status.svg)
+
+## `empty-test-guard`
+
+Recusa uma edição em arquivo de teste que adiciona casos de teste sem nenhuma asserção.
+
+```
+/plugin install empty-test-guard@cockpit
+```
+
+![empty-test-guard](../previews/empty-test-guard.svg)

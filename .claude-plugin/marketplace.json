@@ -1246,6 +1246,12 @@
       "source": "./mods/coverage-status",
       "description": "Status line with the line coverage of the last report in the project, and how far it moved",
       "category": "quality"
+    },
+    {
+      "name": "empty-test-guard",
+      "source": "./mods/empty-test-guard",
+      "description": "Refuses a test file edit that adds test cases with no assertion in them",
+      "category": "quality"
     }
   ]
 }

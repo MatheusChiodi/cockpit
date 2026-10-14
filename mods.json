@@ -3289,6 +3289,19 @@
         "[[rule|────────────────────────────────────────────────────────]]",
         "[[dim|  cov 84% ↓2]]"
       ]
+    },
+    {
+      "name": "empty-test-guard",
+      "category": "quality",
+      "description": {
+        "en": "Refuses a test file edit that adds test cases with no assertion in them",
+        "pt": "Recusa uma edição em arquivo de teste que adiciona casos de teste sem nenhuma asserção",
+        "es": "Rechaza una edición en un archivo de test que añade casos de test sin ninguna aserción"
+      },
+      "preview": [
+        "[[tool|● Write]](src/cart.test.ts)",
+        "[[err|  ⎿ empty-test-guard blocked the edit: it adds test cases with no assertion.]]"
+      ]
     }
   ],
   "hero": [
