@@ -550,6 +550,12 @@
       "source": "./mods/env-check",
       "description": "/envcheck compares the keys of .env.example with .env and lists the missing and extra ones, never a value",
       "category": "commands"
+    },
+    {
+      "name": "outdated",
+      "source": "./mods/outdated",
+      "description": "/outdated shows npm outdated as an aligned table and counts the major version jumps",
+      "category": "commands"
     }
   ]
 }

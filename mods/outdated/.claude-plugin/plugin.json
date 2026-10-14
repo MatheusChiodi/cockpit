@@ -1,0 +1,13 @@
+{
+  "name": "outdated",
+  "version": "0.1.0",
+  "description": "/outdated shows npm outdated as an aligned table and counts the major version jumps",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

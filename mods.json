@@ -1483,6 +1483,22 @@
         "[[warn|Not in .env.example]]",
         "[[dim|  DEBUG_SQL]]"
       ]
+    },
+    {
+      "name": "outdated",
+      "category": "commands",
+      "description": {
+        "en": "/outdated shows npm outdated as an aligned table and counts the major version jumps",
+        "pt": "/outdated mostra o npm outdated como tabela alinhada e conta os saltos de versão maior",
+        "es": "/outdated muestra npm outdated como tabla alineada y cuenta los saltos de versión mayor"
+      },
+      "preview": [
+        "[[user|> /outdated]]",
+        "[[dim|package      current  wanted  latest]]",
+        "react        18.2.0   18.3.1  19.1.0",
+        "typescript   5.4.5    5.4.5   5.6.2",
+        "[[warn|2 outdated, 1 major jump]]"
+      ]
     }
   ],
   "hero": [
