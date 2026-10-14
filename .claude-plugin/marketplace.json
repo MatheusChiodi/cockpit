@@ -958,6 +958,12 @@
       "source": "./mods/sudo-guard",
       "description": "Blocks privilege elevation: sudo, doas, su -c, runas and Start-Process -Verb RunAs",
       "category": "security"
+    },
+    {
+      "name": "chmod-guard",
+      "source": "./mods/chmod-guard",
+      "description": "Blocks world-writable permissions, recursive chown on root or home, and icacls grants to Everyone",
+      "category": "security"
     }
   ]
 }

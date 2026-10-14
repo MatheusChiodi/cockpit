@@ -2593,6 +2593,20 @@
         "[[err|  ⎿ sudo-guard blocked the command: privilege elevation (sudo, doas).]]",
         "[[err|    Run it without elevation, or ask the user to run it by hand.]]"
       ]
+    },
+    {
+      "name": "chmod-guard",
+      "category": "security",
+      "description": {
+        "en": "Blocks world-writable permissions, recursive chown on root or home, and icacls grants to Everyone",
+        "pt": "Bloqueia permissões graváveis por todos, chown recursivo em raiz ou home e icacls para Everyone",
+        "es": "Bloquea permisos de escritura para todos, chown recursivo en raíz o home e icacls para Everyone"
+      },
+      "preview": [
+        "[[tool|● Bash]](chmod -R 777 ./app)",
+        "[[err|  ⎿ chmod-guard blocked the command: making files world-writable (chmod 777).]]",
+        "[[err|    Use a narrower mode such as 755 or 644.]]"
+      ]
     }
   ],
   "hero": [

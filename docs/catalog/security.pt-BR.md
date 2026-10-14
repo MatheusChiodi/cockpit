@@ -1,8 +1,8 @@
-# Segurança — 15 mods
+# Segurança — 16 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`rm-guard`](#rm-guard) · [`env-guard`](#env-guard) · [`git-guard`](#git-guard) · [`secret-scan`](#secret-scan) · [`prompt-secret-guard`](#prompt-secret-guard) · [`lockfile-guard`](#lockfile-guard) · [`path-jail`](#path-jail) · [`main-branch-guard`](#main-branch-guard) · [`generated-guard`](#generated-guard) · [`sql-guard`](#sql-guard) · [`prod-guard`](#prod-guard) · [`install-ask`](#install-ask) · [`pipe-shell-guard`](#pipe-shell-guard) · [`big-read-guard`](#big-read-guard) · [`sudo-guard`](#sudo-guard)
+[`rm-guard`](#rm-guard) · [`env-guard`](#env-guard) · [`git-guard`](#git-guard) · [`secret-scan`](#secret-scan) · [`prompt-secret-guard`](#prompt-secret-guard) · [`lockfile-guard`](#lockfile-guard) · [`path-jail`](#path-jail) · [`main-branch-guard`](#main-branch-guard) · [`generated-guard`](#generated-guard) · [`sql-guard`](#sql-guard) · [`prod-guard`](#prod-guard) · [`install-ask`](#install-ask) · [`pipe-shell-guard`](#pipe-shell-guard) · [`big-read-guard`](#big-read-guard) · [`sudo-guard`](#sudo-guard) · [`chmod-guard`](#chmod-guard)
 
 ## `rm-guard`
 
@@ -153,3 +153,13 @@ Bloqueia elevação de privilégio: sudo, doas, su -c, runas e Start-Process -Ve
 ```
 
 ![sudo-guard](../previews/sudo-guard.svg)
+
+## `chmod-guard`
+
+Bloqueia permissões graváveis por todos, chown recursivo em raiz ou home e icacls para Everyone.
+
+```
+/plugin install chmod-guard@cockpit
+```
+
+![chmod-guard](../previews/chmod-guard.svg)

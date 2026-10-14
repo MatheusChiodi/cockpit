@@ -1,0 +1,13 @@
+{
+  "name": "chmod-guard",
+  "version": "0.1.0",
+  "description": "Blocks world-writable permissions, recursive chown on root or home, and icacls grants to Everyone",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}
