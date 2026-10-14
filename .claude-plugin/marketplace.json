@@ -910,6 +910,12 @@
       "source": "./mods/plan-first",
       "description": "/plan-first makes Claude list the files and the order before editing a change that spans more than two files",
       "category": "prompt"
+    },
+    {
+      "name": "no-comments",
+      "source": "./mods/no-comments",
+      "description": "Keeps comments that restate the code, banners and commented-out code out; only the why stays",
+      "category": "prompt"
     }
   ]
 }

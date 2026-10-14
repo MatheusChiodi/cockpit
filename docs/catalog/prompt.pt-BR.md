@@ -1,8 +1,8 @@
-# Prompt e modelo — 13 mods
+# Prompt e modelo — 14 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments)
 
 ## `concise-mode`
 
@@ -133,3 +133,13 @@ Informa ao Claude seu sistema operacional, shell e as versões instaladas de nod
 ```
 
 ![plan-first](../previews/plan-first.svg)
+
+## `no-comments`
+
+Tira do código comentários que repetem o código, banners e código comentado; fica só o porquê.
+
+```
+/plugin install no-comments@cockpit
+```
+
+![no-comments](../previews/no-comments.svg)

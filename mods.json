@@ -2473,6 +2473,21 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  plan]]"
       ]
+    },
+    {
+      "name": "no-comments",
+      "category": "prompt",
+      "description": {
+        "en": "Keeps comments that restate the code, banners and commented-out code out; only the why stays",
+        "pt": "Tira do código comentários que repetem o código, banners e código comentado; fica só o porquê",
+        "es": "Saca del código los comentarios que repiten el código, banners y código comentado; solo queda el porqué"
+      },
+      "preview": [
+        "[[dim|# Comments]]",
+        "[[dim|Do not write a comment that restates the code.]]",
+        "[[dim|No banner or divider comments. No commented-out code.]]",
+        "[[dim|Keep a comment only when it explains why.]]"
+      ]
     }
   ],
   "hero": [

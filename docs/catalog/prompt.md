@@ -1,8 +1,8 @@
-# Prompt and model — 13 mods
+# Prompt and model — 14 mods
 
 [← Back to the README](../../README.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments)
 
 ## `concise-mode`
 
@@ -133,3 +133,13 @@ Tells Claude your operating system, shell and installed node, python, java and g
 ```
 
 ![plan-first](../previews/plan-first.svg)
+
+## `no-comments`
+
+Keeps comments that restate the code, banners and commented-out code out; only the why stays.
+
+```
+/plugin install no-comments@cockpit
+```
+
+![no-comments](../previews/no-comments.svg)

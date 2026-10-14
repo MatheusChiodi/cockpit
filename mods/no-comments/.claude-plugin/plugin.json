@@ -1,0 +1,13 @@
+{
+  "name": "no-comments",
+  "version": "0.1.0",
+  "description": "Keeps comments that restate the code, banners and commented-out code out; only the why stays",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}
