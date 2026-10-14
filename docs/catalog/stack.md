@@ -1,8 +1,8 @@
-# Stacks — 7 mods
+# Stacks — 8 mods
 
 [← Back to the README](../../README.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard) · [`dev-server-guard`](#dev-server-guard)
 
 ## `pm-guard`
 
@@ -73,3 +73,13 @@ Refuses deep ../../ imports when tsconfig paths has an alias for the folder, and
 ```
 
 ![alias-import-guard](../previews/alias-import-guard.svg)
+
+## `dev-server-guard`
+
+Asks before npm run dev, next dev or vite starts while something already answers on that dev server's port.
+
+```
+/plugin install dev-server-guard@cockpit
+```
+
+![dev-server-guard](../previews/dev-server-guard.svg)

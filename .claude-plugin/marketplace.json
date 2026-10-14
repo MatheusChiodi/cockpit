@@ -1306,6 +1306,12 @@
       "source": "./mods/alias-import-guard",
       "description": "Refuses deep ../../ imports when tsconfig paths has an alias for the folder, and names the alias to use",
       "category": "stack"
+    },
+    {
+      "name": "dev-server-guard",
+      "source": "./mods/dev-server-guard",
+      "description": "Asks before npm run dev, next dev or vite starts while something already answers on that dev server's port",
+      "category": "stack"
     }
   ]
 }

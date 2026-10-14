@@ -1,0 +1,13 @@
+{
+  "name": "dev-server-guard",
+  "version": "0.1.0",
+  "description": "Asks before npm run dev, next dev or vite starts while something already answers on that dev server's port",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

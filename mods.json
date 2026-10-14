@@ -3420,6 +3420,19 @@
         "[[tool|● Edit]](src/features/cart/Cart.tsx)",
         "[[err|  ⎿ alias-import-guard: \"../../../lib/db\" -> import \"@/lib/db\" (tsconfig paths).]]"
       ]
+    },
+    {
+      "name": "dev-server-guard",
+      "category": "stack",
+      "description": {
+        "en": "Asks before npm run dev, next dev or vite starts while something already answers on that dev server's port",
+        "pt": "Pergunta antes de npm run dev, next dev ou vite subir quando algo já responde na porta daquele servidor de desenvolvimento",
+        "es": "Pregunta antes de que npm run dev, next dev o vite arranque cuando algo ya responde en el puerto de ese servidor de desarrollo"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm run dev)",
+        "[[warn|  ⎿ dev-server-guard: something already answers on :5173. Start another one?]]"
+      ]
     }
   ],
   "hero": [
