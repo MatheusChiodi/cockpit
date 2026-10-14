@@ -4477,6 +4477,21 @@
         "Open a pull request \"Login form\" into main with 2 commit(s)?",
         "[[btn| yes ]] [[btn| as draft ]] [[btn| no ]]"
       ]
+    },
+    {
+      "name": "pr-checks",
+      "category": "git",
+      "description": {
+        "en": "/checks shows the checks of the current pull request and which ones failed, with their links",
+        "pt": "/checks mostra os checks do pull request atual e quais falharam, com os links",
+        "es": "/checks muestra los checks del pull request actual y cuáles fallaron, con sus enlaces"
+      },
+      "preview": [
+        "[[user|> /checks]]",
+        "PR #42  [[ok|✓ 5 passed]]  [[err|✗ 1 failed]]  [[warn|… 1 running]]",
+        "[[err|  ✗ unit-tests]]  [[dim|https://github.com/o/r/actions/runs/91]]",
+        "[[warn|  … e2e]]"
+      ]
     }
   ],
   "hero": [

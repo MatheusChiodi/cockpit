@@ -1732,6 +1732,12 @@
       "source": "./mods/pr-open",
       "description": "/prnew opens a pull request from the current branch with a title and body built from its commits, after asking",
       "category": "git"
+    },
+    {
+      "name": "pr-checks",
+      "source": "./mods/pr-checks",
+      "description": "/checks shows the checks of the current pull request and which ones failed, with their links",
+      "category": "git"
     }
   ]
 }

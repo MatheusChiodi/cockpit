@@ -1,0 +1,13 @@
+{
+  "name": "pr-checks",
+  "version": "0.1.0",
+  "description": "/checks shows the checks of the current pull request and which ones failed, with their links",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}
