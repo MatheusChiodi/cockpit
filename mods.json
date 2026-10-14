@@ -2710,6 +2710,19 @@
         "[[warn|  ⎿ persistence-guard: creating a Windows scheduled task. Confirm before running.]]",
         "[[btn| Yes ]] [[btn| No ]]"
       ]
+    },
+    {
+      "name": "dotfile-guard",
+      "category": "security",
+      "description": {
+        "en": "Blocks edits to your shell and tool profiles: .bashrc, .zshrc, .gitconfig, .ssh/config and the PowerShell profile",
+        "pt": "Bloqueia edições nos seus perfis de shell e ferramentas: .bashrc, .zshrc, .gitconfig, .ssh/config e o perfil do PowerShell",
+        "es": "Bloquea ediciones en tus perfiles de shell y herramientas: .bashrc, .zshrc, .gitconfig, .ssh/config y el perfil de PowerShell"
+      },
+      "preview": [
+        "[[tool|● Edit]](~/.zshrc)",
+        "[[err|  ⎿ dotfile-guard blocked the edit: ~/.zshrc is a personal profile outside the project.]]"
+      ]
     }
   ],
   "hero": [

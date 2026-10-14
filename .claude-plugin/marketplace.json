@@ -1006,6 +1006,12 @@
       "source": "./mods/persistence-guard",
       "description": "Asks before a command that makes something run on its own later: cron, schtasks, systemd, launchd or a Startup folder",
       "category": "security"
+    },
+    {
+      "name": "dotfile-guard",
+      "source": "./mods/dotfile-guard",
+      "description": "Blocks edits to your shell and tool profiles: .bashrc, .zshrc, .gitconfig, .ssh/config and the PowerShell profile",
+      "category": "security"
     }
   ]
 }

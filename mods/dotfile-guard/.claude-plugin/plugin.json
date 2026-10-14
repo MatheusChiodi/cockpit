@@ -1,0 +1,13 @@
+{
+  "name": "dotfile-guard",
+  "version": "0.1.0",
+  "description": "Blocks edits to your shell and tool profiles: .bashrc, .zshrc, .gitconfig, .ssh/config and the PowerShell profile",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}
