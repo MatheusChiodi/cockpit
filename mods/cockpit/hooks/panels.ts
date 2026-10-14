@@ -388,6 +388,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "env-ignore-status",
+    "group": "project",
+    "description": {
+      "en": "Status line that warns when a .env file is tracked by git or missing from .gitignore",
+      "pt": "Status line que avisa quando um arquivo .env está rastreado pelo git ou fora do .gitignore",
+      "es": "Línea de estado que avisa cuando un archivo .env está rastreado por git o fuera de .gitignore"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {

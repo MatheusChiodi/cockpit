@@ -1396,6 +1396,12 @@
       "source": "./mods/migration-status",
       "description": "Status line with the migration files created and not yet committed, ready to apply",
       "category": "panel"
+    },
+    {
+      "name": "env-ignore-status",
+      "source": "./mods/env-ignore-status",
+      "description": "Status line that warns when a .env file is tracked by git or missing from .gitignore",
+      "category": "panel"
     }
   ]
 }

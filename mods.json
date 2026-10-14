@@ -3649,6 +3649,22 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  migrations 2 new]]"
       ]
+    },
+    {
+      "name": "env-ignore-status",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "en": "Status line that warns when a .env file is tracked by git or missing from .gitignore",
+        "pt": "Status line que avisa quando um arquivo .env está rastreado pelo git ou fora do .gitignore",
+        "es": "Línea de estado que avisa cuando un archivo .env está rastreado por git o fuera de .gitignore"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  env ✗ .env not ignored]]"
+      ]
     }
   ],
   "hero": [
