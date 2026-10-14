@@ -4289,6 +4289,21 @@
         "      2  src/App.tsx",
         "     [[dim|19 matches in 3 files]]"
       ]
+    },
+    {
+      "name": "topic-switch",
+      "category": "focus",
+      "description": {
+        "en": "Toast when a prompt shares nothing with the work in progress after several edits, before a second task mixes into the first",
+        "pt": "Toast quando um prompt não tem nada em comum com o trabalho em andamento depois de várias edições, antes que uma segunda tarefa se misture à primeira",
+        "es": "Toast cuando un prompt no comparte nada con el trabajo en curso tras varias ediciones, antes de que una segunda tarea se mezcle con la primera"
+      },
+      "preview": [
+        "[[user|> also rename the invoice export columns for finance]]",
+        "[[toast| topic-switch  New subject with 4 files in flight. Park it, or commit first? ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [
