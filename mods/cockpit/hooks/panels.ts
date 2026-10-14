@@ -361,6 +361,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "install-status",
+    "group": "project",
+    "description": {
+      "en": "Status line that warns when node_modules is missing or older than the lockfile",
+      "pt": "Status line que avisa quando o node_modules não existe ou está mais velho que o lockfile",
+      "es": "Línea de estado que avisa cuando node_modules no existe o es más viejo que el lockfile"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {
