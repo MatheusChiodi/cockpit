@@ -2222,6 +2222,23 @@
         "[[dim|a1b2c3d  Add login form  2h]]",
         "[[dim|9f8e7d6  Fix token refresh  1d]]"
       ]
+    },
+    {
+      "name": "branch-pane",
+      "category": "interface",
+      "description": {
+        "en": "/branches opens a pane with the local branches, the current one marked, ahead and behind and the age of the last commit",
+        "pt": "/branches abre um painel com as branches locais, a atual marcada, à frente e atrás e a idade do último commit",
+        "es": "/branches abre un panel con las ramas locales, la actual marcada, adelantadas y atrasadas y la edad del último commit"
+      },
+      "preview": [
+        "[[user|> /branches]]",
+        "[[git|▍ ]][[bold|BRANCHES]][[dim|  3 local]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[accent|● ]][[bold|feat/login          ]] [[ok|↑2]] [[dim|↓0]]  [[dim|2h]]",
+        "[[dim|  main                ↑0 ↓3  4d]]",
+        "[[dim|  fix/typo            no upstream  3w]]"
+      ]
     }
   ],
   "hero": [

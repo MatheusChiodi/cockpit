@@ -1,0 +1,14 @@
+{
+  "name": "branch-pane",
+  "version": "0.1.0",
+  "description": "/branches opens a pane with the local branches, the current one marked, ahead and behind and the age of the last commit",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

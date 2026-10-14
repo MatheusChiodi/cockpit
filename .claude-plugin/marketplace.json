@@ -820,6 +820,12 @@
       "source": "./mods/git-pane",
       "description": "/repo opens a pane with the branch, ahead and behind, the changed files and the last 8 commits",
       "category": "interface"
+    },
+    {
+      "name": "branch-pane",
+      "source": "./mods/branch-pane",
+      "description": "/branches opens a pane with the local branches, the current one marked, ahead and behind and the age of the last commit",
+      "category": "interface"
     }
   ]
 }
