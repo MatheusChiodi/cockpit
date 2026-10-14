@@ -1780,6 +1780,12 @@
       "source": "./mods/merge-ready",
       "description": "/ready tells whether the pull request can merge: draft, conflicts, failing checks and missing approvals",
       "category": "git"
+    },
+    {
+      "name": "release-notes",
+      "source": "./mods/release-notes",
+      "description": "/release creates a GitHub release with notes from the commits since the last tag, after showing them and asking",
+      "category": "git"
     }
   ]
 }

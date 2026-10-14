@@ -4594,6 +4594,22 @@
         "  [[err|✗]] 1 check failing",
         "  [[warn|…]] review required"
       ]
+    },
+    {
+      "name": "release-notes",
+      "category": "git",
+      "description": {
+        "en": "/release creates a GitHub release with notes from the commits since the last tag, after showing them and asking",
+        "pt": "/release cria uma release no GitHub com notas dos commits desde a última tag, depois de mostrá-las e perguntar",
+        "es": "/release crea un release en GitHub con notas de los commits desde la última tag, tras mostrarlas y preguntar"
+      },
+      "preview": [
+        "[[user|> /release]]",
+        "Create release v1.5.0 with 4 commit(s)?",
+        "  - add login form (a1b2c3d)",
+        "  - fix crash on boot (e4f5a6b)",
+        "[[btn| yes ]] [[btn| as draft ]] [[btn| no ]]"
+      ]
     }
   ],
   "hero": [

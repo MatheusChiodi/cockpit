@@ -1,0 +1,13 @@
+{
+  "name": "release-notes",
+  "version": "0.1.0",
+  "description": "/release creates a GitHub release with notes from the commits since the last tag, after showing them and asking",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}
