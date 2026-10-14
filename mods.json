@@ -3751,6 +3751,20 @@
         "[[warn|  ⎿ tls-off-guard: runs a command with TLS verification off (curl -k https://...).]]",
         "[[warn|    Fix the certificate or point to the CA bundle instead.]]"
       ]
+    },
+    {
+      "name": "cors-open-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before an edit opens CORS to every origin with * or a bare cors()",
+        "pt": "Pergunta antes de uma edição abrir o CORS para qualquer origem com * ou cors() puro",
+        "es": "Pregunta antes de que una edición abra CORS a cualquier origen con * o un cors() sin opciones"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/server.ts)",
+        "[[warn|  ⎿ cors-open-guard: opens CORS to every origin in src/server.ts.]]",
+        "[[warn|    List the origins that need access instead of using *.]]"
+      ]
     }
   ],
   "hero": [

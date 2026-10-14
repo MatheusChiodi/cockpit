@@ -1,0 +1,13 @@
+{
+  "name": "cors-open-guard",
+  "version": "0.1.0",
+  "description": "Asks before an edit opens CORS to every origin with * or a bare cors()",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

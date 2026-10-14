@@ -1,0 +1,94 @@
+import type { EngineInterface, Register } from 'claude-code'
+
+import { STRINGS } from './strings'
+import type { What } from './strings'
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
+type Rule = {
+  pattern: RegExp
+  what: What
+  on: 'text' | 'command'
+  path?: RegExp
+  skip?: readonly RegExp[]
+}
+
+const RULES: readonly Rule[] = [
+  {
+    pattern: /Access-Control-Allow-Origin["']?\s*[:,=\s]\s*["']?\*|\borigins?\s*:\s*["']\*["']|\.(?:allowedOrigins|addAllowedOrigin|setAllowedOrigins)\s*\(\s*(?:Arrays\.asList\(|List\.of\()?\s*"\*"|\b(?:CORS_ALLOW_ALL_ORIGINS|CORS_ORIGIN_ALLOW_ALL)\s*=\s*True\b|\bAllowAnyOrigin\s*\(|@CrossOrigin\b(?!\s*\()|@CrossOrigin\s*\(\s*\)|@CrossOrigin\s*\([^)]*origins\s*=\s*["']\*["']|\bcors\(\s*\)/,
+    what: 'open',
+    on: 'text',
+    skip: [/^\s*(?:\/\/|#|\*|\/\*|<!--)/],
+  },
+  {
+    pattern: /\b(?:allow_origins|allowed_origins|allowedOrigins|allow_origin|CORS_ORIGIN)["']?\s*[:=]\s*\[?\s*["']\*["']/i,
+    what: 'open',
+    on: 'text',
+    skip: [/^\s*(?:\/\/|#|\*|\/\*|<!--)/],
+  },
+]
+
+// Files where the pattern is expected: tests, fixtures, docs and examples.
+const SKIP_PATH = /(^|[\\/])(tests?|__tests__|fixtures?|mocks?|examples?|docs?)[\\/]|\.(test|spec)\.[cm]?[jt]sx?$|\.(md|mdx|txt)$|\.(example|sample)$/i
+
+const fieldOf = (input: unknown, key: string): string => {
+  const value = typeof input === 'object' && input !== null ? (input as Record<string, unknown>)[key] : undefined
+
+  return typeof value === 'string' ? value : ''
+}
+
+const isClean = (rule: Rule, line: string): boolean => !rule.pattern.test(line) || (rule.skip ?? []).some(skip => skip.test(line))
+
+// Only what the edit adds: the lines of new_string that old_string did not already hold.
+const addedLines = (tool: string, input: unknown): string[] => {
+  const text = tool === 'Write' ? fieldOf(input, 'content') : fieldOf(input, 'new_string')
+  const known = new Set(fieldOf(input, 'old_string').split('\n').map(line => line.trim()))
+
+  return text.split('\n').filter(line => line.trim() !== '' && !known.has(line.trim()))
+}
+
+const finding = (tool: string, input: unknown): { what: What; where: string } | undefined => {
+  if (tool !== 'Write' && tool !== 'Edit') {
+    return undefined
+  }
+
+  const path = fieldOf(input, 'file_path')
+
+  if (SKIP_PATH.test(path)) {
+    return undefined
+  }
+
+  const lines = addedLines(tool, input)
+  const rule = RULES.find(
+    candidate =>
+      candidate.on === 'text' && (candidate.path?.test(path) ?? true) && lines.some(line => !isClean(candidate, line)),
+  )
+
+  return rule === undefined ? undefined : { what: rule.what, where: path }
+}
+
+// The confirmation reason, in the session's language; undefined when the action is fine.
+const reasonFor = async ($: EngineInterface, tool: string, input: unknown): Promise<string | undefined> => {
+  const found = finding(tool, input)
+
+  if (found === undefined) {
+    return undefined
+  }
+
+  const s = await strings($)
+
+  return s[found.what](found.where)
+}
+
+export const register: Register = on => {
+  // Does not block: asks the person, even when permissions already allow the call.
+  on('tool.check', async ($, e, next) => {
+    const verdict = await next(e)
+    const reason = verdict.decision === 'allow' ? await reasonFor($, e.tool, e.input) : undefined
+
+    return reason === undefined ? verdict : { decision: 'ask', reason }
+  }).catch(() => ({ decision: 'ask', reason: STRINGS.en.failed }))
+}

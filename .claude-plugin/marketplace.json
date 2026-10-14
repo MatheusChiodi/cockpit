@@ -1438,6 +1438,12 @@
       "source": "./mods/tls-off-guard",
       "description": "Asks before TLS certificate verification is switched off in code or in a command",
       "category": "security"
+    },
+    {
+      "name": "cors-open-guard",
+      "source": "./mods/cors-open-guard",
+      "description": "Asks before an edit opens CORS to every origin with * or a bare cors()",
+      "category": "security"
     }
   ]
 }
