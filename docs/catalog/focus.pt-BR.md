@@ -1,8 +1,8 @@
-# Foco e notificações — 4 mods
+# Foco e notificações — 5 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify)
 
 ## `turn-notify`
 
@@ -43,3 +43,13 @@ Envia uma notificação nativa quando um turno termina em erro ou recusa.
 ```
 
 ![error-notify](../previews/error-notify.svg)
+
+## `needs-you-notify`
+
+Envia uma notificação nativa quando o Claude para para te perguntar algo ou pedir permissão.
+
+```
+/plugin install needs-you-notify@cockpit
+```
+
+![needs-you-notify](../previews/needs-you-notify.svg)

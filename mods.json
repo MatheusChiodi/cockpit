@@ -1725,6 +1725,23 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "needs-you-notify",
+      "category": "focus",
+      "description": {
+        "en": "Sends a native notification when Claude stops to ask you a question or needs your permission",
+        "pt": "Envia uma notificação nativa quando o Claude para para te perguntar algo ou pedir permissão",
+        "es": "Envía una notificación nativa cuando Claude se detiene a preguntarte algo o a pedir permiso"
+      },
+      "preview": [
+        "[[notify|Claude Code]]",
+        "[[notify|Claude needs you: permission for Bash.]]",
+        "",
+        "[[tool|● Bash]](npm publish)",
+        "[[warn|  Do you want to proceed?]]",
+        "[[btn|[ Yes ]]] [[dim|[ No ]]]"
+      ]
     }
   ],
   "hero": [

@@ -1,0 +1,13 @@
+{
+  "name": "needs-you-notify",
+  "version": "0.1.0",
+  "description": "Sends a native notification when Claude stops to ask you a question or needs your permission",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

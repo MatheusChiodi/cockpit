@@ -634,6 +634,12 @@
       "source": "./mods/error-notify",
       "description": "Sends a native notification when a turn ends on an error or a refusal",
       "category": "focus"
+    },
+    {
+      "name": "needs-you-notify",
+      "source": "./mods/needs-you-notify",
+      "description": "Sends a native notification when Claude stops to ask you a question or needs your permission",
+      "category": "focus"
     }
   ]
 }
