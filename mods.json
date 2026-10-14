@@ -4610,6 +4610,23 @@
         "  - fix crash on boot (e4f5a6b)",
         "[[btn| yes ]] [[btn| as draft ]] [[btn| no ]]"
       ]
+    },
+    {
+      "name": "changelog-entry",
+      "category": "git",
+      "description": {
+        "en": "/changelog writes the entry for the next version into CHANGELOG.md from the commits since the last tag, after asking",
+        "pt": "/changelog escreve no CHANGELOG.md a entrada da próxima versão a partir dos commits desde a última tag, depois de perguntar",
+        "es": "/changelog escribe en CHANGELOG.md la entrada de la próxima versión a partir de los commits desde la última tag, tras preguntar"
+      },
+      "preview": [
+        "[[user|> /changelog]]",
+        "Add to CHANGELOG.md?",
+        "  ## [1.5.0] - 2026-10-13",
+        "  ### Added",
+        "  - login form",
+        "[[btn| yes ]] [[btn| no ]]"
+      ]
     }
   ],
   "hero": [

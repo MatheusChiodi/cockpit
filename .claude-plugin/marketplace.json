@@ -1786,6 +1786,12 @@
       "source": "./mods/release-notes",
       "description": "/release creates a GitHub release with notes from the commits since the last tag, after showing them and asking",
       "category": "git"
+    },
+    {
+      "name": "changelog-entry",
+      "source": "./mods/changelog-entry",
+      "description": "/changelog writes the entry for the next version into CHANGELOG.md from the commits since the last tag, after asking",
+      "category": "git"
     }
   ]
 }

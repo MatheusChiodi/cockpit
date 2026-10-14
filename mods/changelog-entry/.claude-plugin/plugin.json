@@ -1,0 +1,13 @@
+{
+  "name": "changelog-entry",
+  "version": "0.1.0",
+  "description": "/changelog writes the entry for the next version into CHANGELOG.md from the commits since the last tag, after asking",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

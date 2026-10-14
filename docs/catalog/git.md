@@ -1,8 +1,8 @@
-# Git and GitHub — 22 mods
+# Git and GitHub — 23 mods
 
 [← Back to the README](../../README.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context) · [`issue-link`](#issue-link) · [`draft-nag`](#draft-nag) · [`pr-diff`](#pr-diff) · [`merge-ready`](#merge-ready) · [`release-notes`](#release-notes)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context) · [`issue-link`](#issue-link) · [`draft-nag`](#draft-nag) · [`pr-diff`](#pr-diff) · [`merge-ready`](#merge-ready) · [`release-notes`](#release-notes) · [`changelog-entry`](#changelog-entry)
 
 ## `commit-review`
 
@@ -223,3 +223,13 @@ Toast when one of your pull requests has sat as a draft for three days without a
 ```
 
 ![release-notes](../previews/release-notes.svg)
+
+## `changelog-entry`
+
+/changelog writes the entry for the next version into CHANGELOG.md from the commits since the last tag, after asking.
+
+```
+/plugin install changelog-entry@cockpit
+```
+
+![changelog-entry](../previews/changelog-entry.svg)
