@@ -976,6 +976,12 @@
       "source": "./mods/kill-guard",
       "description": "Blocks broad process kills: kill -1, killall, loose pkill, taskkill on system or wildcard names, Stop-Process -Name *",
       "category": "security"
+    },
+    {
+      "name": "credential-file-guard",
+      "source": "./mods/credential-file-guard",
+      "description": "Blocks reading or copying SSH keys, cloud and registry credentials and shell history, with Read and in the shell",
+      "category": "security"
     }
   ]
 }

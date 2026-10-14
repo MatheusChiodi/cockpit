@@ -2636,6 +2636,22 @@
         "[[err|  ⎿ kill-guard blocked the command: killing every process by name (killall).]]",
         "[[err|    Kill one explicit pid instead.]]"
       ]
+    },
+    {
+      "name": "credential-file-guard",
+      "category": "security",
+      "description": {
+        "en": "Blocks reading or copying SSH keys, cloud and registry credentials and shell history, with Read and in the shell",
+        "pt": "Bloqueia ler ou copiar chaves SSH, credenciais de nuvem e de registries e históricos de shell, com Read e no shell",
+        "es": "Bloquea leer o copiar claves SSH, credenciales de nube y de registries e historiales de shell, con Read y en el shell"
+      },
+      "preview": [
+        "[[tool|● Read]](~/.ssh/id_ed25519)",
+        "[[err|  ⎿ credential-file-guard blocked the access: \"~/.ssh/id_ed25519\" holds credentials.]]",
+        "",
+        "[[tool|● Read]](~/.ssh/id_ed25519.pub)",
+        "[[dim|  ⎿ Read 1 line]]"
+      ]
     }
   ],
   "hero": [

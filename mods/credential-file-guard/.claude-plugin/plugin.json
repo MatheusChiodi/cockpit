@@ -1,0 +1,13 @@
+{
+  "name": "credential-file-guard",
+  "version": "0.1.0",
+  "description": "Blocks reading or copying SSH keys, cloud and registry credentials and shell history, with Read and in the shell",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}
