@@ -1762,6 +1762,12 @@
       "source": "./mods/issue-link",
       "description": "/closes 12 adds \"Closes #12\" to the current pull request so the issue closes on merge, after asking",
       "category": "git"
+    },
+    {
+      "name": "draft-nag",
+      "source": "./mods/draft-nag",
+      "description": "Toast when one of your pull requests has sat as a draft for three days without an update",
+      "category": "git"
     }
   ]
 }

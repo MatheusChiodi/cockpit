@@ -4550,6 +4550,18 @@
         "Add \"Closes #12\" (Login fails on Safari) to PR #42?",
         "[[btn| yes ]] [[btn| no ]]"
       ]
+    },
+    {
+      "name": "draft-nag",
+      "category": "git",
+      "description": {
+        "en": "Toast when one of your pull requests has sat as a draft for three days without an update",
+        "pt": "Aviso quando um dos seus pull requests está como rascunho há três dias sem atualização",
+        "es": "Aviso cuando uno de tus pull requests lleva tres días como borrador sin actualización"
+      },
+      "preview": [
+        "[[toast| #37 \"Refactor billing\" has been a draft for 5 days. Ready for review? ]]"
+      ]
     }
   ],
   "hero": [

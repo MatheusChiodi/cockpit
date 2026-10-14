@@ -1,0 +1,13 @@
+{
+  "name": "draft-nag",
+  "version": "0.1.0",
+  "description": "Toast when one of your pull requests has sat as a draft for three days without an update",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}
