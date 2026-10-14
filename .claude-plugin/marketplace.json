@@ -964,6 +964,12 @@
       "source": "./mods/chmod-guard",
       "description": "Blocks world-writable permissions, recursive chown on root or home, and icacls grants to Everyone",
       "category": "security"
+    },
+    {
+      "name": "docker-guard",
+      "source": "./mods/docker-guard",
+      "description": "Asks before destructive Docker commands: system prune, volume rm or prune, rm -f, rmi -f and compose down -v",
+      "category": "security"
     }
   ]
 }

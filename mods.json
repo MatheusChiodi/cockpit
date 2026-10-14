@@ -2607,6 +2607,21 @@
         "[[err|  ⎿ chmod-guard blocked the command: making files world-writable (chmod 777).]]",
         "[[err|    Use a narrower mode such as 755 or 644.]]"
       ]
+    },
+    {
+      "name": "docker-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before destructive Docker commands: system prune, volume rm or prune, rm -f, rmi -f and compose down -v",
+        "pt": "Pede confirmação antes de comandos Docker destrutivos: system prune, volume rm ou prune, rm -f, rmi -f e compose down -v",
+        "es": "Pide confirmación antes de comandos Docker destructivos: system prune, volume rm o prune, rm -f, rmi -f y compose down -v"
+      },
+      "preview": [
+        "[[tool|● Bash]](docker system prune -af)",
+        "[[warn|  ⎿ Permission needed]]",
+        "[[warn|    docker-guard: removes unused Docker data (system prune). Confirm.]]",
+        "    [[btn|[ Yes ]]] [[btn|[ No ]]]"
+      ]
     }
   ],
   "hero": [
