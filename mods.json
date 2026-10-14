@@ -4304,6 +4304,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "scatter-toast",
+      "category": "focus",
+      "description": {
+        "en": "Toast when one turn changes eight or more files across four or more unrelated folders",
+        "pt": "Toast quando um só turno altera oito ou mais arquivos em quatro ou mais pastas sem relação",
+        "es": "Toast cuando un solo turno cambia ocho o más archivos en cuatro o más carpetas sin relación"
+      },
+      "preview": [
+        "[[toast| scatter-toast  8 files across 6 unrelated folders in one turn. Worth splitting into separate changes. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [

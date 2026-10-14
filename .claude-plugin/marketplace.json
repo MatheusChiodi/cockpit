@@ -1660,6 +1660,12 @@
       "source": "./mods/topic-switch",
       "description": "Toast when a prompt shares nothing with the work in progress after several edits, before a second task mixes into the first",
       "category": "focus"
+    },
+    {
+      "name": "scatter-toast",
+      "source": "./mods/scatter-toast",
+      "description": "Toast when one turn changes eight or more files across four or more unrelated folders",
+      "category": "focus"
     }
   ]
 }
