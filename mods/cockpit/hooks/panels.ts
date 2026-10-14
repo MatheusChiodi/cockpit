@@ -379,6 +379,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "migration-status",
+    "group": "project",
+    "description": {
+      "en": "Status line with the migration files created and not yet committed, ready to apply",
+      "pt": "Status line com os arquivos de migration criados e ainda não commitados, prontos para aplicar",
+      "es": "Línea de estado con los archivos de migration creados y aún sin commit, listos para aplicar"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {

@@ -3633,6 +3633,22 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  db ✗ postgres :5432 down]]"
       ]
+    },
+    {
+      "name": "migration-status",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "en": "Status line with the migration files created and not yet committed, ready to apply",
+        "pt": "Status line com os arquivos de migration criados e ainda não commitados, prontos para aplicar",
+        "es": "Línea de estado con los archivos de migration creados y aún sin commit, listos para aplicar"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  migrations 2 new]]"
+      ]
     }
   ],
   "hero": [

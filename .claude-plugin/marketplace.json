@@ -1390,6 +1390,12 @@
       "source": "./mods/db-port-status",
       "description": "Status line that warns when the local database or cache the project points to is not listening",
       "category": "panel"
+    },
+    {
+      "name": "migration-status",
+      "source": "./mods/migration-status",
+      "description": "Status line with the migration files created and not yet committed, ready to apply",
+      "category": "panel"
     }
   ]
 }
