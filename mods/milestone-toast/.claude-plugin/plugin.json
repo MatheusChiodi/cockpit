@@ -1,0 +1,13 @@
+{
+  "name": "milestone-toast",
+  "version": "0.1.0",
+  "description": "Shows a toast when the session reaches 10, 25, 50 and 100 prompts",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

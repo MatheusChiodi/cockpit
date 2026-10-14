@@ -3897,6 +3897,21 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "milestone-toast",
+      "category": "focus",
+      "description": {
+        "en": "Shows a toast when the session reaches 10, 25, 50 and 100 prompts",
+        "pt": "Mostra um aviso quando a sessão chega a 10, 25, 50 e 100 prompts",
+        "es": "Muestra un aviso cuando la sesión llega a 10, 25, 50 y 100 prompts"
+      },
+      "preview": [
+        "[[toast| 25 prompts in this session ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [

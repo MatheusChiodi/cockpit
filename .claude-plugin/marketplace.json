@@ -1498,6 +1498,12 @@
       "source": "./mods/turn-toast",
       "description": "Shows a toast summarizing every finished turn of 10 seconds or more: duration, tool calls and output tokens",
       "category": "focus"
+    },
+    {
+      "name": "milestone-toast",
+      "source": "./mods/milestone-toast",
+      "description": "Shows a toast when the session reaches 10, 25, 50 and 100 prompts",
+      "category": "focus"
     }
   ]
 }
