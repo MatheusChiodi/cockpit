@@ -1,8 +1,8 @@
-# Contexto y costo — 3 mods
+# Contexto y costo — 4 mods
 
 [← Volver al README](../../README.es.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit)
 
 ## `reread-guard`
 
@@ -33,3 +33,13 @@ Lee solo las primeras 600 líneas de un archivo de más de 150 KB y dice a Claud
 ```
 
 ![read-cap](../previews/read-cap.svg)
+
+## `git-log-limit`
+
+Añade -n 30 a un git log sin límite, para que el historial no inunde el contexto.
+
+```
+/plugin install git-log-limit@cockpit
+```
+
+![git-log-limit](../previews/git-log-limit.svg)

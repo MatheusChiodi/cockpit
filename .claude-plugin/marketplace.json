@@ -1066,6 +1066,12 @@
       "source": "./mods/read-cap",
       "description": "Reads only the first 600 lines of a file over 150 KB and tells Claude how to continue with offset",
       "category": "context"
+    },
+    {
+      "name": "git-log-limit",
+      "source": "./mods/git-log-limit",
+      "description": "Adds -n 30 to a git log that has no limit, so the history does not flood the context",
+      "category": "context"
     }
   ]
 }

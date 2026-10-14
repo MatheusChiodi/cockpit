@@ -2845,6 +2845,20 @@
         "[[dim|  ⎿ limit 600 added: the file is 312 KB]]",
         "[[dim|    note to Claude: continue with offset 600, or Grep for the part you need]]"
       ]
+    },
+    {
+      "name": "git-log-limit",
+      "category": "context",
+      "description": {
+        "en": "Adds -n 30 to a git log that has no limit, so the history does not flood the context",
+        "pt": "Acrescenta -n 30 a um git log sem limite, para o histórico não inundar o contexto",
+        "es": "Añade -n 30 a un git log sin límite, para que el historial no inunde el contexto"
+      },
+      "preview": [
+        "[[tool|● Bash]](git log --stat)",
+        "[[dim|  ⎿ rewritten to: git log -n 30 --stat]]",
+        "[[dim|    note to Claude: git log was capped at 30 commits; use -n or a range for more]]"
+      ]
     }
   ],
   "hero": [

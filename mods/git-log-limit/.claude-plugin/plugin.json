@@ -1,0 +1,13 @@
+{
+  "name": "git-log-limit",
+  "version": "0.1.0",
+  "description": "Adds -n 30 to a git log that has no limit, so the history does not flood the context",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}
