@@ -3433,6 +3433,22 @@
         "[[tool|● Bash]](npm run dev)",
         "[[warn|  ⎿ dev-server-guard: something already answers on :5173. Start another one?]]"
       ]
+    },
+    {
+      "name": "ts-config-context",
+      "category": "stack",
+      "description": {
+        "en": "Tells Claude your tsconfig in the system prompt: strict flags, path aliases, module resolution and type-only imports",
+        "pt": "Passa ao Claude o seu tsconfig no prompt do sistema: flags strict, aliases de path, resolução de módulos e imports só de tipo",
+        "es": "Pasa a Claude tu tsconfig en el prompt del sistema: flags strict, alias de path, resolución de módulos e imports solo de tipo"
+      },
+      "preview": [
+        "[[dim|system prompt]]",
+        "[[bold|# TypeScript configuration]]",
+        "- strict is on; noUncheckedIndexedAccess is on",
+        "- Path aliases: @/* -> ./src/*. Import through them.",
+        "- verbatimModuleSyntax is on: use \"import type\" for types"
+      ]
     }
   ],
   "hero": [

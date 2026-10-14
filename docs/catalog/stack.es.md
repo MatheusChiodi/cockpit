@@ -1,8 +1,8 @@
-# Stacks — 8 mods
+# Stacks — 9 mods
 
 [← Volver al README](../../README.es.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard) · [`dev-server-guard`](#dev-server-guard)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard) · [`dev-server-guard`](#dev-server-guard) · [`ts-config-context`](#ts-config-context)
 
 ## `pm-guard`
 
@@ -83,3 +83,13 @@ Pregunta antes de que npm run dev, next dev o vite arranque cuando algo ya respo
 ```
 
 ![dev-server-guard](../previews/dev-server-guard.svg)
+
+## `ts-config-context`
+
+Pasa a Claude tu tsconfig en el prompt del sistema: flags strict, alias de path, resolución de módulos e imports solo de tipo.
+
+```
+/plugin install ts-config-context@cockpit
+```
+
+![ts-config-context](../previews/ts-config-context.svg)

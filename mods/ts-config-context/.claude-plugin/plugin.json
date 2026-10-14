@@ -1,0 +1,13 @@
+{
+  "name": "ts-config-context",
+  "version": "0.1.0",
+  "description": "Tells Claude your tsconfig in the system prompt: strict flags, path aliases, module resolution and type-only imports",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

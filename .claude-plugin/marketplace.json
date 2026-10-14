@@ -1312,6 +1312,12 @@
       "source": "./mods/dev-server-guard",
       "description": "Asks before npm run dev, next dev or vite starts while something already answers on that dev server's port",
       "category": "stack"
+    },
+    {
+      "name": "ts-config-context",
+      "source": "./mods/ts-config-context",
+      "description": "Tells Claude your tsconfig in the system prompt: strict flags, path aliases, module resolution and type-only imports",
+      "category": "stack"
     }
   ]
 }
