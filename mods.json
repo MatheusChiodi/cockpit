@@ -2186,6 +2186,23 @@
         "[[dim| 2×]] package.json",
         "[[dim| 1×]] README.md"
       ]
+    },
+    {
+      "name": "links-pane",
+      "category": "interface",
+      "description": {
+        "en": "/links opens a pane with the URLs that appeared in Claude's answers; press one to copy it",
+        "pt": "/links abre um painel com as URLs que apareceram nas respostas de Claude; pressione uma para copiá-la",
+        "es": "/links abre un panel con las URLs que aparecieron en las respuestas de Claude; pulsa una para copiarla"
+      },
+      "preview": [
+        "[[user|> /links]]",
+        "[[session|▍ ]][[bold|LINKS]][[dim|  3 urls  press a row to copy it]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[dim|▸ ]][[accent|https://docs.example.com/api/auth]]",
+        "[[dim|▸ ]][[accent|https://github.com/acme/app/pull/42]]",
+        "[[dim|▸ ]][[accent|https://example.com/changelog]]"
+      ]
     }
   ],
   "hero": [

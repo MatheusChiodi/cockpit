@@ -808,6 +808,12 @@
       "source": "./mods/read-pane",
       "description": "/reads opens a pane with the files read this session and how often; files read 3 or more times are flagged as wasted context",
       "category": "interface"
+    },
+    {
+      "name": "links-pane",
+      "source": "./mods/links-pane",
+      "description": "/links opens a pane with the URLs that appeared in Claude's answers; press one to copy it",
+      "category": "interface"
     }
   ]
 }

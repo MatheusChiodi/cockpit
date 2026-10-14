@@ -1,0 +1,14 @@
+{
+  "name": "links-pane",
+  "version": "0.1.0",
+  "description": "/links opens a pane with the URLs that appeared in Claude's answers; press one to copy it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}
