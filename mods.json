@@ -3765,6 +3765,20 @@
         "[[warn|  ⎿ cors-open-guard: opens CORS to every origin in src/server.ts.]]",
         "[[warn|    List the origins that need access instead of using *.]]"
       ]
+    },
+    {
+      "name": "debug-flag-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before an edit leaves a debug flag on, exposes every actuator endpoint or sets development mode in a production file",
+        "pt": "Pergunta antes de uma edição deixar uma flag de debug ligada, expor todos os endpoints do actuator ou pôr modo de desenvolvimento em arquivo de produção",
+        "es": "Pregunta antes de que una edición deje una bandera de debug activa, exponga todos los endpoints del actuator o ponga modo desarrollo en un archivo de producción"
+      },
+      "preview": [
+        "[[tool|● Edit]](app/settings.py)",
+        "[[warn|  ⎿ debug-flag-guard: turns a debug flag on in app/settings.py.]]",
+        "[[warn|    Read it from the environment and default to off.]]"
+      ]
     }
   ],
   "hero": [

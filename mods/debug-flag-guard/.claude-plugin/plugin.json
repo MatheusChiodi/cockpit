@@ -1,0 +1,13 @@
+{
+  "name": "debug-flag-guard",
+  "version": "0.1.0",
+  "description": "Asks before an edit leaves a debug flag on, exposes every actuator endpoint or sets development mode in a production file",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

@@ -1444,6 +1444,12 @@
       "source": "./mods/cors-open-guard",
       "description": "Asks before an edit opens CORS to every origin with * or a bare cors()",
       "category": "security"
+    },
+    {
+      "name": "debug-flag-guard",
+      "source": "./mods/debug-flag-guard",
+      "description": "Asks before an edit leaves a debug flag on, exposes every actuator endpoint or sets development mode in a production file",
+      "category": "security"
     }
   ]
 }
