@@ -1054,6 +1054,12 @@
       "source": "./mods/reread-guard",
       "description": "Refuses reading again a file Claude already read this session when it has not changed, once, with a reason",
       "category": "context"
+    },
+    {
+      "name": "grep-limit",
+      "source": "./mods/grep-limit",
+      "description": "Caps a Grep that prints matching lines at 100 lines and tells Claude when the cap cut the answer",
+      "category": "context"
     }
   ]
 }

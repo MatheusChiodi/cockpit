@@ -1,0 +1,13 @@
+{
+  "name": "grep-limit",
+  "version": "0.1.0",
+  "description": "Caps a Grep that prints matching lines at 100 lines and tells Claude when the cap cut the answer",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

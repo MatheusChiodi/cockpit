@@ -2817,6 +2817,20 @@
         "[[err|  ⎿ reread-guard: src/engine/loop.ts is unchanged and already in the context.]]",
         "[[err|    Use what was read, or Grep for the line. Repeat the call to read it anyway.]]"
       ]
+    },
+    {
+      "name": "grep-limit",
+      "category": "context",
+      "description": {
+        "en": "Caps a Grep that prints matching lines at 100 lines and tells Claude when the cap cut the answer",
+        "pt": "Limita a 100 linhas um Grep que imprime as linhas encontradas e avisa Claude quando o limite cortou a resposta",
+        "es": "Limita a 100 líneas un Grep que imprime las líneas encontradas y avisa a Claude cuando el límite cortó la respuesta"
+      },
+      "preview": [
+        "[[tool|● Grep]](\"useState\", output_mode: content)",
+        "[[dim|  ⎿ head_limit 100 added: 100 lines shown]]",
+        "[[dim|    note to Claude: narrow the pattern or glob, or pass head_limit to see more]]"
+      ]
     }
   ],
   "hero": [
