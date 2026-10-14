@@ -1,0 +1,13 @@
+{
+  "name": "node-version-status",
+  "version": "0.1.0",
+  "description": "Status line entry that shows only when the running Node does not satisfy engines.node, .nvmrc or .node-version",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

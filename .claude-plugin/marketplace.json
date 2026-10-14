@@ -1324,6 +1324,12 @@
       "source": "./mods/env-undeclared-toast",
       "description": "A toast when an edit reads process.env or import.meta.env variables that .env.example does not declare",
       "category": "stack"
+    },
+    {
+      "name": "node-version-status",
+      "source": "./mods/node-version-status",
+      "description": "Status line entry that shows only when the running Node does not satisfy engines.node, .nvmrc or .node-version",
+      "category": "stack"
     }
   ]
 }

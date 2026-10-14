@@ -1,8 +1,8 @@
-# Stacks — 10 mods
+# Stacks — 11 mods
 
 [← Volver al README](../../README.es.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard) · [`dev-server-guard`](#dev-server-guard) · [`ts-config-context`](#ts-config-context) · [`env-undeclared-toast`](#env-undeclared-toast)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard) · [`dev-server-guard`](#dev-server-guard) · [`ts-config-context`](#ts-config-context) · [`env-undeclared-toast`](#env-undeclared-toast) · [`node-version-status`](#node-version-status)
 
 ## `pm-guard`
 
@@ -103,3 +103,13 @@ Un toast cuando una edición lee variables de process.env o import.meta.env que 
 ```
 
 ![env-undeclared-toast](../previews/env-undeclared-toast.svg)
+
+## `node-version-status`
+
+Entrada en la status line que solo aparece cuando el Node en uso no cumple engines.node, .nvmrc o .node-version.
+
+```
+/plugin install node-version-status@cockpit
+```
+
+![node-version-status](../previews/node-version-status.svg)

@@ -3461,6 +3461,21 @@
       "preview": [
         "[[toast|  env: STRIPE_KEY is read but missing from .env.example  ]]"
       ]
+    },
+    {
+      "name": "node-version-status",
+      "category": "stack",
+      "description": {
+        "en": "Status line entry that shows only when the running Node does not satisfy engines.node, .nvmrc or .node-version",
+        "pt": "Entrada na status line que só aparece quando o Node em uso não atende engines.node, .nvmrc ou .node-version",
+        "es": "Entrada en la status line que solo aparece cuando el Node en uso no cumple engines.node, .nvmrc o .node-version"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  node 18.19.0 ✗ wants 20]]"
+      ]
     }
   ],
   "hero": [
