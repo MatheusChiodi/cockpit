@@ -1869,6 +1869,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
+    },
+    {
+      "name": "eye-rest",
+      "category": "focus",
+      "description": {
+        "en": "The 20-20-20 rule: every 20 minutes of use, look 20 feet away for 20 seconds",
+        "pt": "Regra 20-20-20: a cada 20 minutos de uso, olhe a 6 metros de distância por 20 segundos",
+        "es": "Regla 20-20-20: cada 20 minutos de uso, mira a 6 metros de distancia durante 20 segundos"
+      },
+      "preview": [
+        "[[toast| eye-rest  Look at something 20 feet away for 20 seconds. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
     }
   ],
   "hero": [

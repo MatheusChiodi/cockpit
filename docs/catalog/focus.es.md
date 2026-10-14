@@ -1,8 +1,8 @@
-# Foco y notificaciones — 13 mods
+# Foco y notificaciones — 14 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture) · [`eye-rest`](#eye-rest)
 
 ## `turn-notify`
 
@@ -133,3 +133,13 @@ Toast cada 30 minutos de uso con un chequeo breve de postura, rotando entre cuat
 ```
 
 ![posture](../previews/posture.svg)
+
+## `eye-rest`
+
+Regla 20-20-20: cada 20 minutos de uso, mira a 6 metros de distancia durante 20 segundos.
+
+```
+/plugin install eye-rest@cockpit
+```
+
+![eye-rest](../previews/eye-rest.svg)

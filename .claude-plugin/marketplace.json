@@ -688,6 +688,12 @@
       "source": "./mods/posture",
       "description": "Toast every 30 minutes of use with one short posture check, rotating through four",
       "category": "focus"
+    },
+    {
+      "name": "eye-rest",
+      "source": "./mods/eye-rest",
+      "description": "The 20-20-20 rule: every 20 minutes of use, look 20 feet away for 20 seconds",
+      "category": "focus"
     }
   ]
 }
