@@ -4028,6 +4028,20 @@
         "[[dim|  hooks at top level · no component inside a component]]",
         "[[dim|  stable keys · derive, do not mirror · effects sync only]]"
       ]
+    },
+    {
+      "name": "tailwind-rules",
+      "category": "prompt",
+      "description": {
+        "en": "In Tailwind projects, keeps Claude on theme tokens, scale steps and mobile-first, without inline styles",
+        "pt": "Em projetos Tailwind, mantém o Claude nos tokens do tema, nos passos da escala e no mobile-first, sem estilos inline",
+        "es": "En proyectos Tailwind, mantiene a Claude en los tokens del tema, los pasos de la escala y mobile-first, sin estilos inline"
+      },
+      "preview": [
+        "[[dim|system prompt +]] [[accent|Tailwind rules]]",
+        "[[dim|  theme tokens · scale steps, no w-[13px]]]",
+        "[[dim|  no inline style · mobile-first]]"
+      ]
     }
   ],
   "hero": [

@@ -1,0 +1,13 @@
+{
+  "name": "tailwind-rules",
+  "version": "0.1.0",
+  "description": "In Tailwind projects, keeps Claude on theme tokens, scale steps and mobile-first, without inline styles",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

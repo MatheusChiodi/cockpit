@@ -1552,6 +1552,12 @@
       "source": "./mods/react-rules",
       "description": "In React projects, keeps Claude to the rules of hooks, stable keys, derived state and effects only for synchronization",
       "category": "prompt"
+    },
+    {
+      "name": "tailwind-rules",
+      "source": "./mods/tailwind-rules",
+      "description": "In Tailwind projects, keeps Claude on theme tokens, scale steps and mobile-first, without inline styles",
+      "category": "prompt"
     }
   ]
 }
