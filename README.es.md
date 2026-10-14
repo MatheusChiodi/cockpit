@@ -2,7 +2,7 @@
 
 [English](README.md) · [Português](README.pt-BR.md) · **Español**
 
-**Un panel de instrumentos para Claude Code.** 197 mods para la terminal: 40 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
+**Un panel de instrumentos para Claude Code.** 198 mods para la terminal: 40 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
 
 ![El panel completo de Cockpit en una terminal](docs/cockpit.svg)
 
@@ -72,7 +72,7 @@ Las descripciones de los slash commands en el autocompletado se leen al iniciar 
 | [**Prompt y modelo**](docs/catalog/prompt.es.md) | 20 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` `time-context` `os-context` `test-first` `explain-mode` `plan-first` `no-comments` `minimal-diff` `ask-first` `verify-claims` `paste-fence` `file-mention-hint` `trace-helper` |
 | [**Comandos**](docs/catalog/commands.es.md) | 30 | `quick-notes` `pomodoro` `copy-last` `session-stats` `quote-selection` `git-peek` `git-branch` `git-stash` `git-undo` `run-script` `open-path` `ports` `kill-port` `tree` `find-file` `last-error` `env-check` `outdated` `json-tool` `uuid` `timestamp` `base64` `hash` `calc` `color-tool` `regex-test` `http-probe` `snippets` `export-session` `standup` |
 | [**Foco y notificaciones**](docs/catalog/focus.es.md) | 24 | `turn-notify` `break-reminder` `daily-streak` `error-notify` `needs-you-notify` `agent-done-notify` `long-cmd-notify` `tests-notify` `ci-notify` `pr-review-notify` `rate-limit-notify` `hydrate` `posture` `eye-rest` `stand-up` `alarms` `remind` `timebox` `session-cap` `late-night` `intent-check` `daily-target` `weekly-recap` `breathe` |
-| [**Git y GitHub**](docs/catalog/git.es.md) | 11 | `commit-review` `wip-commit-guard` `marker-guard` `amend-guard` `stage-guard` `git-stage` `git-fixup` `git-sync` `behind-toast` `git-switch` `git-tag` |
+| [**Git y GitHub**](docs/catalog/git.es.md) | 12 | `commit-review` `wip-commit-guard` `marker-guard` `amend-guard` `stage-guard` `git-stage` `git-fixup` `git-sync` `behind-toast` `git-switch` `git-tag` `staged-status` |
 | [**Calidad**](docs/catalog/quality.es.md) | 0 |  |
 | [**Stacks**](docs/catalog/stack.es.md) | 0 |  |
 | [**Contexto y costo**](docs/catalog/context.es.md) | 12 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` `heavy-calls` `tree-flood-guard` |

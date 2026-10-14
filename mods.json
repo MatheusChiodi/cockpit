@@ -3135,6 +3135,21 @@
         "Create annotated tag v1.5.0 on \"a1b2c3d add login\"?",
         "[[btn| yes ]] [[btn| no ]]"
       ]
+    },
+    {
+      "name": "staged-status",
+      "category": "git",
+      "description": {
+        "en": "Status line with how many files are staged, unstaged and new, hidden when the tree is clean",
+        "pt": "Status line com quantos arquivos estão no stage, fora dele e novos, escondida quando a árvore está limpa",
+        "es": "Línea de estado con cuántos archivos están en el stage, fuera de él y nuevos, oculta con el árbol limpio"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  index 2 staged  3 unstaged  1 new]]"
+      ]
     }
   ],
   "hero": [

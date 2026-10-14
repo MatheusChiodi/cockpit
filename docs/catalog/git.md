@@ -1,8 +1,8 @@
-# Git and GitHub — 11 mods
+# Git and GitHub — 12 mods
 
 [← Back to the README](../../README.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status)
 
 ## `commit-review`
 
@@ -113,3 +113,13 @@ Toast when your branch falls 10, 20, 30 commits behind its base, before the conf
 ```
 
 ![git-tag](../previews/git-tag.svg)
+
+## `staged-status`
+
+Status line with how many files are staged, unstaged and new, hidden when the tree is clean.
+
+```
+/plugin install staged-status@cockpit
+```
+
+![staged-status](../previews/staged-status.svg)

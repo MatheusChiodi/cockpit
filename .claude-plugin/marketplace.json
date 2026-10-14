@@ -1186,6 +1186,12 @@
       "source": "./mods/git-tag",
       "description": "/gtag shows the latest tag and the commits since; /gtag patch, minor or major creates the next version tag after asking",
       "category": "git"
+    },
+    {
+      "name": "staged-status",
+      "source": "./mods/staged-status",
+      "description": "Status line with how many files are staged, unstaged and new, hidden when the tree is clean",
+      "category": "git"
     }
   ]
 }
