@@ -4435,6 +4435,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "resume-line",
+      "category": "focus",
+      "description": {
+        "en": "On start, one toast with what you were last working on in this project, if it was in the past three days",
+        "pt": "Ao iniciar, um toast com no que você estava trabalhando por último neste projeto, se foi nos últimos três dias",
+        "es": "Al iniciar, un toast con lo último en lo que trabajabas en este proyecto, si fue en los últimos tres días"
+      },
+      "preview": [
+        "[[toast| resume-line  Last time (yesterday): fix the login redirect after logout ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [

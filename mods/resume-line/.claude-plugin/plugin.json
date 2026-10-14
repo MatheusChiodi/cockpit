@@ -1,0 +1,13 @@
+{
+  "name": "resume-line",
+  "version": "0.1.0",
+  "description": "On start, one toast with what you were last working on in this project, if it was in the past three days",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

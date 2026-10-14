@@ -1,8 +1,8 @@
-# Foco y notificaciones — 40 mods
+# Foco y notificaciones — 41 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture) · [`eye-rest`](#eye-rest) · [`stand-up`](#stand-up) · [`alarms`](#alarms) · [`remind`](#remind) · [`timebox`](#timebox) · [`session-cap`](#session-cap) · [`late-night`](#late-night) · [`intent-check`](#intent-check) · [`daily-target`](#daily-target) · [`weekly-recap`](#weekly-recap) · [`breathe`](#breathe) · [`budget-alert`](#budget-alert) · [`daily-budget-alert`](#daily-budget-alert) · [`turn-toast`](#turn-toast) · [`milestone-toast`](#milestone-toast) · [`push-reminder`](#push-reminder) · [`idle-commit-nudge`](#idle-commit-nudge) · [`topic-switch`](#topic-switch) · [`scatter-toast`](#scatter-toast) · [`long-turn-toast`](#long-turn-toast) · [`step-back`](#step-back) · [`branch-drift`](#branch-drift) · [`edits-no-commit`](#edits-no-commit) · [`day-close`](#day-close) · [`quiet-window`](#quiet-window) · [`parking-lot`](#parking-lot) · [`file-churn`](#file-churn)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture) · [`eye-rest`](#eye-rest) · [`stand-up`](#stand-up) · [`alarms`](#alarms) · [`remind`](#remind) · [`timebox`](#timebox) · [`session-cap`](#session-cap) · [`late-night`](#late-night) · [`intent-check`](#intent-check) · [`daily-target`](#daily-target) · [`weekly-recap`](#weekly-recap) · [`breathe`](#breathe) · [`budget-alert`](#budget-alert) · [`daily-budget-alert`](#daily-budget-alert) · [`turn-toast`](#turn-toast) · [`milestone-toast`](#milestone-toast) · [`push-reminder`](#push-reminder) · [`idle-commit-nudge`](#idle-commit-nudge) · [`topic-switch`](#topic-switch) · [`scatter-toast`](#scatter-toast) · [`long-turn-toast`](#long-turn-toast) · [`step-back`](#step-back) · [`branch-drift`](#branch-drift) · [`edits-no-commit`](#edits-no-commit) · [`day-close`](#day-close) · [`quiet-window`](#quiet-window) · [`parking-lot`](#parking-lot) · [`file-churn`](#file-churn) · [`resume-line`](#resume-line)
 
 ## `turn-notify`
 
@@ -403,3 +403,13 @@ Toast cuando el mismo archivo se edita seis veces en media hora, señal de que c
 ```
 
 ![file-churn](../previews/file-churn.svg)
+
+## `resume-line`
+
+Al iniciar, un toast con lo último en lo que trabajabas en este proyecto, si fue en los últimos tres días.
+
+```
+/plugin install resume-line@cockpit
+```
+
+![resume-line](../previews/resume-line.svg)

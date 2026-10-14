@@ -1714,6 +1714,12 @@
       "source": "./mods/file-churn",
       "description": "Toast when the same file is edited six times within half an hour, a sign to step back",
       "category": "focus"
+    },
+    {
+      "name": "resume-line",
+      "source": "./mods/resume-line",
+      "description": "On start, one toast with what you were last working on in this project, if it was in the past three days",
+      "category": "focus"
     }
   ]
 }
