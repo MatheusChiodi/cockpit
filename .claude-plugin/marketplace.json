@@ -982,6 +982,12 @@
       "source": "./mods/credential-file-guard",
       "description": "Blocks reading or copying SSH keys, cloud and registry credentials and shell history, with Read and in the shell",
       "category": "security"
+    },
+    {
+      "name": "upload-guard",
+      "source": "./mods/upload-guard",
+      "description": "Asks before a command sends a local file out: curl uploads, wget --post-file, scp or rsync to a host, nc",
+      "category": "security"
     }
   ]
 }

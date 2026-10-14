@@ -1,0 +1,13 @@
+{
+  "name": "upload-guard",
+  "version": "0.1.0",
+  "description": "Asks before a command sends a local file out: curl uploads, wget --post-file, scp or rsync to a host, nc",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}
