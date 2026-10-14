@@ -1,0 +1,13 @@
+{
+  "name": "pr-style",
+  "version": "0.1.0",
+  "description": "Makes pull request descriptions follow what changed, why, how tested and risks, with a Conventional Commits title",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

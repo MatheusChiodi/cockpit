@@ -3973,6 +3973,19 @@
         "[[tool|● Bash]](git switch -c fix/login-token-expiry)",
         "[[dim|  ⎿ Switched to a new branch fix/login-token-expiry]]"
       ]
+    },
+    {
+      "name": "pr-style",
+      "category": "prompt",
+      "description": {
+        "en": "Makes pull request descriptions follow what changed, why, how tested and risks, with a Conventional Commits title",
+        "pt": "Faz as descrições de pull request seguirem o que mudou, por quê, como foi testado e riscos, com título em Conventional Commits",
+        "es": "Hace que las descripciones de pull request sigan qué cambió, por qué, cómo se probó y riesgos, con título en Conventional Commits"
+      },
+      "preview": [
+        "[[tool|● Bash]](gh pr create --title \"fix(auth): reject expired tokens\")",
+        "[[dim|  ⎿ What changed · Why · How tested · Risks]]"
+      ]
     }
   ],
   "hero": [

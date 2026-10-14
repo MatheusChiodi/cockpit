@@ -1528,6 +1528,12 @@
       "source": "./mods/branch-naming",
       "description": "Teaches Claude the branch naming convention: feat/, fix/, chore/, refactor/, docs/ and never new work on main",
       "category": "prompt"
+    },
+    {
+      "name": "pr-style",
+      "source": "./mods/pr-style",
+      "description": "Makes pull request descriptions follow what changed, why, how tested and risks, with a Conventional Commits title",
+      "category": "prompt"
     }
   ]
 }
