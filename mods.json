@@ -1575,6 +1575,22 @@
         "sha-1    a9993e364706816aba3e25717850c26c9cd0d89d",
         "[[dim|SHA-256 copied to the clipboard.]]"
       ]
+    },
+    {
+      "name": "calc",
+      "category": "commands",
+      "description": {
+        "en": "/calc evaluates arithmetic with parentheses and decimals, and says what is wrong with a bad expression",
+        "pt": "/calc calcula aritmética com parênteses e decimais, e diz o que há de errado numa expressão inválida",
+        "es": "/calc calcula aritmética con paréntesis y decimales, e indica qué falla en una expresión inválida"
+      },
+      "preview": [
+        "[[user|> /calc (2 + 3) * 4 ^ 2 / 8]]",
+        "(2 + 3) * 4 ^ 2 / 8 = 10",
+        "[[dim|Result copied to the clipboard.]]",
+        "[[user|> /calc (1 + 2]]",
+        "[[err|The \"(\" at position 1 is never closed.]]"
+      ]
     }
   ],
   "hero": [

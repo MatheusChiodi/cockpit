@@ -586,6 +586,12 @@
       "source": "./mods/hash",
       "description": "/hash gives the SHA-256 and SHA-1 of a text in hex and copies the SHA-256",
       "category": "commands"
+    },
+    {
+      "name": "calc",
+      "source": "./mods/calc",
+      "description": "/calc evaluates arithmetic with parentheses and decimals, and says what is wrong with a bad expression",
+      "category": "commands"
     }
   ]
 }

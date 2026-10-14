@@ -1,0 +1,13 @@
+{
+  "name": "calc",
+  "version": "0.1.0",
+  "description": "/calc evaluates arithmetic with parentheses and decimals, and says what is wrong with a bad expression",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
