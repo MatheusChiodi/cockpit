@@ -1,8 +1,8 @@
-# Git e GitHub — 17 mods
+# Git e GitHub — 18 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context) · [`issue-link`](#issue-link)
 
 ## `commit-review`
 
@@ -173,3 +173,13 @@ Quando o prompt cita uma issue (issue #12 ou um link de issue), o título, os r�
 ```
 
 ![issue-context](../previews/issue-context.svg)
+
+## `issue-link`
+
+/closes 12 adiciona "Closes #12" ao pull request atual para a issue fechar no merge, depois de perguntar.
+
+```
+/plugin install issue-link@cockpit
+```
+
+![issue-link](../previews/issue-link.svg)

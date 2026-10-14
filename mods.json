@@ -4536,6 +4536,20 @@
         "[[dim|  hidden context: issue #12 \"Login fails on Safari\" (open, bug)]]",
         "[[tool|● Read]](src/login.ts)"
       ]
+    },
+    {
+      "name": "issue-link",
+      "category": "git",
+      "description": {
+        "en": "/closes 12 adds \"Closes #12\" to the current pull request so the issue closes on merge, after asking",
+        "pt": "/closes 12 adiciona \"Closes #12\" ao pull request atual para a issue fechar no merge, depois de perguntar",
+        "es": "/closes 12 agrega \"Closes #12\" al pull request actual para que el issue cierre al hacer merge, tras preguntar"
+      },
+      "preview": [
+        "[[user|> /closes 12]]",
+        "Add \"Closes #12\" (Login fails on Safari) to PR #42?",
+        "[[btn| yes ]] [[btn| no ]]"
+      ]
     }
   ],
   "hero": [

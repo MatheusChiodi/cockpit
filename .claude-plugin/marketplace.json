@@ -1756,6 +1756,12 @@
       "source": "./mods/issue-context",
       "description": "When your prompt names an issue (issue #12 or an issue link), its title, labels and text reach Claude as hidden context",
       "category": "git"
+    },
+    {
+      "name": "issue-link",
+      "source": "./mods/issue-link",
+      "description": "/closes 12 adds \"Closes #12\" to the current pull request so the issue closes on merge, after asking",
+      "category": "git"
     }
   ]
 }

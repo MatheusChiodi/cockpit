@@ -1,0 +1,13 @@
+{
+  "name": "issue-link",
+  "version": "0.1.0",
+  "description": "/closes 12 adds \"Closes #12\" to the current pull request so the issue closes on merge, after asking",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}
