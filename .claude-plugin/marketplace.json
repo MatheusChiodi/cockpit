@@ -508,6 +508,12 @@
       "source": "./mods/run-script",
       "description": "/run runs a package.json script with the project's package manager and prints the exit code and last lines",
       "category": "commands"
+    },
+    {
+      "name": "open-path",
+      "source": "./mods/open-path",
+      "description": "/open opens a file or folder of the project in the system's default app; refuses paths outside the project",
+      "category": "commands"
     }
   ]
 }

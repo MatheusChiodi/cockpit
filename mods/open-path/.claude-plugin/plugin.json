@@ -1,0 +1,13 @@
+{
+  "name": "open-path",
+  "version": "0.1.0",
+  "description": "/open opens a file or folder of the project in the system's default app; refuses paths outside the project",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

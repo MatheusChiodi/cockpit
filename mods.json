@@ -1371,6 +1371,21 @@
         "[[user|> /run]]",
         "[[dim|build  dev  lint  test]]"
       ]
+    },
+    {
+      "name": "open-path",
+      "category": "commands",
+      "description": {
+        "en": "/open opens a file or folder of the project in the system's default app; refuses paths outside the project",
+        "pt": "/open abre um arquivo ou pasta do projeto no app padrão do sistema; recusa caminhos fora do projeto",
+        "es": "/open abre un archivo o carpeta del proyecto en la app predeterminada del sistema; rechaza rutas fuera del proyecto"
+      },
+      "preview": [
+        "[[user|> /open docs/report.pdf]]",
+        "[[ok|Opened docs/report.pdf]]",
+        "[[user|> /open ../secrets]]",
+        "[[err|Outside the project: ../secrets]]"
+      ]
     }
   ],
   "hero": [
