@@ -1030,6 +1030,12 @@
       "source": "./mods/suppress-guard",
       "description": "Refuses an edit that adds a blanket suppression: eslint-disable, @ts-ignore, @ts-nocheck, bare # noqa or # type: ignore",
       "category": "security"
+    },
+    {
+      "name": "migration-guard",
+      "source": "./mods/migration-guard",
+      "description": "Refuses edits to existing database migrations (Prisma, Rails, Django, Alembic, Flyway); a new file is the fix",
+      "category": "security"
     }
   ]
 }

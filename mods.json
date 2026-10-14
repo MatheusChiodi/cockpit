@@ -2763,6 +2763,19 @@
         "[[tool|● Edit]](src/api.ts)",
         "[[err|  ⎿ suppress-guard blocked the edit: it adds \"@ts-ignore\". Fix the cause instead.]]"
       ]
+    },
+    {
+      "name": "migration-guard",
+      "category": "security",
+      "description": {
+        "en": "Refuses edits to existing database migrations (Prisma, Rails, Django, Alembic, Flyway); a new file is the fix",
+        "pt": "Recusa edições em migrations de banco existentes (Prisma, Rails, Django, Alembic, Flyway); a correção é um arquivo novo",
+        "es": "Rechaza ediciones en migraciones de base de datos existentes (Prisma, Rails, Django, Alembic, Flyway); el arreglo es un archivo nuevo"
+      },
+      "preview": [
+        "[[tool|● Edit]](prisma/migrations/20240101_init/migration.sql)",
+        "[[err|  ⎿ migration-guard blocked the edit: applied migrations are append-only. Add a new one.]]"
+      ]
     }
   ],
   "hero": [

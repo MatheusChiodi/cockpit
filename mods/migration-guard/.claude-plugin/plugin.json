@@ -1,0 +1,13 @@
+{
+  "name": "migration-guard",
+  "version": "0.1.0",
+  "description": "Refuses edits to existing database migrations (Prisma, Rails, Django, Alembic, Flyway); a new file is the fix",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}
