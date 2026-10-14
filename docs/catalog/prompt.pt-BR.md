@@ -1,8 +1,8 @@
-# Prompt e modelo — 16 mods
+# Prompt e modelo — 17 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first) · [`verify-claims`](#verify-claims)
 
 ## `concise-mode`
 
@@ -163,3 +163,13 @@ Quando um pedido tem duas leituras que levam a códigos diferentes, o Claude faz
 ```
 
 ![ask-first](../previews/ask-first.svg)
+
+## `verify-claims`
+
+O Claude não diz que algo funciona sem rodar, e termina dizendo o que foi e o que não foi verificado.
+
+```
+/plugin install verify-claims@cockpit
+```
+
+![verify-claims](../previews/verify-claims.svg)

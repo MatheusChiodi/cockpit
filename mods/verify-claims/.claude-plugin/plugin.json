@@ -1,0 +1,13 @@
+{
+  "name": "verify-claims",
+  "version": "0.1.0",
+  "description": "Claude does not say something works without running it, and ends with what was and was not verified",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

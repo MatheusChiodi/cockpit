@@ -928,6 +928,12 @@
       "source": "./mods/ask-first",
       "description": "When a request has two readings that lead to different code, Claude asks one short question first",
       "category": "prompt"
+    },
+    {
+      "name": "verify-claims",
+      "source": "./mods/verify-claims",
+      "description": "Claude does not say something works without running it, and ends with what was and was not verified",
+      "category": "prompt"
     }
   ]
 }

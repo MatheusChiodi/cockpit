@@ -2517,6 +2517,21 @@
         "",
         "[[accent|●]] Faster for large files (streaming) or for repeated runs (caching)?"
       ]
+    },
+    {
+      "name": "verify-claims",
+      "category": "prompt",
+      "description": {
+        "en": "Claude does not say something works without running it, and ends with what was and was not verified",
+        "pt": "O Claude não diz que algo funciona sem rodar, e termina dizendo o que foi e o que não foi verificado",
+        "es": "Claude no dice que algo funciona sin ejecutarlo, y termina diciendo qué se verificó y qué no"
+      },
+      "preview": [
+        "[[accent|●]] Fixed the parser.",
+        "",
+        "[[ok|Verified:]] unit tests pass (14/14)",
+        "[[warn|Not verified:]] the Windows build"
+      ]
     }
   ],
   "hero": [
