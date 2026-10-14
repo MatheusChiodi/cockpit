@@ -1,0 +1,13 @@
+{
+  "name": "long-turn-toast",
+  "version": "0.1.0",
+  "description": "Toast when a turn runs three times longer than your median and at least two minutes, so you check it is still on track",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

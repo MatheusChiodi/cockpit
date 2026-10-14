@@ -4318,6 +4318,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "long-turn-toast",
+      "category": "focus",
+      "description": {
+        "en": "Toast when a turn runs three times longer than your median and at least two minutes, so you check it is still on track",
+        "pt": "Toast quando um turno dura três vezes mais que a sua mediana e ao menos dois minutos, para você conferir se continua no rumo",
+        "es": "Toast cuando un turno dura tres veces más que tu mediana y al menos dos minutos, para comprobar que sigue en rumbo"
+      },
+      "preview": [
+        "[[toast| long-turn-toast  This turn took 7m 10s, usually about 1m 5s. Still on track? ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [

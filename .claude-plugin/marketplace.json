@@ -1666,6 +1666,12 @@
       "source": "./mods/scatter-toast",
       "description": "Toast when one turn changes eight or more files across four or more unrelated folders",
       "category": "focus"
+    },
+    {
+      "name": "long-turn-toast",
+      "source": "./mods/long-turn-toast",
+      "description": "Toast when a turn runs three times longer than your median and at least two minutes, so you check it is still on track",
+      "category": "focus"
     }
   ]
 }
