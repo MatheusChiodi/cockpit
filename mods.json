@@ -1855,6 +1855,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
+    },
+    {
+      "name": "posture",
+      "category": "focus",
+      "description": {
+        "en": "Toast every 30 minutes of use with one short posture check, rotating through four",
+        "pt": "Toast a cada 30 minutos de uso com uma checagem rápida de postura, alternando entre quatro",
+        "es": "Toast cada 30 minutos de uso con un chequeo breve de postura, rotando entre cuatro"
+      },
+      "preview": [
+        "[[toast| posture  Shoulders down, away from your ears. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
     }
   ],
   "hero": [

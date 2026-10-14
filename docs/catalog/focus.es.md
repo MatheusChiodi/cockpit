@@ -1,8 +1,8 @@
-# Foco y notificaciones — 12 mods
+# Foco y notificaciones — 13 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture)
 
 ## `turn-notify`
 
@@ -123,3 +123,13 @@ Toast cada 60 minutos de uso real recordando beber agua.
 ```
 
 ![hydrate](../previews/hydrate.svg)
+
+## `posture`
+
+Toast cada 30 minutos de uso con un chequeo breve de postura, rotando entre cuatro.
+
+```
+/plugin install posture@cockpit
+```
+
+![posture](../previews/posture.svg)
