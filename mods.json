@@ -1625,6 +1625,23 @@
         "      $2  \"ab\"",
         "#2  @12  \"7-cd\""
       ]
+    },
+    {
+      "name": "http-probe",
+      "category": "commands",
+      "description": {
+        "en": "/http makes a GET request and shows the status, content type, size and first lines of the body",
+        "pt": "/http faz uma requisição GET e mostra status, tipo de conteúdo, tamanho e as primeiras linhas do corpo",
+        "es": "/http hace una solicitud GET y muestra estado, tipo de contenido, tamaño y las primeras líneas del cuerpo"
+      },
+      "preview": [
+        "[[user|> /http https://example.com]]",
+        "status  200",
+        "type    text/html; charset=UTF-8",
+        "size    1.2 KB",
+        "",
+        "[[dim|<!doctype html>]]"
+      ]
     }
   ],
   "hero": [

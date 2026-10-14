@@ -604,6 +604,12 @@
       "source": "./mods/regex-test",
       "description": "/re tests a regular expression on a text and lists each match with its position and capture groups",
       "category": "commands"
+    },
+    {
+      "name": "http-probe",
+      "source": "./mods/http-probe",
+      "description": "/http makes a GET request and shows the status, content type, size and first lines of the body",
+      "category": "commands"
     }
   ]
 }

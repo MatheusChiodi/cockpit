@@ -1,0 +1,13 @@
+{
+  "name": "http-probe",
+  "version": "0.1.0",
+  "description": "/http makes a GET request and shows the status, content type, size and first lines of the body",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
