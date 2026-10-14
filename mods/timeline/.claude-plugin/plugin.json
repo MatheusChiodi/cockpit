@@ -1,0 +1,14 @@
+{
+  "name": "timeline",
+  "version": "0.1.0",
+  "description": "/timeline opens a chronological log of the session: prompts, tool calls, failures and turn ends with their clock time",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

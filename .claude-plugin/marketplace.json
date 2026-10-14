@@ -1516,6 +1516,12 @@
       "source": "./mods/idle-commit-nudge",
       "description": "Shows a toast when the session has been idle for 10 minutes with uncommitted changes",
       "category": "focus"
+    },
+    {
+      "name": "timeline",
+      "source": "./mods/timeline",
+      "description": "/timeline opens a chronological log of the session: prompts, tool calls, failures and turn ends with their clock time",
+      "category": "interface"
     }
   ]
 }

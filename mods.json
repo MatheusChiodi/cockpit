@@ -3942,6 +3942,24 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "timeline",
+      "category": "interface",
+      "description": {
+        "en": "/timeline opens a chronological log of the session: prompts, tool calls, failures and turn ends with their clock time",
+        "pt": "/timeline abre um registro cronológico da sessão: prompts, chamadas de ferramenta, falhas e fins de turno com o horário de cada um",
+        "es": "/timeline abre un registro cronológico de la sesión: prompts, llamadas de herramienta, fallos y fines de turno con su hora"
+      },
+      "preview": [
+        "[[user|> /timeline]]",
+        "[[session|▍ ]][[bold|TIMELINE]][[dim|  6 events]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[dim|14:02:11]] [[user|›]] fix the login hook",
+        "[[dim|14:02:14]] [[dim|●]] Read src/login.ts",
+        "[[dim|14:02:19]] [[err|✗]] Bash npm test",
+        "[[dim|14:02:31]] [[ok|✓]] turn ended  20.1s"
+      ]
     }
   ],
   "hero": [
