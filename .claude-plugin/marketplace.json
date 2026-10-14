@@ -1216,6 +1216,12 @@
       "source": "./mods/leftovers-toast",
       "description": "Toast at the end of a turn counting the debug logs and TODOs the edits added",
       "category": "quality"
+    },
+    {
+      "name": "any-guard",
+      "source": "./mods/any-guard",
+      "description": "Asks before an edit adds any to TypeScript: \": any\", \"as any\", \"<any>\" or any[]",
+      "category": "quality"
     }
   ]
 }

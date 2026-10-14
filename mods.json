@@ -3214,6 +3214,20 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "any-guard",
+      "category": "quality",
+      "description": {
+        "en": "Asks before an edit adds any to TypeScript: \": any\", \"as any\", \"<any>\" or any[]",
+        "pt": "Pergunta antes de uma edição adicionar any ao TypeScript: \": any\", \"as any\", \"<any>\" ou any[]",
+        "es": "Pregunta antes de que una edición añada any a TypeScript: \": any\", \"as any\", \"<any>\" o any[]"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/api.ts)",
+        "[[warn|  ⎿ any-guard: the edit adds \"as any\", which turns type checking off. Confirm.]]",
+        "[[btn| Yes ]] [[btn| No ]]"
+      ]
     }
   ],
   "hero": [

@@ -1,8 +1,8 @@
-# Quality — 4 mods
+# Quality — 5 mods
 
 [← Back to the README](../../README.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard)
 
 ## `untested-turn-toast`
 
@@ -43,3 +43,13 @@ Toast at the end of a turn counting the debug logs and TODOs the edits added.
 ```
 
 ![leftovers-toast](../previews/leftovers-toast.svg)
+
+## `any-guard`
+
+Asks before an edit adds any to TypeScript: ": any", "as any", "<any>" or any[].
+
+```
+/plugin install any-guard@cockpit
+```
+
+![any-guard](../previews/any-guard.svg)

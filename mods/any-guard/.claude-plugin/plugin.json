@@ -1,0 +1,13 @@
+{
+  "name": "any-guard",
+  "version": "0.1.0",
+  "description": "Asks before an edit adds any to TypeScript: \": any\", \"as any\", \"<any>\" or any[]",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}
