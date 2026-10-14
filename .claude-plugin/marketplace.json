@@ -1708,6 +1708,12 @@
       "source": "./mods/parking-lot",
       "description": "/park <idea> captures an idea without derailing the work and shows it again at the end of the turn",
       "category": "focus"
+    },
+    {
+      "name": "file-churn",
+      "source": "./mods/file-churn",
+      "description": "Toast when the same file is edited six times within half an hour, a sign to step back",
+      "category": "focus"
     }
   ]
 }

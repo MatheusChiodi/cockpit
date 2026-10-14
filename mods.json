@@ -4421,6 +4421,20 @@
         "",
         "[[toast| parking-lot  Parked: add dark mode to the settings page ]]"
       ]
+    },
+    {
+      "name": "file-churn",
+      "category": "focus",
+      "description": {
+        "en": "Toast when the same file is edited six times within half an hour, a sign to step back",
+        "pt": "Toast quando o mesmo arquivo é editado seis vezes em meia hora, sinal de que vale dar um passo atrás",
+        "es": "Toast cuando el mismo archivo se edita seis veces en media hora, señal de que conviene dar un paso atrás"
+      },
+      "preview": [
+        "[[toast| file-churn  src/auth.ts edited 6 times in 30 min. Step back and look at the whole? ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [

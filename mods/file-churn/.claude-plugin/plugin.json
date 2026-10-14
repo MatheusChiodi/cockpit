@@ -1,0 +1,13 @@
+{
+  "name": "file-churn",
+  "version": "0.1.0",
+  "description": "Toast when the same file is edited six times within half an hour, a sign to step back",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}
