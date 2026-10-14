@@ -1,0 +1,16 @@
+{
+  "name": "deploy-status",
+  "version": "0.1.0",
+  "description": "Status line entry with the result of the last deploy command: vercel, netlify, eas, firebase, fly and others",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "dependencies": [
+    "cockpit"
+  ]
+}

@@ -1354,6 +1354,12 @@
       "source": "./mods/env-drift-band",
       "description": "Band with the keys .env.example has and .env lacks, names only, never values",
       "category": "panel"
+    },
+    {
+      "name": "deploy-status",
+      "source": "./mods/deploy-status",
+      "description": "Status line entry with the result of the last deploy command: vercel, netlify, eas, firebase, fly and others",
+      "category": "panel"
     }
   ]
 }

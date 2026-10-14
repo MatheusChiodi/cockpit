@@ -325,6 +325,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "deploy-status",
+    "group": "project",
+    "description": {
+      "en": "Status line entry with the result of the last deploy command: vercel, netlify, eas, firebase, fly and others",
+      "pt": "Entrada na status line com o resultado do último comando de deploy: vercel, netlify, eas, firebase, fly e outros",
+      "es": "Entrada en la línea de estado con el resultado del último comando de deploy: vercel, netlify, eas, firebase, fly y otros"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {
