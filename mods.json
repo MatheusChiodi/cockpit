@@ -1560,6 +1560,21 @@
         "YcOnw6NvIOKckw==",
         "[[dim|Copied to the clipboard.]]"
       ]
+    },
+    {
+      "name": "hash",
+      "category": "commands",
+      "description": {
+        "en": "/hash gives the SHA-256 and SHA-1 of a text in hex and copies the SHA-256",
+        "pt": "/hash dá o SHA-256 e o SHA-1 de um texto em hexadecimal e copia o SHA-256",
+        "es": "/hash da el SHA-256 y el SHA-1 de un texto en hexadecimal y copia el SHA-256"
+      },
+      "preview": [
+        "[[user|> /hash abc]]",
+        "sha-256  ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+        "sha-1    a9993e364706816aba3e25717850c26c9cd0d89d",
+        "[[dim|SHA-256 copied to the clipboard.]]"
+      ]
     }
   ],
   "hero": [

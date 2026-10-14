@@ -580,6 +580,12 @@
       "source": "./mods/base64",
       "description": "/b64 encodes and decodes Base64 safely for UTF-8 text and copies the result",
       "category": "commands"
+    },
+    {
+      "name": "hash",
+      "source": "./mods/hash",
+      "description": "/hash gives the SHA-256 and SHA-1 of a text in hex and copies the SHA-256",
+      "category": "commands"
     }
   ]
 }

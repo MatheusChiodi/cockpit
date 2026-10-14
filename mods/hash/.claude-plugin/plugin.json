@@ -1,0 +1,13 @@
+{
+  "name": "hash",
+  "version": "0.1.0",
+  "description": "/hash gives the SHA-256 and SHA-1 of a text in hex and copies the SHA-256",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
