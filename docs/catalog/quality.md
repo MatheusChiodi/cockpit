@@ -1,8 +1,8 @@
-# Quality — 3 mods
+# Quality — 4 mods
 
 [← Back to the README](../../README.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast)
 
 ## `untested-turn-toast`
 
@@ -33,3 +33,13 @@ Refuses edits that add a debugger statement, breakpoint(), pdb or binding.pry.
 ```
 
 ![debugger-guard](../previews/debugger-guard.svg)
+
+## `leftovers-toast`
+
+Toast at the end of a turn counting the debug logs and TODOs the edits added.
+
+```
+/plugin install leftovers-toast@cockpit
+```
+
+![leftovers-toast](../previews/leftovers-toast.svg)

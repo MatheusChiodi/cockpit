@@ -1210,6 +1210,12 @@
       "source": "./mods/debugger-guard",
       "description": "Refuses edits that add a debugger statement, breakpoint(), pdb or binding.pry",
       "category": "quality"
+    },
+    {
+      "name": "leftovers-toast",
+      "source": "./mods/leftovers-toast",
+      "description": "Toast at the end of a turn counting the debug logs and TODOs the edits added",
+      "category": "quality"
     }
   ]
 }

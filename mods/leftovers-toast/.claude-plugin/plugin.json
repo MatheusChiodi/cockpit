@@ -1,0 +1,13 @@
+{
+  "name": "leftovers-toast",
+  "version": "0.1.0",
+  "description": "Toast at the end of a turn counting the debug logs and TODOs the edits added",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

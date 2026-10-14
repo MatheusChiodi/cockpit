@@ -1,8 +1,8 @@
-# Calidad — 3 mods
+# Calidad — 4 mods
 
 [← Volver al README](../../README.es.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast)
 
 ## `untested-turn-toast`
 
@@ -33,3 +33,13 @@ Rechaza ediciones que añaden debugger, breakpoint(), pdb o binding.pry.
 ```
 
 ![debugger-guard](../previews/debugger-guard.svg)
+
+## `leftovers-toast`
+
+Toast al final del turno contando los logs de depuración y TODOs que añadieron las ediciones.
+
+```
+/plugin install leftovers-toast@cockpit
+```
+
+![leftovers-toast](../previews/leftovers-toast.svg)

@@ -3197,6 +3197,23 @@
         "[[tool|● Edit]](src/cart.ts)",
         "[[err|  ⎿ debugger-guard blocked the edit: it adds a \"debugger\" statement.]]"
       ]
+    },
+    {
+      "name": "leftovers-toast",
+      "category": "quality",
+      "description": {
+        "en": "Toast at the end of a turn counting the debug logs and TODOs the edits added",
+        "pt": "Toast no fim do turno contando os logs de debug e TODOs que as edições adicionaram",
+        "es": "Toast al final del turno contando los logs de depuración y TODOs que añadieron las ediciones"
+      },
+      "preview": [
+        "[[ok|● Done. Added the discount rule.]]",
+        "",
+        "[[toast| Left behind: 3 debug logs, 1 TODO ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [
