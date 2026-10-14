@@ -1,0 +1,17 @@
+{
+  "name": "db-port-status",
+  "version": "0.1.0",
+  "description": "Status line that warns when the local database or cache the project points to is not listening",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}

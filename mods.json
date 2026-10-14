@@ -3617,6 +3617,22 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  install ✗ lockfile newer]]"
       ]
+    },
+    {
+      "name": "db-port-status",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "en": "Status line that warns when the local database or cache the project points to is not listening",
+        "pt": "Status line que avisa quando o banco ou cache local para o qual o projeto aponta não está escutando",
+        "es": "Línea de estado que avisa cuando la base de datos o caché local a la que apunta el proyecto no está escuchando"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  db ✗ postgres :5432 down]]"
+      ]
     }
   ],
   "hero": [

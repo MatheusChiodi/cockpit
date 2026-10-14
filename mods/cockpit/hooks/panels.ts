@@ -370,6 +370,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "db-port-status",
+    "group": "project",
+    "description": {
+      "en": "Status line that warns when the local database or cache the project points to is not listening",
+      "pt": "Status line que avisa quando o banco ou cache local para o qual o projeto aponta não está escutando",
+      "es": "Línea de estado que avisa cuando la base de datos o caché local a la que apunta el proyecto no está escuchando"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {

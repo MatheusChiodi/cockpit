@@ -1384,6 +1384,12 @@
       "source": "./mods/install-status",
       "description": "Status line that warns when node_modules is missing or older than the lockfile",
       "category": "panel"
+    },
+    {
+      "name": "db-port-status",
+      "source": "./mods/db-port-status",
+      "description": "Status line that warns when the local database or cache the project points to is not listening",
+      "category": "panel"
     }
   ]
 }
