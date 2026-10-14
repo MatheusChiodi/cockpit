@@ -1,8 +1,8 @@
-# Quality — 7 mods
+# Quality — 8 mods
 
 [← Back to the README](../../README.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested)
 
 ## `untested-turn-toast`
 
@@ -73,3 +73,13 @@ Refuses an edit whose new code repeats a block of 6 or more lines already in the
 ```
 
 ![dup-block-guard](../previews/dup-block-guard.svg)
+
+## `untested`
+
+/untested lists the changed files that have no test file, without spending a model turn.
+
+```
+/plugin install untested@cockpit
+```
+
+![untested](../previews/untested.svg)

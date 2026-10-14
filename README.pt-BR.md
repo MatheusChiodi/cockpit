@@ -2,7 +2,7 @@
 
 [English](README.md) · **Português** · [Español](README.es.md)
 
-**Um painel de instrumentos para o Claude Code.** 205 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
+**Um painel de instrumentos para o Claude Code.** 206 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
 
 ![O painel completo do Cockpit em um terminal](docs/cockpit.svg)
 
@@ -73,7 +73,7 @@ As descrições dos slash commands no autocompletar são lidas quando a sessão 
 | [**Comandos**](docs/catalog/commands.pt-BR.md) | 30 | `quick-notes` `pomodoro` `copy-last` `session-stats` `quote-selection` `git-peek` `git-branch` `git-stash` `git-undo` `run-script` `open-path` `ports` `kill-port` `tree` `find-file` `last-error` `env-check` `outdated` `json-tool` `uuid` `timestamp` `base64` `hash` `calc` `color-tool` `regex-test` `http-probe` `snippets` `export-session` `standup` |
 | [**Foco e notificações**](docs/catalog/focus.pt-BR.md) | 24 | `turn-notify` `break-reminder` `daily-streak` `error-notify` `needs-you-notify` `agent-done-notify` `long-cmd-notify` `tests-notify` `ci-notify` `pr-review-notify` `rate-limit-notify` `hydrate` `posture` `eye-rest` `stand-up` `alarms` `remind` `timebox` `session-cap` `late-night` `intent-check` `daily-target` `weekly-recap` `breathe` |
 | [**Git e GitHub**](docs/catalog/git.pt-BR.md) | 12 | `commit-review` `wip-commit-guard` `marker-guard` `amend-guard` `stage-guard` `git-stage` `git-fixup` `git-sync` `behind-toast` `git-switch` `git-tag` `staged-status` |
-| [**Qualidade**](docs/catalog/quality.pt-BR.md) | 7 | `untested-turn-toast` `red-turn-toast` `debugger-guard` `leftovers-toast` `any-guard` `long-file-toast` `dup-block-guard` |
+| [**Qualidade**](docs/catalog/quality.pt-BR.md) | 8 | `untested-turn-toast` `red-turn-toast` `debugger-guard` `leftovers-toast` `any-guard` `long-file-toast` `dup-block-guard` `untested` |
 | [**Stacks**](docs/catalog/stack.pt-BR.md) | 0 |  |
 | [**Contexto e custo**](docs/catalog/context.pt-BR.md) | 12 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` `heavy-calls` `tree-flood-guard` |
 

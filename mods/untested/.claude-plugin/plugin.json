@@ -1,0 +1,13 @@
+{
+  "name": "untested",
+  "version": "0.1.0",
+  "description": "/untested lists the changed files that have no test file, without spending a model turn",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

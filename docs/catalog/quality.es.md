@@ -1,8 +1,8 @@
-# Calidad — 7 mods
+# Calidad — 8 mods
 
 [← Volver al README](../../README.es.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested)
 
 ## `untested-turn-toast`
 
@@ -73,3 +73,13 @@ Rechaza una edición cuyo código nuevo repite un bloque de 6 o más líneas que
 ```
 
 ![dup-block-guard](../previews/dup-block-guard.svg)
+
+## `untested`
+
+/untested lista los archivos modificados que no tienen archivo de test, sin gastar un turno del modelo.
+
+```
+/plugin install untested@cockpit
+```
+
+![untested](../previews/untested.svg)

@@ -3259,6 +3259,21 @@
         "[[err|  ⎿ dup-block-guard blocked the edit: it repeats 6 lines already in this file]]",
         "[[err|    (from \"const rows = items.filter(...)\"). Extract a function instead.]]"
       ]
+    },
+    {
+      "name": "untested",
+      "category": "quality",
+      "description": {
+        "en": "/untested lists the changed files that have no test file, without spending a model turn",
+        "pt": "/untested lista os arquivos alterados que não têm arquivo de teste, sem gastar um turno do modelo",
+        "es": "/untested lista los archivos modificados que no tienen archivo de test, sin gastar un turno del modelo"
+      },
+      "preview": [
+        "[[user|> ]]/untested",
+        "[[bold|Changed code without a test (2)]]",
+        "  src/cart.ts",
+        "  src/discount.ts"
+      ]
     }
   ],
   "hero": [
