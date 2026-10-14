@@ -1339,6 +1339,21 @@
         "[[dim|stash@{0}  On main: wip login form]]",
         "[[dim|stash@{1}  On dev: spike cache]]"
       ]
+    },
+    {
+      "name": "git-undo",
+      "category": "commands",
+      "description": {
+        "en": "/gundo shows the last commit and, once you confirm, undoes it with a soft reset; refuses a pushed commit",
+        "pt": "/gundo mostra o último commit e, após confirmar, desfaz com soft reset; recusa um commit já enviado",
+        "es": "/gundo muestra el último commit y, tras confirmar, lo deshace con soft reset; rechaza un commit ya enviado"
+      },
+      "preview": [
+        "[[user|> /gundo]]",
+        "[[dim|Last commit:]] [[bold|a1b2c3d fix login redirect]]",
+        "[[warn|Undo it? The changes stay staged.]] [[btn|[ yes ]]] [[btn|[ no ]]]",
+        "[[ok|Undone: a1b2c3d fix login redirect]]"
+      ]
     }
   ],
   "hero": [

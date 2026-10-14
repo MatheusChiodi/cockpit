@@ -496,6 +496,12 @@
       "source": "./mods/git-stash",
       "description": "/gst stashes the working tree with a message, pops the latest stash after asking, or lists the stashes",
       "category": "commands"
+    },
+    {
+      "name": "git-undo",
+      "source": "./mods/git-undo",
+      "description": "/gundo shows the last commit and, once you confirm, undoes it with a soft reset; refuses a pushed commit",
+      "category": "commands"
     }
   ]
 }

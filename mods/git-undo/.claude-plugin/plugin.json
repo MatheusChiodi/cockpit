@@ -1,0 +1,13 @@
+{
+  "name": "git-undo",
+  "version": "0.1.0",
+  "description": "/gundo shows the last commit and, once you confirm, undoes it with a soft reset; refuses a pushed commit",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
