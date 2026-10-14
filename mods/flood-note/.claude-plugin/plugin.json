@@ -1,0 +1,13 @@
+{
+  "name": "flood-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when a search or command returned over 300 lines, so it narrows the next one instead of repeating it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

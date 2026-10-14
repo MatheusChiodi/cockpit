@@ -1102,6 +1102,12 @@
       "source": "./mods/cache-cold-toast",
       "description": "A toast when you send a prompt after the 5 minute prompt-cache window expired on a large context",
       "category": "context"
+    },
+    {
+      "name": "flood-note",
+      "source": "./mods/flood-note",
+      "description": "Tells Claude when a search or command returned over 300 lines, so it narrows the next one instead of repeating it",
+      "category": "context"
     }
   ]
 }

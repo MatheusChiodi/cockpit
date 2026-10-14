@@ -2927,6 +2927,20 @@
         "[[user|> now add the tests]]",
         "[[toast| Prompt cache expired after 14 min idle: this turn re-reads about 92,000 tokens ]]"
       ]
+    },
+    {
+      "name": "flood-note",
+      "category": "context",
+      "description": {
+        "en": "Tells Claude when a search or command returned over 300 lines, so it narrows the next one instead of repeating it",
+        "pt": "Avisa Claude quando uma busca ou comando devolveu mais de 300 linhas, para estreitar a próxima em vez de repetir",
+        "es": "Avisa a Claude cuando una búsqueda o comando devolvió más de 300 líneas, para que acote la siguiente en vez de repetirla"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm ls --all)",
+        "[[dim|  ⎿ 1,204 lines]]",
+        "[[dim|    note to Claude: that was 1,204 lines (about 9,000 tokens); narrow the next one]]"
+      ]
     }
   ],
   "hero": [

@@ -1,8 +1,8 @@
-# Contexto y costo — 9 mods
+# Contexto y costo — 10 mods
 
 [← Volver al README](../../README.es.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note)
 
 ## `reread-guard`
 
@@ -93,3 +93,13 @@ Un toast cuando envías un prompt después de que expire la ventana de 5 minutos
 ```
 
 ![cache-cold-toast](../previews/cache-cold-toast.svg)
+
+## `flood-note`
+
+Avisa a Claude cuando una búsqueda o comando devolvió más de 300 líneas, para que acote la siguiente en vez de repetirla.
+
+```
+/plugin install flood-note@cockpit
+```
+
+![flood-note](../previews/flood-note.svg)
