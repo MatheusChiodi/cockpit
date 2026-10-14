@@ -1,0 +1,13 @@
+{
+  "name": "test-skip-guard",
+  "version": "0.1.0",
+  "description": "Refuses an edit that adds a skipped or focused test: .skip, .only, xit, fit, @Ignore, @Disabled, @pytest.mark.skip",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

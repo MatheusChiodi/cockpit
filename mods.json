@@ -2737,6 +2737,19 @@
         "[[warn|  ⎿ ci-config-guard: .github/workflows/deploy.yml configures the pipeline. Confirm.]]",
         "[[btn| Yes ]] [[btn| No ]]"
       ]
+    },
+    {
+      "name": "test-skip-guard",
+      "category": "security",
+      "description": {
+        "en": "Refuses an edit that adds a skipped or focused test: .skip, .only, xit, fit, @Ignore, @Disabled, @pytest.mark.skip",
+        "pt": "Recusa uma edição que adiciona teste pulado ou focado: .skip, .only, xit, fit, @Ignore, @Disabled, @pytest.mark.skip",
+        "es": "Rechaza una edición que añade un test omitido o enfocado: .skip, .only, xit, fit, @Ignore, @Disabled, @pytest.mark.skip"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/cart.test.ts)",
+        "[[err|  ⎿ test-skip-guard blocked the edit: it adds \".skip(\". Fix the test instead.]]"
+      ]
     }
   ],
   "hero": [

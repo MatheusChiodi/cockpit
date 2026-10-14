@@ -1018,6 +1018,12 @@
       "source": "./mods/ci-config-guard",
       "description": "Asks before an edit to pipeline and deploy configuration: GitHub workflows, GitLab CI, Jenkinsfile, vercel.json, eas.json",
       "category": "security"
+    },
+    {
+      "name": "test-skip-guard",
+      "source": "./mods/test-skip-guard",
+      "description": "Refuses an edit that adds a skipped or focused test: .skip, .only, xit, fit, @Ignore, @Disabled, @pytest.mark.skip",
+      "category": "security"
     }
   ]
 }
