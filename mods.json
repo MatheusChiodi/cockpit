@@ -1354,6 +1354,23 @@
         "[[warn|Undo it? The changes stay staged.]] [[btn|[ yes ]]] [[btn|[ no ]]]",
         "[[ok|Undone: a1b2c3d fix login redirect]]"
       ]
+    },
+    {
+      "name": "run-script",
+      "category": "commands",
+      "description": {
+        "en": "/run runs a package.json script with the project's package manager and prints the exit code and last lines",
+        "pt": "/run executa um script do package.json com o gerenciador de pacotes do projeto e mostra o código de saída e as últimas linhas",
+        "es": "/run ejecuta un script del package.json con el gestor de paquetes del proyecto y muestra el código de salida y las últimas líneas"
+      },
+      "preview": [
+        "[[user|> /run test]]",
+        "[[dim|pnpm run test]]",
+        "[[dim|  ✓ 14 passed]]",
+        "[[ok|exit 0]]",
+        "[[user|> /run]]",
+        "[[dim|build  dev  lint  test]]"
+      ]
     }
   ],
   "hero": [

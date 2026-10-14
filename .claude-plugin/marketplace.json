@@ -502,6 +502,12 @@
       "source": "./mods/git-undo",
       "description": "/gundo shows the last commit and, once you confirm, undoes it with a soft reset; refuses a pushed commit",
       "category": "commands"
+    },
+    {
+      "name": "run-script",
+      "source": "./mods/run-script",
+      "description": "/run runs a package.json script with the project's package manager and prints the exit code and last lines",
+      "category": "commands"
     }
   ]
 }

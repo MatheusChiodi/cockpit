@@ -1,0 +1,13 @@
+{
+  "name": "run-script",
+  "version": "0.1.0",
+  "description": "/run runs a package.json script with the project's package manager and prints the exit code and last lines",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
