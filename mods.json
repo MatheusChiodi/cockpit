@@ -4449,6 +4449,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "wandering",
+      "category": "focus",
+      "description": {
+        "en": "Toast after ten prompts in a row without a single file changed: what would make this done?",
+        "pt": "Toast após dez prompts seguidos sem nenhum arquivo alterado: o que deixaria isto pronto?",
+        "es": "Toast tras diez prompts seguidos sin cambiar ningún archivo: ¿qué lo dejaría terminado?"
+      },
+      "preview": [
+        "[[toast| wandering  10 prompts and no file changed. What would make this done? ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [

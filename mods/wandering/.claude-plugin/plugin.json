@@ -1,0 +1,13 @@
+{
+  "name": "wandering",
+  "version": "0.1.0",
+  "description": "Toast after ten prompts in a row without a single file changed: what would make this done?",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

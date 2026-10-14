@@ -1720,6 +1720,12 @@
       "source": "./mods/resume-line",
       "description": "On start, one toast with what you were last working on in this project, if it was in the past three days",
       "category": "focus"
+    },
+    {
+      "name": "wandering",
+      "source": "./mods/wandering",
+      "description": "Toast after ten prompts in a row without a single file changed: what would make this done?",
+      "category": "focus"
     }
   ]
 }
