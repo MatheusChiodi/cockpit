@@ -1,0 +1,13 @@
+{
+  "name": "tunnel-guard",
+  "version": "0.1.0",
+  "description": "Asks before a command that exposes your machine to the internet: ngrok, cloudflared, ssh -R, tailscale funnel, a dev server on 0.0.0.0",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

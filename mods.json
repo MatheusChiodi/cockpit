@@ -2789,6 +2789,20 @@
         "[[tool|● Write]](data/seed.json)",
         "[[err|  ⎿ large-write-guard blocked the write: 4210 lines. Split it or generate it with a script.]]"
       ]
+    },
+    {
+      "name": "tunnel-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before a command that exposes your machine to the internet: ngrok, cloudflared, ssh -R, tailscale funnel, a dev server on 0.0.0.0",
+        "pt": "Pergunta antes de um comando que expõe sua máquina à internet: ngrok, cloudflared, ssh -R, tailscale funnel, servidor de dev em 0.0.0.0",
+        "es": "Pregunta antes de un comando que expone tu máquina a internet: ngrok, cloudflared, ssh -R, tailscale funnel, servidor de dev en 0.0.0.0"
+      },
+      "preview": [
+        "[[tool|● Bash]](ngrok http 3000)",
+        "[[warn|  ⎿ tunnel-guard: opening a public tunnel (ngrok). Confirm before running.]]",
+        "[[btn| Yes ]] [[btn| No ]]"
+      ]
     }
   ],
   "hero": [
