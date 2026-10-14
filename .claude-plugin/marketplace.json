@@ -1624,6 +1624,12 @@
       "source": "./mods/file-diff",
       "description": "/fdiff shows what changed in one file since the last commit, without printing secret files",
       "category": "commands"
+    },
+    {
+      "name": "path-size",
+      "source": "./mods/path-size",
+      "description": "/size shows how big a file is, in bytes and lines, or a folder, in tracked size and files",
+      "category": "commands"
     }
   ]
 }

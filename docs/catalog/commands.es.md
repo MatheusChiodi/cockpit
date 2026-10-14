@@ -1,8 +1,8 @@
-# Comandos — 37 mods
+# Comandos — 38 mods
 
 [← Volver al README](../../README.es.md)
 
-[`quick-notes`](#quick-notes) · [`pomodoro`](#pomodoro) · [`copy-last`](#copy-last) · [`session-stats`](#session-stats) · [`quote-selection`](#quote-selection) · [`git-peek`](#git-peek) · [`git-branch`](#git-branch) · [`git-stash`](#git-stash) · [`git-undo`](#git-undo) · [`run-script`](#run-script) · [`open-path`](#open-path) · [`ports`](#ports) · [`kill-port`](#kill-port) · [`tree`](#tree) · [`find-file`](#find-file) · [`last-error`](#last-error) · [`env-check`](#env-check) · [`outdated`](#outdated) · [`json-tool`](#json-tool) · [`uuid`](#uuid) · [`timestamp`](#timestamp) · [`base64`](#base64) · [`hash`](#hash) · [`calc`](#calc) · [`color-tool`](#color-tool) · [`regex-test`](#regex-test) · [`http-probe`](#http-probe) · [`snippets`](#snippets) · [`export-session`](#export-session) · [`standup`](#standup) · [`loc-count`](#loc-count) · [`big-files`](#big-files) · [`recent-files`](#recent-files) · [`symbol-def`](#symbol-def) · [`file-author`](#file-author) · [`head-file`](#head-file) · [`file-diff`](#file-diff)
+[`quick-notes`](#quick-notes) · [`pomodoro`](#pomodoro) · [`copy-last`](#copy-last) · [`session-stats`](#session-stats) · [`quote-selection`](#quote-selection) · [`git-peek`](#git-peek) · [`git-branch`](#git-branch) · [`git-stash`](#git-stash) · [`git-undo`](#git-undo) · [`run-script`](#run-script) · [`open-path`](#open-path) · [`ports`](#ports) · [`kill-port`](#kill-port) · [`tree`](#tree) · [`find-file`](#find-file) · [`last-error`](#last-error) · [`env-check`](#env-check) · [`outdated`](#outdated) · [`json-tool`](#json-tool) · [`uuid`](#uuid) · [`timestamp`](#timestamp) · [`base64`](#base64) · [`hash`](#hash) · [`calc`](#calc) · [`color-tool`](#color-tool) · [`regex-test`](#regex-test) · [`http-probe`](#http-probe) · [`snippets`](#snippets) · [`export-session`](#export-session) · [`standup`](#standup) · [`loc-count`](#loc-count) · [`big-files`](#big-files) · [`recent-files`](#recent-files) · [`symbol-def`](#symbol-def) · [`file-author`](#file-author) · [`head-file`](#head-file) · [`file-diff`](#file-diff) · [`path-size`](#path-size)
 
 ## `quick-notes`
 
@@ -373,3 +373,13 @@
 ```
 
 ![file-diff](../previews/file-diff.svg)
+
+## `path-size`
+
+/size muestra el tamaño de un archivo, en bytes y líneas, o de una carpeta, en tamaño versionado y archivos.
+
+```
+/plugin install path-size@cockpit
+```
+
+![path-size](../previews/path-size.svg)

@@ -1,0 +1,13 @@
+{
+  "name": "path-size",
+  "version": "0.1.0",
+  "description": "/size shows how big a file is, in bytes and lines, or a folder, in tracked size and files",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

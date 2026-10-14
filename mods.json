@@ -4209,6 +4209,21 @@
         "     [[err|-  return token]]",
         "     [[ok|+  return refresh(token)]]"
       ]
+    },
+    {
+      "name": "path-size",
+      "category": "commands",
+      "description": {
+        "en": "/size shows how big a file is, in bytes and lines, or a folder, in tracked size and files",
+        "pt": "/size mostra o tamanho de um arquivo, em bytes e linhas, ou de uma pasta, em tamanho versionado e arquivos",
+        "es": "/size muestra el tamaño de un archivo, en bytes y líneas, o de una carpeta, en tamaño versionado y archivos"
+      },
+      "preview": [
+        "[[user|> /size src]]",
+        "[[dim|  ⎿]] size     1.4 MB  (tracked)",
+        "     files    64",
+        "     biggest  src/assets/hero.png  812.0 KB"
+      ]
     }
   ],
   "hero": [
