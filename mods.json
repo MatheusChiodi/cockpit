@@ -4376,6 +4376,21 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "day-close",
+      "category": "focus",
+      "description": {
+        "en": "/dayend sets an hour; at that time one quiet toast sums up the day with prompts, turns and edits",
+        "pt": "/dayend define uma hora; nela um toast discreto resume o dia com prompts, turnos e edições",
+        "es": "/dayend define una hora; en ella un toast discreto resume el día con prompts, turnos y ediciones"
+      },
+      "preview": [
+        "[[user|> /dayend 18:00]]",
+        "[[dim|  ⎿ Day summary at 18:00.]]",
+        "",
+        "[[toast| day-close  Done for today? 14 prompts, 9 turns, 31 edits. Good work. ]]"
+      ]
     }
   ],
   "hero": [

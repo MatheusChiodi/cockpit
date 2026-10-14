@@ -1,8 +1,8 @@
-# Focus and notifications — 36 mods
+# Focus and notifications — 37 mods
 
 [← Back to the README](../../README.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture) · [`eye-rest`](#eye-rest) · [`stand-up`](#stand-up) · [`alarms`](#alarms) · [`remind`](#remind) · [`timebox`](#timebox) · [`session-cap`](#session-cap) · [`late-night`](#late-night) · [`intent-check`](#intent-check) · [`daily-target`](#daily-target) · [`weekly-recap`](#weekly-recap) · [`breathe`](#breathe) · [`budget-alert`](#budget-alert) · [`daily-budget-alert`](#daily-budget-alert) · [`turn-toast`](#turn-toast) · [`milestone-toast`](#milestone-toast) · [`push-reminder`](#push-reminder) · [`idle-commit-nudge`](#idle-commit-nudge) · [`topic-switch`](#topic-switch) · [`scatter-toast`](#scatter-toast) · [`long-turn-toast`](#long-turn-toast) · [`step-back`](#step-back) · [`branch-drift`](#branch-drift) · [`edits-no-commit`](#edits-no-commit)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture) · [`eye-rest`](#eye-rest) · [`stand-up`](#stand-up) · [`alarms`](#alarms) · [`remind`](#remind) · [`timebox`](#timebox) · [`session-cap`](#session-cap) · [`late-night`](#late-night) · [`intent-check`](#intent-check) · [`daily-target`](#daily-target) · [`weekly-recap`](#weekly-recap) · [`breathe`](#breathe) · [`budget-alert`](#budget-alert) · [`daily-budget-alert`](#daily-budget-alert) · [`turn-toast`](#turn-toast) · [`milestone-toast`](#milestone-toast) · [`push-reminder`](#push-reminder) · [`idle-commit-nudge`](#idle-commit-nudge) · [`topic-switch`](#topic-switch) · [`scatter-toast`](#scatter-toast) · [`long-turn-toast`](#long-turn-toast) · [`step-back`](#step-back) · [`branch-drift`](#branch-drift) · [`edits-no-commit`](#edits-no-commit) · [`day-close`](#day-close)
 
 ## `turn-notify`
 
@@ -363,3 +363,13 @@ Toast once when 20 edits and an hour have passed without a commit.
 ```
 
 ![edits-no-commit](../previews/edits-no-commit.svg)
+
+## `day-close`
+
+/dayend sets an hour; at that time one quiet toast sums up the day with prompts, turns and edits.
+
+```
+/plugin install day-close@cockpit
+```
+
+![day-close](../previews/day-close.svg)

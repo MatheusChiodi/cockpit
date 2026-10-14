@@ -1690,6 +1690,12 @@
       "source": "./mods/edits-no-commit",
       "description": "Toast once when 20 edits and an hour have passed without a commit",
       "category": "focus"
+    },
+    {
+      "name": "day-close",
+      "source": "./mods/day-close",
+      "description": "/dayend sets an hour; at that time one quiet toast sums up the day with prompts, turns and edits",
+      "category": "focus"
     }
   ]
 }
