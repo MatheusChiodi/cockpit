@@ -1492,6 +1492,12 @@
       "source": "./mods/daily-budget-alert",
       "description": "/daybudget <usd> sets a budget for the day across sessions and notifies once when the day's total passes it",
       "category": "focus"
+    },
+    {
+      "name": "turn-toast",
+      "source": "./mods/turn-toast",
+      "description": "Shows a toast summarizing every finished turn of 10 seconds or more: duration, tool calls and output tokens",
+      "category": "focus"
     }
   ]
 }

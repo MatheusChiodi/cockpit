@@ -1,0 +1,13 @@
+{
+  "name": "turn-toast",
+  "version": "0.1.0",
+  "description": "Shows a toast summarizing every finished turn of 10 seconds or more: duration, tool calls and output tokens",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

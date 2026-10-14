@@ -3882,6 +3882,21 @@
         "[[notify|Claude Code]]",
         "[[notify|Daily budget passed: $20.31 of $20.00.]]"
       ]
+    },
+    {
+      "name": "turn-toast",
+      "category": "focus",
+      "description": {
+        "en": "Shows a toast summarizing every finished turn of 10 seconds or more: duration, tool calls and output tokens",
+        "pt": "Mostra um aviso resumindo cada turno concluído de 10 segundos ou mais: duração, chamadas de ferramenta e tokens de saída",
+        "es": "Muestra un aviso que resume cada turno terminado de 10 segundos o más: duración, llamadas de herramienta y tokens de salida"
+      },
+      "preview": [
+        "[[toast| Turn done: 24s · 7 tools · 1.8k tokens out ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [
