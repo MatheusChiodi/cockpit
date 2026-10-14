@@ -1282,6 +1282,12 @@
       "source": "./mods/missing-import-guard",
       "description": "Refuses an edit that imports a package which is neither in package.json nor in node_modules",
       "category": "stack"
+    },
+    {
+      "name": "client-env-guard",
+      "source": "./mods/client-env-guard",
+      "description": "Refuses browser code in Vite and Next.js that reads an env variable the bundler never exposes",
+      "category": "stack"
     }
   ]
 }

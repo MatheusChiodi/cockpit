@@ -3368,6 +3368,19 @@
         "[[tool|● Write]](src/api.ts)",
         "[[err|  ⎿ missing-import-guard: \"axios\" is not in package.json or node_modules. Ask to install it.]]"
       ]
+    },
+    {
+      "name": "client-env-guard",
+      "category": "stack",
+      "description": {
+        "en": "Refuses browser code in Vite and Next.js that reads an env variable the bundler never exposes",
+        "pt": "Recusa código de navegador em Vite e Next.js que lê uma variável de ambiente que o bundler nunca expõe",
+        "es": "Rechaza código de navegador en Vite y Next.js que lee una variable de entorno que el bundler nunca expone"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/api.ts)",
+        "[[err|  ⎿ client-env-guard: Vite hides API_URL from the browser. Rename it VITE_API_URL.]]"
+      ]
     }
   ],
   "hero": [

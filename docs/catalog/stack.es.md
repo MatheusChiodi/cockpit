@@ -1,8 +1,8 @@
-# Stacks — 3 mods
+# Stacks — 4 mods
 
 [← Volver al README](../../README.es.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard)
 
 ## `pm-guard`
 
@@ -33,3 +33,13 @@ Rechaza una edición que importa un paquete que no está en package.json ni en n
 ```
 
 ![missing-import-guard](../previews/missing-import-guard.svg)
+
+## `client-env-guard`
+
+Rechaza código de navegador en Vite y Next.js que lee una variable de entorno que el bundler nunca expone.
+
+```
+/plugin install client-env-guard@cockpit
+```
+
+![client-env-guard](../previews/client-env-guard.svg)

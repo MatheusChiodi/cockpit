@@ -1,8 +1,8 @@
-# Stacks — 3 mods
+# Stacks — 4 mods
 
 [← Back to the README](../../README.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard)
 
 ## `pm-guard`
 
@@ -33,3 +33,13 @@ Refuses an edit that imports a package which is neither in package.json nor in n
 ```
 
 ![missing-import-guard](../previews/missing-import-guard.svg)
+
+## `client-env-guard`
+
+Refuses browser code in Vite and Next.js that reads an env variable the bundler never exposes.
+
+```
+/plugin install client-env-guard@cockpit
+```
+
+![client-env-guard](../previews/client-env-guard.svg)

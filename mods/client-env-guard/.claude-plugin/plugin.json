@@ -1,0 +1,13 @@
+{
+  "name": "client-env-guard",
+  "version": "0.1.0",
+  "description": "Refuses browser code in Vite and Next.js that reads an env variable the bundler never exposes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}
