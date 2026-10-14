@@ -3012,6 +3012,20 @@
         "[[tool|● Bash]](git commit -m \"merge main\")",
         "[[err|  ⎿ marker-guard refused the commit: unresolved conflict markers in src/api.ts.]]"
       ]
+    },
+    {
+      "name": "amend-guard",
+      "category": "git",
+      "description": {
+        "en": "Asks before git commit --amend or git rebase rewrites commits that are already on a remote branch",
+        "pt": "Pergunta antes de git commit --amend ou git rebase reescreverem commits que já estão numa branch remota",
+        "es": "Pregunta antes de que git commit --amend o git rebase reescriban commits que ya están en una rama remota"
+      },
+      "preview": [
+        "[[tool|● Bash]](git commit --amend --no-edit)",
+        "[[warn|  ⎿ amend-guard: git commit --amend rewrites commits already on origin/feat/login;]]",
+        "[[warn|    pushing will need --force. Confirm before running.]]"
+      ]
     }
   ],
   "hero": [

@@ -1138,6 +1138,12 @@
       "source": "./mods/marker-guard",
       "description": "Refuses a commit whose staged changes still hold conflict markers, listing the files",
       "category": "git"
+    },
+    {
+      "name": "amend-guard",
+      "source": "./mods/amend-guard",
+      "description": "Asks before git commit --amend or git rebase rewrites commits that are already on a remote branch",
+      "category": "git"
     }
   ]
 }

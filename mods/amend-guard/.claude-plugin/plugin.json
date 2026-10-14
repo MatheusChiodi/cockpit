@@ -1,0 +1,13 @@
+{
+  "name": "amend-guard",
+  "version": "0.1.0",
+  "description": "Asks before git commit --amend or git rebase rewrites commits that are already on a remote branch",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

@@ -1,8 +1,8 @@
-# Git e GitHub — 3 mods
+# Git e GitHub — 4 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard)
 
 ## `commit-review`
 
@@ -33,3 +33,13 @@ Recusa um commit cujas mudanças no stage ainda têm marcadores de conflito, lis
 ```
 
 ![marker-guard](../previews/marker-guard.svg)
+
+## `amend-guard`
+
+Pergunta antes de git commit --amend ou git rebase reescreverem commits que já estão numa branch remota.
+
+```
+/plugin install amend-guard@cockpit
+```
+
+![amend-guard](../previews/amend-guard.svg)
