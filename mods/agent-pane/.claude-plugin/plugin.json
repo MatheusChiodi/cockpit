@@ -1,0 +1,14 @@
+{
+  "name": "agent-pane",
+  "version": "0.1.0",
+  "description": "/crew opens a pane with the session's subagents, their type and status, refreshed while any is running",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

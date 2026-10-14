@@ -2082,6 +2082,23 @@
         "[[dim|▸ ]]rename the helper and update its imports",
         "[[dim|▸ ]]why does the build fail on CI?"
       ]
+    },
+    {
+      "name": "agent-pane",
+      "category": "interface",
+      "description": {
+        "en": "/crew opens a pane with the session's subagents, their type and status, refreshed while any is running",
+        "pt": "/crew abre um painel com os subagentes da sessão, o tipo e o status de cada um, atualizado enquanto algum roda",
+        "es": "/crew abre un panel con los subagentes de la sesión, su tipo y estado, actualizado mientras alguno se ejecuta"
+      },
+      "preview": [
+        "[[user|> /crew]]",
+        "[[session|▍ ]][[bold|CREW]][[dim|  3 subagents  1 running]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[warn|…]] [[dim|running  ]] [[bold|Explore        ]] [[dim|map the auth flow]]",
+        "[[ok|✓]] [[dim|completed]] [[bold|general-purpose]] [[dim|fix the failing test]]",
+        "[[err|✗]] [[dim|failed   ]] [[bold|reviewer       ]] [[dim|review the diff]]"
+      ]
     }
   ],
   "hero": [

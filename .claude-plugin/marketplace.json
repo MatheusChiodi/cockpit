@@ -772,6 +772,12 @@
       "source": "./mods/prompt-history",
       "description": "/prompts opens a pane with the prompts you typed this session; press one to put it back in the prompt box",
       "category": "interface"
+    },
+    {
+      "name": "agent-pane",
+      "source": "./mods/agent-pane",
+      "description": "/crew opens a pane with the session's subagents, their type and status, refreshed while any is running",
+      "category": "interface"
     }
   ]
 }

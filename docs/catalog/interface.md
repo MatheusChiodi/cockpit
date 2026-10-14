@@ -1,8 +1,8 @@
-# Interface — 11 mods
+# Interface — 12 mods
 
 [← Back to the README](../../README.md)
 
-[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history)
+[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane)
 
 ## `turn-timer`
 
@@ -113,3 +113,13 @@ Status line with session time and number of prompts.
 ```
 
 ![prompt-history](../previews/prompt-history.svg)
+
+## `agent-pane`
+
+/crew opens a pane with the session's subagents, their type and status, refreshed while any is running.
+
+```
+/plugin install agent-pane@cockpit
+```
+
+![agent-pane](../previews/agent-pane.svg)

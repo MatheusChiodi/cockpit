@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="202" viewBox="0 0 760 202" role="img" aria-label="agent-pane in the terminal">
+<defs><clipPath id="card"><rect width="760" height="202" rx="12"/></clipPath></defs>
+<g clip-path="url(#card)">
+<rect width="760" height="202" fill="#0f131a"/>
+<rect width="760" height="38" fill="#141a24"/>
+<rect y="38" width="760" height="1" fill="#222a38"/>
+<rect width="760" height="3" fill="#e58c62"/>
+</g>
+<g transform="translate(30 21)" fill="none" stroke="#e58c62" stroke-width="1.6" stroke-linecap="round">
+<circle r="7.5" opacity="0.45"/><path d="M0 0L0 -6.5M0 0L5.6 3.3M0 0L-5.6 3.3"/><circle r="1.4" fill="#e58c62" stroke="none"/>
+</g>
+<text y="26" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="12.5"><tspan x="46" fill="#eef2f8" font-weight="700">cockpit</tspan><tspan fill="#677185"> / </tspan><tspan fill="#d5dbe6">agent-pane</tspan></text>
+<text x="736" y="26" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="10.5" letter-spacing="1.4" fill="#677185">INTERFACE</text>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="13">
+<text y="66" xml:space="preserve"><tspan x="24.0" textLength="54.8" lengthAdjust="spacingAndGlyphs" fill="#eef2f8">&gt; /crew</tspan></text>
+<text y="87" xml:space="preserve"><tspan x="24.0" textLength="15.7" lengthAdjust="spacingAndGlyphs" fill="#e58c62">▍ </tspan><tspan x="39.7" textLength="31.3" lengthAdjust="spacingAndGlyphs" fill="#ffffff" font-weight="700">CREW</tspan><tspan x="71.0" textLength="187.9" lengthAdjust="spacingAndGlyphs" fill="#677185">  3 subagents  1 running</tspan></text>
+<text y="108" xml:space="preserve"><tspan x="24.0" textLength="438.5" lengthAdjust="spacingAndGlyphs" fill="#2a3242">────────────────────────────────────────────────────────</tspan></text>
+<text y="129" xml:space="preserve"><tspan x="24.0" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#e8bd6a">…</tspan><tspan x="31.8" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="39.7" textLength="70.5" lengthAdjust="spacingAndGlyphs" fill="#677185">running  </tspan><tspan x="110.1" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="118.0" textLength="117.5" lengthAdjust="spacingAndGlyphs" fill="#ffffff" font-weight="700">Explore        </tspan><tspan x="235.4" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="243.2" textLength="133.1" lengthAdjust="spacingAndGlyphs" fill="#677185">map the auth flow</tspan></text>
+<text y="150" xml:space="preserve"><tspan x="24.0" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#8fd18b">✓</tspan><tspan x="31.8" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="39.7" textLength="70.5" lengthAdjust="spacingAndGlyphs" fill="#677185">completed</tspan><tspan x="110.1" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="118.0" textLength="117.5" lengthAdjust="spacingAndGlyphs" fill="#ffffff" font-weight="700">general-purpose</tspan><tspan x="235.4" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="243.2" textLength="156.6" lengthAdjust="spacingAndGlyphs" fill="#677185">fix the failing test</tspan></text>
+<text y="171" xml:space="preserve"><tspan x="24.0" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#f07b7b">✗</tspan><tspan x="31.8" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="39.7" textLength="70.5" lengthAdjust="spacingAndGlyphs" fill="#677185">failed   </tspan><tspan x="110.1" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="118.0" textLength="117.5" lengthAdjust="spacingAndGlyphs" fill="#ffffff" font-weight="700">reviewer       </tspan><tspan x="235.4" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="243.2" textLength="117.5" lengthAdjust="spacingAndGlyphs" fill="#677185">review the diff</tspan></text>
+</g>
+</svg>
