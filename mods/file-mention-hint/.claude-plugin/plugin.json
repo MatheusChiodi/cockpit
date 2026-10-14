@@ -1,0 +1,13 @@
+{
+  "name": "file-mention-hint",
+  "version": "0.1.0",
+  "description": "When a prompt names a file without a path, adds the matching tracked paths so Claude opens the right file first",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

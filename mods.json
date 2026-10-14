@@ -2550,6 +2550,21 @@
         "[[dim|  ... 3 more lines]]",
         "[[dim|  ```]]"
       ]
+    },
+    {
+      "name": "file-mention-hint",
+      "category": "prompt",
+      "description": {
+        "en": "When a prompt names a file without a path, adds the matching tracked paths so Claude opens the right file first",
+        "pt": "Quando o prompt cita um arquivo sem caminho, adiciona os caminhos rastreados que combinam para o Claude abrir o arquivo certo",
+        "es": "Cuando el prompt nombra un archivo sin ruta, añade las rutas rastreadas que coinciden para que Claude abra el archivo correcto"
+      },
+      "preview": [
+        "[[user|> fix the bug in login.ts]]",
+        "[[dim|  + Files matching names in the prompt (open these first):]]",
+        "[[dim|  + - src/app/login.ts]]",
+        "[[dim|  + - src/old/login.ts]]"
+      ]
     }
   ],
   "hero": [

@@ -1,8 +1,8 @@
-# Prompt y modelo — 18 mods
+# Prompt y modelo — 19 mods
 
 [← Volver al README](../../README.es.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first) · [`verify-claims`](#verify-claims) · [`paste-fence`](#paste-fence)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first) · [`verify-claims`](#verify-claims) · [`paste-fence`](#paste-fence) · [`file-mention-hint`](#file-mention-hint)
 
 ## `concise-mode`
 
@@ -183,3 +183,13 @@ Envuelve en un bloque de código el fragmento pegado de 6+ líneas de código o 
 ```
 
 ![paste-fence](../previews/paste-fence.svg)
+
+## `file-mention-hint`
+
+Cuando el prompt nombra un archivo sin ruta, añade las rutas rastreadas que coinciden para que Claude abra el archivo correcto.
+
+```
+/plugin install file-mention-hint@cockpit
+```
+
+![file-mention-hint](../previews/file-mention-hint.svg)

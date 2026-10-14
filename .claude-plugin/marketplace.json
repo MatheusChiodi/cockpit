@@ -940,6 +940,12 @@
       "source": "./mods/paste-fence",
       "description": "Wraps a pasted block of 6+ lines of code or logs in a code fence before it is sent, leaving your sentences outside",
       "category": "prompt"
+    },
+    {
+      "name": "file-mention-hint",
+      "source": "./mods/file-mention-hint",
+      "description": "When a prompt names a file without a path, adds the matching tracked paths so Claude opens the right file first",
+      "category": "prompt"
     }
   ]
 }
