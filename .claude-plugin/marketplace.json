@@ -1012,6 +1012,12 @@
       "source": "./mods/dotfile-guard",
       "description": "Blocks edits to your shell and tool profiles: .bashrc, .zshrc, .gitconfig, .ssh/config and the PowerShell profile",
       "category": "security"
+    },
+    {
+      "name": "ci-config-guard",
+      "source": "./mods/ci-config-guard",
+      "description": "Asks before an edit to pipeline and deploy configuration: GitHub workflows, GitLab CI, Jenkinsfile, vercel.json, eas.json",
+      "category": "security"
     }
   ]
 }

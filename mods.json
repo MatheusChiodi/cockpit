@@ -2723,6 +2723,20 @@
         "[[tool|● Edit]](~/.zshrc)",
         "[[err|  ⎿ dotfile-guard blocked the edit: ~/.zshrc is a personal profile outside the project.]]"
       ]
+    },
+    {
+      "name": "ci-config-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before an edit to pipeline and deploy configuration: GitHub workflows, GitLab CI, Jenkinsfile, vercel.json, eas.json",
+        "pt": "Pergunta antes de editar configuração de pipeline e deploy: workflows do GitHub, GitLab CI, Jenkinsfile, vercel.json, eas.json",
+        "es": "Pregunta antes de editar la configuración de pipeline y deploy: workflows de GitHub, GitLab CI, Jenkinsfile, vercel.json, eas.json"
+      },
+      "preview": [
+        "[[tool|● Edit]](.github/workflows/deploy.yml)",
+        "[[warn|  ⎿ ci-config-guard: .github/workflows/deploy.yml configures the pipeline. Confirm.]]",
+        "[[btn| Yes ]] [[btn| No ]]"
+      ]
     }
   ],
   "hero": [
