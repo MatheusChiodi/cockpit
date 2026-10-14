@@ -1,8 +1,8 @@
-# Calidad — 10 mods
+# Calidad — 11 mods
 
 [← Volver al README](../../README.es.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status) · [`empty-test-guard`](#empty-test-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status) · [`empty-test-guard`](#empty-test-guard) · [`snapshot-update-guard`](#snapshot-update-guard)
 
 ## `untested-turn-toast`
 
@@ -103,3 +103,13 @@ Rechaza una edición en un archivo de test que añade casos de test sin ninguna 
 ```
 
 ![empty-test-guard](../previews/empty-test-guard.svg)
+
+## `snapshot-update-guard`
+
+Pregunta antes de que un comando reescriba snapshots de test: jest -u, vitest -u, --snapshot-update, insta accept.
+
+```
+/plugin install snapshot-update-guard@cockpit
+```
+
+![snapshot-update-guard](../previews/snapshot-update-guard.svg)

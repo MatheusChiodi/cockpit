@@ -1,0 +1,13 @@
+{
+  "name": "snapshot-update-guard",
+  "version": "0.1.0",
+  "description": "Asks before a command rewrites test snapshots: jest -u, vitest -u, --snapshot-update, insta accept",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

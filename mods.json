@@ -3302,6 +3302,20 @@
         "[[tool|● Write]](src/cart.test.ts)",
         "[[err|  ⎿ empty-test-guard blocked the edit: it adds test cases with no assertion.]]"
       ]
+    },
+    {
+      "name": "snapshot-update-guard",
+      "category": "quality",
+      "description": {
+        "en": "Asks before a command rewrites test snapshots: jest -u, vitest -u, --snapshot-update, insta accept",
+        "pt": "Pergunta antes de um comando reescrever snapshots de teste: jest -u, vitest -u, --snapshot-update, insta accept",
+        "es": "Pregunta antes de que un comando reescriba snapshots de test: jest -u, vitest -u, --snapshot-update, insta accept"
+      },
+      "preview": [
+        "[[tool|● Bash]](npx jest -u)",
+        "[[warn|  ⎿ snapshot-update-guard: rewrites the expected snapshots. Confirm before running.]]",
+        "[[btn| Yes ]] [[btn| No ]]"
+      ]
     }
   ],
   "hero": [

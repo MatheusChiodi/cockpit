@@ -1,8 +1,8 @@
-# Quality — 10 mods
+# Quality — 11 mods
 
 [← Back to the README](../../README.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status) · [`empty-test-guard`](#empty-test-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status) · [`empty-test-guard`](#empty-test-guard) · [`snapshot-update-guard`](#snapshot-update-guard)
 
 ## `untested-turn-toast`
 
@@ -103,3 +103,13 @@ Refuses a test file edit that adds test cases with no assertion in them.
 ```
 
 ![empty-test-guard](../previews/empty-test-guard.svg)
+
+## `snapshot-update-guard`
+
+Asks before a command rewrites test snapshots: jest -u, vitest -u, --snapshot-update, insta accept.
+
+```
+/plugin install snapshot-update-guard@cockpit
+```
+
+![snapshot-update-guard](../previews/snapshot-update-guard.svg)

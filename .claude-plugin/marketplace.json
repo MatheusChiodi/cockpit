@@ -1252,6 +1252,12 @@
       "source": "./mods/empty-test-guard",
       "description": "Refuses a test file edit that adds test cases with no assertion in them",
       "category": "quality"
+    },
+    {
+      "name": "snapshot-update-guard",
+      "source": "./mods/snapshot-update-guard",
+      "description": "Asks before a command rewrites test snapshots: jest -u, vitest -u, --snapshot-update, insta accept",
+      "category": "quality"
     }
   ]
 }
