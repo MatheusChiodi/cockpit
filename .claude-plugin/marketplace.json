@@ -1678,6 +1678,12 @@
       "source": "./mods/step-back",
       "description": "Toast after four failed shell commands in a row at the same thing: time to step back and look at the problem",
       "category": "focus"
+    },
+    {
+      "name": "branch-drift",
+      "source": "./mods/branch-drift",
+      "description": "Toast once when the branch name says one thing and the files being edited say another",
+      "category": "focus"
     }
   ]
 }

@@ -4348,6 +4348,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "branch-drift",
+      "category": "focus",
+      "description": {
+        "en": "Toast once when the branch name says one thing and the files being edited say another",
+        "pt": "Toast uma vez quando o nome da branch diz uma coisa e os arquivos editados dizem outra",
+        "es": "Toast una vez cuando el nombre de la rama dice una cosa y los archivos editados dicen otra"
+      },
+      "preview": [
+        "[[toast| branch-drift  Branch feat/login-form, but 6 edited files have nothing to do with it. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [

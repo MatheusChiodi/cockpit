@@ -1,0 +1,13 @@
+{
+  "name": "branch-drift",
+  "version": "0.1.0",
+  "description": "Toast once when the branch name says one thing and the files being edited say another",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}
