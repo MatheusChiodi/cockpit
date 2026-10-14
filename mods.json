@@ -3507,6 +3507,21 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
+    },
+    {
+      "name": "docker-band",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "en": "Band that warns when the Docker daemon is down or a compose stack has services stopped",
+        "pt": "Faixa que avisa quando o daemon do Docker está parado ou uma stack compose tem serviços parados",
+        "es": "Banda que avisa cuando el daemon de Docker está caído o un stack compose tiene servicios detenidos"
+      },
+      "preview": [
+        "[[project|▍ ]][[dim|DOCKER    ]][[warn|compose 2/4 up  ]][[dim|stopped: db  cache]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
     }
   ],
   "hero": [

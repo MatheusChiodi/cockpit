@@ -307,6 +307,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "docker-band",
+    "group": "project",
+    "description": {
+      "en": "Band that warns when the Docker daemon is down or a compose stack has services stopped",
+      "pt": "Faixa que avisa quando o daemon do Docker está parado ou uma stack compose tem serviços parados",
+      "es": "Banda que avisa cuando el daemon de Docker está caído o un stack compose tiene servicios detenidos"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {

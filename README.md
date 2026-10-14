@@ -2,7 +2,7 @@
 
 **English** · [Português](README.pt-BR.md) · [Español](README.es.md)
 
-**An instrument panel for Claude Code.** 223 mods for the terminal: 41 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
+**An instrument panel for Claude Code.** 224 mods for the terminal: 42 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
 
 ![The full Cockpit panel in a terminal](docs/cockpit.svg)
 
@@ -41,7 +41,7 @@ Remove a mod with `/plugin uninstall <mod>@cockpit`. Turn every mod off at once 
 
 ## Panels and settings
 
-The 41 mods under **Always visible** are panels: bands above the prompt or status line entries that update on their own (git, context, cost, tests, CI, tasks, deadline, weather). None needs a command to show up.
+The 42 mods under **Always visible** are panels: bands above the prompt or status line entries that update on their own (git, context, cost, tests, CI, tasks, deadline, weather). None needs a command to show up.
 
 The `cockpit` mod is their settings pane, and it comes along as a dependency of any panel.
 
@@ -66,7 +66,7 @@ Slash command descriptions in the typeahead are read when a session starts, so t
 
 | | | |
 | --- | --- | --- |
-| [**Always visible**](docs/catalog/panel.md) | 42 | `cockpit` `git-band` `todo-band` `usage-band` `files-band` `error-band` `goal-band` `agents-band` `activity-status` `test-status` `ci-status` `stash-status` `uncommitted-band` `pr-status` `main-warning-band` `conflict-band` `project-status` `ports-band` `deps-status` `todo-count-status` `quality-status` `model-status` `cost-ticker` `idle-clock` `turn-progress` `last-prompt-band` `compact-nudge` `session-diff-band` `shield-band` `reset-countdown` `spend-today` `focus-band` `deadline-band` `pin-band` `clock-status` `day-timer` `commits-today` `dolar-status` `weather-status` `api-status` `terminal-pet` `runtime-band` |
+| [**Always visible**](docs/catalog/panel.md) | 43 | `cockpit` `git-band` `todo-band` `usage-band` `files-band` `error-band` `goal-band` `agents-band` `activity-status` `test-status` `ci-status` `stash-status` `uncommitted-band` `pr-status` `main-warning-band` `conflict-band` `project-status` `ports-band` `deps-status` `todo-count-status` `quality-status` `model-status` `cost-ticker` `idle-clock` `turn-progress` `last-prompt-band` `compact-nudge` `session-diff-band` `shield-band` `reset-countdown` `spend-today` `focus-band` `deadline-band` `pin-band` `clock-status` `day-timer` `commits-today` `dolar-status` `weather-status` `api-status` `terminal-pet` `runtime-band` `docker-band` |
 | [**Security**](docs/catalog/security.md) | 30 | `rm-guard` `env-guard` `git-guard` `secret-scan` `prompt-secret-guard` `lockfile-guard` `path-jail` `main-branch-guard` `generated-guard` `sql-guard` `prod-guard` `install-ask` `pipe-shell-guard` `big-read-guard` `sudo-guard` `chmod-guard` `docker-guard` `kill-guard` `credential-file-guard` `upload-guard` `env-dump-guard` `registry-guard` `persistence-guard` `dotfile-guard` `ci-config-guard` `test-skip-guard` `suppress-guard` `migration-guard` `large-write-guard` `tunnel-guard` |
 | [**Interface**](docs/catalog/interface.md) | 29 | `turn-timer` `tool-tally` `file-trail` `cmd-log` `git-status-line` `context-meter` `rate-limit-watch` `session-clock` `diff-pane` `turn-history` `prompt-history` `agent-pane` `token-chart` `cost-pane` `error-pane` `context-pane` `read-pane` `links-pane` `git-pane` `branch-pane` `stash-pane` `code-todo-pane` `deps-pane` `scripts-pane` `env-keys-pane` `test-pane` `slow-toast` `deny-toast` `big-output-toast` |
 | [**Prompt and model**](docs/catalog/prompt.md) | 20 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` `time-context` `os-context` `test-first` `explain-mode` `plan-first` `no-comments` `minimal-diff` `ask-first` `verify-claims` `paste-fence` `file-mention-hint` `trace-helper` |

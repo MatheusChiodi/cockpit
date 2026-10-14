@@ -1,0 +1,17 @@
+{
+  "name": "docker-band",
+  "version": "0.1.0",
+  "description": "Band that warns when the Docker daemon is down or a compose stack has services stopped",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}

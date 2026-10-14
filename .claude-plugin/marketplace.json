@@ -1342,6 +1342,12 @@
       "source": "./mods/runtime-band",
       "description": "Band that appears when the Node, Python or Java version the project asks for differs from the one installed",
       "category": "panel"
+    },
+    {
+      "name": "docker-band",
+      "source": "./mods/docker-band",
+      "description": "Band that warns when the Docker daemon is down or a compose stack has services stopped",
+      "category": "panel"
     }
   ]
 }
