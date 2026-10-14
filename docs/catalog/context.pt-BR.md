@@ -1,8 +1,8 @@
-# Contexto e custo — 6 mods
+# Contexto e custo — 7 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge)
 
 ## `reread-guard`
 
@@ -63,3 +63,13 @@ Recusa cat, type e Get-Content em um arquivo com mais de 100 KB e aponta um trec
 ```
 
 ![cat-guard](../previews/cat-guard.svg)
+
+## `explore-nudge`
+
+Depois de 15 leituras e buscas em um turno, um toast e uma nota para Claude passar o resto da exploração a um subagente.
+
+```
+/plugin install explore-nudge@cockpit
+```
+
+![explore-nudge](../previews/explore-nudge.svg)

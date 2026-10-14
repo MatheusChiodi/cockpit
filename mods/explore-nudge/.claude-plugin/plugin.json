@@ -1,0 +1,13 @@
+{
+  "name": "explore-nudge",
+  "version": "0.1.0",
+  "description": "After 15 reads and searches in one turn, a toast and a note to Claude to hand the rest of the exploring to a subagent",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

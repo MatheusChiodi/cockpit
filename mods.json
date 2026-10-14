@@ -2886,6 +2886,20 @@
         "[[err|  ⎿ cat-guard: logs/app.log is 8421 KB. Read a slice with offset/limit,]]",
         "[[err|    or use tail, head or Grep.]]"
       ]
+    },
+    {
+      "name": "explore-nudge",
+      "category": "context",
+      "description": {
+        "en": "After 15 reads and searches in one turn, a toast and a note to Claude to hand the rest of the exploring to a subagent",
+        "pt": "Depois de 15 leituras e buscas em um turno, um toast e uma nota para Claude passar o resto da exploração a um subagente",
+        "es": "Tras 15 lecturas y búsquedas en un turno, un toast y una nota para que Claude pase el resto de la exploración a un subagente"
+      },
+      "preview": [
+        "[[tool|● Grep]](\"handleSubmit\")",
+        "[[dim|  ⎿ 6 matches]]",
+        "[[toast| 15 reads and searches this turn: a subagent could explore this cheaper ]]"
+      ]
     }
   ],
   "hero": [

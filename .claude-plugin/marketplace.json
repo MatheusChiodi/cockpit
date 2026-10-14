@@ -1084,6 +1084,12 @@
       "source": "./mods/cat-guard",
       "description": "Refuses cat, type and Get-Content on a file over 100 KB and points to a slice or Grep",
       "category": "context"
+    },
+    {
+      "name": "explore-nudge",
+      "source": "./mods/explore-nudge",
+      "description": "After 15 reads and searches in one turn, a toast and a note to Claude to hand the rest of the exploring to a subagent",
+      "category": "context"
     }
   ]
 }
