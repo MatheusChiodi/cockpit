@@ -1323,6 +1323,22 @@
         "[[user|> /gb feat/search]]",
         "[[ok|Created and switched to feat/search.]]"
       ]
+    },
+    {
+      "name": "git-stash",
+      "category": "commands",
+      "description": {
+        "en": "/gst stashes the working tree with a message, pops the latest stash after asking, or lists the stashes",
+        "pt": "/gst guarda a árvore de trabalho com uma mensagem, aplica o último stash após perguntar, ou lista os stashes",
+        "es": "/gst guarda el árbol de trabajo con un mensaje, aplica el último stash tras preguntar, o lista los stashes"
+      },
+      "preview": [
+        "[[user|> /gst save wip login form]]",
+        "[[ok|Stashed: wip login form]]",
+        "[[user|> /gst list]]",
+        "[[dim|stash@{0}  On main: wip login form]]",
+        "[[dim|stash@{1}  On dev: spike cache]]"
+      ]
     }
   ],
   "hero": [

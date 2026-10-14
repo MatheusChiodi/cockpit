@@ -1,0 +1,13 @@
+{
+  "name": "git-stash",
+  "version": "0.1.0",
+  "description": "/gst stashes the working tree with a message, pops the latest stash after asking, or lists the stashes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

@@ -490,6 +490,12 @@
       "source": "./mods/git-branch",
       "description": "/gb lists local branches with the current one marked, or switches to a branch and creates it when missing",
       "category": "commands"
+    },
+    {
+      "name": "git-stash",
+      "source": "./mods/git-stash",
+      "description": "/gst stashes the working tree with a message, pops the latest stash after asking, or lists the stashes",
+      "category": "commands"
     }
   ]
 }
