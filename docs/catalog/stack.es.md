@@ -1,8 +1,8 @@
-# Stacks — 2 mods
+# Stacks — 3 mods
 
 [← Volver al README](../../README.es.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard)
 
 ## `pm-guard`
 
@@ -23,3 +23,13 @@ Rechaza npm run o pnpm run de un script que package.json no declara y lista los 
 ```
 
 ![script-guard](../previews/script-guard.svg)
+
+## `missing-import-guard`
+
+Rechaza una edición que importa un paquete que no está en package.json ni en node_modules.
+
+```
+/plugin install missing-import-guard@cockpit
+```
+
+![missing-import-guard](../previews/missing-import-guard.svg)

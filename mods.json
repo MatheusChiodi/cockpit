@@ -3355,6 +3355,19 @@
         "[[tool|● Bash]](npm run lint)",
         "[[err|  ⎿ script-guard: package.json has no \"lint\" script. Available: dev, build, test.]]"
       ]
+    },
+    {
+      "name": "missing-import-guard",
+      "category": "stack",
+      "description": {
+        "en": "Refuses an edit that imports a package which is neither in package.json nor in node_modules",
+        "pt": "Recusa uma edição que importa um pacote que não está no package.json nem no node_modules",
+        "es": "Rechaza una edición que importa un paquete que no está en package.json ni en node_modules"
+      },
+      "preview": [
+        "[[tool|● Write]](src/api.ts)",
+        "[[err|  ⎿ missing-import-guard: \"axios\" is not in package.json or node_modules. Ask to install it.]]"
+      ]
     }
   ],
   "hero": [

@@ -1276,6 +1276,12 @@
       "source": "./mods/script-guard",
       "description": "Refuses npm run or pnpm run of a script that package.json does not declare and lists the ones it does",
       "category": "stack"
+    },
+    {
+      "name": "missing-import-guard",
+      "source": "./mods/missing-import-guard",
+      "description": "Refuses an edit that imports a package which is neither in package.json nor in node_modules",
+      "category": "stack"
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "name": "missing-import-guard",
+  "version": "0.1.0",
+  "description": "Refuses an edit that imports a package which is neither in package.json nor in node_modules",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}
