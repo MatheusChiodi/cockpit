@@ -1,0 +1,13 @@
+{
+  "name": "tree-flood-guard",
+  "version": "0.1.0",
+  "description": "Refuses an unfiltered find, ls -R or dir /s that would list node_modules, and suggests git ls-files or Glob",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

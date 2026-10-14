@@ -1114,6 +1114,12 @@
       "source": "./mods/heavy-calls",
       "description": "/heavy lists the five tool results that took the most context this session, with tool, target and size",
       "category": "context"
+    },
+    {
+      "name": "tree-flood-guard",
+      "source": "./mods/tree-flood-guard",
+      "description": "Refuses an unfiltered find, ls -R or dir /s that would list node_modules, and suggests git ls-files or Glob",
+      "category": "context"
     }
   ]
 }

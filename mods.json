@@ -2957,6 +2957,20 @@
         "    2.  6,100 tok  Read  src/engine/loop.ts",
         "    3.  4,800 tok  Grep  useEffect"
       ]
+    },
+    {
+      "name": "tree-flood-guard",
+      "category": "context",
+      "description": {
+        "en": "Refuses an unfiltered find, ls -R or dir /s that would list node_modules, and suggests git ls-files or Glob",
+        "pt": "Recusa find, ls -R ou dir /s sem filtro que listaria node_modules, e sugere git ls-files ou Glob",
+        "es": "Rechaza find, ls -R o dir /s sin filtro que listaría node_modules, y sugiere git ls-files o Glob"
+      },
+      "preview": [
+        "[[tool|● Bash]](find . -type f)",
+        "[[err|  ⎿ tree-flood-guard: an unfiltered find lists node_modules and build output.]]",
+        "[[err|    Use git ls-files, Glob, or add -maxdepth or -name.]]"
+      ]
     }
   ],
   "hero": [

@@ -1,8 +1,8 @@
-# Contexto e custo — 11 mods
+# Contexto e custo — 12 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard)
 
 ## `reread-guard`
 
@@ -113,3 +113,13 @@ Avisa Claude quando uma busca ou comando devolveu mais de 300 linhas, para estre
 ```
 
 ![heavy-calls](../previews/heavy-calls.svg)
+
+## `tree-flood-guard`
+
+Recusa find, ls -R ou dir /s sem filtro que listaria node_modules, e sugere git ls-files ou Glob.
+
+```
+/plugin install tree-flood-guard@cockpit
+```
+
+![tree-flood-guard](../previews/tree-flood-guard.svg)
