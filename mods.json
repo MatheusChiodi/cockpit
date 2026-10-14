@@ -4562,6 +4562,22 @@
       "preview": [
         "[[toast| #37 \"Refactor billing\" has been a draft for 5 days. Ready for review? ]]"
       ]
+    },
+    {
+      "name": "pr-diff",
+      "category": "git",
+      "description": {
+        "en": "/prdiff shows what a pull request changes against its base: files with lines added and removed",
+        "pt": "/prdiff mostra o que um pull request muda em relação à base: arquivos com linhas adicionadas e removidas",
+        "es": "/prdiff muestra lo que un pull request cambia respecto a la base: archivos con líneas agregadas y eliminadas"
+      },
+      "preview": [
+        "[[user|> /prdiff]]",
+        "PR #42  feat/login → main  3 files  [[ok|+120]] [[err|-14]]",
+        "  [[ok|+88]]  [[err|-2]]   src/login.ts",
+        "  [[ok|+30]]  [[err|-12]]  src/api.ts",
+        "  [[ok|+2]]   [[err|-0]]   README.md"
+      ]
     }
   ],
   "hero": [

@@ -1768,6 +1768,12 @@
       "source": "./mods/draft-nag",
       "description": "Toast when one of your pull requests has sat as a draft for three days without an update",
       "category": "git"
+    },
+    {
+      "name": "pr-diff",
+      "source": "./mods/pr-diff",
+      "description": "/prdiff shows what a pull request changes against its base: files with lines added and removed",
+      "category": "git"
     }
   ]
 }

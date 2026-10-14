@@ -1,0 +1,13 @@
+{
+  "name": "pr-diff",
+  "version": "0.1.0",
+  "description": "/prdiff shows what a pull request changes against its base: files with lines added and removed",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

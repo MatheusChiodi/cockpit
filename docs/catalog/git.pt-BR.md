@@ -1,8 +1,8 @@
-# Git e GitHub — 19 mods
+# Git e GitHub — 20 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context) · [`issue-link`](#issue-link) · [`draft-nag`](#draft-nag)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context) · [`issue-link`](#issue-link) · [`draft-nag`](#draft-nag) · [`pr-diff`](#pr-diff)
 
 ## `commit-review`
 
@@ -193,3 +193,13 @@ Aviso quando um dos seus pull requests está como rascunho há três dias sem at
 ```
 
 ![draft-nag](../previews/draft-nag.svg)
+
+## `pr-diff`
+
+/prdiff mostra o que um pull request muda em relação à base: arquivos com linhas adicionadas e removidas.
+
+```
+/plugin install pr-diff@cockpit
+```
+
+![pr-diff](../previews/pr-diff.svg)
