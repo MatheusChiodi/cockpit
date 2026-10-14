@@ -1,8 +1,8 @@
-# Contexto e custo — 7 mods
+# Contexto e custo — 8 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast)
 
 ## `reread-guard`
 
@@ -73,3 +73,13 @@ Depois de 15 leituras e buscas em um turno, um toast e uma nota para Claude pass
 ```
 
 ![explore-nudge](../previews/explore-nudge.svg)
+
+## `fill-toast`
+
+Um toast quando a janela de contexto sobe 10 pontos ou mais de uma vez, com o nome da última ferramenta usada.
+
+```
+/plugin install fill-toast@cockpit
+```
+
+![fill-toast](../previews/fill-toast.svg)

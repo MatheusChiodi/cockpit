@@ -1,0 +1,13 @@
+{
+  "name": "fill-toast",
+  "version": "0.1.0",
+  "description": "A toast when the context window jumps 10 points or more in one step, naming the last tool that ran",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}
