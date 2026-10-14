@@ -1096,6 +1096,12 @@
       "source": "./mods/fill-toast",
       "description": "A toast when the context window jumps 10 points or more in one step, naming the last tool that ran",
       "category": "context"
+    },
+    {
+      "name": "cache-cold-toast",
+      "source": "./mods/cache-cold-toast",
+      "description": "A toast when you send a prompt after the 5 minute prompt-cache window expired on a large context",
+      "category": "context"
     }
   ]
 }

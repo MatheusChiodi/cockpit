@@ -1,0 +1,13 @@
+{
+  "name": "cache-cold-toast",
+  "version": "0.1.0",
+  "description": "A toast when you send a prompt after the 5 minute prompt-cache window expired on a large context",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

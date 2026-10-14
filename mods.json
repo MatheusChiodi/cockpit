@@ -2914,6 +2914,19 @@
         "[[dim|  ⎿ 412 lines]]",
         "[[toast| Context +14 points in one step (61%). Last tool: Bash ]]"
       ]
+    },
+    {
+      "name": "cache-cold-toast",
+      "category": "context",
+      "description": {
+        "en": "A toast when you send a prompt after the 5 minute prompt-cache window expired on a large context",
+        "pt": "Um toast quando você envia um prompt depois de a janela de 5 minutos do cache de prompt expirar com um contexto grande",
+        "es": "Un toast cuando envías un prompt después de que expire la ventana de 5 minutos del caché de prompt con un contexto grande"
+      },
+      "preview": [
+        "[[user|> now add the tests]]",
+        "[[toast| Prompt cache expired after 14 min idle: this turn re-reads about 92,000 tokens ]]"
+      ]
     }
   ],
   "hero": [

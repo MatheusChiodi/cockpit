@@ -1,8 +1,8 @@
-# Contexto y costo — 8 mods
+# Contexto y costo — 9 mods
 
 [← Volver al README](../../README.es.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast)
 
 ## `reread-guard`
 
@@ -83,3 +83,13 @@ Un toast cuando la ventana de contexto sube 10 puntos o más de golpe, con el no
 ```
 
 ![fill-toast](../previews/fill-toast.svg)
+
+## `cache-cold-toast`
+
+Un toast cuando envías un prompt después de que expire la ventana de 5 minutos del caché de prompt con un contexto grande.
+
+```
+/plugin install cache-cold-toast@cockpit
+```
+
+![cache-cold-toast](../previews/cache-cold-toast.svg)
