@@ -1,8 +1,8 @@
-# Foco y notificaciones — 24 mods
+# Foco y notificaciones — 25 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture) · [`eye-rest`](#eye-rest) · [`stand-up`](#stand-up) · [`alarms`](#alarms) · [`remind`](#remind) · [`timebox`](#timebox) · [`session-cap`](#session-cap) · [`late-night`](#late-night) · [`intent-check`](#intent-check) · [`daily-target`](#daily-target) · [`weekly-recap`](#weekly-recap) · [`breathe`](#breathe)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate) · [`posture`](#posture) · [`eye-rest`](#eye-rest) · [`stand-up`](#stand-up) · [`alarms`](#alarms) · [`remind`](#remind) · [`timebox`](#timebox) · [`session-cap`](#session-cap) · [`late-night`](#late-night) · [`intent-check`](#intent-check) · [`daily-target`](#daily-target) · [`weekly-recap`](#weekly-recap) · [`breathe`](#breathe) · [`budget-alert`](#budget-alert)
 
 ## `turn-notify`
 
@@ -243,3 +243,13 @@ En la primera sesión de una nueva semana, un toast con los días activos, sesio
 ```
 
 ![breathe](../previews/breathe.svg)
+
+## `budget-alert`
+
+/budget <usd> fija un presupuesto de la sesión: un aviso al 80% y una notificación nativa cuando el costo lo supera.
+
+```
+/plugin install budget-alert@cockpit
+```
+
+![budget-alert](../previews/budget-alert.svg)

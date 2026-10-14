@@ -1,0 +1,13 @@
+{
+  "name": "budget-alert",
+  "version": "0.1.0",
+  "description": "/budget <usd> sets a session budget: a toast at 80% and a native notification when the cost passes it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

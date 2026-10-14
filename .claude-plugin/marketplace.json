@@ -1480,6 +1480,12 @@
       "source": "./mods/archive-add-guard",
       "description": "Asks before git add stages an archive, installer or database file, or any file over 5 MB",
       "category": "security"
+    },
+    {
+      "name": "budget-alert",
+      "source": "./mods/budget-alert",
+      "description": "/budget <usd> sets a session budget: a toast at 80% and a native notification when the cost passes it",
+      "category": "focus"
     }
   ]
 }

@@ -3849,6 +3849,23 @@
         "[[warn|  ⎿ archive-add-guard: git add of a binary or archive (release.zip).]]",
         "[[warn|    Ignore it in .gitignore, or use Git LFS or a release asset.]]"
       ]
+    },
+    {
+      "name": "budget-alert",
+      "category": "focus",
+      "description": {
+        "en": "/budget <usd> sets a session budget: a toast at 80% and a native notification when the cost passes it",
+        "pt": "/budget <usd> define um orçamento da sessão: um aviso aos 80% e uma notificação nativa quando o custo o ultrapassa",
+        "es": "/budget <usd> fija un presupuesto de la sesión: un aviso al 80% y una notificación nativa cuando el costo lo supera"
+      },
+      "preview": [
+        "[[user|> /budget 5]]",
+        "[[dim|Session budget set to $5.00.]]",
+        "",
+        "[[toast| Budget: $4.02 of $5.00 (80%) ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [
