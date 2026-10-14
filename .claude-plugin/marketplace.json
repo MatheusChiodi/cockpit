@@ -1174,6 +1174,12 @@
       "source": "./mods/behind-toast",
       "description": "Toast when your branch falls 10, 20, 30 commits behind its base, before the conflicts pile up",
       "category": "git"
+    },
+    {
+      "name": "git-switch",
+      "source": "./mods/git-switch",
+      "description": "/gsw switches branch carrying your uncommitted work: stashes it, switches, and offers it back when you return",
+      "category": "git"
     }
   ]
 }

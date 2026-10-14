@@ -1,8 +1,8 @@
-# Git y GitHub — 9 mods
+# Git y GitHub — 10 mods
 
 [← Volver al README](../../README.es.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch)
 
 ## `commit-review`
 
@@ -93,3 +93,13 @@ Toast cuando tu rama queda 10, 20, 30 commits detrás de su base, antes de que s
 ```
 
 ![behind-toast](../previews/behind-toast.svg)
+
+## `git-switch`
+
+/gsw cambia de rama llevando tu trabajo sin commitear: lo guarda en un stash, cambia y lo ofrece al regresar.
+
+```
+/plugin install git-switch@cockpit
+```
+
+![git-switch](../previews/git-switch.svg)

@@ -1,0 +1,66 @@
+const en = {
+  command: 'Switch branch carrying your uncommitted work: stashes it, switches, and offers to bring it back when you return',
+  hint: '<branch>',
+  usage: 'Usage: /gsw <branch>',
+  noGit: 'Not a git repository (or git is not available).',
+  already: (branch: string) => `Already on ${branch}.`,
+  missing: (branch: string) => `No local branch "${branch}". Create it with /gb ${branch}.`,
+  dirty: (count: number, branch: string) => `${count} changed file(s) on ${branch}. What now?`,
+  stashSwitch: 'stash and switch',
+  switchOnly: 'switch anyway',
+  cancel: 'cancel',
+  cancelled: 'Cancelled.',
+  stashed: (branch: string) => `Stashed the work of ${branch}.`,
+  switched: (branch: string) => `Switched to ${branch}.`,
+  restore: (branch: string) => `Work saved from ${branch} is stashed. Pop it now?`,
+  yes: 'yes',
+  no: 'no',
+  restored: 'Stash popped.',
+  failed: (why: string) => `git failed: ${why}`,
+}
+
+type Strings = typeof en
+
+const pt: Strings = {
+  command: 'Troca de branch levando seu trabalho não commitado: guarda num stash, troca e oferece trazer de volta quando você voltar',
+  hint: '<branch>',
+  usage: 'Uso: /gsw <branch>',
+  noGit: 'Não é um repositório git (ou o git não está disponível).',
+  already: branch => `Você já está em ${branch}.`,
+  missing: branch => `Não existe a branch local "${branch}". Crie com /gb ${branch}.`,
+  dirty: (count, branch) => `${count} arquivo(s) alterado(s) em ${branch}. O que fazer?`,
+  stashSwitch: 'guardar e trocar',
+  switchOnly: 'trocar mesmo assim',
+  cancel: 'cancelar',
+  cancelled: 'Cancelado.',
+  stashed: branch => `Trabalho de ${branch} guardado no stash.`,
+  switched: branch => `Agora em ${branch}.`,
+  restore: branch => `Há trabalho guardado de ${branch} no stash. Trazer de volta agora?`,
+  yes: 'sim',
+  no: 'não',
+  restored: 'Stash aplicado.',
+  failed: why => `o git falhou: ${why}`,
+}
+
+const es: Strings = {
+  command: 'Cambia de rama llevando tu trabajo sin commitear: lo guarda en un stash, cambia y ofrece traerlo de vuelta cuando regreses',
+  hint: '<rama>',
+  usage: 'Uso: /gsw <rama>',
+  noGit: 'No es un repositorio git (o git no está disponible).',
+  already: branch => `Ya estás en ${branch}.`,
+  missing: branch => `No existe la rama local "${branch}". Créala con /gb ${branch}.`,
+  dirty: (count, branch) => `${count} archivo(s) modificado(s) en ${branch}. ¿Qué hacer?`,
+  stashSwitch: 'guardar y cambiar',
+  switchOnly: 'cambiar igual',
+  cancel: 'cancelar',
+  cancelled: 'Cancelado.',
+  stashed: branch => `Trabajo de ${branch} guardado en el stash.`,
+  switched: branch => `Ahora en ${branch}.`,
+  restore: branch => `Hay trabajo guardado de ${branch} en el stash. ¿Traerlo de vuelta ahora?`,
+  yes: 'sí',
+  no: 'no',
+  restored: 'Stash aplicado.',
+  failed: why => `git falló: ${why}`,
+}
+
+export const STRINGS = { en, pt, es }

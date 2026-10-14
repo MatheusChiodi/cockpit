@@ -1,0 +1,13 @@
+{
+  "name": "git-switch",
+  "version": "0.1.0",
+  "description": "/gsw switches branch carrying your uncommitted work: stashes it, switches, and offers it back when you return",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

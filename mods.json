@@ -3103,6 +3103,22 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[toast| feat/login is 12 commits behind origin/main. Sync soon (/sync). ]]"
       ]
+    },
+    {
+      "name": "git-switch",
+      "category": "git",
+      "description": {
+        "en": "/gsw switches branch carrying your uncommitted work: stashes it, switches, and offers it back when you return",
+        "pt": "/gsw troca de branch levando seu trabalho não commitado: guarda num stash, troca e oferece de volta quando você voltar",
+        "es": "/gsw cambia de rama llevando tu trabajo sin commitear: lo guarda en un stash, cambia y lo ofrece al regresar"
+      },
+      "preview": [
+        "[[user|> /gsw main]]",
+        "3 changed file(s) on feat/login. What now?",
+        "[[btn| stash and switch ]] [[btn| switch anyway ]] [[btn| cancel ]]",
+        "Stashed the work of feat/login.",
+        "Switched to main."
+      ]
     }
   ],
   "hero": [

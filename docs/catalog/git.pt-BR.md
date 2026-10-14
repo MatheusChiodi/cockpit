@@ -1,8 +1,8 @@
-# Git e GitHub — 9 mods
+# Git e GitHub — 10 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch)
 
 ## `commit-review`
 
@@ -93,3 +93,13 @@ Toast quando sua branch fica 10, 20, 30 commits atrás da base, antes que os con
 ```
 
 ![behind-toast](../previews/behind-toast.svg)
+
+## `git-switch`
+
+/gsw troca de branch levando seu trabalho não commitado: guarda num stash, troca e oferece de volta quando você voltar.
+
+```
+/plugin install git-switch@cockpit
+```
+
+![git-switch](../previews/git-switch.svg)

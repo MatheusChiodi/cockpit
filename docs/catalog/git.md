@@ -1,8 +1,8 @@
-# Git and GitHub — 9 mods
+# Git and GitHub — 10 mods
 
 [← Back to the README](../../README.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch)
 
 ## `commit-review`
 
@@ -93,3 +93,13 @@ Toast when your branch falls 10, 20, 30 commits behind its base, before the conf
 ```
 
 ![behind-toast](../previews/behind-toast.svg)
+
+## `git-switch`
+
+/gsw switches branch carrying your uncommitted work: stashes it, switches, and offers it back when you return.
+
+```
+/plugin install git-switch@cockpit
+```
+
+![git-switch](../previews/git-switch.svg)
