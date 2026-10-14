@@ -2,7 +2,7 @@
 
 [English](README.md) · [Português](README.pt-BR.md) · **Español**
 
-**Un panel de instrumentos para Claude Code.** 214 mods para la terminal: 40 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
+**Un panel de instrumentos para Claude Code.** 215 mods para la terminal: 40 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
 
 ![El panel completo de Cockpit en una terminal](docs/cockpit.svg)
 
@@ -74,7 +74,7 @@ Las descripciones de los slash commands en el autocompletado se leen al iniciar 
 | [**Foco y notificaciones**](docs/catalog/focus.es.md) | 24 | `turn-notify` `break-reminder` `daily-streak` `error-notify` `needs-you-notify` `agent-done-notify` `long-cmd-notify` `tests-notify` `ci-notify` `pr-review-notify` `rate-limit-notify` `hydrate` `posture` `eye-rest` `stand-up` `alarms` `remind` `timebox` `session-cap` `late-night` `intent-check` `daily-target` `weekly-recap` `breathe` |
 | [**Git y GitHub**](docs/catalog/git.es.md) | 12 | `commit-review` `wip-commit-guard` `marker-guard` `amend-guard` `stage-guard` `git-stage` `git-fixup` `git-sync` `behind-toast` `git-switch` `git-tag` `staged-status` |
 | [**Calidad**](docs/catalog/quality.es.md) | 12 | `untested-turn-toast` `red-turn-toast` `debugger-guard` `leftovers-toast` `any-guard` `long-file-toast` `dup-block-guard` `untested` `coverage-status` `empty-test-guard` `snapshot-update-guard` `catch-swallow-guard` |
-| [**Stacks**](docs/catalog/stack.es.md) | 4 | `pm-guard` `script-guard` `missing-import-guard` `client-env-guard` |
+| [**Stacks**](docs/catalog/stack.es.md) | 5 | `pm-guard` `script-guard` `missing-import-guard` `client-env-guard` `next-boundary-guard` |
 | [**Contexto y costo**](docs/catalog/context.es.md) | 12 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` `heavy-calls` `tree-flood-guard` |
 
 ## Lenguaje visual

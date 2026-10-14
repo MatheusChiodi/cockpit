@@ -1,8 +1,8 @@
-# Stacks — 4 mods
+# Stacks — 5 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard)
 
 ## `pm-guard`
 
@@ -43,3 +43,13 @@ Recusa código de navegador em Vite e Next.js que lê uma variável de ambiente 
 ```
 
 ![client-env-guard](../previews/client-env-guard.svg)
+
+## `next-boundary-guard`
+
+Recusa edições no app router do Next.js que quebram a fronteira cliente/servidor: hooks sem 'use client' ou código de servidor num arquivo cliente.
+
+```
+/plugin install next-boundary-guard@cockpit
+```
+
+![next-boundary-guard](../previews/next-boundary-guard.svg)

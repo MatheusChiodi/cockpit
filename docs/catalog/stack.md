@@ -1,8 +1,8 @@
-# Stacks — 4 mods
+# Stacks — 5 mods
 
 [← Back to the README](../../README.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard)
 
 ## `pm-guard`
 
@@ -43,3 +43,13 @@ Refuses browser code in Vite and Next.js that reads an env variable the bundler 
 ```
 
 ![client-env-guard](../previews/client-env-guard.svg)
+
+## `next-boundary-guard`
+
+Refuses Next.js app router edits that break the client/server boundary: hooks without 'use client', or server-only code inside a client file.
+
+```
+/plugin install next-boundary-guard@cockpit
+```
+
+![next-boundary-guard](../previews/next-boundary-guard.svg)

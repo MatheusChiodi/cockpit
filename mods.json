@@ -3381,6 +3381,19 @@
         "[[tool|● Edit]](src/api.ts)",
         "[[err|  ⎿ client-env-guard: Vite hides API_URL from the browser. Rename it VITE_API_URL.]]"
       ]
+    },
+    {
+      "name": "next-boundary-guard",
+      "category": "stack",
+      "description": {
+        "en": "Refuses Next.js app router edits that break the client/server boundary: hooks without 'use client', or server-only code inside a client file",
+        "pt": "Recusa edições no app router do Next.js que quebram a fronteira cliente/servidor: hooks sem 'use client' ou código de servidor num arquivo cliente",
+        "es": "Rechaza ediciones del app router de Next.js que rompen la frontera cliente/servidor: hooks sin 'use client' o código de servidor en un archivo cliente"
+      },
+      "preview": [
+        "[[tool|● Write]](app/cart/page.tsx)",
+        "[[err|  ⎿ next-boundary-guard: useState needs 'use client' as the file's first line.]]"
+      ]
     }
   ],
   "hero": [

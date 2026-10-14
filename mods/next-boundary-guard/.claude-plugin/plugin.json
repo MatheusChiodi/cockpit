@@ -1,0 +1,13 @@
+{
+  "name": "next-boundary-guard",
+  "version": "0.1.0",
+  "description": "Refuses Next.js app router edits that break the client/server boundary: hooks without 'use client', or server-only code inside a client file",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

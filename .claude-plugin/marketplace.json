@@ -1288,6 +1288,12 @@
       "source": "./mods/client-env-guard",
       "description": "Refuses browser code in Vite and Next.js that reads an env variable the bundler never exposes",
       "category": "stack"
+    },
+    {
+      "name": "next-boundary-guard",
+      "source": "./mods/next-boundary-guard",
+      "description": "Refuses Next.js app router edits that break the client/server boundary: hooks without 'use client', or server-only code inside a client file",
+      "category": "stack"
     }
   ]
 }
