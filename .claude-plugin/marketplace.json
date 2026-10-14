@@ -748,6 +748,12 @@
       "source": "./mods/weekly-recap",
       "description": "On the first session of a new week, one toast with last week's days active, sessions and prompts",
       "category": "focus"
+    },
+    {
+      "name": "breathe",
+      "source": "./mods/breathe",
+      "description": "/breathe guides one minute of breathing through toasts: in 4, hold 4, out 6, five rounds",
+      "category": "focus"
     }
   ]
 }

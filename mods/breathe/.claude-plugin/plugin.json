@@ -1,0 +1,13 @@
+{
+  "name": "breathe",
+  "version": "0.1.0",
+  "description": "/breathe guides one minute of breathing through toasts: in 4, hold 4, out 6, five rounds",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

@@ -2016,6 +2016,21 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
+    },
+    {
+      "name": "breathe",
+      "category": "focus",
+      "description": {
+        "en": "/breathe guides one minute of breathing through toasts: in 4, hold 4, out 6, five rounds",
+        "pt": "/breathe guia um minuto de respiração por toasts: inspire 4, segure 4, expire 6, cinco rodadas",
+        "es": "/breathe guía un minuto de respiración con toasts: inhala 4, sostén 4, exhala 6, cinco rondas"
+      },
+      "preview": [
+        "[[user|> /breathe]]",
+        "[[dim|  ⎿ Breathing, five rounds. Settle in.]]",
+        "",
+        "[[toast| breathe  Breathe in… 4 ]]"
+      ]
     }
   ],
   "hero": [
