@@ -1258,6 +1258,12 @@
       "source": "./mods/snapshot-update-guard",
       "description": "Asks before a command rewrites test snapshots: jest -u, vitest -u, --snapshot-update, insta accept",
       "category": "quality"
+    },
+    {
+      "name": "catch-swallow-guard",
+      "source": "./mods/catch-swallow-guard",
+      "description": "Refuses edits that add an empty catch block or an except that only passes",
+      "category": "quality"
     }
   ]
 }

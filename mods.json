@@ -3316,6 +3316,19 @@
         "[[warn|  ⎿ snapshot-update-guard: rewrites the expected snapshots. Confirm before running.]]",
         "[[btn| Yes ]] [[btn| No ]]"
       ]
+    },
+    {
+      "name": "catch-swallow-guard",
+      "category": "quality",
+      "description": {
+        "en": "Refuses edits that add an empty catch block or an except that only passes",
+        "pt": "Recusa edições que adicionam um bloco catch vazio ou um except que só faz pass",
+        "es": "Rechaza ediciones que añaden un bloque catch vacío o un except que solo hace pass"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/sync.ts)",
+        "[[err|  ⎿ catch-swallow-guard blocked the edit: it adds an empty catch block.]]"
+      ]
     }
   ],
   "hero": [

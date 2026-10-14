@@ -1,0 +1,13 @@
+{
+  "name": "catch-swallow-guard",
+  "version": "0.1.0",
+  "description": "Refuses edits that add an empty catch block or an except that only passes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

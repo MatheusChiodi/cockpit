@@ -1,8 +1,8 @@
-# Quality — 11 mods
+# Quality — 12 mods
 
 [← Back to the README](../../README.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status) · [`empty-test-guard`](#empty-test-guard) · [`snapshot-update-guard`](#snapshot-update-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status) · [`empty-test-guard`](#empty-test-guard) · [`snapshot-update-guard`](#snapshot-update-guard) · [`catch-swallow-guard`](#catch-swallow-guard)
 
 ## `untested-turn-toast`
 
@@ -113,3 +113,13 @@ Asks before a command rewrites test snapshots: jest -u, vitest -u, --snapshot-up
 ```
 
 ![snapshot-update-guard](../previews/snapshot-update-guard.svg)
+
+## `catch-swallow-guard`
+
+Refuses edits that add an empty catch block or an except that only passes.
+
+```
+/plugin install catch-swallow-guard@cockpit
+```
+
+![catch-swallow-guard](../previews/catch-swallow-guard.svg)

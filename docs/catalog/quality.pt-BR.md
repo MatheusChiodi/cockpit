@@ -1,8 +1,8 @@
-# Qualidade — 11 mods
+# Qualidade — 12 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status) · [`empty-test-guard`](#empty-test-guard) · [`snapshot-update-guard`](#snapshot-update-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard) · [`untested`](#untested) · [`coverage-status`](#coverage-status) · [`empty-test-guard`](#empty-test-guard) · [`snapshot-update-guard`](#snapshot-update-guard) · [`catch-swallow-guard`](#catch-swallow-guard)
 
 ## `untested-turn-toast`
 
@@ -113,3 +113,13 @@ Pergunta antes de um comando reescrever snapshots de teste: jest -u, vitest -u, 
 ```
 
 ![snapshot-update-guard](../previews/snapshot-update-guard.svg)
+
+## `catch-swallow-guard`
+
+Recusa edições que adicionam um bloco catch vazio ou um except que só faz pass.
+
+```
+/plugin install catch-swallow-guard@cockpit
+```
+
+![catch-swallow-guard](../previews/catch-swallow-guard.svg)
