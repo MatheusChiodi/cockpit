@@ -1,8 +1,8 @@
-# Git y GitHub — 2 mods
+# Git y GitHub — 3 mods
 
 [← Volver al README](../../README.es.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard)
 
 ## `commit-review`
 
@@ -23,3 +23,13 @@ Rechaza commits con mensaje wip, fix, asdf, un punto o similar, para que el hist
 ```
 
 ![wip-commit-guard](../previews/wip-commit-guard.svg)
+
+## `marker-guard`
+
+Rechaza un commit cuyos cambios en el stage aún tienen marcadores de conflicto, listando los archivos.
+
+```
+/plugin install marker-guard@cockpit
+```
+
+![marker-guard](../previews/marker-guard.svg)

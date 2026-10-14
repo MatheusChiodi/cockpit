@@ -2999,6 +2999,19 @@
         "[[tool|● Bash]](git commit -am \"wip\")",
         "[[err|  ⎿ wip-commit-guard refused the commit: \"wip\" says nothing about the change.]]"
       ]
+    },
+    {
+      "name": "marker-guard",
+      "category": "git",
+      "description": {
+        "en": "Refuses a commit whose staged changes still hold conflict markers, listing the files",
+        "pt": "Recusa um commit cujas mudanças no stage ainda têm marcadores de conflito, listando os arquivos",
+        "es": "Rechaza un commit cuyos cambios en el stage aún tienen marcadores de conflicto, listando los archivos"
+      },
+      "preview": [
+        "[[tool|● Bash]](git commit -m \"merge main\")",
+        "[[err|  ⎿ marker-guard refused the commit: unresolved conflict markers in src/api.ts.]]"
+      ]
     }
   ],
   "hero": [

@@ -1132,6 +1132,12 @@
       "source": "./mods/wip-commit-guard",
       "description": "Refuses commits whose message is wip, fix, asdf, a dot or similar, so the history says what changed",
       "category": "git"
+    },
+    {
+      "name": "marker-guard",
+      "source": "./mods/marker-guard",
+      "description": "Refuses a commit whose staged changes still hold conflict markers, listing the files",
+      "category": "git"
     }
   ]
 }

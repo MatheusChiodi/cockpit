@@ -1,0 +1,13 @@
+{
+  "name": "marker-guard",
+  "version": "0.1.0",
+  "description": "Refuses a commit whose staged changes still hold conflict markers, listing the files",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}
