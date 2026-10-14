@@ -1,0 +1,13 @@
+{
+  "name": "tree",
+  "version": "0.1.0",
+  "description": "/tree prints the project's directory tree two levels deep, skipping node_modules, .git, build output and dot folders",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

@@ -526,6 +526,12 @@
       "source": "./mods/kill-port",
       "description": "/killport finds the process listening on a port, names it and ends it after you confirm",
       "category": "commands"
+    },
+    {
+      "name": "tree",
+      "source": "./mods/tree",
+      "description": "/tree prints the project's directory tree two levels deep, skipping node_modules, .git, build output and dot folders",
+      "category": "commands"
     }
   ]
 }

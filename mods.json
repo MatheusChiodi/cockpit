@@ -1416,6 +1416,25 @@
         "[[warn|Port 3000 is held by node.exe (pid 4812). End it?]] [[btn|[ yes ]]] [[btn|[ no ]]]",
         "[[ok|Ended node.exe (pid 4812).]]"
       ]
+    },
+    {
+      "name": "tree",
+      "category": "commands",
+      "description": {
+        "en": "/tree prints the project's directory tree two levels deep, skipping node_modules, .git, build output and dot folders",
+        "pt": "/tree mostra a árvore de diretórios do projeto em dois níveis, sem node_modules, .git, saídas de build e pastas com ponto",
+        "es": "/tree muestra el árbol de directorios del proyecto en dos niveles, sin node_modules, .git, salidas de build ni carpetas con punto"
+      },
+      "preview": [
+        "[[user|> /tree]]",
+        "[[bold|src/]]",
+        "[[dim|  components/]]",
+        "[[dim|  hooks/]]",
+        "[[dim|  index.ts]]",
+        "[[bold|tests/]]",
+        "[[dim|  app.test.ts]]",
+        "package.json"
+      ]
     }
   ],
   "hero": [
