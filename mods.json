@@ -2002,6 +2002,20 @@
         "",
         "[[toast| daily-target  Halfway there: 2 of 4 commits today ]]"
       ]
+    },
+    {
+      "name": "weekly-recap",
+      "category": "focus",
+      "description": {
+        "en": "On the first session of a new week, one toast with last week's days active, sessions and prompts",
+        "pt": "Na primeira sessão de uma nova semana, um toast com dias ativos, sessões e prompts da semana passada",
+        "es": "En la primera sesión de una nueva semana, un toast con los días activos, sesiones y prompts de la semana pasada"
+      },
+      "preview": [
+        "[[toast| weekly-recap  Last week: 5 days active, 14 sessions, 212 prompts ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
     }
   ],
   "hero": [

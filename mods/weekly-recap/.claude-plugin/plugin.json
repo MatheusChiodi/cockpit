@@ -1,0 +1,13 @@
+{
+  "name": "weekly-recap",
+  "version": "0.1.0",
+  "description": "On the first session of a new week, one toast with last week's days active, sessions and prompts",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

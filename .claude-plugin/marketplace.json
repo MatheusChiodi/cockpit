@@ -742,6 +742,12 @@
       "source": "./mods/daily-target",
       "description": "/target sets a daily commit goal for this repository; toasts at half and at the goal",
       "category": "focus"
+    },
+    {
+      "name": "weekly-recap",
+      "source": "./mods/weekly-recap",
+      "description": "On the first session of a new week, one toast with last week's days active, sessions and prompts",
+      "category": "focus"
     }
   ]
 }

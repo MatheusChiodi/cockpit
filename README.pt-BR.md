@@ -2,7 +2,7 @@
 
 [English](README.md) · **Português** · [Español](README.es.md)
 
-**Um painel de instrumentos para o Claude Code.** 123 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
+**Um painel de instrumentos para o Claude Code.** 124 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
 
 ![O painel completo do Cockpit em um terminal](docs/cockpit.svg)
 
@@ -71,7 +71,7 @@ As descrições dos slash commands no autocompletar são lidas quando a sessão 
 | [**Interface**](docs/catalog/interface.pt-BR.md) | 8 | `turn-timer` `tool-tally` `file-trail` `cmd-log` `git-status-line` `context-meter` `rate-limit-watch` `session-clock` |
 | [**Prompt e modelo**](docs/catalog/prompt.pt-BR.md) | 8 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` |
 | [**Comandos**](docs/catalog/commands.pt-BR.md) | 30 | `quick-notes` `pomodoro` `copy-last` `session-stats` `quote-selection` `git-peek` `git-branch` `git-stash` `git-undo` `run-script` `open-path` `ports` `kill-port` `tree` `find-file` `last-error` `env-check` `outdated` `json-tool` `uuid` `timestamp` `base64` `hash` `calc` `color-tool` `regex-test` `http-probe` `snippets` `export-session` `standup` |
-| [**Foco e notificações**](docs/catalog/focus.pt-BR.md) | 22 | `turn-notify` `break-reminder` `daily-streak` `error-notify` `needs-you-notify` `agent-done-notify` `long-cmd-notify` `tests-notify` `ci-notify` `pr-review-notify` `rate-limit-notify` `hydrate` `posture` `eye-rest` `stand-up` `alarms` `remind` `timebox` `session-cap` `late-night` `intent-check` `daily-target` |
+| [**Foco e notificações**](docs/catalog/focus.pt-BR.md) | 23 | `turn-notify` `break-reminder` `daily-streak` `error-notify` `needs-you-notify` `agent-done-notify` `long-cmd-notify` `tests-notify` `ci-notify` `pr-review-notify` `rate-limit-notify` `hydrate` `posture` `eye-rest` `stand-up` `alarms` `remind` `timebox` `session-cap` `late-night` `intent-check` `daily-target` `weekly-recap` |
 | [**Git e GitHub**](docs/catalog/git.pt-BR.md) | 0 |  |
 | [**Qualidade**](docs/catalog/quality.pt-BR.md) | 0 |  |
 | [**Stacks**](docs/catalog/stack.pt-BR.md) | 0 |  |
