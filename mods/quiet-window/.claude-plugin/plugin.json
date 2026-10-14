@@ -1,0 +1,13 @@
+{
+  "name": "quiet-window",
+  "version": "0.1.0",
+  "description": "/quiet <minutes> holds every toast and notification for that long, then says once how many were held; /quiet test checks it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

@@ -4391,6 +4391,21 @@
         "",
         "[[toast| day-close  Done for today? 14 prompts, 9 turns, 31 edits. Good work. ]]"
       ]
+    },
+    {
+      "name": "quiet-window",
+      "category": "focus",
+      "description": {
+        "en": "/quiet <minutes> holds every toast and notification for that long, then says once how many were held; /quiet test checks it",
+        "pt": "/quiet <minutos> segura todos os toasts e notificações por esse tempo e diz uma vez quantos foram retidos",
+        "es": "/quiet <minutos> retiene todos los toasts y notificaciones ese tiempo y dice una vez cuántos se retuvieron"
+      },
+      "preview": [
+        "[[user|> /quiet 45]]",
+        "[[dim|  ⎿ Quiet for 45 min. Toasts and notifications are held.]]",
+        "",
+        "[[toast| quiet-window  Quiet window over. 3 notices were held. ]]"
+      ]
     }
   ],
   "hero": [

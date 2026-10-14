@@ -1696,6 +1696,12 @@
       "source": "./mods/day-close",
       "description": "/dayend sets an hour; at that time one quiet toast sums up the day with prompts, turns and edits",
       "category": "focus"
+    },
+    {
+      "name": "quiet-window",
+      "source": "./mods/quiet-window",
+      "description": "/quiet <minutes> holds every toast and notification for that long, then says once how many were held; /quiet test checks it",
+      "category": "focus"
     }
   ]
 }
