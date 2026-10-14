@@ -1,8 +1,8 @@
-# Contexto y costo — 2 mods
+# Contexto y costo — 3 mods
 
 [← Volver al README](../../README.es.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap)
 
 ## `reread-guard`
 
@@ -23,3 +23,13 @@ Limita a 100 líneas un Grep que imprime las líneas encontradas y avisa a Claud
 ```
 
 ![grep-limit](../previews/grep-limit.svg)
+
+## `read-cap`
+
+Lee solo las primeras 600 líneas de un archivo de más de 150 KB y dice a Claude cómo seguir con offset.
+
+```
+/plugin install read-cap@cockpit
+```
+
+![read-cap](../previews/read-cap.svg)

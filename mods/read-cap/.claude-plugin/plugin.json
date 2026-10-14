@@ -1,0 +1,13 @@
+{
+  "name": "read-cap",
+  "version": "0.1.0",
+  "description": "Reads only the first 600 lines of a file over 150 KB and tells Claude how to continue with offset",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

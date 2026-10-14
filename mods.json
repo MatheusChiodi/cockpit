@@ -2831,6 +2831,20 @@
         "[[dim|  ⎿ head_limit 100 added: 100 lines shown]]",
         "[[dim|    note to Claude: narrow the pattern or glob, or pass head_limit to see more]]"
       ]
+    },
+    {
+      "name": "read-cap",
+      "category": "context",
+      "description": {
+        "en": "Reads only the first 600 lines of a file over 150 KB and tells Claude how to continue with offset",
+        "pt": "Lê só as primeiras 600 linhas de um arquivo com mais de 150 KB e diz a Claude como continuar com offset",
+        "es": "Lee solo las primeras 600 líneas de un archivo de más de 150 KB y dice a Claude cómo seguir con offset"
+      },
+      "preview": [
+        "[[tool|● Read]](dist/bundle.js)",
+        "[[dim|  ⎿ limit 600 added: the file is 312 KB]]",
+        "[[dim|    note to Claude: continue with offset 600, or Grep for the part you need]]"
+      ]
     }
   ],
   "hero": [

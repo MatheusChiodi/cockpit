@@ -1060,6 +1060,12 @@
       "source": "./mods/grep-limit",
       "description": "Caps a Grep that prints matching lines at 100 lines and tells Claude when the cap cut the answer",
       "category": "context"
+    },
+    {
+      "name": "read-cap",
+      "source": "./mods/read-cap",
+      "description": "Reads only the first 600 lines of a file over 150 KB and tells Claude how to continue with offset",
+      "category": "context"
     }
   ]
 }
