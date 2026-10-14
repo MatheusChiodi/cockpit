@@ -4362,6 +4362,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "edits-no-commit",
+      "category": "focus",
+      "description": {
+        "en": "Toast once when 20 edits and an hour have passed without a commit",
+        "pt": "Toast uma vez quando passam 20 edições e uma hora sem nenhum commit",
+        "es": "Toast una vez cuando pasan 20 ediciones y una hora sin ningún commit"
+      },
+      "preview": [
+        "[[toast| edits-no-commit  23 edits and 1h 04m without a commit. A good moment to save a checkpoint. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [

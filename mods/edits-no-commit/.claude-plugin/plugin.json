@@ -1,0 +1,13 @@
+{
+  "name": "edits-no-commit",
+  "version": "0.1.0",
+  "description": "Toast once when 20 edits and an hour have passed without a commit",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

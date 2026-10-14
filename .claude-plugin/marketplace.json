@@ -1684,6 +1684,12 @@
       "source": "./mods/branch-drift",
       "description": "Toast once when the branch name says one thing and the files being edited say another",
       "category": "focus"
+    },
+    {
+      "name": "edits-no-commit",
+      "source": "./mods/edits-no-commit",
+      "description": "Toast once when 20 edits and an hour have passed without a commit",
+      "category": "focus"
     }
   ]
 }
