@@ -1,0 +1,13 @@
+{
+  "name": "git-sync",
+  "version": "0.1.0",
+  "description": "/sync fetches and shows how far the branch is from its base; /sync rebase or merge brings the base in after asking",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

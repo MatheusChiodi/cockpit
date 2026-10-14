@@ -1,8 +1,8 @@
-# Git and GitHub — 7 mods
+# Git and GitHub — 8 mods
 
 [← Back to the README](../../README.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync)
 
 ## `commit-review`
 
@@ -73,3 +73,13 @@ Refuses git add -A, git add . and git commit -a while a .env, key or certificate
 ```
 
 ![git-fixup](../previews/git-fixup.svg)
+
+## `git-sync`
+
+/sync fetches and shows how far the branch is from its base; /sync rebase or merge brings the base in after asking.
+
+```
+/plugin install git-sync@cockpit
+```
+
+![git-sync](../previews/git-sync.svg)

@@ -3072,6 +3072,22 @@
         "[[btn| yes ]] [[btn| no ]]",
         "Fixup created for a1b2c3d add login."
       ]
+    },
+    {
+      "name": "git-sync",
+      "category": "git",
+      "description": {
+        "en": "/sync fetches and shows how far the branch is from its base; /sync rebase or merge brings the base in after asking",
+        "pt": "/sync faz fetch e mostra a distância da branch para a base; /sync rebase ou merge traz a base depois de perguntar",
+        "es": "/sync hace fetch y muestra la distancia de la rama a su base; /sync rebase o merge trae la base tras preguntar"
+      },
+      "preview": [
+        "[[user|> /sync]]",
+        "feat/login vs origin/main: 2 ahead, 7 behind",
+        "[[user|> /sync rebase]]",
+        "Rebase onto 7 new commit(s) from origin/main onto this branch?",
+        "[[btn| yes ]] [[btn| no ]]"
+      ]
     }
   ],
   "hero": [

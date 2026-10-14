@@ -1162,6 +1162,12 @@
       "source": "./mods/git-fixup",
       "description": "/fixup commits the staged changes as a fixup of HEAD or any commit, ready for rebase --autosquash",
       "category": "git"
+    },
+    {
+      "name": "git-sync",
+      "source": "./mods/git-sync",
+      "description": "/sync fetches and shows how far the branch is from its base; /sync rebase or merge brings the base in after asking",
+      "category": "git"
     }
   ]
 }
