@@ -1,0 +1,13 @@
+{
+  "name": "pr-open",
+  "version": "0.1.0",
+  "description": "/prnew opens a pull request from the current branch with a title and body built from its commits, after asking",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

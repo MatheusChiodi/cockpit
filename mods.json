@@ -4463,6 +4463,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "pr-open",
+      "category": "git",
+      "description": {
+        "en": "/prnew opens a pull request from the current branch with a title and body built from its commits, after asking",
+        "pt": "/prnew abre um pull request da branch atual com título e corpo montados a partir dos commits, depois de perguntar",
+        "es": "/prnew abre un pull request de la rama actual con título y cuerpo armados a partir de los commits, tras preguntar"
+      },
+      "preview": [
+        "[[user|> /prnew]]",
+        "Open a pull request \"Login form\" into main with 2 commit(s)?",
+        "[[btn| yes ]] [[btn| as draft ]] [[btn| no ]]"
+      ]
     }
   ],
   "hero": [

@@ -1726,6 +1726,12 @@
       "source": "./mods/wandering",
       "description": "Toast after ten prompts in a row without a single file changed: what would make this done?",
       "category": "focus"
+    },
+    {
+      "name": "pr-open",
+      "source": "./mods/pr-open",
+      "description": "/prnew opens a pull request from the current branch with a title and body built from its commits, after asking",
+      "category": "git"
     }
   ]
 }

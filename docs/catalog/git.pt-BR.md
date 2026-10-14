@@ -1,8 +1,8 @@
-# Git e GitHub — 12 mods
+# Git e GitHub — 13 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open)
 
 ## `commit-review`
 
@@ -123,3 +123,13 @@ Status line com quantos arquivos estão no stage, fora dele e novos, escondida q
 ```
 
 ![staged-status](../previews/staged-status.svg)
+
+## `pr-open`
+
+/prnew abre um pull request da branch atual com título e corpo montados a partir dos commits, depois de perguntar.
+
+```
+/plugin install pr-open@cockpit
+```
+
+![pr-open](../previews/pr-open.svg)
