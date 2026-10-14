@@ -4731,6 +4731,21 @@
         "[[dim|  ⎿ 3 subagents working]]",
         "[[toast| Subagent \"migrate the schema\" running for 7 min, others took about 2 min ]]"
       ]
+    },
+    {
+      "name": "cost-per-hour",
+      "category": "context",
+      "description": {
+        "en": "Status line with what the session costs per hour at its pace so far",
+        "pt": "Status line com o quanto a sessão custa por hora no ritmo até agora",
+        "es": "Status line con lo que cuesta la sesión por hora al ritmo actual"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  rate US$ 4.00/h]]"
+      ]
     }
   ],
   "hero": [

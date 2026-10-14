@@ -1,8 +1,8 @@
-# Context and cost — 14 mods
+# Context and cost — 15 mods
 
 [← Back to the README](../../README.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap) · [`agent-straggler`](#agent-straggler)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap) · [`agent-straggler`](#agent-straggler) · [`cost-per-hour`](#cost-per-hour)
 
 ## `reread-guard`
 
@@ -143,3 +143,13 @@ A toast when a subagent has been running more than three times as long as the on
 ```
 
 ![agent-straggler](../previews/agent-straggler.svg)
+
+## `cost-per-hour`
+
+Status line with what the session costs per hour at its pace so far.
+
+```
+/plugin install cost-per-hour@cockpit
+```
+
+![cost-per-hour](../previews/cost-per-hour.svg)

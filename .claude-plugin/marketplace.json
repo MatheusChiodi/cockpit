@@ -1834,6 +1834,12 @@
       "source": "./mods/agent-straggler",
       "description": "A toast when a subagent has been running more than three times as long as the ones that finished",
       "category": "context"
+    },
+    {
+      "name": "cost-per-hour",
+      "source": "./mods/cost-per-hour",
+      "description": "Status line with what the session costs per hour at its pace so far",
+      "category": "context"
     }
   ]
 }

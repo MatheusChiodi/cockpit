@@ -1,0 +1,13 @@
+{
+  "name": "cost-per-hour",
+  "version": "0.1.0",
+  "description": "Status line with what the session costs per hour at its pace so far",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}
