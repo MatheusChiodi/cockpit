@@ -2,14 +2,20 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
 import type { GitInfo } from '../types'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('git-band')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const info = atom({ plugin: 'git-band', key: 'info' } as const, null)
 
@@ -50,7 +56,7 @@ const refresh = async ($: EngineInterface): Promise<void> => {
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await refresh($)
-    // Pega mudanças feitas fora do Claude (editor, outro terminal).
+    // Catches changes made outside Claude (the editor, another terminal).
     $.clock.every(60000, () => void refresh($))
 
     return next(e)
@@ -76,15 +82,16 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
       'git',
-      'git',
+      s.label,
       <Text wrap="truncate-end">
         <Text bold>{found.branch}</Text>
         {found.changed === 0 ? (
-          <Text color="success">  ✓ limpo</Text>
+          <Text color="success">  ✓ {s.clean}</Text>
         ) : (
           <Text>
             {'  '}±{found.changed} <Text color="success">+{found.added}</Text> <Text color="error">−{found.removed}</Text>

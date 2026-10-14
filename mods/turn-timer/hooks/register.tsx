@@ -1,12 +1,18 @@
 import { atom, read, update } from 'claude-code'
-import type { Register } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
 import type { Turn } from '../types'
 
 const last = atom({ plugin: 'turn-timer', key: 'last' } as const, null)
 const isHidden = atom({ plugin: 'turn-timer', key: 'isHidden' } as const, false)
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const compact = (tokens: number): string =>
   tokens >= 1000 ? `${(tokens / 1000).toFixed(1)}k` : String(tokens)
@@ -29,7 +35,7 @@ export const register: Register = on => {
   })
 
   on('turn.complete', async ($, e, next) => {
-    // Só o loop principal: turnos de subagentes não entram na faixa.
+    // Main loop only: subagent turns stay out of the band.
     if (e.agentId === undefined) {
       const turn: Turn = {
         seconds: Math.round(e.durationMs / 1000),
@@ -44,7 +50,7 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
-    // Desenha abaixo das faixas dos outros mods, sem escondê-las.
+    // Draws beneath the other mods' bands without hiding them.
     const below = await next(e)
     const turn = await read($, last)
 
@@ -52,22 +58,24 @@ export const register: Register = on => {
       return below
     }
 
+    const s = await strings($)
     const ui = $.ui.resolve(e)
     const { Button, Text } = ui
 
     return row(
       ui,
-      'sessao',
-      'turno',
+      'session',
+      s.label,
       [
         <Text>
           <Text bold>{turn.seconds}s</Text>
           <Text dimColor>
             {'  '}
-            {turn.tools} tools  {compact(turn.outputTokens)} tokens{turn.isAborted ? '  interrompido' : ''}{'  '}
+            {s.detail(turn.tools, compact(turn.outputTokens), turn.isAborted)}
+            {'  '}
           </Text>
         </Text>,
-        <Button key="hide" label="Ocultar" onPress={() => update($, isHidden, () => true)} />,
+        <Button key="hide" label={s.hide} onPress={() => update($, isHidden, () => true)} />,
       ],
       below,
     )

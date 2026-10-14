@@ -1,10 +1,17 @@
 import type { EngineInterface, Register } from 'claude-code'
 
+import { STRINGS } from './strings'
+
 type Streak = { day: string; count: number; best: number }
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const DAY_MS = 86400000
 
-// Dia local como AAAA-MM-DD, para a sequência virar à meia-noite do usuário.
+// Local day as YYYY-MM-DD, so the streak rolls over at the user's midnight.
 const dayOf = (ms: number): string => {
   const date = new Date(ms)
 
@@ -17,12 +24,10 @@ const held = async ($: EngineInterface): Promise<Streak | undefined> => {
   return typeof value === 'object' && value !== null ? (value as Streak) : undefined
 }
 
-const line = (streak: Streak): string =>
-  `🔥 ${streak.count} dia${streak.count === 1 ? '' : 's'} seguido${streak.count === 1 ? '' : 's'} de Claude Code (recorde: ${streak.best})`
-
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({ name: 'streak', description: 'Mostra sua sequência de dias usando o Claude Code' })
+    const s = await strings($)
+    await $.command.register({ name: 'streak', description: s.command })
 
     const now = await $.clock.now()
     const today = dayOf(now)
@@ -34,7 +39,7 @@ export const register: Register = on => {
       await $.store.set('streak', streak)
 
       if (e.isInteractive) {
-        $.ui.toast(line(streak), { timeoutMs: 8000 })
+        $.ui.toast(s.line(streak.count, streak.best), { timeoutMs: 8000 })
       }
     }
 
@@ -42,8 +47,9 @@ export const register: Register = on => {
   })
 
   on('command.run', { command: 'streak' }, async $ => {
+    const s = await strings($)
     const streak = await held($)
 
-    return { text: streak === undefined ? 'Sequência ainda não iniciada.' : line(streak) }
+    return { text: streak === undefined ? s.none : s.line(streak.count, streak.best) }
   })
 }

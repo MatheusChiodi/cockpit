@@ -1,17 +1,17 @@
 {
   "name": "terminal-pet",
   "version": "0.1.0",
-  "description": "Mascote acima do prompt que reage: trabalhando, feliz, triste ou com sono",
+  "description": "A mascot above the prompt that reacts: working, happy, sad or sleepy",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "types": "./types/index.d.ts",
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

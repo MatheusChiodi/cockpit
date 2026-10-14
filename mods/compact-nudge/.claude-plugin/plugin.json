@@ -1,17 +1,17 @@
 {
   "name": "compact-nudge",
   "version": "0.1.0",
-  "description": "Faixa com botão de compactar quando o contexto passa de 75%",
+  "description": "Band with a compact button when context passes 75%",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "types": "./types/index.d.ts",
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

@@ -2,12 +2,18 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('session-diff-band')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const diff = atom({ plugin: 'session-diff-band', key: 'diff' } as const, { added: 0, removed: 0, edits: 0 })
 
@@ -47,15 +53,17 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
-      'sessao',
-      'escrito',
+      'session',
+      s.label,
       <Text wrap="truncate-end">
         <Text color="success">+{total.added}</Text> <Text color="error">−{total.removed}</Text>
         <Text dimColor>
-          {'  '}linhas em {total.edits} edi{total.edits === 1 ? 'ção' : 'ções'}
+          {'  '}
+          {s.lines(total.edits)}
         </Text>
       </Text>,
       below,

@@ -1,29 +1,30 @@
 import type { BoxProps, Color, ElementConstructor, RenderChildren, TextProps } from 'claude-code'
 
-// A linguagem visual da Turbina: toda faixa é uma linha de instrumento com trilho colorido,
-// rótulo de largura fixa e valores. Empilhadas, as faixas alinham como um painel só.
+// The collection's visual language: every band is an instrument row with a rail and a placard
+// in its subject's hue, then the values. Stacked, the bands line up as one panel.
 
 export type Ui = { Box: ElementConstructor<BoxProps>; Text: ElementConstructor<TextProps> }
 
-export type Group = 'git' | 'sessao' | 'projeto' | 'dia'
+export type Group = 'git' | 'session' | 'project' | 'daily'
 
 export type Tone = 'success' | 'warning' | 'error'
 
-// Cor do trilho por assunto. Verde, amarelo e vermelho ficam reservados para o estado dos valores.
-const HUE: Record<Group, Color> = { git: 'merged', sessao: 'claude', projeto: 'suggestion', dia: 'remember' }
+// Rail color per subject. Green, amber and red stay reserved for the state of a value.
+const HUE: Record<Group, Color> = { git: 'merged', session: 'claude', project: 'suggestion', daily: 'remember' }
 
 const LABEL_WIDTH = 10
 
-// Recuo das linhas de continuação: alinha com a coluna de valores.
+// Indent of continuation lines: lines up with the value column.
 export const INDENT = ' '.repeat(LABEL_WIDTH + 2)
 
 export const toneOf = (percent: number): Tone => (percent >= 85 ? 'error' : percent >= 60 ? 'warning' : 'success')
 
-// Medidor de linha fina: trecho cheio em traço pesado, o resto em traço leve.
+// Slider gauge: a heavy stroke up to a knob, a light stroke after it. The knob is the same one
+// the settings pane uses for its switches, so every control in the collection reads alike.
 export const gauge = (percent: number, width: number): { fill: string; rest: string } => {
-  const filled = Math.round((Math.min(100, Math.max(0, percent)) / 100) * width)
+  const at = Math.round((Math.min(100, Math.max(0, percent)) / 100) * (width - 1))
 
-  return { fill: '━'.repeat(filled), rest: '─'.repeat(width - filled) }
+  return { fill: `${'━'.repeat(at)}●`, rest: '─'.repeat(width - 1 - at) }
 }
 
 export const meter = (ui: Ui, percent: number, width: number, color: Color = toneOf(percent)) => {
@@ -38,7 +39,7 @@ export const meter = (ui: Ui, percent: number, width: number, color: Color = ton
   )
 }
 
-// Uma linha de instrumento. `below` é o que os outros mods já desenharam na faixa.
+// One instrument row. `below` is what the other mods already drew in the band.
 export const row = (ui: Ui, group: Group, label: string, body: unknown, below?: unknown) => {
   const { Box, Text } = ui
 
@@ -46,15 +47,16 @@ export const row = (ui: Ui, group: Group, label: string, body: unknown, below?: 
     <Box flexDirection="column">
       {below as RenderChildren}
       <Box>
-        <Text color={HUE[group]}>▍ </Text>
-        <Text dimColor>{label.toUpperCase().padEnd(LABEL_WIDTH)}</Text>
+        <Text color={HUE[group]}>
+          ▍ {label.toUpperCase().slice(0, LABEL_WIDTH - 1).padEnd(LABEL_WIDTH)}
+        </Text>
         {body as RenderChildren}
       </Box>
     </Box>
   )
 }
 
-// Cabeçalho de painel lateral: título em destaque, resumo e uma régua.
+// Side pane header: a strong title, a summary and a rule.
 export const heading = (ui: Ui, group: Group, title: string, summary: string, columns: number) => {
   const { Box, Text } = ui
 

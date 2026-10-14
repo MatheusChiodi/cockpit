@@ -2,14 +2,20 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
 import type { Worker } from '../types'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('agents-band')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const workers = atom({ plugin: 'agents-band', key: 'workers' } as const, [])
 
@@ -26,7 +32,7 @@ const refresh = async ($: EngineInterface): Promise<void> => {
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    // Subagentes mudam de estado sem evento no loop principal: um pulso curto resolve.
+    // Subagents change state without an event in the main loop: a short pulse covers it.
     $.clock.every(5000, () => void refresh($))
 
     return next(e)
@@ -55,13 +61,14 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
-      'sessao',
-      'agentes',
+      'session',
+      s.label,
       <Text wrap="truncate-end">
-        <Text bold>{list.length}</Text> rodando
+        <Text bold>{list.length}</Text> {s.running}
         <Text dimColor>
           {'  '}
           {list

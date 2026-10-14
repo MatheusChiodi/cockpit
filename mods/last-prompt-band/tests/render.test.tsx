@@ -14,22 +14,22 @@ const BAND = {
   viewport: { columns: 120, rows: 40 },
 } as const
 
-test('a faixa mostra o último pedido digitado, no terminal e no desktop', async ($, on) => {
+test('the band shows the last typed request, on terminal and desktop', async ($, on) => {
   on('prompt.submit', ($, e) => ({ text: e.text }))
-  // O que o motor desenharia na faixa sem nenhum mod: uma caixa vazia.
+  // What the engine would draw in the band with no mod: an empty box.
   on('ui.render', { component: 'AbovePrompt' }, ($, e) => {
     const { Box } = $.ui.resolve(e)
 
     return <Box />
   })
 
-  await $.prompt.submit({ text: 'refatore o hook de login', wait: false, origin: { kind: 'composer' } })
+  await $.prompt.submit({ text: 'refactor the login hook', wait: false, origin: { kind: 'composer' } })
 
   for (const surface of ['terminal', 'desktop'] as const) {
     const ui = await $.ui.mount({ ...BAND, surface })
 
-    expect(await ui.find({ type: 'Text', text: /refatore o hook de login/ })).toBeDefined()
-    expect(await ui.find({ type: 'Text', text: /PEDIDO/ })).toBeDefined()
+    expect(await ui.find({ type: 'Text', text: /refactor the login hook/ })).toBeDefined()
+    expect(await ui.find({ type: 'Text', text: /REQUEST/ })).toBeDefined()
     await ui.unmount()
   }
 })

@@ -1,7 +1,9 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+import { STRINGS } from './strings'
+
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('spend-today')
@@ -9,6 +11,11 @@ const isOff = async ($: EngineInterface): Promise<boolean> =>
 const show = async ($: EngineInterface, text: string | undefined): Promise<void> => {
   $.ui.status((await isOff($)) ? undefined : text)
 }
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 type Ledger = Record<string, number>
 
@@ -18,7 +25,7 @@ const dayOf = (ms: number): string => {
   return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-')
 }
 
-// Um registro por dia, com o custo de cada sessão: somar dá o gasto do dia em todas as sessões.
+// One record per day, with the cost of each session: summing gives the day's spend across sessions.
 const record = async ($: EngineInterface, usd: number): Promise<void> => {
   const key = `day:${dayOf(await $.clock.now())}`
   const held = await $.store.get(key)
@@ -29,11 +36,13 @@ const record = async ($: EngineInterface, usd: number): Promise<void> => {
   const total = Object.values(ledger).reduce((sum, value) => sum + value, 0)
   const sessions = Object.keys(ledger).length
 
-  void show($, `hoje US$ ${total.toFixed(2)} · ${sessions} sess${sessions === 1 ? 'ão' : 'ões'}`)
+  const s = await strings($)
+
+  void show($, `${s.today} US$ ${total.toFixed(2)} · ${s.sessions(sessions)}`)
 }
 
 export const register: Register = on => {
-  on('state.set', { plugin: 'turbina', key: 'off' }, async ($, e, next) => {
+  on('state.set', { plugin: 'cockpit', key: 'off' }, async ($, e, next) => {
     const set = await next(e)
     await show($, undefined)
 

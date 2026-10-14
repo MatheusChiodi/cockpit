@@ -1,7 +1,7 @@
 {
   "name": "stack-context",
   "version": "0.1.0",
-  "description": "Detecta a stack do projeto (package.json, pom.xml...) e informa o Claude no system prompt",
+  "description": "Detects the project stack (package.json, pom.xml...) and tells Claude in the system prompt",
   "author": {
     "name": "Matheus Chiodi"
   },

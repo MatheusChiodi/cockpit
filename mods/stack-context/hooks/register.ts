@@ -34,7 +34,8 @@ const FILES: readonly (readonly [string, string])[] = [
   ['eas.json', 'EAS Build'],
 ]
 
-// Lido uma vez por carga do módulo: a stack não muda no meio da sessão.
+// Read once per module load: the stack does not change mid-session.
+// The section is read by the model only: English, not translated.
 const cache: { text: string | undefined } = { text: undefined }
 
 const detect = async ($: EngineInterface): Promise<string> => {
@@ -48,7 +49,7 @@ const detect = async ($: EngineInterface): Promise<string> => {
       const deps = new Set([...Object.keys(parsed.dependencies ?? {}), ...Object.keys(parsed.devDependencies ?? {})])
       found.push(...KNOWN.filter(([name]) => deps.has(name)).map(([, label]) => label))
     } catch {
-      // package.json inválido: segue só com os arquivos de marcação.
+      // Invalid package.json: carry on with the marker files only.
     }
   }
 
@@ -73,7 +74,7 @@ export const register: Register = on => {
             ...composed.sections,
             {
               id: 'stack-context:stack',
-              text: `# Stack deste projeto\n${cache.text}.\nUse os padrões e as APIs dessas ferramentas; não proponha trocar a stack sem que peçam.`,
+              text: `# This project's stack\n${cache.text}.\nUse the patterns and APIs of these tools; do not propose changing the stack unless asked.`,
               scope: 'session',
             },
           ],

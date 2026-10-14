@@ -1,7 +1,7 @@
 {
   "name": "file-trail",
   "version": "0.1.0",
-  "description": "/trail abre um painel com os arquivos lidos e alterados na sessão",
+  "description": "/trail opens a pane with the files read and changed in the session",
   "author": {
     "name": "Matheus Chiodi"
   },

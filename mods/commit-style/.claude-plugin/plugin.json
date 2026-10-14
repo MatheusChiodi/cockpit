@@ -1,7 +1,7 @@
 {
   "name": "commit-style",
   "version": "0.1.0",
-  "description": "Faz o Claude escrever commits em Conventional Commits, curtos e no imperativo",
+  "description": "Makes Claude write short, imperative Conventional Commits",
   "author": {
     "name": "Matheus Chiodi"
   },

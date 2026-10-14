@@ -11,28 +11,30 @@ const BLOCKED = [
 
 const ALLOWED = ['rm -rf node_modules', 'rm notes.txt', 'ls -la /', 'git status']
 
-test('recusa remoções destrutivas no Bash', async ($, on) => {
+const ANSWER = { result: { stdout: '', stderr: '', interrupted: false } }
+
+test('refuses destructive removals in Bash, in English by default', async ($, on) => {
   let ran = 0
   on('tool.call', { tool: 'Bash' }, () => {
     ran += 1
 
-    return { result: { stdout: '', stderr: '', interrupted: false } }
+    return ANSWER
   })
 
   for (const command of BLOCKED) {
     const answer = await $.tool.call({ tool: 'Bash', command, tool_use_id: `b-${command}` })
-    expect(answer.deny, command).toContain('rm-guard')
+    expect(answer.deny, command).toContain('rm-guard blocked the command')
   }
 
   expect(ran).toBe(0)
 })
 
-test('deixa passar comandos comuns no Bash', async ($, on) => {
+test('lets everyday commands through', async ($, on) => {
   let ran = 0
   on('tool.call', { tool: 'Bash' }, () => {
     ran += 1
 
-    return { result: { stdout: '', stderr: '', interrupted: false } }
+    return ANSWER
   })
 
   for (const command of ALLOWED) {
@@ -43,10 +45,8 @@ test('deixa passar comandos comuns no Bash', async ($, on) => {
   expect(ran).toBe(ALLOWED.length)
 })
 
-test('recusa Remove-Item recursivo em raiz de drive no PowerShell', async ($, on) => {
-  on('tool.call', { tool: 'PowerShell' }, () => ({
-    result: { stdout: '', stderr: '', interrupted: false },
-  }))
+test('refuses a recursive Remove-Item on a drive root in PowerShell', async ($, on) => {
+  on('tool.call', { tool: 'PowerShell' }, () => ANSWER)
 
   const blocked = await $.tool.call({
     tool: 'PowerShell',
@@ -61,4 +61,13 @@ test('recusa Remove-Item recursivo em raiz de drive no PowerShell', async ($, on
     tool_use_id: 'p-2',
   })
   expect(allowed.deny).toBeUndefined()
+})
+
+test('speaks the language set in the hub', async ($, on) => {
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+  // Stands in for the hub: answers the language it would hold.
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  const answer = await $.tool.call({ tool: 'Bash', command: 'rm -rf /', tool_use_id: 'pt-1' })
+  expect(answer.deny).toContain('rm-guard bloqueou o comando: apagar recursivamente "/"')
 })

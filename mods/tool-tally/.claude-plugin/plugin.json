@@ -1,7 +1,7 @@
 {
   "name": "tool-tally",
   "version": "0.1.0",
-  "description": "/tally abre um painel com a contagem de chamadas por ferramenta",
+  "description": "/tally opens a pane with the call count per tool",
   "author": {
     "name": "Matheus Chiodi"
   },

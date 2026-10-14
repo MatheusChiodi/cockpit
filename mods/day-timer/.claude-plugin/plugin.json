@@ -1,16 +1,16 @@
 {
   "name": "day-timer",
   "version": "0.1.0",
-  "description": "Status line com o tempo ativo de Claude Code no dia, somando as sessões",
+  "description": "Status line with your active Claude Code time today, summed across sessions",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

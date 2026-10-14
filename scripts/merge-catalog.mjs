@@ -1,25 +1,33 @@
-// Junta fragmentos de catálogo (arrays de mods em catalog-parts/*.json) ao mods.json e apaga os fragmentos.
-// Uso: node scripts/merge-catalog.mjs
-import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+// Folds catalog-parts/*.json into mods.json and removes the parts.
+// A part is an array of mod entries: a new name is appended, a known name has its fields updated
+// (descriptions are merged per language).
+// Usage: node scripts/merge-catalog.mjs
+import { rmSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const parts = join(root, 'catalog-parts')
-const catalog = JSON.parse(readFileSync(join(root, 'mods.json'), 'utf8'))
-const known = new Set(catalog.mods.map(mod => mod.name))
+import { json, loadCatalog, loadParts, root } from './lib.mjs'
+
+const catalog = loadCatalog()
+const byName = new Map(catalog.mods.map(mod => [mod.name, mod]))
 let added = 0
+let updated = 0
 
-for (const file of existsSync(parts) ? readdirSync(parts).filter(name => name.endsWith('.json')).sort() : []) {
-  for (const mod of JSON.parse(readFileSync(join(parts, file), 'utf8'))) {
-    if (!known.has(mod.name)) {
-      catalog.mods.push(mod)
-      known.add(mod.name)
-      added += 1
-    }
+for (const part of loadParts()) {
+  const known = byName.get(part.name)
+
+  if (known === undefined) {
+    catalog.mods.push(part)
+    byName.set(part.name, part)
+    added += 1
+    continue
   }
+
+  const description =
+    typeof part.description === 'object' ? { ...known.description, ...part.description } : (part.description ?? known.description)
+  Object.assign(known, part, { description })
+  updated += 1
 }
 
-writeFileSync(join(root, 'mods.json'), `${JSON.stringify(catalog, null, 2)}\n`)
-rmSync(parts, { recursive: true, force: true })
-console.log(`${added} mods adicionados; total ${catalog.mods.length}`)
+writeFileSync(join(root, 'mods.json'), json(catalog))
+rmSync(join(root, 'catalog-parts'), { recursive: true, force: true })
+console.log(`${added} added, ${updated} updated; ${catalog.mods.length} mods in total`)

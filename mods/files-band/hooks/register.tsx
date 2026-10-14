@@ -2,18 +2,24 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('files-band')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const files = atom({ plugin: 'files-band', key: 'files' } as const, [])
 
 const base = (path: string): string => path.split(/[\\/]/).at(-1) ?? path
 
-// O mais recente primeiro, sem repetir.
+// Most recent first, without repeats.
 const touch = ($: EngineInterface, path: string) =>
   update($, files, list => [path, ...list.filter(held => held !== path)].slice(0, 200))
 
@@ -58,15 +64,16 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
     const shown = list.slice(0, 4).map(base)
 
     return row(
       ui,
-      'sessao',
-      'arquivos',
+      'session',
+      s.label,
       <Text wrap="truncate-end">
         <Text color="warning">
-          {list.length} alterado{list.length === 1 ? '' : 's'}
+          {s.changed(list.length)}
         </Text>
         {'  '}
         {shown.join('  ')}

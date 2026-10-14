@@ -1,26 +1,43 @@
-import type { Register } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
 
-const SECRETS: readonly { pattern: RegExp; kind: string }[] = [
-  { pattern: /\bAKIA[0-9A-Z]{16}\b/, kind: 'chave de acesso AWS' },
-  { pattern: /-----BEGIN (RSA |EC |DSA |OPENSSH |PGP )?PRIVATE KEY-----/, kind: 'chave privada' },
-  { pattern: /\bsk-ant-[A-Za-z0-9_-]{20,}/, kind: 'chave da API Anthropic' },
-  { pattern: /\bsk-(proj-)?[A-Za-z0-9_-]{32,}/, kind: 'chave de API (sk-...)' },
-  { pattern: /\bgh[pousr]_[A-Za-z0-9]{36,}\b/, kind: 'token do GitHub' },
-  { pattern: /\bgithub_pat_[A-Za-z0-9_]{40,}/, kind: 'token do GitHub' },
-  { pattern: /\bxox[baprs]-[A-Za-z0-9-]{10,}/, kind: 'token do Slack' },
-  { pattern: /\bAIza[0-9A-Za-z_-]{35}\b/, kind: 'chave de API Google' },
-  { pattern: /\b[sr]k_live_[0-9a-zA-Z]{24,}/, kind: 'chave live da Stripe' },
+import { STRINGS } from './strings'
+import type { Kind } from './strings'
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
+const SECRETS: readonly { pattern: RegExp; kind: Kind }[] = [
+  { pattern: /\bAKIA[0-9A-Z]{16}\b/, kind: 'aws' },
+  { pattern: /-----BEGIN (RSA |EC |DSA |OPENSSH |PGP )?PRIVATE KEY-----/, kind: 'privateKey' },
+  { pattern: /\bsk-ant-[A-Za-z0-9_-]{20,}/, kind: 'anthropic' },
+  { pattern: /\bsk-(proj-)?[A-Za-z0-9_-]{32,}/, kind: 'apiKey' },
+  { pattern: /\bgh[pousr]_[A-Za-z0-9]{36,}\b/, kind: 'github' },
+  { pattern: /\bgithub_pat_[A-Za-z0-9_]{40,}/, kind: 'github' },
+  { pattern: /\bxox[baprs]-[A-Za-z0-9-]{10,}/, kind: 'slack' },
+  { pattern: /\bAIza[0-9A-Za-z_-]{35}\b/, kind: 'google' },
+  { pattern: /\b[sr]k_live_[0-9a-zA-Z]{24,}/, kind: 'stripe' },
 ]
 
-export const register: Register = on => {
-  // Barra o prompt antes de ele entrar na conversa (e no transcript).
-  on('prompt.submit', ($, e, next) => {
-    const kind = SECRETS.find(secret => secret.pattern.test(e.text))?.kind
+// Why the prompt is dropped, in the session's language; undefined when it holds no secret.
+const verdict = async ($: EngineInterface, text: string): Promise<string | undefined> => {
+  const kind = SECRETS.find(secret => secret.pattern.test(text))?.kind
 
-    return kind === undefined
-      ? next(e)
-      : { drop: `prompt-secret-guard: o prompt contém ${kind}. Remova o segredo e envie de novo.` }
-  }).catch(($, e, next) =>
-    next.called ? next(e) : { drop: 'prompt-secret-guard: a verificação falhou, prompt não enviado.' },
-  )
+  if (kind === undefined) {
+    return undefined
+  }
+
+  const s = await strings($)
+
+  return s.dropped(s[kind])
+}
+
+export const register: Register = on => {
+  // Stops the prompt before it enters the conversation (and the transcript).
+  on('prompt.submit', async ($, e, next) => {
+    const drop = await verdict($, e.text)
+
+    return drop === undefined ? next(e) : { drop }
+  }).catch(($, e, next) => (next.called ? next(e) : { drop: STRINGS.en.failed }))
 }

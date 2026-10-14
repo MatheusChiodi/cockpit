@@ -1,5 +1,12 @@
 import type { EngineInterface, Register } from 'claude-code'
 
+import { STRINGS } from './strings'
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
 const elapsed = (ms: number): string => {
   const minutes = Math.max(0, Math.floor(ms / 60000))
   const hours = Math.floor(minutes / 60)
@@ -8,19 +15,20 @@ const elapsed = (ms: number): string => {
 }
 
 const tick = async ($: EngineInterface): Promise<void> => {
-  const [{ startedAt }, now, turns] = await Promise.all([
+  const [{ startedAt }, now, turns, s] = await Promise.all([
     $.session.usage(),
     $.clock.now(),
     $.session.turns(),
+    strings($),
   ])
 
-  $.ui.status(`sessão ${elapsed(now - startedAt)} · ${turns} prompts`)
+  $.ui.status(s.status(elapsed(now - startedAt), turns))
 }
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     await tick($)
-    // O timer morre sozinho num reload do módulo.
+    // The timer dies by itself on a module reload.
     $.clock.every(30000, () => void tick($))
 
     return next(e)

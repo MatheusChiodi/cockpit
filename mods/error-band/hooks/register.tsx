@@ -2,31 +2,38 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
 import type { Failure } from '../types'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('error-band')
 
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
 const failure = atom({ plugin: 'error-band', key: 'failure' } as const, null)
 
-// A primeira linha que parece erro; senão, a última linha não vazia da saída.
-const headline = (output: string): string => {
+// The first line that looks like an error; otherwise the last non-empty line of the output.
+const headline = (output: string, empty: string): string => {
   const lines = output.split('\n').map(line => line.trim()).filter(line => line !== '')
   const found = lines.find(line => /error|erro|fail|exception|not found|denied|cannot|fatal/i.test(line))
 
-  return (found ?? lines.at(-1) ?? 'sem saída').slice(0, 160)
+  return (found ?? lines.at(-1) ?? empty).slice(0, 160)
 }
 
 const settle = async ($: EngineInterface, command: string, isError: boolean, output: string): Promise<void> => {
+  const s = await strings($)
   const held: Failure | null = isError
-    ? { command: command.replace(/\s+/g, ' ').slice(0, 60), line: headline(output) }
+    ? { command: command.replace(/\s+/g, ' ').slice(0, 60), line: headline(output, s.noOutput) }
     : null
 
-  // Um comando que passa limpa o erro anterior: a faixa mostra só o que ainda está quebrado.
+  // A command that passes clears the previous error: the band shows only what is still broken.
   await update($, failure, () => held)
 }
 
@@ -61,11 +68,12 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Button, Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
-      'sessao',
-      'erro',
+      'session',
+      s.label,
       [
         <Text wrap="truncate-end">
           <Text color="error" bold>
@@ -73,7 +81,7 @@ export const register: Register = on => {
           </Text>
           <Text dimColor>  {held.line}  </Text>
         </Text>,
-        <Button key="dismiss" label="Dispensar" onPress={() => update($, failure, () => null)} />,
+        <Button key="dismiss" label={s.dismiss} onPress={() => update($, failure, () => null)} />,
       ],
       below,
     )

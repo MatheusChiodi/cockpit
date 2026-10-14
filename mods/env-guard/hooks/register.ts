@@ -1,4 +1,11 @@
-import type { Register } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
+
+import { STRINGS } from './strings'
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const ENV_FILE = /(^|[\\/])\.env(\.[^\\/]*)?$/i
 const TEMPLATE = /\.(example|sample|template|dist)$/i
@@ -7,34 +14,48 @@ const SHELL_READ =
 
 const isProtected = (path: string): boolean => ENV_FILE.test(path) && !TEMPLATE.test(path)
 
-const refusal = (path: string): string =>
-  `env-guard: ${path} guarda segredos e está protegido. Use um .env.example ou peça ao usuário.`
+// The refusal for a path, in the session's language; undefined when the path may be touched.
+const fileVerdict = async ($: EngineInterface, path: string): Promise<string | undefined> =>
+  isProtected(path) ? (await strings($)).denied(path) : undefined
 
-const FAILED = 'env-guard: a verificação falhou, acesso recusado.'
+const shellVerdict = async ($: EngineInterface, command: string): Promise<string | undefined> =>
+  SHELL_READ.test(command) ? (await strings($)).denied('.env') : undefined
 
 export const register: Register = on => {
-  on('tool.call', { tool: 'Read' }, ($, e, next) =>
-    isProtected(e.file_path) ? { deny: refusal(e.file_path) } : next(e),
-  ).catch(($, e, next) => (next.called ? next(e) : { deny: FAILED }))
+  on('tool.call', { tool: 'Read' }, async ($, e, next) => {
+    const deny = await fileVerdict($, e.file_path)
 
-  on('tool.call', { tool: 'Edit' }, ($, e, next) =>
-    isProtected(e.file_path) ? { deny: refusal(e.file_path) } : next(e),
-  ).catch(($, e, next) => (next.called ? next(e) : { deny: FAILED }))
+    return deny === undefined ? next(e) : { deny }
+  }).catch(($, e, next) => (next.called ? next(e) : { deny: STRINGS.en.failed }))
 
-  on('tool.call', { tool: 'Write' }, ($, e, next) =>
-    isProtected(e.file_path) ? { deny: refusal(e.file_path) } : next(e),
-  ).catch(($, e, next) => (next.called ? next(e) : { deny: FAILED }))
+  on('tool.call', { tool: 'Edit' }, async ($, e, next) => {
+    const deny = await fileVerdict($, e.file_path)
 
-  on('tool.call', { tool: 'Bash' }, ($, e, next) =>
-    SHELL_READ.test(e.command) ? { deny: refusal('.env') } : next(e),
-  ).catch(($, e, next) => (next.called ? next(e) : { deny: FAILED }))
+    return deny === undefined ? next(e) : { deny }
+  }).catch(($, e, next) => (next.called ? next(e) : { deny: STRINGS.en.failed }))
 
-  on('tool.call', { tool: 'PowerShell' }, ($, e, next) =>
-    SHELL_READ.test(e.command) ? { deny: refusal('.env') } : next(e),
-  ).catch(($, e, next) => (next.called ? next(e) : { deny: FAILED }))
+  on('tool.call', { tool: 'Write' }, async ($, e, next) => {
+    const deny = await fileVerdict($, e.file_path)
 
-  // @.env no prompt também lê o arquivo, sem passar por tool.call.
-  on('prompt.mention', ($, e, next) =>
-    isProtected(e.path) ? { deny: refusal(e.path) } : next(e),
-  ).catch(($, e, next) => (next.called ? next(e) : { deny: FAILED }))
+    return deny === undefined ? next(e) : { deny }
+  }).catch(($, e, next) => (next.called ? next(e) : { deny: STRINGS.en.failed }))
+
+  on('tool.call', { tool: 'Bash' }, async ($, e, next) => {
+    const deny = await shellVerdict($, e.command)
+
+    return deny === undefined ? next(e) : { deny }
+  }).catch(($, e, next) => (next.called ? next(e) : { deny: STRINGS.en.failed }))
+
+  on('tool.call', { tool: 'PowerShell' }, async ($, e, next) => {
+    const deny = await shellVerdict($, e.command)
+
+    return deny === undefined ? next(e) : { deny }
+  }).catch(($, e, next) => (next.called ? next(e) : { deny: STRINGS.en.failed }))
+
+  // @.env in the prompt reads the file too, without going through tool.call.
+  on('prompt.mention', async ($, e, next) => {
+    const deny = await fileVerdict($, e.path)
+
+    return deny === undefined ? next(e) : { deny }
+  }).catch(($, e, next) => (next.called ? next(e) : { deny: STRINGS.en.failed }))
 }

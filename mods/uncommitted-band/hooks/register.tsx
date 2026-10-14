@@ -2,14 +2,20 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
 import type { Pending } from '../types'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('uncommitted-band')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const pending = atom({ plugin: 'uncommitted-band', key: 'pending' } as const, null)
 
@@ -53,16 +59,15 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
       'git',
-      'commit',
+      s.label,
       <Text wrap="truncate-end">
-        <Text color="warning">
-          {found.changed} arquivo{found.changed === 1 ? '' : 's'} sem commit
-        </Text>
-        <Text dimColor>  último há {span(found.minutes)}</Text>
+        <Text color="warning">{s.files(found.changed)}</Text>
+        <Text dimColor>  {s.last(span(found.minutes))}</Text>
       </Text>,
       below,
     )

@@ -1,13 +1,13 @@
 {
   "name": "rm-guard",
   "version": "0.1.0",
-  "description": "Bloqueia rm -rf / Remove-Item -Recurse em raiz, home e drives, além de mkfs, dd e format",
+  "description": "Blocks rm -rf and Remove-Item -Recurse on root, home and drives, plus mkfs, dd and format",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "seguranca"
+    "security"
   ]
 }

@@ -1,13 +1,13 @@
 {
   "name": "path-jail",
   "version": "0.1.0",
-  "description": "Restringe Write/Edit à raiz do projeto, ao temp e a ~/.claude (resolve symlinks)",
+  "description": "Restricts Write/Edit to the project root, the temp folder and ~/.claude (resolves symlinks)",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "seguranca"
+    "security"
   ]
 }

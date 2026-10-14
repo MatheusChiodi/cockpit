@@ -1,7 +1,7 @@
 {
   "name": "git-status-line",
   "version": "0.1.0",
-  "description": "Status line com branch, arquivos alterados e commits à frente/atrás",
+  "description": "Status line with branch, changed files and commits ahead/behind",
   "author": {
     "name": "Matheus Chiodi"
   },

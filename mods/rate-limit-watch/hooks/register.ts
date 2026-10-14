@@ -1,48 +1,53 @@
-import type { Register, SessionRateLimit } from 'claude-code'
+import type { EngineInterface, Register, SessionRateLimit } from 'claude-code'
+
+import { STRINGS } from './strings'
+
+type Strings = (typeof STRINGS)['en']
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const STEPS = [95, 90, 75] as const
-const LABEL: Record<string, string> = {
-  five_hour: 'janela de 5h',
-  seven_day: 'janela de 7 dias',
-  spend_limit: 'limite de gasto',
-}
 
-const label = (kind: string): string => LABEL[kind] ?? kind
+const label = (s: Strings, kind: string): string => s.windows[kind] ?? kind
 
-const resets = (limit: SessionRateLimit): string =>
+const resets = (s: Strings, limit: SessionRateLimit): string =>
   limit.resetsAt === undefined
     ? ''
-    : ` (reseta ${new Date(limit.resetsAt).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })})`
+    : s.resets(new Date(limit.resetsAt).toLocaleString(s.locale, { dateStyle: 'short', timeStyle: 'short' }))
 
 export const register: Register = on => {
   const warned = new Map<string, number>()
 
   on('session.start', async ($, e, next) => {
-    await $.command.register({
-      name: 'limits',
-      description: 'Mostra o uso das janelas de rate limit da conta',
-    })
+    const s = await strings($)
+    await $.command.register({ name: 'limits', description: s.command })
 
     return next(e)
   })
 
   on('command.run', { command: 'limits' }, async $ => {
+    const s = await strings($)
     const { rateLimits } = await $.session.usage()
 
     return {
       text:
         rateLimits.length === 0
-          ? 'Sem leitura de rate limit (fora de assinatura ou antes da primeira resposta).'
-          : rateLimits.map(limit => `${label(limit.kind)}: ${limit.percentUsed}%${resets(limit)}`).join('\n'),
+          ? s.none
+          : rateLimits.map(limit => `${label(s, limit.kind)}: ${limit.percentUsed}%${resets(s, limit)}`).join('\n'),
     }
   })
 
-  on('session.measure', ($, e, next) => {
+  on('session.measure', async ($, e, next) => {
+    const s = await strings($)
+
     for (const limit of e.rateLimits) {
       const step = STEPS.find(threshold => limit.percentUsed >= threshold) ?? 0
 
       if (step > (warned.get(limit.kind) ?? 0)) {
-        $.ui.toast(`Rate limit: ${label(limit.kind)} em ${limit.percentUsed}%${resets(limit)}`, {
+        $.ui.toast(s.toast(label(s, limit.kind), limit.percentUsed, resets(s, limit)), {
           timeoutMs: 10000,
         })
       }

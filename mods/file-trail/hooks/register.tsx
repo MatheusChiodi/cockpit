@@ -2,11 +2,17 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { heading } from './kit'
+import { STRINGS } from './strings'
 
 import type { Touch, TouchKind } from '../types'
 
 const PANE = 'file-trail'
 const touches = atom({ plugin: 'file-trail', key: 'touches' } as const, [])
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const MARK: Record<TouchKind, string> = { read: 'R', edit: 'M', write: 'W' }
 const RANK: Record<TouchKind, number> = { read: 0, edit: 1, write: 2 }
@@ -28,18 +34,17 @@ const short = (path: string, width: number): string =>
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({
-      name: 'trail',
-      description: 'Abre o painel com os arquivos lidos e alterados nesta sessão',
-    })
+    const s = await strings($)
+    await $.command.register({ name: 'trail', description: s.command })
 
     return next(e)
   })
 
   on('command.run', { command: 'trail' }, async $ => {
-    await $.ui.open({ id: PANE, title: 'Arquivos' })
+    const s = await strings($)
+    await $.ui.open({ id: PANE, title: s.title })
 
-    return { text: 'Painel de arquivos aberto.' }
+    return { text: s.opened }
   })
 
   on('tool.call', { tool: 'Read' }, async ($, e, next) => {
@@ -73,6 +78,7 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => {
+    const s = await strings($)
     const ui = $.ui.resolve(e)
     const { Box, Text } = ui
     const list = await read($, touches)
@@ -82,8 +88,8 @@ export const register: Register = on => {
 
     return (
       <Box flexDirection="column">
-        {heading(ui, 'sessao', 'arquivos', `${list.length} tocados · ${changed} alterados`, e.props.bodyColumns)}
-        {list.length === 0 && <Text dimColor>Nenhum arquivo tocado ainda.</Text>}
+        {heading(ui, 'session', s.label, s.summary(list.length, changed), e.props.bodyColumns)}
+        {list.length === 0 && <Text dimColor>{s.empty}</Text>}
         {list
           .slice(-room)
           .reverse()

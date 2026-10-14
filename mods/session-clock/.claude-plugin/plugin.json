@@ -1,7 +1,7 @@
 {
   "name": "session-clock",
   "version": "0.1.0",
-  "description": "Status line com tempo de sessão e número de prompts",
+  "description": "Status line with session time and number of prompts",
   "author": {
     "name": "Matheus Chiodi"
   },

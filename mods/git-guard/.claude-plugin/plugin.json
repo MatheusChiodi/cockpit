@@ -1,13 +1,13 @@
 {
   "name": "git-guard",
   "version": "0.1.0",
-  "description": "Bloqueia git destrutivo: push --force, reset --hard, clean -f, --no-verify, branch -D",
+  "description": "Blocks destructive git: push --force, reset --hard, clean -f, --no-verify, branch -D",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "seguranca"
+    "security"
   ]
 }

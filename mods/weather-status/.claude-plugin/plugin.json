@@ -1,16 +1,16 @@
 {
   "name": "weather-status",
   "version": "0.1.0",
-  "description": "Status line com o clima da sua cidade (wttr.in)",
+  "description": "Status line with the weather in your city (wttr.in)",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

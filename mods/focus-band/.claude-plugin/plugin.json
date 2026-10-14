@@ -1,17 +1,17 @@
 {
   "name": "focus-band",
   "version": "0.1.0",
-  "description": "/focus inicia um bloco de foco com barra de progresso fixa",
+  "description": "/focus starts a focus block with a pinned progress bar",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "types": "./types/index.d.ts",
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

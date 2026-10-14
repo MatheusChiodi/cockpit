@@ -1,16 +1,16 @@
 {
   "name": "activity-status",
   "version": "0.1.0",
-  "description": "Status line ao vivo com a ferramenta que o Claude está executando agora",
+  "description": "Live status line with the tool Claude is running right now",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

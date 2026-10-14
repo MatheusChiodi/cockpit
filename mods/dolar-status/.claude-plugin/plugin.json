@@ -1,16 +1,16 @@
 {
   "name": "dolar-status",
   "version": "0.1.0",
-  "description": "Status line com a cotação do dólar em reais (AwesomeAPI)",
+  "description": "Status line with the dollar rate in Brazilian reais (AwesomeAPI)",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

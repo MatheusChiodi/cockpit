@@ -2,12 +2,18 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('goal-band')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const goal = atom({ plugin: 'goal-band', key: 'goal' } as const, '')
 
@@ -21,11 +27,8 @@ const held = async ($: EngineInterface): Promise<string> => {
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({
-      name: 'goal',
-      description: 'Fixa o objetivo do projeto acima do prompt e no contexto do Claude; /goal clear remove',
-      argumentHint: '<objetivo> | clear',
-    })
+    const s = await strings($)
+    await $.command.register({ name: 'goal', description: s.command, argumentHint: s.hint })
     const text = await held($)
     await update($, goal, () => text)
 
@@ -33,22 +36,23 @@ export const register: Register = on => {
   })
 
   on('command.run', { command: 'goal' }, async ($, e) => {
+    const s = await strings($)
     const text = e.args.trim()
 
     if (text === '') {
       const current = await read($, goal)
 
-      return { text: current === '' ? 'Sem objetivo. Use /goal <objetivo>.' : `Objetivo: ${current}` }
+      return { text: current === '' ? s.none : s.current(current) }
     }
 
     const next = text === 'clear' ? '' : text.slice(0, 200)
     await $.store.set(await keyOf($), next)
     await update($, goal, () => next)
 
-    return { text: next === '' ? 'Objetivo removido.' : 'Objetivo fixado (o Claude passa a vê-lo no próximo prompt).' }
+    return { text: next === '' ? s.removed : s.pinned }
   })
 
-  // O objetivo também entra no system prompt, para o Claude não se desviar dele.
+  // The goal also enters the system prompt, so Claude does not drift from it.
   on('prompt.compose', async ($, e, next) => {
     const composed = await next(e)
     const text = await held($)
@@ -60,7 +64,7 @@ export const register: Register = on => {
             ...composed.sections,
             {
               id: 'goal-band:goal',
-              text: `# Objetivo atual do usuário\n${text}\nMantenha o trabalho alinhado a esse objetivo e avise se um pedido se desviar dele.`,
+              text: `# The user's current goal\n${text}\nKeep the work aligned with this goal and say so if a request drifts from it.`,
               scope: 'session',
             },
           ],
@@ -77,11 +81,12 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
-      'dia',
-      'objetivo',
+      'daily',
+      s.label,
       <Text bold wrap="truncate-end">
         {text}
       </Text>,

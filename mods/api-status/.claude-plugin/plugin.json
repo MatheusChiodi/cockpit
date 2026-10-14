@@ -1,16 +1,16 @@
 {
   "name": "api-status",
   "version": "0.1.0",
-  "description": "Status line com o estado da API da Anthropic pela página pública de status",
+  "description": "Status line with the state of the Anthropic API from its public status page",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

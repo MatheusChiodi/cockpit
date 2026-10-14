@@ -1,13 +1,13 @@
 {
   "name": "pipe-shell-guard",
   "version": "0.1.0",
-  "description": "Bloqueia curl | sh, wget | bash, iwr | iex e variantes",
+  "description": "Blocks curl | sh, wget | bash, iwr | iex and variants",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "seguranca"
+    "security"
   ]
 }

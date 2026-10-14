@@ -2,12 +2,18 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row, INDENT } from './kit'
+import { STRINGS } from './strings'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('pin-band')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const pins = atom({ plugin: 'pin-band', key: 'pins' } as const, [])
 
@@ -15,7 +21,7 @@ const MAX = 4
 
 const keyOf = async ($: EngineInterface): Promise<string> => `pins:${await $.session.root()}`
 
-// Lembretes curtos por projeto: o store guarda entre sessões, o state desenha.
+// Short reminders per project: the store keeps them between sessions, the state draws them.
 const save = async ($: EngineInterface, list: string[]): Promise<void> => {
   await update($, pins, () => list)
   await $.store.set(await keyOf($), list)
@@ -29,50 +35,48 @@ const restore = async ($: EngineInterface): Promise<void> => {
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({
-      name: 'pin',
-      description: `Fixa até ${MAX} lembretes acima do prompt: /pin <texto>, /pin rm <n>, /pin clear`,
-      argumentHint: '<texto> | rm <n> | clear',
-    })
+    const s = await strings($)
+    await $.command.register({ name: 'pin', description: s.command(MAX), argumentHint: s.hint })
     await restore($)
 
     return next(e)
   })
 
   on('command.run', { command: 'pin' }, async ($, e) => {
+    const s = await strings($)
     const text = e.args.trim()
     const [action, value] = text.split(/\s+/)
     const list = await read($, pins)
 
     if (text === '') {
-      return { text: 'Uso: /pin <texto> | rm <n> | clear' }
+      return { text: s.usage }
     }
 
     if (text === 'clear') {
       await save($, [])
 
-      return { text: 'Lembretes removidos.' }
+      return { text: s.cleared }
     }
 
     if (action === 'rm' && value !== undefined) {
       const index = Number(value) - 1
 
       if (list[index] === undefined) {
-        return { text: `Lembrete inexistente: ${value}` }
+        return { text: s.missing(value) }
       }
 
       await save($, list.filter((_, at) => at !== index))
 
-      return { text: `Lembrete ${index + 1} removido.` }
+      return { text: s.removed(index + 1) }
     }
 
     if (list.length >= MAX) {
-      return { text: `Limite de ${MAX} lembretes. Remova um com /pin rm <n>.` }
+      return { text: s.full(MAX) }
     }
 
     await save($, [...list, text.slice(0, 100)])
 
-    return { text: `Lembrete ${list.length + 1} fixado.` }
+    return { text: s.pinned(list.length + 1) }
   })
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
@@ -85,14 +89,15 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Box, Text } = ui
+    const s = await strings($)
     const [first = '', ...rest] = list
 
     return (
       <Box flexDirection="column">
         {row(
           ui,
-          'dia',
-          'lembrete',
+          'daily',
+          s.label,
           <Text wrap="truncate-end">
             <Text dimColor>1 </Text>
             {first}

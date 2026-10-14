@@ -2,6 +2,7 @@ import type { EngineInterface, Register } from 'claude-code'
 
 const MAX_FILES = 20
 
+// Hidden context, read by the model only: English, not translated.
 const snapshot = async ($: EngineInterface): Promise<string | undefined> => {
   const ran = await $.process
     .run(['git', 'status', '--porcelain=v1', '--branch'], { timeoutMs: 5000 })
@@ -13,13 +14,13 @@ const snapshot = async ($: EngineInterface): Promise<string | undefined> => {
 
   const [head = '', ...changes] = ran.stdout.split('\n').filter(line => line !== '')
   const listed = changes.slice(0, MAX_FILES).join('\n')
-  const more = changes.length > MAX_FILES ? `\n… e mais ${changes.length - MAX_FILES}` : ''
+  const more = changes.length > MAX_FILES ? `\n… and ${changes.length - MAX_FILES} more` : ''
 
-  return `Estado do git agora (${head.replace(/^## /, '')}):\n${changes.length === 0 ? 'árvore limpa' : `${listed}${more}`}`
+  return `Git state right now (${head.replace(/^## /, '')}):\n${changes.length === 0 ? 'clean tree' : `${listed}${more}`}`
 }
 
 export const register: Register = on => {
-  // Cada prompt seu leva o estado do git como contexto oculto: o Claude não precisa rodar git status.
+  // Every prompt carries the git state as hidden context: Claude does not need to run git status.
   on('prompt.submit', async ($, e, next) => {
     if (e.origin.kind !== 'composer' || e.text.startsWith('/')) {
       return next(e)

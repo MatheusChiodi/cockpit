@@ -1,7 +1,7 @@
 {
   "name": "cmd-log",
   "version": "0.1.0",
-  "description": "/cmdlog abre um painel com os comandos de shell, status e duração",
+  "description": "/cmdlog opens a pane with the shell commands, status and duration",
   "author": {
     "name": "Matheus Chiodi"
   },

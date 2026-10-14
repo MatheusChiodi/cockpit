@@ -1,17 +1,17 @@
 {
   "name": "agents-band",
   "version": "0.1.0",
-  "description": "Faixa que mostra em tempo real quantos subagentes estão rodando e quais",
+  "description": "Band showing in real time how many subagents are running and which ones",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "types": "./types/index.d.ts",
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

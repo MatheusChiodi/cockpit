@@ -1,13 +1,14 @@
 import type { Register } from 'claude-code'
 
+// Read by the model only: English, not translated.
 const SECTION = {
   id: 'commit-style:rules',
   text: [
-    '# Mensagens de commit',
-    'Use Conventional Commits: `tipo(escopo opcional): resumo`, com tipo em feat, fix, refactor, perf, test, docs, chore, build ou ci.',
-    'Resumo no imperativo, minúsculo, sem ponto final, com no máximo 72 caracteres.',
-    'Um commit por mudança lógica; corpo só quando o porquê não cabe no resumo.',
-    'Siga o idioma já usado no histórico do repositório.',
+    '# Commit messages',
+    'Use Conventional Commits: `type(optional scope): summary`, with type one of feat, fix, refactor, perf, test, docs, chore, build or ci.',
+    'Summary in the imperative, lowercase, no trailing period, at most 72 characters.',
+    'One commit per logical change; a body only when the why does not fit in the summary.',
+    "Follow the language already used in the repository's history.",
   ].join('\n'),
   scope: 'session',
 } as const

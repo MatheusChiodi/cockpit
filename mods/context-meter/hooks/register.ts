@@ -1,4 +1,11 @@
-import type { Register } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
+
+import { STRINGS } from './strings'
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const STEPS = [90, 80] as const
 
@@ -11,20 +18,21 @@ const bar = (percent: number): string => {
 export const register: Register = on => {
   let warned = 0
 
-  on('session.measure', ($, e, next) => {
+  on('session.measure', async ($, e, next) => {
     const percent = e.context.percent
 
     if (percent !== undefined) {
-      const cost = e.cost === undefined ? '' : ` · US$ ${e.cost.usd.toFixed(2)}`
-      $.ui.status(`ctx ${bar(percent)} ${percent}%${cost}`)
+      const s = await strings($)
+      const cost = e.cost === undefined ? '' : s.cost(e.cost.usd.toFixed(2))
+      $.ui.status(`${s.label} ${bar(percent)} ${percent}%${cost}`)
 
       const step = STEPS.find(limit => percent >= limit)
 
       if (step !== undefined && step > warned) {
-        $.ui.toast(`Contexto em ${percent}%. Considere /compact ou /clear.`, { timeoutMs: 8000 })
+        $.ui.toast(s.warn(percent), { timeoutMs: 8000 })
       }
 
-      // Depois de um /compact o aviso volta a valer.
+      // After a /compact the warning applies again.
       warned = step ?? 0
     }
 

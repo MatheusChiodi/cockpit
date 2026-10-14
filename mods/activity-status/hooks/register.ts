@@ -1,7 +1,7 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('activity-status')
@@ -12,7 +12,7 @@ const show = async ($: EngineInterface, text: string | undefined): Promise<void>
 
 const base = (path: string): string => path.split(/[\\/]/).at(-1) ?? path
 
-// O que resume cada chamada: o comando, o arquivo, o padrão buscado ou a descrição.
+// What sums up each call: the command, the file, the searched pattern or the description.
 const detail = (input: Readonly<Record<string, unknown>>): string => {
   const pick = (key: string): string | undefined =>
     typeof input[key] === 'string' ? (input[key] as string) : undefined
@@ -30,18 +30,18 @@ const detail = (input: Readonly<Record<string, unknown>>): string => {
 }
 
 export const register: Register = on => {
-  on('state.set', { plugin: 'turbina', key: 'off' }, async ($, e, next) => {
+  on('state.set', { plugin: 'cockpit', key: 'off' }, async ($, e, next) => {
     const set = await next(e)
     await show($, undefined)
 
     return set
   })
 
-  // Chamadas em paralelo: a status line mostra a mais recente ainda rodando.
+  // Parallel calls: the status line shows the most recent one still running.
   const running = new Map<string, string>()
 
   on('tool.call', async ($, e, next) => {
-    // Só o loop principal: subagentes têm a própria linha.
+    // Main loop only: subagents have their own line.
     if (e.agentId !== undefined) {
       return next(e)
     }

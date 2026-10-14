@@ -1,7 +1,7 @@
 {
   "name": "turn-timer",
   "version": "0.1.0",
-  "description": "Faixa acima do prompt com duração, tools e tokens do último turno",
+  "description": "Band above the prompt with duration, tools and tokens of the last turn",
   "author": {
     "name": "Matheus Chiodi"
   },

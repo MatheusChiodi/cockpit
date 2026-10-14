@@ -2,11 +2,17 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { heading } from './kit'
+import { STRINGS } from './strings'
 
 import type { Run } from '../types'
 
 const PANE = 'cmd-log'
 const runs = atom({ plugin: 'cmd-log', key: 'runs' } as const, [])
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const begin = async ($: EngineInterface, id: string, command: string): Promise<number> => {
   const startedAt = await $.clock.now()
@@ -27,18 +33,17 @@ const took = (ms: number): string => (ms >= 1000 ? `${(ms / 1000).toFixed(1)}s` 
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({
-      name: 'cmdlog',
-      description: 'Abre o painel com os comandos de shell da sessão, status e duração',
-    })
+    const s = await strings($)
+    await $.command.register({ name: 'cmdlog', description: s.command })
 
     return next(e)
   })
 
   on('command.run', { command: 'cmdlog' }, async $ => {
-    await $.ui.open({ id: PANE, title: 'Comandos' })
+    const s = await strings($)
+    await $.ui.open({ id: PANE, title: s.title })
 
-    return { text: 'Painel de comandos aberto.' }
+    return { text: s.opened }
   })
 
   on('tool.call', { tool: 'Bash' }, async ($, e, next) => {
@@ -58,6 +63,7 @@ export const register: Register = on => {
   })
 
   on('ui.render', { component: 'Pane', requestId: PANE }, async ($, e) => {
+    const s = await strings($)
     const ui = $.ui.resolve(e)
     const { Box, Text } = ui
     const list = await read($, runs)
@@ -67,8 +73,8 @@ export const register: Register = on => {
 
     return (
       <Box flexDirection="column">
-        {heading(ui, 'sessao', 'comandos', `${list.length} rodados · ${failed} com erro`, e.props.bodyColumns)}
-        {list.length === 0 && <Text dimColor>Nenhum comando executado ainda.</Text>}
+        {heading(ui, 'session', s.label, s.summary(list.length, failed), e.props.bodyColumns)}
+        {list.length === 0 && <Text dimColor>{s.empty}</Text>}
         {list.slice(-room).map(run => (
           <Text wrap="truncate-end">
             <Text color={run.status === 'failed' ? 'error' : run.status === 'ok' ? 'success' : 'warning'} bold>

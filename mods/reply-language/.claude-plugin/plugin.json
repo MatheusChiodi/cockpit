@@ -1,0 +1,13 @@
+{
+  "name": "reply-language",
+  "version": "0.1.0",
+  "description": "Makes Claude always answer in the language set in the Cockpit hub, keeping code and commands in the original",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

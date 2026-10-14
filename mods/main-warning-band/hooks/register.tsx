@@ -2,12 +2,18 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('main-warning-band')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const branch = atom({ plugin: 'main-warning-band', key: 'branch' } as const, '')
 
@@ -36,7 +42,7 @@ export const register: Register = on => {
     return next(e)
   })
 
-  // Só avisa: quem quiser bloquear de verdade usa o main-branch-guard.
+  // Only warns: whoever wants a real block uses main-branch-guard.
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
     const below = await next(e)
     const current = await read($, branch)
@@ -47,17 +53,18 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
       'git',
-      'branch',
+      s.label,
       <Text wrap="truncate-end">
         <Text color="error" bold>
           {current}
         </Text>
-        <Text color="error"> é protegida</Text>
-        <Text dimColor>  crie outra antes de alterar: git switch -c nome</Text>
+        <Text color="error">{s.protected}</Text>
+        <Text dimColor>  {s.hint}</Text>
       </Text>,
       below,
     )

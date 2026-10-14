@@ -1,7 +1,7 @@
 {
   "name": "tldr",
   "version": "0.1.0",
-  "description": "Acrescenta um TL;DR de 2 frases (via haiku) abaixo de respostas longas",
+  "description": "Adds a 2-sentence TL;DR (via haiku) below long answers",
   "author": {
     "name": "Matheus Chiodi"
   },

@@ -1,16 +1,16 @@
 {
   "name": "ci-status",
   "version": "0.1.0",
-  "description": "Status line com o estado do último workflow do GitHub Actions (via gh)",
+  "description": "Status line with the state of the last GitHub Actions workflow (via gh)",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

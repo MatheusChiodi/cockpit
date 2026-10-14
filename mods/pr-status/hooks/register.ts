@@ -1,7 +1,9 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+import { STRINGS } from './strings'
+
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('pr-status')
@@ -12,13 +14,12 @@ const show = async ($: EngineInterface, text: string | undefined): Promise<void>
 
 type PullRequest = { number?: number; state?: string; isDraft?: boolean; reviewDecision?: string }
 
-const REVIEW: Record<string, string> = {
-  APPROVED: '✓ aprovado',
-  CHANGES_REQUESTED: '✗ mudanças pedidas',
-  REVIEW_REQUIRED: '… aguardando review',
-}
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
 
-// Precisa do GitHub CLI (`gh`) autenticado; sem PR na branch atual, não mostra nada.
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
+// Needs the authenticated GitHub CLI (`gh`); with no PR on the current branch, it shows nothing.
 const refresh = async ($: EngineInterface): Promise<void> => {
   const ran = await $.process
     .run(['gh', 'pr', 'view', '--json', 'number,state,isDraft,reviewDecision'], { timeoutMs: 15000 })
@@ -44,20 +45,26 @@ const refresh = async ($: EngineInterface): Promise<void> => {
     return
   }
 
+  const s = await strings($)
+  const review: Record<string, string> = {
+    APPROVED: s.approved,
+    CHANGES_REQUESTED: s.changes,
+    REVIEW_REQUIRED: s.waiting,
+  }
   const state =
     pr.state === 'MERGED'
-      ? '⇄ mergeado'
+      ? s.merged
       : pr.state === 'CLOSED'
-        ? 'fechado'
+        ? s.closed
         : pr.isDraft === true
-          ? 'rascunho'
-          : (REVIEW[pr.reviewDecision ?? ''] ?? 'aberto')
+          ? s.draft
+          : (review[pr.reviewDecision ?? ''] ?? s.open)
 
-  void show($, `pr #${pr.number} ${state}`)
+  void show($, `${s.label} #${pr.number} ${state}`)
 }
 
 export const register: Register = on => {
-  on('state.set', { plugin: 'turbina', key: 'off' }, async ($, e, next) => {
+  on('state.set', { plugin: 'cockpit', key: 'off' }, async ($, e, next) => {
     const set = await next(e)
     await show($, undefined)
 

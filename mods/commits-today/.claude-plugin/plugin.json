@@ -1,16 +1,16 @@
 {
   "name": "commits-today",
   "version": "0.1.0",
-  "description": "Status line com quantos commits você fez hoje neste repositório",
+  "description": "Status line with how many commits you made today in this repository",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

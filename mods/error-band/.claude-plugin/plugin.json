@@ -1,17 +1,17 @@
 {
   "name": "error-band",
   "version": "0.1.0",
-  "description": "Mantém à vista o último comando que falhou e a linha do erro, até um comando passar",
+  "description": "Keeps the last failed command and its error line in view until a command passes",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "types": "./types/index.d.ts",
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

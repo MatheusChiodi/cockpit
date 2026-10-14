@@ -1,7 +1,7 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('project-status')
@@ -28,7 +28,7 @@ const describe = async ($: EngineInterface): Promise<void> => {
       const { name, version } = JSON.parse(manifest) as { name?: string; version?: string }
       label = `${name ?? label}${version === undefined ? '' : `@${version}`}`
     } catch {
-      // package.json inválido: fica o nome da pasta.
+      // Invalid package.json: the folder name stays.
     }
   }
 
@@ -50,7 +50,7 @@ const describe = async ($: EngineInterface): Promise<void> => {
 }
 
 export const register: Register = on => {
-  on('state.set', { plugin: 'turbina', key: 'off' }, async ($, e, next) => {
+  on('state.set', { plugin: 'cockpit', key: 'off' }, async ($, e, next) => {
     const set = await next(e)
     await show($, undefined)
 

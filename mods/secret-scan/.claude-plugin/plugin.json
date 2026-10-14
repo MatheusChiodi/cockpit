@@ -1,13 +1,13 @@
 {
   "name": "secret-scan",
   "version": "0.1.0",
-  "description": "Recusa Write/Edit cujo conteúdo traz chaves de API, tokens ou chaves privadas",
+  "description": "Refuses Write/Edit whose content carries API keys, tokens or private keys",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "seguranca"
+    "security"
   ]
 }

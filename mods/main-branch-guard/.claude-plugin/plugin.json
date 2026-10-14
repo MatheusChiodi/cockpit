@@ -1,13 +1,13 @@
 {
   "name": "main-branch-guard",
   "version": "0.1.0",
-  "description": "Recusa commit, push, merge e rebase quando a branch atual é main/master",
+  "description": "Refuses commit, push, merge and rebase while the current branch is main/master",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "seguranca"
+    "security"
   ]
 }

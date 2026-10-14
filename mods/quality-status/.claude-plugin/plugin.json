@@ -1,16 +1,16 @@
 {
   "name": "quality-status",
   "version": "0.1.0",
-  "description": "Status line com o último resultado de lint, tipos e build",
+  "description": "Status line with the latest lint, types and build results",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

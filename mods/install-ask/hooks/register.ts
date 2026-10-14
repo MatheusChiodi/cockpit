@@ -1,6 +1,11 @@
 import type { Register } from 'claude-code'
 
-// Instalar um pacote NOVO (com nome). `npm install` / `npm ci` sem argumentos passam direto.
+import { STRINGS } from './strings'
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+// Installing a NEW package (by name). A bare `npm install` / `npm ci` passes straight through.
 const ADDS_PACKAGE: readonly RegExp[] = [
   /\bnpm\s+(install|i|add)\s+(?:-{1,2}[\w-]+\s+)*(?!-)[@\w]/,
   /\b(pnpm|yarn|bun)\s+add\s+\S/,
@@ -15,13 +20,18 @@ const commandOf = (input: unknown): string =>
     : ''
 
 export const register: Register = on => {
-  // Dependência nova é decisão sua: o Claude sempre pergunta antes de instalar.
+  // A new dependency is the person's decision: Claude always asks before installing.
   on('tool.check', async ($, e, next) => {
     const verdict = await next(e)
-    const isInstall = (e.tool === 'Bash' || e.tool === 'PowerShell') && ADDS_PACKAGE.some(pattern => pattern.test(commandOf(e.input)))
+    const isInstall =
+      (e.tool === 'Bash' || e.tool === 'PowerShell') && ADDS_PACKAGE.some(pattern => pattern.test(commandOf(e.input)))
 
-    return isInstall && verdict.decision === 'allow'
-      ? { decision: 'ask', reason: 'install-ask: o comando adiciona uma dependência nova. Confirme.' }
-      : verdict
-  }).catch(() => ({ decision: 'ask', reason: 'install-ask: a verificação falhou, confirme manualmente.' }))
+    if (!isInstall || verdict.decision !== 'allow') {
+      return verdict
+    }
+
+    const s = STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
+    return { decision: 'ask', reason: s.confirm }
+  }).catch(() => ({ decision: 'ask', reason: STRINGS.en.failed }))
 }

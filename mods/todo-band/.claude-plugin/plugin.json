@@ -1,17 +1,17 @@
 {
   "name": "todo-band",
   "version": "0.1.0",
-  "description": "Lista de tarefas do projeto fixa acima do prompt, clicável e persistente (/todo)",
+  "description": "Project task list pinned above the prompt, clickable and persistent (/todo)",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "types": "./types/index.d.ts",
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

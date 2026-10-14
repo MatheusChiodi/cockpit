@@ -1,51 +1,58 @@
-import type { Register } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
+
+import { STRINGS } from './strings'
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const KEY = 'persona'
 
+// Read by the model only: English, not translated. The keys are the command's identifiers.
 const PERSONAS: Record<string, string> = {
-  mentor: 'Aja como um mentor paciente: explique o porquê de cada decisão e aponte o que estudar depois.',
-  senior: 'Aja como um dev sênior exigente: direto, crítico com gambiarras, sempre apontando riscos e trade-offs.',
-  rubberduck: 'Aja como um pato de borracha: antes de resolver, faça perguntas que levem o usuário a achar a causa.',
-  pirata: 'Fale como um pirata dos sete mares, arr, mas mantenha o conteúdo técnico correto e completo.',
-  yoda: 'Fale como o mestre Yoda, a ordem das frases invertendo, sem o rigor técnico perder.',
-  zen: 'Responda com calma e minimalismo: frases curtas, uma ideia por linha, nada supérfluo.',
+  mentor: 'Act as a patient mentor: explain the why behind each decision and point out what to study next.',
+  senior: 'Act as a demanding senior dev: direct, critical of hacks, always pointing out risks and trade-offs.',
+  rubberduck: 'Act as a rubber duck: before solving, ask questions that lead the user to find the cause.',
+  pirata: 'Speak like a pirate of the seven seas, arr, but keep the technical content correct and complete.',
+  yoda: 'Speak like Master Yoda, with the order of your sentences inverted, without losing technical rigor.',
+  zen: 'Answer with calm and minimalism: short sentences, one idea per line, nothing superfluous.',
 }
 
 const names = Object.keys(PERSONAS).join(', ')
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({
-      name: 'persona',
-      description: `Troca a persona do Claude (${names}, off)`,
-      argumentHint: '[nome|off]',
-    })
+    const t = await strings($)
+
+    await $.command.register({ name: 'persona', description: t.description(names), argumentHint: t.hint })
 
     return next(e)
   })
 
   on('command.run', { command: 'persona' }, async ($, e) => {
+    const t = await strings($)
     const wanted = e.args.trim().toLowerCase()
 
     if (wanted === '') {
       const held = await $.store.get(KEY)
 
-      return { text: `Persona atual: ${typeof held === 'string' ? held : 'nenhuma'}. Opções: ${names}, off.` }
+      return { text: t.current(typeof held === 'string' ? held : undefined, names) }
     }
 
     if (wanted === 'off') {
       await $.store.delete(KEY)
 
-      return { text: 'Persona desligada.' }
+      return { text: t.off }
     }
 
     if (PERSONAS[wanted] === undefined) {
-      return { text: `Persona desconhecida: ${wanted}. Opções: ${names}, off.` }
+      return { text: t.unknown(wanted, names) }
     }
 
     await $.store.set(KEY, wanted)
 
-    return { text: `Persona "${wanted}" ativa a partir do próximo prompt.` }
+    return { text: t.active(wanted) }
   })
 
   on('prompt.compose', async ($, e, next) => {

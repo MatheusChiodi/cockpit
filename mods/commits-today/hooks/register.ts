@@ -1,7 +1,9 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+import { STRINGS } from './strings'
+
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('commits-today')
@@ -9,6 +11,11 @@ const isOff = async ($: EngineInterface): Promise<boolean> =>
 const show = async ($: EngineInterface, text: string | undefined): Promise<void> => {
   $.ui.status((await isOff($)) ? undefined : text)
 }
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const refresh = async ($: EngineInterface): Promise<void> => {
   const who = await $.process.run(['git', 'config', 'user.email'], { timeoutMs: 5000 }).catch(() => undefined)
@@ -24,11 +31,13 @@ const refresh = async ($: EngineInterface): Promise<void> => {
 
   const count = ran.stdout.split('\n').filter(line => line !== '').length
 
-  void show($, `commits ${count} hoje`)
+  const s = await strings($)
+
+  void show($, `${s.label} ${count} ${s.today}`)
 }
 
 export const register: Register = on => {
-  on('state.set', { plugin: 'turbina', key: 'off' }, async ($, e, next) => {
+  on('state.set', { plugin: 'cockpit', key: 'off' }, async ($, e, next) => {
     const set = await next(e)
     await show($, undefined)
 

@@ -1,7 +1,7 @@
 {
   "name": "prompt-shortcuts",
   "version": "0.1.0",
-  "description": "Atalhos ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit viram prompts completos",
+  "description": "Shortcuts ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit become full prompts",
   "author": {
     "name": "Matheus Chiodi"
   },

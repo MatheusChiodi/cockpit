@@ -2,14 +2,20 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register, Timer } from 'claude-code'
 
 import { row, meter } from './kit'
+import { STRINGS } from './strings'
 
 import type { Focus } from '../types'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('focus-band')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const focus = atom({ plugin: 'focus-band', key: 'focus' } as const, null)
 
@@ -31,34 +37,33 @@ const tick = async ($: EngineInterface): Promise<void> => {
     return
   }
 
+  const s = await strings($)
   await stop($)
-  $.ui.toast('Bloco de foco concluído. Hora da pausa.', { timeoutMs: 15000 })
-  await $.ui.notify('Bloco de foco concluído. Hora da pausa.', { title: 'Foco' }).catch(() => undefined)
+  $.ui.toast(s.done, { timeoutMs: 15000 })
+  await $.ui.notify(s.done, { title: s.notifyTitle }).catch(() => undefined)
 }
 
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
-    await $.command.register({
-      name: 'focus',
-      description: 'Bloco de foco com barra de progresso fixa acima do prompt; /focus stop cancela',
-      argumentHint: '[minutos|stop]',
-    })
+    const s = await strings($)
+    await $.command.register({ name: 'focus', description: s.command, argumentHint: s.hint })
 
     return next(e)
   })
 
   on('command.run', { command: 'focus' }, async ($, e) => {
+    const s = await strings($)
     const wanted = e.args.trim().toLowerCase()
     const minutes = wanted === '' ? 25 : Number(wanted)
 
     if (wanted === 'stop') {
       await stop($)
 
-      return { text: 'Bloco de foco cancelado.' }
+      return { text: s.cancelled }
     }
 
     if (!Number.isFinite(minutes) || minutes <= 0 || minutes > 240) {
-      return { text: 'Uso: /focus [minutos de 1 a 240 | stop]' }
+      return { text: s.usage }
     }
 
     await stop($)
@@ -67,7 +72,7 @@ export const register: Register = on => {
     running.ticker = $.clock.every(15000, () => void tick($))
     await tick($)
 
-    return { text: `Bloco de foco de ${minutes} min iniciado.` }
+    return { text: s.started(minutes) }
   })
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
@@ -80,14 +85,15 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
-      'dia',
-      'foco',
+      'daily',
+      s.label,
       <Text>
-        {meter(ui, ((now.total - now.left) / now.total) * 100, 24, 'remember')} <Text bold>{now.left} min</Text>
-        <Text dimColor> de {now.total}</Text>
+        {meter(ui, ((now.total - now.left) / now.total) * 100, 24, 'remember')} <Text bold>{s.left(now.left)}</Text>
+        <Text dimColor>{s.of(now.total)}</Text>
       </Text>,
       below,
     )

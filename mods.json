@@ -1,40 +1,76 @@
 {
-  "marketplace": "turbina",
-  "description": "Turbina: 80 mods para o Claude Code no terminal — 40 painéis ligáveis em /turbina, guards, prompt, comandos e foco",
+  "marketplace": "cockpit",
+  "description": {
+    "en": "Cockpit: mods for Claude Code in the terminal — always-on panels you toggle in /cockpit, guards, prompt, commands and focus",
+    "pt": "Cockpit: mods para o Claude Code no terminal — painéis sempre visíveis que você liga em /cockpit, guards, prompt, comandos e foco",
+    "es": "Cockpit: mods para Claude Code en la terminal — paneles siempre visibles que activas en /cockpit, guards, prompt, comandos y foco"
+  },
   "version": "0.1.0",
   "owner": {
     "name": "Matheus Chiodi"
   },
   "categories": {
-    "painel": "Sempre visível",
-    "seguranca": "Segurança",
-    "interface": "Interface",
-    "prompt": "Prompt e modelo",
-    "comandos": "Comandos",
-    "foco": "Foco e notificações"
+    "panel": {
+      "en": "Always visible",
+      "pt": "Sempre visível",
+      "es": "Siempre visible"
+    },
+    "security": {
+      "en": "Security",
+      "pt": "Segurança",
+      "es": "Seguridad"
+    },
+    "interface": {
+      "en": "Interface",
+      "pt": "Interface",
+      "es": "Interfaz"
+    },
+    "prompt": {
+      "en": "Prompt and model",
+      "pt": "Prompt e modelo",
+      "es": "Prompt y modelo"
+    },
+    "commands": {
+      "en": "Commands",
+      "pt": "Comandos",
+      "es": "Comandos"
+    },
+    "focus": {
+      "en": "Focus and notifications",
+      "pt": "Foco e notificações",
+      "es": "Foco y notificaciones"
+    }
   },
   "mods": [
     {
       "name": "rm-guard",
-      "category": "seguranca",
-      "description": "Bloqueia rm -rf / Remove-Item -Recurse em raiz, home e drives, além de mkfs, dd e format",
+      "category": "security",
+      "description": {
+        "pt": "Bloqueia rm -rf e Remove-Item -Recurse em raiz, home e drives, além de mkfs, dd e format",
+        "en": "Blocks rm -rf and Remove-Item -Recurse on root, home and drives, plus mkfs, dd and format",
+        "es": "Bloquea rm -rf y Remove-Item -Recurse en raíz, home y unidades, además de mkfs, dd y format"
+      },
       "preview": [
         "[[tool|● Bash]](rm -rf ~/)",
-        "[[err|  ⎿ rm-guard bloqueou o comando: apagar recursivamente \"~/\".]]",
-        "[[err|    Se for mesmo intencional, peça ao usuário para rodar manualmente.]]",
+        "[[err|  ⎿ rm-guard blocked the command: recursively deleting \"~/\".]]",
+        "[[err|    If it really is intended, ask the user to run it by hand.]]",
         "",
         "[[tool|● Bash]](rm -rf node_modules)",
-        "[[dim|  ⎿ (ok, passou)]]"
+        "[[dim|  ⎿ (allowed)]]"
       ]
     },
     {
       "name": "env-guard",
-      "category": "seguranca",
-      "description": "Protege arquivos .env contra leitura e escrita (Read, Edit, Write, cat e @menção)",
+      "category": "security",
+      "description": {
+        "pt": "Protege arquivos .env contra leitura e escrita (Read, Edit, Write, cat e @menção)",
+        "en": "Protects .env files from reading and writing (Read, Edit, Write, cat and @mention)",
+        "es": "Protege los archivos .env contra lectura y escritura (Read, Edit, Write, cat y @mención)"
+      },
       "preview": [
         "[[tool|● Read]](.env.production)",
-        "[[err|  ⎿ env-guard: .env.production guarda segredos e está protegido.]]",
-        "[[err|    Use um .env.example ou peça ao usuário.]]",
+        "[[err|  ⎿ env-guard: .env.production holds secrets and is protected.]]",
+        "[[err|    Use a .env.example or ask the user.]]",
         "",
         "[[tool|● Read]](.env.example)",
         "[[dim|  ⎿ Read 12 lines]]"
@@ -42,75 +78,103 @@
     },
     {
       "name": "git-guard",
-      "category": "seguranca",
-      "description": "Bloqueia git destrutivo: push --force, reset --hard, clean -f, --no-verify, branch -D",
+      "category": "security",
+      "description": {
+        "pt": "Bloqueia git destrutivo: push --force, reset --hard, clean -f, --no-verify, branch -D",
+        "en": "Blocks destructive git: push --force, reset --hard, clean -f, --no-verify, branch -D",
+        "es": "Bloquea git destructivo: push --force, reset --hard, clean -f, --no-verify, branch -D"
+      },
       "preview": [
         "[[tool|● Bash]](git push --force origin main)",
-        "[[err|  ⎿ git-guard bloqueou o comando: git push --force reescreve o]]",
-        "[[err|    histórico remoto (use --force-with-lease).]]",
+        "[[err|  ⎿ git-guard blocked the command: git push --force rewrites the remote]]",
+        "[[err|    history (use --force-with-lease). Ask the user to run it by hand.]]",
         "",
         "[[tool|● Bash]](git push --force-with-lease)",
-        "[[dim|  ⎿ (ok, passou)]]"
+        "[[dim|  ⎿ (ok, went through)]]"
       ]
     },
     {
       "name": "secret-scan",
-      "category": "seguranca",
-      "description": "Recusa Write/Edit cujo conteúdo traz chaves de API, tokens ou chaves privadas",
+      "category": "security",
+      "description": {
+        "pt": "Recusa Write/Edit cujo conteúdo traz chaves de API, tokens ou chaves privadas",
+        "en": "Refuses Write/Edit whose content carries API keys, tokens or private keys",
+        "es": "Rechaza Write/Edit cuyo contenido trae claves de API, tokens o claves privadas"
+      },
       "preview": [
         "[[tool|● Write]](src/config.ts)",
-        "[[err|  ⎿ secret-scan: o conteúdo para src/config.ts contém token do GitHub.]]",
-        "[[err|    Use variável de ambiente em vez de gravar o segredo no arquivo.]]"
+        "[[err|  ⎿ secret-scan: the content for src/config.ts contains a GitHub token.]]",
+        "[[err|    Use an environment variable instead of writing the secret to the file.]]"
       ]
     },
     {
       "name": "prompt-secret-guard",
-      "category": "seguranca",
-      "description": "Barra o envio de prompts que contenham segredos colados por engano",
+      "category": "security",
+      "description": {
+        "pt": "Barra o envio de prompts que contenham segredos colados por engano",
+        "en": "Stops prompts that contain secrets pasted by mistake from being sent",
+        "es": "Impide el envío de prompts que contengan secretos pegados por error"
+      },
       "preview": [
-        "[[user|> por que esse deploy falha? AWS_KEY=AKIA················]]",
-        "[[warn|  ⎿ prompt-secret-guard: o prompt contém chave de acesso AWS.]]",
-        "[[warn|    Remova o segredo e envie de novo.]]"
+        "[[user|> why does this deploy fail? AWS_KEY=AKIA················]]",
+        "[[warn|  ⎿ prompt-secret-guard: the prompt contains an AWS access key.]]",
+        "[[warn|    Remove the secret and send it again.]]"
       ]
     },
     {
       "name": "lockfile-guard",
-      "category": "seguranca",
-      "description": "Impede edição manual de lockfiles (package-lock, yarn.lock, pnpm-lock, Cargo.lock...)",
+      "category": "security",
+      "description": {
+        "pt": "Impede edição manual de lockfiles (package-lock, yarn.lock, pnpm-lock, Cargo.lock...)",
+        "en": "Prevents hand edits to lockfiles (package-lock, yarn.lock, pnpm-lock, Cargo.lock...)",
+        "es": "Impide la edición manual de lockfiles (package-lock, yarn.lock, pnpm-lock, Cargo.lock...)"
+      },
       "preview": [
         "[[tool|● Edit]](package-lock.json)",
-        "[[err|  ⎿ lockfile-guard: package-lock.json é gerado pelo gerenciador de]]",
-        "[[err|    pacotes. Rode o comando de install/update em vez de editar à mão.]]"
+        "[[err|  ⎿ lockfile-guard: package-lock.json is generated by the package manager.]]",
+        "[[err|    Run the install/update command instead of editing it by hand.]]"
       ]
     },
     {
       "name": "path-jail",
-      "category": "seguranca",
-      "description": "Restringe Write/Edit à raiz do projeto, ao temp e a ~/.claude (resolve symlinks)",
+      "category": "security",
+      "description": {
+        "pt": "Restringe Write/Edit à raiz do projeto, ao temp e a ~/.claude (resolve symlinks)",
+        "en": "Restricts Write/Edit to the project root, the temp folder and ~/.claude (resolves symlinks)",
+        "es": "Restringe Write/Edit a la raíz del proyecto, al temp y a ~/.claude (resuelve symlinks)"
+      },
       "preview": [
         "[[tool|● Write]](C:\\Windows\\System32\\drivers\\etc\\hosts)",
-        "[[err|  ⎿ path-jail: C:\\Windows\\System32\\drivers\\etc\\hosts fica fora do]]",
-        "[[err|    projeto. Escritas só dentro da raiz da sessão, do temp ou de ~/.claude.]]"
+        "[[err|  ⎿ path-jail: C:\\Windows\\System32\\drivers\\etc\\hosts is outside the]]",
+        "[[err|    project. Writes are only allowed inside the session root, temp or ~/.claude.]]"
       ]
     },
     {
       "name": "main-branch-guard",
-      "category": "seguranca",
-      "description": "Recusa commit, push, merge e rebase quando a branch atual é main/master",
+      "category": "security",
+      "description": {
+        "pt": "Recusa commit, push, merge e rebase quando a branch atual é main/master",
+        "en": "Refuses commit, push, merge and rebase while the current branch is main/master",
+        "es": "Rechaza commit, push, merge y rebase cuando la rama actual es main/master"
+      },
       "preview": [
         "[[tool|● Bash]](git commit -m \"fix: login\")",
-        "[[err|  ⎿ main-branch-guard: você está em \"main\". Crie uma branch]]",
-        "[[err|    (git switch -c <nome>) antes de commit/push/merge.]]"
+        "[[err|  ⎿ main-branch-guard: you are on \"main\". Create a branch]]",
+        "[[err|    (git switch -c <name>) before commit/push/merge.]]"
       ]
     },
     {
       "name": "turn-timer",
       "category": "interface",
-      "description": "Faixa acima do prompt com duração, tools e tokens do último turno",
+      "description": {
+        "pt": "Faixa acima do prompt com duração, tools e tokens do último turno",
+        "en": "Band above the prompt with duration, tools and tokens of the last turn",
+        "es": "Banda sobre el prompt con duración, tools y tokens del último turno"
+      },
       "preview": [
-        "[[accent|●]] Pronto: 3 arquivos atualizados e testes passando.",
+        "[[accent|●]] Done: 3 files updated and tests passing.",
         "",
-        "[[sessao|▍ ]][[dim|TURNO     ]][[bold|42s]][[dim|  7 tools  1.8k tokens  ]][[btn|[ Ocultar ]]]",
+        "[[session|▍ ]][[dim|TURN      ]][[bold|42s]][[dim|  7 tools  1.8k tokens  ]][[btn|[ Hide ]]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
@@ -118,10 +182,14 @@
     {
       "name": "tool-tally",
       "category": "interface",
-      "description": "/tally abre um painel com a contagem de chamadas por ferramenta",
+      "description": {
+        "pt": "/tally abre um painel com a contagem de chamadas por ferramenta",
+        "en": "/tally opens a pane with the call count per tool",
+        "es": "/tally abre un panel con el recuento de llamadas por herramienta"
+      },
       "preview": [
         "[[user|> /tally]]",
-        "[[sessao|▍ ]][[bold|FERRAMENTAS]][[dim|  37 chamadas]]",
+        "[[session|▍ ]][[bold|TOOLS]][[dim|  37 calls]]",
         "[[rule|────────────────────────────────────────────────────────]]",
         "[[bold|  14]] [[accent|━━━━━━━━━━━━━━]][[rule|]] Read",
         "[[bold|  11]] [[accent|━━━━━━━━━━━]][[rule|───]] Bash",
@@ -132,10 +200,14 @@
     {
       "name": "file-trail",
       "category": "interface",
-      "description": "/trail abre um painel com os arquivos lidos e alterados na sessão",
+      "description": {
+        "pt": "/trail abre um painel com os arquivos lidos e alterados na sessão",
+        "en": "/trail opens a pane with the files read and changed in the session",
+        "es": "/trail abre un panel con los archivos leídos y modificados en la sesión"
+      },
       "preview": [
         "[[user|> /trail]]",
-        "[[sessao|▍ ]][[bold|ARQUIVOS]][[dim|  5 tocados · 2 alterados]]",
+        "[[session|▍ ]][[bold|FILES]][[dim|  5 touched · 2 changed]]",
         "[[rule|────────────────────────────────────────────────────────]]",
         "[[warn|M]] [[dim| 3×]] src/auth/login.ts",
         "[[ok|W]] [[dim| 1×]] src/auth/login.test.ts",
@@ -146,10 +218,14 @@
     {
       "name": "cmd-log",
       "category": "interface",
-      "description": "/cmdlog abre um painel com os comandos de shell, status e duração",
+      "description": {
+        "pt": "/cmdlog abre um painel com os comandos de shell, status e duração",
+        "en": "/cmdlog opens a pane with the shell commands, status and duration",
+        "es": "/cmdlog abre un panel con los comandos de shell, estado y duración"
+      },
       "preview": [
         "[[user|> /cmdlog]]",
-        "[[sessao|▍ ]][[bold|COMANDOS]][[dim|  4 rodados · 1 com erro]]",
+        "[[session|▍ ]][[bold|COMMANDS]][[dim|  4 run · 1 failed]]",
         "[[rule|────────────────────────────────────────────────────────]]",
         "[[ok|✓]] [[dim|  8.4s]] npm install",
         "[[err|✗]] [[dim|  3.1s]] [[err|npm test]]",
@@ -160,7 +236,11 @@
     {
       "name": "git-status-line",
       "category": "interface",
-      "description": "Status line com branch, arquivos alterados e commits à frente/atrás",
+      "description": {
+        "pt": "Status line com branch, arquivos alterados e commits à frente/atrás",
+        "en": "Status line with branch, changed files and commits ahead/behind",
+        "es": "Status line con rama, archivos modificados y commits por delante/detrás"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
@@ -171,58 +251,63 @@
     {
       "name": "context-meter",
       "category": "interface",
-      "description": "Status line com barra de contexto e custo; avisa em 80% e 90%",
+      "description": {
+        "pt": "Status line com barra de contexto e custo; avisa em 80% e 90%",
+        "en": "Status line with a context bar and cost; warns at 80% and 90%",
+        "es": "Status line con barra de contexto y coste; avisa al 80% y 90%"
+      },
       "preview": [
-        "[[toast| context-meter  Contexto em 82%. Considere /compact ou /clear. ]]",
+        "[[toast| context-meter  Context at 82%. Consider /compact or /clear. ]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  ctx ━━━━━━━━── 82% · US$ 1.47]]"
+        "[[dim|  ctx ━━━━━━━━── 82% · $1.47]]"
       ]
     },
     {
       "name": "rate-limit-watch",
       "category": "interface",
-      "description": "Toast quando a janela de 5h ou 7 dias passa de 75/90/95%; /limits lista o uso",
+      "description": {
+        "pt": "Toast quando a janela de 5h ou 7 dias passa de 75/90/95%; /limits lista o uso",
+        "en": "Toast when the 5h or 7-day window passes 75/90/95%; /limits lists the usage",
+        "es": "Toast cuando la ventana de 5h o 7 días supera 75/90/95%; /limits lista el uso"
+      },
       "preview": [
-        "[[toast| rate-limit-watch  Rate limit: janela de 5h em 90% (reseta 14:30) ]]",
+        "[[toast| rate-limit-watch  Rate limit: 5h window at 90% (resets 10/13/26, 2:30 PM) ]]",
         "",
         "[[user|> /limits]]",
-        "[[dim|  ⎿]] janela de 5h: 90% (reseta 13/10, 14:30)",
-        "    janela de 7 dias: 41% (reseta 17/10, 09:00)"
+        "[[dim|  ⎿]] 5h window: 90% (resets 10/13/26, 2:30 PM)",
+        "    7-day window: 41% (resets 10/17/26, 9:00 AM)"
       ]
     },
     {
       "name": "session-clock",
       "category": "interface",
-      "description": "Status line com tempo de sessão e número de prompts",
+      "description": {
+        "pt": "Status line com tempo de sessão e número de prompts",
+        "en": "Status line with session time and number of prompts",
+        "es": "Status line con tiempo de sesión y número de prompts"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  sessão 1h12 · 23 prompts]]"
-      ]
-    },
-    {
-      "name": "pt-br",
-      "category": "prompt",
-      "description": "Faz o Claude responder sempre em português do Brasil (seção no system prompt)",
-      "preview": [
-        "[[user|> explain this stack trace]]",
-        "",
-        "[[accent|●]] O erro acontece porque `user` chega `undefined` em",
-        "  `getProfile()`: a chamada roda antes do login terminar."
+        "[[dim|  session 1h12 · 23 prompts]]"
       ]
     },
     {
       "name": "concise-mode",
       "category": "prompt",
-      "description": "/concise liga respostas curtas e diretas, sem introdução nem recapitulação",
+      "description": {
+        "pt": "/concise liga respostas curtas e diretas, sem introdução nem recapitulação",
+        "en": "/concise turns on short, direct answers, with no introduction or recap",
+        "es": "/concise activa respuestas cortas y directas, sin introducción ni recapitulación"
+      },
       "preview": [
         "[[user|> /concise on]]",
-        "[[dim|  ⎿ Modo conciso ligado (vale a partir do próximo prompt).]]",
+        "[[dim|  ⎿ Concise mode on (applies from the next prompt).]]",
         "",
-        "[[user|> como desfaço o último commit?]]",
+        "[[user|> how do I undo the last commit?]]",
         "",
         "[[accent|●]] `git reset --soft HEAD~1`"
       ]
@@ -230,112 +315,148 @@
     {
       "name": "persona",
       "category": "prompt",
-      "description": "/persona troca a voz do Claude: mentor, senior, rubberduck, pirata, yoda, zen",
+      "description": {
+        "pt": "/persona troca a voz do Claude: mentor, senior, rubberduck, pirata, yoda, zen",
+        "en": "/persona changes Claude's voice: mentor, senior, rubberduck, pirata, yoda, zen",
+        "es": "/persona cambia la voz de Claude: mentor, senior, rubberduck, pirata, yoda, zen"
+      },
       "preview": [
         "[[user|> /persona pirata]]",
-        "[[dim|  ⎿ Persona \"pirata\" ativa a partir do próximo prompt.]]",
+        "[[dim|  ⎿ Persona \"pirata\" active from the next prompt.]]",
         "",
-        "[[user|> o build quebrou]]",
+        "[[user|> the build broke]]",
         "",
-        "[[accent|●]] Arr, marujo! Faltou um import no convés de `App.tsx`. Já remendei."
+        "[[accent|●]] Arr, matey! A missing import on the deck of `App.tsx`. Patched it up."
       ]
     },
     {
       "name": "prompt-shortcuts",
       "category": "prompt",
-      "description": "Atalhos ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit viram prompts completos",
+      "description": {
+        "pt": "Atalhos ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit viram prompts completos",
+        "en": "Shortcuts ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit become full prompts",
+        "es": "Los atajos ::fix, ::test, ::review, ::explain, ::refactor, ::doc, ::commit se vuelven prompts completos"
+      },
       "preview": [
         "[[user|> ::fix TypeError: cannot read properties of undefined]]",
         "",
-        "[[dim|  vira →]]",
-        "[[user|> Encontre a causa raiz do erro abaixo, corrija e explique em uma]]",
-        "[[user|  linha o que estava errado.]]",
+        "[[dim|  becomes →]]",
+        "[[user|> Find the root cause of the error below, fix it and explain in one line]]",
+        "[[user|  what was wrong.]]",
         "[[user|  TypeError: cannot read properties of undefined]]"
       ]
     },
     {
       "name": "tldr",
       "category": "prompt",
-      "description": "Acrescenta um TL;DR de 2 frases (via haiku) abaixo de respostas longas",
+      "description": {
+        "pt": "Acrescenta um TL;DR de 2 frases (via haiku) abaixo de respostas longas",
+        "en": "Adds a 2-sentence TL;DR (via haiku) below long answers",
+        "es": "Añade un TL;DR de 2 frases (vía haiku) debajo de las respuestas largas"
+      },
       "preview": [
-        "[[accent|●]] ...e por isso o cache precisa ser invalidado nos três pontos",
-        "  descritos acima, na ordem em que as migrações rodam.",
+        "[[accent|●]] ...and that is why the cache has to be invalidated at the three points",
+        "  described above, in the order the migrations run.",
         "",
-        "[[bold|  TL;DR:]] o bug vem do cache não invalidado após a migração; a",
-        "  correção limpa o cache em três pontos e os testes passam."
+        "[[bold|  TL;DR:]] the bug comes from the cache not being invalidated after the migration;",
+        "  the fix clears it at three points and the tests pass."
       ]
     },
     {
       "name": "quick-notes",
-      "category": "comandos",
-      "description": "/note e /notes: notas rápidas por projeto, persistentes entre sessões",
+      "category": "commands",
+      "description": {
+        "pt": "/note e /notes: notas rápidas por projeto, persistentes entre sessões",
+        "en": "/note and /notes: quick notes per project, kept between sessions",
+        "es": "/note y /notes: notas rápidas por proyecto, que se conservan entre sesiones"
+      },
       "preview": [
-        "[[user|> /note revisar timeout do endpoint /orders]]",
-        "[[dim|  ⎿ Nota 2 salva.]]",
+        "[[user|> /note check the timeout of the /orders endpoint]]",
+        "[[dim|  ⎿ Note 2 saved.]]",
         "",
         "[[user|> /notes]]",
-        "[[dim|  ⎿]] 1. trocar lib de datas  (12/10/2026)",
-        "    2. revisar timeout do endpoint /orders  (13/10/2026)"
+        "[[dim|  ⎿]] 1. swap the date library  (10/12/2026)",
+        "    2. check the timeout of the /orders endpoint  (10/13/2026)"
       ]
     },
     {
       "name": "pomodoro",
-      "category": "comandos",
-      "description": "/pomodoro [min] com contagem na status line, toast e notificação ao final",
+      "category": "commands",
+      "description": {
+        "pt": "/pomodoro [min] com contagem na status line, toast e notificação ao final",
+        "en": "/pomodoro [min] with a countdown in the status line, toast and notification at the end",
+        "es": "/pomodoro [min] con cuenta atrás en la status line, toast y notificación al final"
+      },
       "preview": [
         "[[user|> /pomodoro 25]]",
-        "[[dim|  ⎿ Pomodoro de 25 min iniciado.]]",
+        "[[dim|  ⎿ 25 min pomodoro started.]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  foco 18 min]]"
+        "[[dim|  focus 18 min]]"
       ]
     },
     {
       "name": "copy-last",
-      "category": "comandos",
-      "description": "/copy-last copia a última resposta; /copy-code copia o último bloco de código",
+      "category": "commands",
+      "description": {
+        "pt": "/copy-last copia a última resposta; /copy-code copia o último bloco de código",
+        "en": "/copy-last copies the last reply; /copy-code copies the last code block",
+        "es": "/copy-last copia la última respuesta; /copy-code copia el último bloque de código"
+      },
       "preview": [
         "[[user|> /copy-code]]",
-        "[[dim|  ⎿ Código copiado (214 caracteres).]]",
+        "[[dim|  ⎿ Code copied (214 characters).]]",
         "",
         "[[user|> /copy-last]]",
-        "[[dim|  ⎿ Resposta copiada (1032 caracteres).]]"
+        "[[dim|  ⎿ Reply copied (1032 characters).]]"
       ]
     },
     {
       "name": "session-stats",
-      "category": "comandos",
-      "description": "/stats resume a sessão: tempo, prompts, tools, tokens, contexto e custo",
+      "category": "commands",
+      "description": {
+        "pt": "/stats resume a sessão: tempo, prompts, tools, tokens, contexto e custo",
+        "en": "/stats sums up the session: time, prompts, tools, tokens, context and cost",
+        "es": "/stats resume la sesión: tiempo, prompts, tools, tokens, contexto y coste"
+      },
       "preview": [
         "[[user|> /stats]]",
-        "[[dim|  ⎿]] Sessão      1h12 em D:\\VibeCode\\turbina",
-        "    Modelo      claude-opus-5-5",
+        "[[dim|  ⎿]] Session     1h12 in D:\\VibeCode\\cockpit",
+        "    Model       claude-opus-5-5",
         "    Prompts     23",
-        "    Tools       148 (3 com erro ou bloqueadas)",
-        "    Saída       41.870 tokens",
-        "    Contexto    38% de 200.000 tokens",
-        "    Custo       US$ 2.31"
+        "    Tools       148 (3 failed or blocked)",
+        "    Output      41,870 tokens",
+        "    Context     38% of 200,000 tokens",
+        "    Cost        $2.31"
       ]
     },
     {
       "name": "quote-selection",
-      "category": "comandos",
-      "description": "/quote cita no prompt o trecho selecionado com o mouse",
+      "category": "commands",
+      "description": {
+        "pt": "/quote cita no prompt o trecho selecionado com o mouse",
+        "en": "/quote quotes in the prompt the passage selected with the mouse",
+        "es": "/quote cita en el prompt el fragmento seleccionado con el ratón"
+      },
       "preview": [
-        "[[accent|●]] O timeout padrão é [[sel|30 segundos e não é configurável por rota]].",
+        "[[accent|●]] The default timeout is [[sel|30 seconds and it is not configurable per route]].",
         "",
         "[[user|> /quote]]",
-        "[[dim|  ⎿ Seleção citada no prompt.]]",
+        "[[dim|  ⎿ Selection quoted in the prompt.]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[user|> > 30 segundos e não é configurável por rota]]",
+        "[[user|> > 30 seconds and it is not configurable per route]]",
         "[[user|  ]][[cursor|█]]"
       ]
     },
     {
       "name": "git-peek",
-      "category": "comandos",
-      "description": "/gs, /gl e /gd: status, log e diff do git na hora, sem gastar turno do modelo",
+      "category": "commands",
+      "description": {
+        "pt": "/gs, /gl e /gd: status, log e diff do git na hora, sem gastar turno do modelo",
+        "en": "/gs, /gl and /gd: git status, log and diff right away, without spending a model turn",
+        "es": "/gs, /gl y /gd: status, log y diff de git al instante, sin gastar un turno del modelo"
+      },
       "preview": [
         "[[user|> /gs]]",
         "[[dim|  ⎿]] ## feat/login...origin/feat/login [ahead 1]",
@@ -343,184 +464,245 @@
         "    ?? src/auth/login.test.ts",
         "",
         "[[user|> /gl 2]]",
-        "[[dim|  ⎿]] a1b2c3d (HEAD -> feat/login) feat: valida token",
-        "    9f8e7d6 chore: atualiza deps"
+        "[[dim|  ⎿]] a1b2c3d (HEAD -> feat/login) feat: validate token",
+        "    9f8e7d6 chore: update deps"
       ]
     },
     {
       "name": "turn-notify",
-      "category": "foco",
-      "description": "Notificação nativa quando um turno de 30s ou mais termina",
+      "category": "focus",
+      "description": {
+        "pt": "Notificação nativa quando um turno de 30s ou mais termina",
+        "en": "Native notification when a turn of 30s or more finishes",
+        "es": "Notificación nativa cuando termina un turno de 30s o más"
+      },
       "preview": [
-        "[[accent|●]] Refatoração concluída: 12 arquivos, testes passando.",
+        "[[accent|●]] Refactor finished: 12 files, tests passing.",
         "",
-        "[[notify| 🔔 Claude Code                          ]]",
-        "[[notify|    Turno concluído em 94s.              ]]"
+        "[[notify| Claude Code                                  ]]",
+        "[[notify|    Turn finished in 94s.                     ]]"
       ]
     },
     {
       "name": "break-reminder",
-      "category": "foco",
-      "description": "Toast a cada 50 minutos de sessão lembrando de fazer uma pausa",
+      "category": "focus",
+      "description": {
+        "pt": "Toast a cada 50 minutos de sessão lembrando de fazer uma pausa",
+        "en": "A toast every 50 minutes of session reminding you to take a break",
+        "es": "Un toast cada 50 minutos de sesión que te recuerda hacer una pausa"
+      },
       "preview": [
-        "[[toast| break-reminder  50 min de sessão. Olhe para longe por 20 segundos. ]]",
+        "[[toast| break-reminder  50 min of session. Look far away for 20 seconds. ]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "daily-streak",
-      "category": "foco",
-      "description": "Conta seus dias seguidos de Claude Code; toast ao abrir e comando /streak",
+      "category": "focus",
+      "description": {
+        "pt": "Conta seus dias seguidos de Claude Code; toast ao abrir e comando /streak",
+        "en": "Counts your streak of days using Claude Code; a toast on start and the /streak command",
+        "es": "Cuenta tus días seguidos con Claude Code; un toast al abrir y el comando /streak"
+      },
       "preview": [
-        "[[toast| daily-streak  🔥 7 dias seguidos de Claude Code (recorde: 12) ]]",
+        "[[toast| daily-streak  ◆ 7 days in a row with Claude Code (best: 12) ]]",
         "",
         "[[user|> /streak]]",
-        "[[dim|  ⎿ 🔥 7 dias seguidos de Claude Code (recorde: 12)]]"
+        "[[dim|  ⎿ ◆ 7 days in a row with Claude Code (best: 12)]]"
       ]
     },
     {
-      "name": "turbina",
-      "category": "painel",
+      "name": "cockpit",
+      "category": "panel",
       "hub": true,
-      "description": "Painel de configuração: /turbina liga e desliga cada painel da Turbina",
+      "description": {
+        "pt": "Painel de configurações: /cockpit liga e desliga cada painel e define o idioma de todos os mods",
+        "en": "Settings pane: /cockpit switches each panel on and off and sets the language of every mod",
+        "es": "Panel de ajustes: /cockpit activa y desactiva cada panel y define el idioma de todos los mods"
+      },
       "preview": [
-        "[[user|> /turbina]]",
-        "[[sessao|▍ ]][[bold|TURBINA]][[dim|  38 de 40 painéis ligados]]",
+        "[[user|> /cockpit]]",
+        "[[session|▍ ]][[bold|COCKPIT]][[dim|  38 of 40 panels on]]",
         "[[rule|────────────────────────────────────────────────────────]]",
-        "[[accent|━━━━━━━━━━━━━━━━━━━]][[rule|─]] [[btn|[ Ligar todos ]]] [[btn|[ Desligar todos ]]]",
+        "[[accent|━━━━━━━━━━━━━━━━━━━]][[rule|─]] [[btn|[ All on ]]] [[btn|[ All off ]]]",
+        "[[dim|Language]] [[btn|[ EN ]]] [[dim|[ PT ] [ ES ]]]",
         "",
         "[[dim|GIT]]",
-        "[[ok|━━● ]][[bold|git-band            ]] [[dim|Faixa fixa com branch, alterações e último commit]]",
-        "[[ok|━━● ]][[bold|ci-status           ]] [[dim|Estado do último workflow do GitHub Actions]]",
-        "[[dim|●── pr-status            Pull request da branch atual e estado do review]]",
+        "[[ok|━━● ]][[bold|git-band            ]] [[dim|Band with branch, changes and the last commit]]",
+        "[[ok|━━● ]][[bold|ci-status           ]] [[dim|State of the last GitHub Actions workflow]]",
+        "[[dim|●── pr-status            Pull request of the current branch and its review]]",
         "",
-        "[[dim|SESSÃO]]",
-        "[[ok|━━● ]][[bold|usage-band          ]] [[dim|Medidores de contexto, janelas de 5h/7d e custo]]",
-        "[[dim|●── agents-band          Subagentes rodando em tempo real]]"
+        "[[dim|SESSION]]",
+        "[[ok|━━● ]][[bold|usage-band          ]] [[dim|Gauges for context, the 5h and 7d windows and cost]]",
+        "[[dim|●── agents-band          Subagents running right now]]"
       ]
     },
     {
       "name": "git-band",
-      "category": "painel",
-      "description": "Faixa fixa com branch, arquivos alterados, +/- linhas, ahead/behind e último commit",
+      "category": "panel",
+      "description": {
+        "pt": "Faixa fixa com branch, arquivos alterados, linhas adicionadas e removidas, ahead/behind e último commit",
+        "en": "Band with the branch, changed files, lines added and removed, ahead/behind and the last commit",
+        "es": "Franja con la rama, archivos cambiados, líneas añadidas y quitadas, ahead/behind y el último commit"
+      },
       "preview": [
-        "[[git|▍ ]][[dim|GIT       ]][[bold|feat/login]]  ±3 [[ok|+42]] [[err|−7]][[warn|  ↑1]][[dim|  feat: valida token · 2 hours ago]]",
+        "[[git|▍ ]][[dim|GIT       ]][[bold|feat/login]]  ±3 [[ok|+42]] [[err|−7]][[warn|  ↑1]][[dim|  feat: validate token · 2 hours ago]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
-      "group": "Git"
+      "group": "git"
     },
     {
       "name": "todo-band",
-      "category": "painel",
-      "description": "Lista de tarefas do projeto fixa acima do prompt, clicável e persistente (/todo)",
+      "category": "panel",
+      "description": {
+        "pt": "Lista de tarefas do projeto fixa acima do prompt, clicável e persistente (/todo)",
+        "en": "Project task list pinned above the prompt, clickable and persistent (/todo)",
+        "es": "Lista de tareas del proyecto fija sobre el prompt, clicable y persistente (/todo)"
+      },
       "preview": [
-        "[[dia|▍ ]][[dim|TAREFAS   ]][[ok|━━━]][[rule|───────]] [[bold|1/3]]",
-        "            [[warn|◇]] revisar timeout do endpoint /orders",
-        "            [[warn|◇]] escrever teste do login",
-        "            [[ok|◆]] [[dim|atualizar dependências]]",
+        "[[daily|▍ ]][[dim|TODOS     ]][[ok|━━━]][[rule|───────]] [[bold|1/3]]",
+        "            [[warn|◇]] review the /orders endpoint timeout",
+        "            [[warn|◇]] write the login test",
+        "            [[ok|◆]] [[dim|update dependencies]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
-      "group": "Dia a dia"
+      "group": "daily"
     },
     {
       "name": "usage-band",
-      "category": "painel",
-      "description": "Faixa fixa com barras coloridas de contexto, janelas de 5h e 7 dias e custo",
+      "category": "panel",
+      "description": {
+        "pt": "Faixa fixa com barras coloridas de contexto, janelas de 5h e 7 dias e custo",
+        "en": "Fixed band with colored bars for context, the 5h and 7 day windows, and cost",
+        "es": "Banda fija con barras de colores de contexto, ventanas de 5h y 7 días y costo"
+      },
       "preview": [
-        "[[sessao|▍ ]][[dim|CONTEXTO  ]][[ok|━━━━━]][[rule|─────────]] [[ok|38%]][[dim|   5H ]][[warn|━━━━]][[rule|──]] [[warn|62%]][[dim|   7D ]][[ok|━━]][[rule|────]] [[ok|41%]][[dim|   US$ 2.31]]",
+        "[[session|▍ ]][[dim|CONTEXT   ]][[ok|━━━━━]][[rule|─────────]] [[ok|38%]][[dim|   5H ]][[warn|━━━━]][[rule|──]] [[warn|62%]][[dim|   7D ]][[ok|━━]][[rule|────]] [[ok|41%]][[dim|   US$ 2.31]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
-      "group": "Sessão"
+      "group": "session"
     },
     {
       "name": "files-band",
-      "category": "painel",
-      "description": "Faixa fixa com os arquivos que o Claude alterou nesta sessão",
+      "category": "panel",
+      "description": {
+        "pt": "Faixa fixa com os arquivos que o Claude alterou nesta sessão",
+        "en": "Fixed band with the files Claude changed in this session",
+        "es": "Banda fija con los archivos que Claude modificó en esta sesión"
+      },
       "preview": [
-        "[[sessao|▍ ]][[dim|ARQUIVOS  ]][[warn|5 alterados]]  login.ts  login.test.ts  session.ts  api.ts[[dim|  +1]]",
+        "[[session|▍ ]][[dim|FILES     ]][[warn|5 changed]]  login.ts  login.test.ts  session.ts  api.ts[[dim|  +1]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
-      "group": "Sessão"
+      "group": "session"
     },
     {
       "name": "error-band",
-      "category": "painel",
-      "description": "Mantém à vista o último comando que falhou e a linha do erro, até um comando passar",
+      "category": "panel",
+      "description": {
+        "pt": "Mantém à vista o último comando que falhou e a linha do erro, até um comando passar",
+        "en": "Keeps the last failed command and its error line in view until a command passes",
+        "es": "Mantiene a la vista el último comando que falló y la línea del error, hasta que un comando pase"
+      },
       "preview": [
-        "[[sessao|▍ ]][[dim|ERRO      ]][[err|✗ npm test]][[dim|  TypeError: Cannot read properties of undefined  ]][[btn|[ Dispensar ]]]",
+        "[[session|▍ ]][[dim|ERROR     ]][[err|✗ npm test]][[dim|  TypeError: Cannot read properties of undefined  ]][[btn|[ Dismiss ]]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
-      "group": "Sessão"
+      "group": "session"
     },
     {
       "name": "goal-band",
-      "category": "painel",
-      "description": "/goal fixa o objetivo do projeto acima do prompt e no contexto do Claude",
+      "category": "panel",
+      "description": {
+        "pt": "/goal fixa o objetivo do projeto acima do prompt e no contexto do Claude",
+        "en": "/goal pins the project goal above the prompt and in Claude's context",
+        "es": "/goal fija el objetivo del proyecto sobre el prompt y en el contexto de Claude"
+      },
       "preview": [
-        "[[dia|▍ ]][[dim|OBJETIVO  ]][[bold|migrar o checkout para a API v2 sem quebrar os testes]]",
+        "[[daily|▍ ]][[dim|GOAL      ]][[bold|migrate checkout to the v2 API without breaking the tests]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
-      "group": "Dia a dia"
+      "group": "daily"
     },
     {
       "name": "agents-band",
-      "category": "painel",
-      "description": "Faixa que mostra em tempo real quantos subagentes estão rodando e quais",
+      "category": "panel",
+      "description": {
+        "pt": "Faixa que mostra em tempo real quantos subagentes estão rodando e quais",
+        "en": "Band showing in real time how many subagents are running and which ones",
+        "es": "Banda que muestra en tiempo real cuántos subagentes están en ejecución y cuáles"
+      },
       "preview": [
-        "[[sessao|▍ ]][[dim|AGENTES   ]][[bold|3]] rodando[[dim|  researcher  executor  reviewer]]",
+        "[[session|▍ ]][[dim|AGENTS    ]][[bold|3]] running[[dim|  researcher  executor  reviewer]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ],
-      "group": "Sessão"
+      "group": "session"
     },
     {
       "name": "activity-status",
-      "category": "painel",
-      "description": "Status line ao vivo com a ferramenta que o Claude está executando agora",
+      "category": "panel",
+      "description": {
+        "pt": "Status line ao vivo com a ferramenta que o Claude está executando agora",
+        "en": "Live status line with the tool Claude is running right now",
+        "es": "Status line en vivo con la herramienta que Claude está ejecutando ahora"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  ▸ Bash npm run build]]"
       ],
-      "group": "Sessão"
+      "group": "session"
     },
     {
       "name": "test-status",
-      "category": "painel",
-      "description": "Status line com o resultado da última execução de testes: passou ou falhou, hora e duração",
+      "category": "panel",
+      "description": {
+        "pt": "Entrada na status line com o resultado da última execução de testes: passou ou falhou, hora e duração",
+        "en": "Status line entry with the result of the last test run: passed or failed, time and duration",
+        "es": "Entrada en la status line con el resultado de la última ejecución de tests: pasó o falló, hora y duración"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  testes ✓ 14:32 · 3.1s]]"
+        "[[dim|  tests ✓ 14:32 · 3.1s]]"
       ],
-      "group": "Projeto"
+      "group": "project"
     },
     {
       "name": "ci-status",
-      "category": "painel",
-      "description": "Status line com o estado do último workflow do GitHub Actions (via gh)",
+      "category": "panel",
+      "description": {
+        "pt": "Status line com o estado do último workflow do GitHub Actions (via gh)",
+        "en": "Status line with the state of the last GitHub Actions workflow (via gh)",
+        "es": "Línea de estado con el estado del último workflow de GitHub Actions (vía gh)"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  ci ✓ build · feat/login]]"
       ],
-      "group": "Git"
+      "group": "git"
     },
     {
       "name": "stash-status",
-      "category": "painel",
-      "group": "Git",
-      "description": "Status line que lembra quantos stashes estão guardados",
+      "category": "panel",
+      "group": "git",
+      "description": {
+        "pt": "Status line que lembra quantos stashes estão guardados",
+        "en": "Status line that reminds you how many stashes are saved",
+        "es": "Línea de estado que recuerda cuántos stashes hay guardados"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
@@ -530,89 +712,121 @@
     },
     {
       "name": "uncommitted-band",
-      "category": "painel",
-      "group": "Git",
-      "description": "Faixa de aviso quando há alterações sem commit há mais de 45 minutos",
+      "category": "panel",
+      "group": "git",
+      "description": {
+        "pt": "Faixa de aviso quando há alterações sem commit há mais de 45 minutos",
+        "en": "Warning band when changes have gone uncommitted for more than 45 minutes",
+        "es": "Banda de aviso cuando hay cambios sin commit desde hace más de 45 minutos"
+      },
       "preview": [
-        "[[git|▍ ]][[dim|COMMIT    ]][[warn|12 arquivos sem commit]][[dim|  último há 1h40]]",
+        "[[git|▍ ]][[dim|COMMIT    ]][[warn|12 uncommitted files]][[dim|  last 1h40 ago]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "pr-status",
-      "category": "painel",
-      "group": "Git",
-      "description": "Status line com o pull request da branch atual e o estado do review (via gh)",
+      "category": "panel",
+      "group": "git",
+      "description": {
+        "pt": "Status line com o pull request da branch atual e o estado do review (via gh)",
+        "en": "Status line with the current branch pull request and its review state (via gh)",
+        "es": "Línea de estado con el pull request de la rama actual y el estado de su revisión (vía gh)"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  pr #42 ✓ aprovado]]"
+        "[[dim|  pr #42 ✓ approved]]"
       ]
     },
     {
       "name": "main-warning-band",
-      "category": "painel",
-      "group": "Git",
-      "description": "Faixa vermelha enquanto você estiver na main/master",
+      "category": "panel",
+      "group": "git",
+      "description": {
+        "pt": "Faixa vermelha enquanto você estiver na main/master",
+        "en": "Red band while you are on main or master",
+        "es": "Banda roja mientras estés en main o master"
+      },
       "preview": [
-        "[[git|▍ ]][[dim|BRANCH    ]][[err|main é protegida]][[dim|  crie outra antes de alterar: git switch -c nome]]",
+        "[[git|▍ ]][[dim|BRANCH    ]][[err|main is protected]][[dim|  create another before changing anything: git switch -c name]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "conflict-band",
-      "category": "painel",
-      "group": "Git",
-      "description": "Faixa que avisa de merge/rebase em andamento e arquivos em conflito",
+      "category": "panel",
+      "group": "git",
+      "description": {
+        "pt": "Faixa que avisa de merge/rebase em andamento e arquivos em conflito",
+        "en": "Band that warns about a merge or rebase in progress and files in conflict",
+        "es": "Banda que avisa de un merge o rebase en curso y de archivos en conflicto"
+      },
       "preview": [
-        "[[git|▍ ]][[dim|CONFLITO  ]][[err|rebase em andamento]][[dim|  2 arquivos para resolver]]",
+        "[[git|▍ ]][[dim|CONFLICT  ]][[err|rebase in progress]][[dim|  2 files to resolve]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "project-status",
-      "category": "painel",
-      "group": "Projeto",
-      "description": "Status line com nome e versão do projeto, versão do Node e gerenciador de pacotes",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "pt": "Status line com nome e versão do projeto, versão do Node e gerenciador de pacotes",
+        "en": "Status line with the project name and version, Node version and package manager",
+        "es": "Línea de estado con el nombre y la versión del proyecto, la versión de Node y el gestor de paquetes"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  turbina@0.1.0 · node 24.14.1 · npm]]"
+        "[[dim|  cockpit@0.1.0 · node 24.14.1 · npm]]"
       ]
     },
     {
       "name": "ports-band",
-      "category": "painel",
-      "group": "Projeto",
-      "description": "Faixa com os servidores de dev que estão no ar em localhost",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "pt": "Faixa com os servidores de dev que estão no ar em localhost",
+        "en": "Band with the dev servers running on localhost",
+        "es": "Banda con los servidores de desarrollo activos en localhost"
+      },
       "preview": [
-        "[[projeto|▍ ]][[dim|NO AR     ]][[ok|● ]]localhost:3000   [[ok|● ]]localhost:5173",
+        "[[project|▍ ]][[dim|LIVE      ]][[ok|● ]]localhost:3000   [[ok|● ]]localhost:5173",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "deps-status",
-      "category": "painel",
-      "group": "Projeto",
-      "description": "Status line com quantas dependências npm estão desatualizadas",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "pt": "Status line com quantas dependências npm estão desatualizadas",
+        "en": "Status line with how many npm dependencies are outdated",
+        "es": "Línea de estado con cuántas dependencias npm están desactualizadas"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  deps 7 atrás · 2 major]]"
+        "[[dim|  deps 7 behind · 2 major]]"
       ]
     },
     {
       "name": "todo-count-status",
-      "category": "painel",
-      "group": "Projeto",
-      "description": "Status line com a contagem de TODO, FIXME e HACK no código versionado",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "pt": "Status line com a contagem de TODO, FIXME e HACK no código versionado",
+        "en": "Status line counting TODO, FIXME and HACK in tracked code",
+        "es": "Línea de estado con el conteo de TODO, FIXME y HACK en el código versionado"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
@@ -622,231 +836,311 @@
     },
     {
       "name": "quality-status",
-      "category": "painel",
-      "group": "Projeto",
-      "description": "Status line com o último resultado de lint, tipos e build",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "pt": "Status line com o último resultado de lint, tipos e build",
+        "en": "Status line with the latest lint, types and build results",
+        "es": "Línea de estado con el último resultado de lint, tipos y build"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  lint ✓ · tipos ✗ · build ✓]]"
+        "[[dim|  lint ✓ · types ✗ · build ✓]]"
       ]
     },
     {
       "name": "model-status",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Status line com o modelo em uso na sessão",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Status line com o modelo em uso na sessão",
+        "en": "Status line with the model in use in the session",
+        "es": "Status line con el modelo en uso en la sesión"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  modelo opus-5-5]]"
+        "[[dim|  model opus-5-5]]"
       ]
     },
     {
       "name": "cost-ticker",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Status line com o custo do último turno e o total da sessão",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Status line com o custo do último turno e o total da sessão",
+        "en": "Status line with the cost of the last turn and the session total",
+        "es": "Status line con el costo del último turno y el total de la sesión"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  turno US$ 0.12 · sessão US$ 2.31]]"
+        "[[dim|  turn US$ 0.12 · session US$ 2.31]]"
       ]
     },
     {
       "name": "idle-clock",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Status line com há quanto tempo a sessão está parada",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Status line com há quanto tempo a sessão está parada",
+        "en": "Status line with how long the session has been idle",
+        "es": "Status line con el tiempo que lleva inactiva la sesión"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  parado 6min]]"
+        "[[dim|  idle 6min]]"
       ]
     },
     {
       "name": "turn-progress",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Status line ao vivo com tempo decorrido e tools do turno em andamento",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Status line ao vivo com tempo decorrido e tools do turno em andamento",
+        "en": "Live status line with the elapsed time and tool count of the turn in progress",
+        "es": "Status line en vivo con el tiempo transcurrido y las herramientas del turno en curso"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  turno 1m12s · 9 tools]]"
+        "[[dim|  turn 1m12s · 9 tools]]"
       ]
     },
     {
       "name": "last-prompt-band",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Faixa com o seu último pedido, para não se perder depois de respostas longas",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Faixa com o seu último pedido, para não se perder depois de respostas longas",
+        "en": "Band with your last request, so you do not lose it after long answers",
+        "es": "Banda con tu último pedido, para no perderlo tras respuestas largas"
+      },
       "preview": [
-        "[[sessao|▍ ]][[dim|PEDIDO    ]][[dim|refatore o hook de login e rode os testes]]",
+        "[[session|▍ ]][[dim|REQUEST   ]][[dim|refactor the login hook and run the tests]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "compact-nudge",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Faixa com botão de compactar quando o contexto passa de 75%",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Faixa com botão de compactar quando o contexto passa de 75%",
+        "en": "Band with a compact button when context passes 75%",
+        "es": "Banda con botón para compactar cuando el contexto supera el 75%"
+      },
       "preview": [
-        "[[sessao|▍ ]][[dim|COMPACTAR ]][[warn|━━━━━━━━━━━]][[rule|───]] [[warn|82%]][[dim|  contexto quase cheio  ]][[btn|[ Compactar agora ]]]",
+        "[[session|▍ ]][[dim|COMPACT   ]][[warn|━━━━━━━━━━━]][[rule|───]] [[warn|82%]][[dim|  context almost full  ]][[btn|[ Compact now ]]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "session-diff-band",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Faixa com o total de linhas que o Claude escreveu e removeu na sessão",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Faixa com o total de linhas que o Claude escreveu e removeu na sessão",
+        "en": "Band with the total lines Claude wrote and removed in the session",
+        "es": "Banda con el total de líneas que Claude escribió y eliminó en la sesión"
+      },
       "preview": [
-        "[[sessao|▍ ]][[dim|ESCRITO   ]][[ok|+120]] [[err|−34]][[dim|  linhas em 9 edições]]",
+        "[[session|▍ ]][[dim|WRITTEN   ]][[ok|+120]] [[err|−34]][[dim|  lines in 9 edits]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "shield-band",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Faixa com a contagem de chamadas bloqueadas pelos guards e o último motivo",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Faixa com a contagem de chamadas bloqueadas pelos guards e o último motivo",
+        "en": "Band with the count of calls blocked by guards and the last reason",
+        "es": "Banda con el conteo de llamadas bloqueadas por los guards y el último motivo"
+      },
       "preview": [
-        "[[sessao|▍ ]][[dim|GUARDS    ]][[warn|2 bloqueios]][[dim|  Bash: rm-guard bloqueou o comando: apagar recursivamente \"~/\"]]",
+        "[[session|▍ ]][[dim|GUARDS    ]][[warn|2 blocks]][[dim|  Bash: rm-guard blocked the command: recursively deleting \"~/\"]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "reset-countdown",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Status line com a contagem regressiva até o reset do rate limit mais apertado",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Status line com a contagem regressiva até o reset do rate limit mais apertado",
+        "en": "Status line counting down to the reset of the tightest rate limit",
+        "es": "Status line con la cuenta regresiva hasta el reinicio del rate limit más ajustado"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  limite 5h 62% · reseta 1h12]]"
+        "[[dim|  limit 5h 62% · resets 1h12]]"
       ]
     },
     {
       "name": "spend-today",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Status line com o gasto do dia somando todas as sessões",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Status line com o gasto do dia somando todas as sessões",
+        "en": "Status line with today's spend summed across all sessions",
+        "es": "Status line con el gasto del día sumando todas las sesiones"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  hoje US$ 4.10 · 3 sessões]]"
+        "[[dim|  today US$ 4.10 · 3 sessions]]"
       ]
     },
     {
       "name": "focus-band",
-      "category": "painel",
-      "group": "Dia a dia",
-      "description": "/focus inicia um bloco de foco com barra de progresso fixa",
+      "category": "panel",
+      "group": "daily",
+      "description": {
+        "pt": "/focus inicia um bloco de foco com barra de progresso fixa",
+        "en": "/focus starts a focus block with a pinned progress bar",
+        "es": "/focus inicia un bloque de foco con barra de progreso fija"
+      },
       "preview": [
-        "[[dia|▍ ]][[dim|FOCO      ]][[dia|━━━━━━━━━━━━]][[rule|────────────]] [[bold|12 min]][[dim| de 25]]",
+        "[[daily|▍ ]][[dim|FOCUS     ]][[daily|━━━━━━━━━━━━]][[rule|────────────]] [[bold|12 min]][[dim| of 25]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "deadline-band",
-      "category": "painel",
-      "group": "Dia a dia",
-      "description": "/deadline fixa uma contagem regressiva para o prazo do projeto",
+      "category": "panel",
+      "group": "daily",
+      "description": {
+        "pt": "/deadline fixa uma contagem regressiva para o prazo do projeto",
+        "en": "/deadline pins a countdown to the project deadline",
+        "es": "/deadline fija una cuenta regresiva para el plazo del proyecto"
+      },
       "preview": [
-        "[[dia|▍ ]][[dim|PRAZO     ]][[warn|em 18h 20min]]  entrega do checkout[[dim|  14/10]]",
+        "[[daily|▍ ]][[dim|DEADLINE  ]][[warn|in 18h 20min]]  checkout delivery[[dim|  10/14]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "pin-band",
-      "category": "painel",
-      "group": "Dia a dia",
-      "description": "/pin fixa até 4 lembretes do projeto acima do prompt",
+      "category": "panel",
+      "group": "daily",
+      "description": {
+        "pt": "/pin fixa até 4 lembretes do projeto acima do prompt",
+        "en": "/pin pins up to 4 project reminders above the prompt",
+        "es": "/pin fija hasta 4 recordatorios del proyecto sobre el prompt"
+      },
       "preview": [
-        "[[dia|▍ ]][[dim|LEMBRETE  ]][[dim|1 ]]API de staging: usar o token novo",
-        "            [[dim|2 ]]não mexer em legacy/ sem avisar o time",
+        "[[daily|▍ ]][[dim|REMINDER  ]][[dim|1 ]]staging API: use the new token",
+        "            [[dim|2 ]]do not touch legacy/ without telling the team",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
     },
     {
       "name": "clock-status",
-      "category": "painel",
-      "group": "Dia a dia",
-      "description": "Status line com dia e hora (útil no modo fullscreen)",
+      "category": "panel",
+      "group": "daily",
+      "description": {
+        "pt": "Status line com dia e hora (útil no modo fullscreen)",
+        "en": "Status line with the day and time (useful in fullscreen mode)",
+        "es": "Línea de estado con el día y la hora (útil en modo pantalla completa)"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  ter 13/10 · 14:32]]"
+        "[[dim|  Tue, 10/13 · 02:32 PM]]"
       ]
     },
     {
       "name": "day-timer",
-      "category": "painel",
-      "group": "Dia a dia",
-      "description": "Status line com o tempo ativo de Claude Code no dia, somando as sessões",
+      "category": "panel",
+      "group": "daily",
+      "description": {
+        "pt": "Status line com o tempo ativo de Claude Code no dia, somando as sessões",
+        "en": "Status line with your active Claude Code time today, summed across sessions",
+        "es": "Línea de estado con tu tiempo activo de Claude Code en el día, sumando las sesiones"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  ativo 3h40 hoje]]"
+        "[[dim|  active 3h40 today]]"
       ]
     },
     {
       "name": "commits-today",
-      "category": "painel",
-      "group": "Git",
-      "description": "Status line com quantos commits você fez hoje neste repositório",
+      "category": "panel",
+      "group": "git",
+      "description": {
+        "pt": "Status line com quantos commits você fez hoje neste repositório",
+        "en": "Status line with how many commits you made today in this repository",
+        "es": "Línea de estado con cuántos commits hiciste hoy en este repositorio"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  commits 5 hoje]]"
+        "[[dim|  commits 5 today]]"
       ]
     },
     {
       "name": "dolar-status",
-      "category": "painel",
-      "group": "Dia a dia",
-      "description": "Status line com a cotação do dólar em reais (AwesomeAPI)",
+      "category": "panel",
+      "group": "daily",
+      "description": {
+        "pt": "Status line com a cotação do dólar em reais (AwesomeAPI)",
+        "en": "Status line with the dollar rate in Brazilian reais (AwesomeAPI)",
+        "es": "Línea de estado con la cotización del dólar en reales (AwesomeAPI)"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  usd R$ 5,42 ▲0,31%]]"
+        "[[dim|  usd R$ 5.42 ▲0.31%]]"
       ]
     },
     {
       "name": "weather-status",
-      "category": "painel",
-      "group": "Dia a dia",
-      "description": "Status line com o clima da sua cidade (wttr.in)",
+      "category": "panel",
+      "group": "daily",
+      "description": {
+        "pt": "Status line com o clima da sua cidade (wttr.in)",
+        "en": "Status line with the weather in your city (wttr.in)",
+        "es": "Línea de estado con el clima de tu ciudad (wttr.in)"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-        "[[dim|  São Paulo: ⛅ 22°C]]"
+        "[[dim|  London: ⛅ 14°C]]"
       ]
     },
     {
       "name": "api-status",
-      "category": "painel",
-      "group": "Sessão",
-      "description": "Status line com o estado da API da Anthropic pela página pública de status",
+      "category": "panel",
+      "group": "session",
+      "description": {
+        "pt": "Status line com o estado da API da Anthropic pela página pública de status",
+        "en": "Status line with the state of the Anthropic API from its public status page",
+        "es": "Status line con el estado de la API de Anthropic según su página pública de estado"
+      },
       "preview": [
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]",
@@ -856,11 +1150,15 @@
     },
     {
       "name": "terminal-pet",
-      "category": "painel",
-      "group": "Dia a dia",
-      "description": "Mascote acima do prompt que reage: trabalhando, feliz, triste ou com sono",
+      "category": "panel",
+      "group": "daily",
+      "description": {
+        "pt": "Mascote acima do prompt que reage: trabalhando, feliz, triste ou com sono",
+        "en": "A mascot above the prompt that reacts: working, happy, sad or sleepy",
+        "es": "Mascota sobre el prompt que reacciona: trabajando, feliz, triste o con sueño"
+      },
       "preview": [
-        "[[dia|▍ ]][[dim|PET       ]][[dia|(^_^)]][[dim|  deu certo!]]",
+        "[[daily|▍ ]][[dim|PET       ]][[daily|(＾▽＾)]][[dim|  it worked!]]",
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
@@ -868,10 +1166,14 @@
     {
       "name": "git-context",
       "category": "prompt",
-      "description": "Anexa o estado do git (branch e arquivos alterados) a cada prompt, como contexto oculto",
+      "description": {
+        "pt": "Anexa o estado do git (branch e arquivos alterados) a cada prompt, como contexto oculto",
+        "en": "Attaches the git state (branch and changed files) to every prompt as hidden context",
+        "es": "Adjunta el estado de git (rama y archivos modificados) a cada prompt como contexto oculto"
+      },
       "preview": [
-        "[[user|> por que o teste de login quebra?]]",
-        "[[dim|  + contexto oculto: Estado do git agora (feat/login...origin/feat/login [ahead 1])]]",
+        "[[user|> why does the login test break?]]",
+        "[[dim|  + hidden context: Git state right now (feat/login...origin/feat/login [ahead 1])]]",
         "[[dim|     M src/auth/login.ts]]",
         "[[dim|    ?? src/auth/login.test.ts]]"
       ]
@@ -879,98 +1181,173 @@
     {
       "name": "stack-context",
       "category": "prompt",
-      "description": "Detecta a stack do projeto (package.json, pom.xml...) e informa o Claude no system prompt",
+      "description": {
+        "pt": "Detecta a stack do projeto (package.json, pom.xml...) e informa o Claude no system prompt",
+        "en": "Detects the project stack (package.json, pom.xml...) and tells Claude in the system prompt",
+        "es": "Detecta el stack del proyecto (package.json, pom.xml...) e informa a Claude en el system prompt"
+      },
       "preview": [
-        "[[dim|  seção no system prompt →]]",
-        "[[bold|  # Stack deste projeto]]",
+        "[[dim|  section in the system prompt →]]",
+        "[[bold|  # This project's stack]]",
         "  React, Tailwind CSS, TypeScript, Vite, Vitest.",
-        "  Use os padrões e as APIs dessas ferramentas."
+        "  Use the patterns and APIs of these tools."
       ]
     },
     {
       "name": "commit-style",
       "category": "prompt",
-      "description": "Faz o Claude escrever commits em Conventional Commits, curtos e no imperativo",
+      "description": {
+        "pt": "Faz o Claude escrever commits em Conventional Commits, curtos e no imperativo",
+        "en": "Makes Claude write short, imperative Conventional Commits",
+        "es": "Hace que Claude escriba commits en Conventional Commits, cortos y en imperativo"
+      },
       "preview": [
-        "[[tool|● Bash]](git commit -m \"fix(auth): valida token expirado no login\")",
-        "[[dim|  ⎿ [feat/login a1b2c3d] fix(auth): valida token expirado no login]]"
+        "[[tool|● Bash]](git commit -m \"fix(auth): validate expired token on login\")",
+        "[[dim|  ⎿ [feat/login a1b2c3d] fix(auth): validate expired token on login]]"
       ]
     },
     {
       "name": "generated-guard",
-      "category": "seguranca",
-      "description": "Impede edição em node_modules, dist, build, .next, coverage, .git e afins",
+      "category": "security",
+      "description": {
+        "pt": "Impede edição em node_modules, dist, build, .next, coverage, .git e afins",
+        "en": "Prevents edits in node_modules, dist, build, .next, coverage, .git and the like",
+        "es": "Impide la edición en node_modules, dist, build, .next, coverage, .git y similares"
+      },
       "preview": [
         "[[tool|● Edit]](node_modules/react/index.js)",
-        "[[err|  ⎿ generated-guard: node_modules/react/index.js fica em pasta gerada ou de]]",
-        "[[err|    dependências. Altere o código-fonte e gere de novo.]]"
+        "[[err|  ⎿ generated-guard: node_modules/react/index.js is in a generated or]]",
+        "[[err|    dependency folder. Change the source code and generate it again.]]"
       ]
     },
     {
       "name": "sql-guard",
-      "category": "seguranca",
-      "description": "Bloqueia DROP, TRUNCATE e DELETE/UPDATE sem WHERE em comandos de shell",
+      "category": "security",
+      "description": {
+        "pt": "Bloqueia DROP, TRUNCATE e DELETE/UPDATE sem WHERE em comandos de shell",
+        "en": "Blocks DROP, TRUNCATE and DELETE/UPDATE without WHERE in shell commands",
+        "es": "Bloquea DROP, TRUNCATE y DELETE/UPDATE sin WHERE en comandos de shell"
+      },
       "preview": [
         "[[tool|● Bash]](psql -c \"DELETE FROM users;\")",
-        "[[err|  ⎿ sql-guard bloqueou o comando: DELETE sem WHERE apaga a tabela toda.]]"
+        "[[err|  ⎿ sql-guard blocked the command: DELETE without WHERE empties the whole]]",
+        "[[err|    table. Ask the user to run it by hand if it is intended.]]"
       ]
     },
     {
       "name": "prod-guard",
-      "category": "seguranca",
-      "description": "Exige sua confirmação para deploy, publish, terraform apply, kubectl e migrações",
+      "category": "security",
+      "description": {
+        "pt": "Exige sua confirmação para deploy, publish, terraform apply, kubectl e migrações",
+        "en": "Requires your confirmation for deploys, publishes, terraform apply, kubectl and migrations",
+        "es": "Exige tu confirmación para deploy, publish, terraform apply, kubectl y migraciones"
+      },
       "preview": [
         "[[tool|● Bash]](vercel --prod)",
-        "[[warn|  ⎿ Permissão necessária]]",
-        "[[warn|    prod-guard: deploy em produção. Confirme antes de rodar.]]",
-        "    [[btn|[ Sim ]]] [[btn|[ Não ]]]"
+        "[[warn|  ⎿ Permission required]]",
+        "[[warn|    prod-guard: production deploy. Confirm before running.]]",
+        "    [[btn|[ Yes ]]] [[btn|[ No ]]]"
       ]
     },
     {
       "name": "install-ask",
-      "category": "seguranca",
-      "description": "Exige sua confirmação sempre que o Claude for instalar uma dependência nova",
+      "category": "security",
+      "description": {
+        "pt": "Exige sua confirmação sempre que o Claude for instalar uma dependência nova",
+        "en": "Requires your confirmation whenever Claude is about to install a new dependency",
+        "es": "Exige tu confirmación siempre que Claude vaya a instalar una dependencia nueva"
+      },
       "preview": [
         "[[tool|● Bash]](npm install left-pad)",
-        "[[warn|  ⎿ Permissão necessária]]",
-        "[[warn|    install-ask: o comando adiciona uma dependência nova. Confirme.]]",
-        "    [[btn|[ Sim ]]] [[btn|[ Não ]]]"
+        "[[warn|  ⎿ Permission required]]",
+        "[[warn|    install-ask: the command adds a new dependency. Confirm.]]",
+        "    [[btn|[ Yes ]]] [[btn|[ No ]]]"
       ]
     },
     {
       "name": "pipe-shell-guard",
-      "category": "seguranca",
-      "description": "Bloqueia curl | sh, wget | bash, iwr | iex e variantes",
+      "category": "security",
+      "description": {
+        "pt": "Bloqueia curl | sh, wget | bash, iwr | iex e variantes",
+        "en": "Blocks curl | sh, wget | bash, iwr | iex and variants",
+        "es": "Bloquea curl | sh, wget | bash, iwr | iex y variantes"
+      },
       "preview": [
-        "[[tool|● Bash]](curl -fsSL https://exemplo.dev/install.sh | sh)",
-        "[[err|  ⎿ pipe-shell-guard bloqueou o comando: baixar um script e executar direto]]",
-        "[[err|    no shell. Baixe o arquivo, leia e só então execute.]]"
+        "[[tool|● Bash]](curl -fsSL https://example.dev/install.sh | sh)",
+        "[[err|  ⎿ pipe-shell-guard blocked the command: downloading a script and running]]",
+        "[[err|    it straight in the shell. Download the file, read it, then run it.]]"
       ]
     },
     {
       "name": "big-read-guard",
-      "category": "seguranca",
-      "description": "Recusa ler inteiro um arquivo com mais de 512 KB e pede um recorte",
+      "category": "security",
+      "description": {
+        "pt": "Recusa ler inteiro um arquivo com mais de 512 KB e pede um recorte",
+        "en": "Refuses reading a file over 512 KB whole and asks for a slice",
+        "es": "Rechaza leer entero un archivo de más de 512 KB y pide un fragmento"
+      },
       "preview": [
         "[[tool|● Read]](logs/app.log)",
-        "[[err|  ⎿ big-read-guard: logs/app.log tem 8421 KB. Leia um trecho com]]",
-        "[[err|    offset/limit ou procure com Grep.]]"
+        "[[err|  ⎿ big-read-guard: logs/app.log is 8421 KB. Read a slice with]]",
+        "[[err|    offset/limit or search with Grep.]]"
+      ]
+    },
+    {
+      "name": "reply-language",
+      "category": "prompt",
+      "description": {
+        "en": "Makes Claude always answer in the language set in the Cockpit hub, keeping code and commands in the original",
+        "pt": "Faz o Claude responder sempre no idioma definido no hub Cockpit, mantendo código e comandos no original",
+        "es": "Hace que Claude responda siempre en el idioma definido en el hub Cockpit, manteniendo código y comandos en el original"
+      },
+      "preview": [
+        "[[dim|  section in the system prompt →]]",
+        "[[bold|  # Language]]",
+        "  Always answer in Brazilian Portuguese, with correct accents.",
+        "  Technical terms, API names, commands and code identifiers stay in the original."
       ]
     }
   ],
   "hero": [
-    "[[git|▍ ]][[dim|GIT       ]][[bold|feat/login]]  ±3 [[ok|+42]] [[err|−7]][[warn|  ↑1]][[dim|  feat: valida token · 2 hours ago]]",
-    "[[sessao|▍ ]][[dim|CONTEXTO  ]][[ok|━━━━━]][[rule|─────────]] [[ok|38%]][[dim|   5H ]][[warn|━━━━]][[rule|──]] [[warn|62%]][[dim|   7D ]][[ok|━━]][[rule|────]] [[ok|41%]][[dim|   US$ 2.31]]",
-    "[[sessao|▍ ]][[dim|ERRO      ]][[err|✗ npm test]][[dim|  TypeError: Cannot read properties of undefined  ]][[btn|[ Dispensar ]]]",
-    "[[projeto|▍ ]][[dim|NO AR     ]][[ok|● ]]localhost:3000   [[ok|● ]]localhost:5173",
-    "[[dia|▍ ]][[dim|TAREFAS   ]][[ok|━━━]][[rule|───────]] [[bold|1/3]]",
-    "            [[warn|◇]] revisar timeout do endpoint /orders",
-    "            [[warn|◇]] escrever teste do login",
-    "            [[ok|◆]] [[dim|atualizar dependências]]",
-    "[[dia|▍ ]][[dim|PRAZO     ]][[warn|em 18h 20min]]  entrega do checkout[[dim|  14/10]]",
+    "[[git|▍ ]][[dim|GIT       ]][[bold|feat/login]]  ±3 [[ok|+42]] [[err|−7]][[warn|  ↑1]][[dim|  feat: validate token · 2 hours ago]]",
+    "[[session|▍ ]][[dim|CONTEXT   ]][[ok|━━━━━]][[rule|─────────]] [[ok|38%]][[dim|   5H ]][[warn|━━━━]][[rule|──]] [[warn|62%]][[dim|   7D ]][[ok|━━]][[rule|────]] [[ok|41%]][[dim|   US$ 2.31]]",
+    "[[session|▍ ]][[dim|ERROR     ]][[err|✗ npm test]][[dim|  TypeError: Cannot read properties of undefined  ]][[btn|[ Dismiss ]]]",
+    "[[project|▍ ]][[dim|LIVE      ]][[ok|● ]]localhost:3000   [[ok|● ]]localhost:5173",
+    "[[daily|▍ ]][[dim|TASKS     ]][[ok|━━━]][[rule|───────]] [[bold|1/3]]",
+    "            [[warn|◇]] check the timeout of the /orders endpoint",
+    "            [[warn|◇]] write the login test",
+    "            [[ok|◆]] [[dim|update dependencies]]",
+    "[[daily|▍ ]][[dim|DEADLINE  ]][[warn|in 18h 20min]]  checkout delivery[[dim|  10/14]]",
     "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
     "[[user|> ]][[cursor|█]]",
     "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
-    "[[dim|  ⎇ feat/login ±3 ↑1 · testes ✓ 14:32 · 3.1s · ci ✓ build · turno US$ 0.12 · sessão US$ 2.31]]"
-  ]
+    "[[dim|  ⎇ feat/login ±3 ↑1 · tests ✓ 14:32 · 3.1s · ci ✓ build · turn US$ 0.12 · session US$ 2.31]]"
+  ],
+  "languages": [
+    "en",
+    "pt",
+    "es"
+  ],
+  "groups": {
+    "git": {
+      "en": "Git",
+      "pt": "Git",
+      "es": "Git"
+    },
+    "session": {
+      "en": "Session",
+      "pt": "Sessão",
+      "es": "Sesión"
+    },
+    "project": {
+      "en": "Project",
+      "pt": "Projeto",
+      "es": "Proyecto"
+    },
+    "daily": {
+      "en": "Daily",
+      "pt": "Dia a dia",
+      "es": "Día a día"
+    }
+  }
 }

@@ -1,11 +1,12 @@
-// Gera docs/previews/<mod>.svg (mockup de terminal de cada mod), docs/cockpit.svg e o catálogo do README.md.
-// Uso: node scripts/build-docs.mjs
+// Generates docs/previews/<mod>.svg (a terminal mockup per mod), docs/cockpit.svg and one README per language.
+// The static part of each README lives in docs/readme/<lang>.md; this script fills in the counts and the catalog.
+// Usage: node scripts/build-docs.mjs
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const catalog = JSON.parse(readFileSync(join(root, 'mods.json'), 'utf8'))
+import { loadCatalog, root, text } from './lib.mjs'
+
+const catalog = loadCatalog()
 
 const WIDTH = 760
 const CHAR = 7.83
@@ -14,8 +15,8 @@ const TOP = 66
 const LEFT = 24
 const MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace"
 
-// Mesma paleta do kit: um matiz por assunto; verde, âmbar e vermelho só para estado.
-const HUE = { git: '#b39df2', sessao: '#e58c62', projeto: '#74a8f5', dia: '#5fc9b8' }
+// The kit's palette: one hue per subject; green, amber and red only for state.
+const HUE = { git: '#b39df2', session: '#e58c62', project: '#74a8f5', daily: '#5fc9b8' }
 
 const COLORS = {
   ...HUE,
@@ -33,21 +34,19 @@ const COLORS = {
   cursor: '#d5dbe6',
 }
 
-const GROUP_HUE = { Git: HUE.git, Sessão: HUE.sessao, Projeto: HUE.projeto, 'Dia a dia': HUE.dia }
-
 const CATEGORY_HUE = {
-  seguranca: COLORS.err,
-  interface: HUE.sessao,
+  security: COLORS.err,
+  interface: HUE.session,
   prompt: HUE.git,
-  comandos: HUE.projeto,
-  foco: HUE.dia,
+  commands: HUE.project,
+  focus: HUE.daily,
 }
 
-const hueOf = mod => GROUP_HUE[mod.group] ?? CATEGORY_HUE[mod.category] ?? HUE.sessao
+const hueOf = mod => HUE[mod.group] ?? CATEGORY_HUE[mod.category] ?? HUE.session
 
-const escape = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const escape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-// "[[estilo|texto]]" marca um trecho; o resto da linha usa a cor padrão.
+// "[[style|text]]" marks a stretch; the rest of the line takes the default color.
 const segments = line => {
   const parts = []
   let at = 0
@@ -68,8 +67,8 @@ const segments = line => {
   return parts
 }
 
-// Emojis ocupam duas células no terminal.
-const cells = text => [...text].reduce((sum, char) => sum + (char.codePointAt(0) > 0x1f000 ? 2 : 1), 0)
+// An emoji takes two cells in a terminal.
+const cells = value => [...value].reduce((sum, char) => sum + (char.codePointAt(0) > 0x1f000 ? 2 : 1), 0)
 
 const BOXED = {
   toast: { fill: '#1a2130', stroke: COLORS.accent, color: '#f6e7df' },
@@ -77,14 +76,22 @@ const BOXED = {
   sel: { fill: '#35508a', stroke: 'none', color: '#ffffff' },
 }
 
-const renderLine = (line, row) => {
+// Previews are written in the plain shapes; the kit's current look is applied here, in one place:
+// the placard takes its rail's hue, and a gauge ends in the slider knob.
+const dressed = line =>
+  line
+    .replace(/\[\[(git|session|project|daily)\|▍ \]\]\[\[dim\|([^\]]*)\]\]/, '[[$1|▍ $2]]')
+    .replace(/━\]\]\[\[rule\|(─*)\]\]/g, '●]][[rule|$1]]')
+
+const renderLine = (raw, row) => {
+  const line = dressed(raw)
   const y = TOP + row * LINE
   const backgrounds = []
   const spans = []
   let column = 0
 
-  for (const { style, text } of segments(line)) {
-    const width = cells(text)
+  for (const { style, text: content } of segments(line)) {
+    const width = cells(content)
     const box = BOXED[style]
 
     if (box !== undefined) {
@@ -95,8 +102,8 @@ const renderLine = (line, row) => {
 
     const weight = style === 'bold' || style === 'toast' ? ' font-weight="700"' : ''
     spans.push(
-      // textLength fixa a largura em células: o alinhamento não depende da fonte do leitor.
-      `<tspan x="${(LEFT + column * CHAR).toFixed(1)}" textLength="${(width * CHAR).toFixed(1)}" lengthAdjust="spacingAndGlyphs" fill="${box?.color ?? COLORS[style] ?? COLORS.text}"${weight}>${escape(text)}</tspan>`,
+      // textLength pins the width in cells, so alignment does not depend on the reader's font.
+      `<tspan x="${(LEFT + column * CHAR).toFixed(1)}" textLength="${(width * CHAR).toFixed(1)}" lengthAdjust="spacingAndGlyphs" fill="${box?.color ?? COLORS[style] ?? COLORS.text}"${weight}>${escape(content)}</tspan>`,
     )
     column += width
   }
@@ -104,11 +111,11 @@ const renderLine = (line, row) => {
   return `${backgrounds.join('')}<text y="${y}" xml:space="preserve">${spans.join('')}</text>`
 }
 
-// Moldura própria da Turbina: fio no matiz do assunto, rotor, nome do mod e a categoria à direita.
+// The collection's own frame: a thread in the subject's hue, the rotor, the mod's name, its category at the right.
 const frame = ({ name, tag, hue, lines }) => {
   const height = TOP + lines.length * LINE + 10
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${height}" viewBox="0 0 ${WIDTH} ${height}" role="img" aria-label="Prévia de ${escape(name)} no terminal">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${height}" viewBox="0 0 ${WIDTH} ${height}" role="img" aria-label="${escape(name)} in the terminal">
 <defs><clipPath id="card"><rect width="${WIDTH}" height="${height}" rx="12"/></clipPath></defs>
 <g clip-path="url(#card)">
 <rect width="${WIDTH}" height="${height}" fill="#0f131a"/>
@@ -119,7 +126,7 @@ const frame = ({ name, tag, hue, lines }) => {
 <g transform="translate(30 21)" fill="none" stroke="${hue}" stroke-width="1.6" stroke-linecap="round">
 <circle r="7.5" opacity="0.45"/><path d="M0 0L0 -6.5M0 0L5.6 3.3M0 0L-5.6 3.3"/><circle r="1.4" fill="${hue}" stroke="none"/>
 </g>
-<text y="26" font-family="${MONO}" font-size="12.5"><tspan x="46" fill="#eef2f8" font-weight="700">turbina</tspan><tspan fill="#677185"> / </tspan><tspan fill="#d5dbe6">${escape(name)}</tspan></text>
+<text y="26" font-family="${MONO}" font-size="12.5"><tspan x="46" fill="#eef2f8" font-weight="700">${escape(catalog.marketplace)}</tspan><tspan fill="#677185"> / </tspan><tspan fill="#d5dbe6">${escape(name)}</tspan></text>
 <text x="${WIDTH - 24}" y="26" text-anchor="end" font-family="${MONO}" font-size="10.5" letter-spacing="1.4" fill="#677185">${escape(tag.toUpperCase())}</text>
 <g font-family="${MONO}" font-size="13">
 ${lines.map(renderLine).join('\n')}
@@ -133,55 +140,72 @@ mkdirSync(join(root, 'docs', 'previews'), { recursive: true })
 for (const mod of catalog.mods) {
   writeFileSync(
     join(root, 'docs', 'previews', `${mod.name}.svg`),
-    frame({ name: mod.name, tag: mod.group ?? catalog.categories[mod.category], hue: hueOf(mod), lines: mod.preview }),
+    frame({
+      name: mod.name,
+      tag: text(catalog.groups[mod.group] ?? catalog.categories[mod.category]),
+      hue: hueOf(mod),
+      lines: mod.preview,
+    }),
   )
 }
 
 writeFileSync(
   join(root, 'docs', 'cockpit.svg'),
-  frame({ name: 'painel completo', tag: 'sempre visível', hue: HUE.sessao, lines: catalog.hero }),
+  frame({ name: 'full panel', tag: text(catalog.categories.panel), hue: HUE.session, lines: catalog.hero }),
 )
 
-const section = ([key, title]) => {
-  const mods = catalog.mods.filter(mod => mod.category === key)
-  const entries = mods.map(
-    mod => `### \`${mod.name}\`
+const README = { en: 'README.md', pt: 'README.pt-BR.md', es: 'README.es.md' }
+const LANGUAGE = { en: 'English', pt: 'Português', es: 'Español' }
 
-${mod.description}.
+const catalogFor = lang => {
+  const inCategory = key => catalog.mods.filter(mod => mod.category === key)
+
+  const index = Object.entries(catalog.categories)
+    .map(([key, title]) => {
+      const names = inCategory(key).map(mod => `[\`${mod.name}\`](#${mod.name})`)
+
+      return `| **${text(title, lang)}** (${names.length}) | ${names.join(' · ')} |`
+    })
+    .join('\n')
+
+  const sections = Object.entries(catalog.categories)
+    .map(([key, title]) => {
+      const entries = inCategory(key).map(
+        mod => `### \`${mod.name}\`
+
+${text(mod.description, lang)}.
 
 \`\`\`
 /plugin install ${mod.name}@${catalog.marketplace}
 \`\`\`
 
-![Prévia do ${mod.name}](docs/previews/${mod.name}.svg)
+![${mod.name}](docs/previews/${mod.name}.svg)
 `,
-  )
+      )
 
-  return `## ${title} (${mods.length})\n\n${entries.join('\n')}`
+      return `## ${text(title, lang)} (${entries.length})\n\n${entries.join('\n')}`
+    })
+    .join('\n')
+
+  return `| | |\n| --- | --- |\n${index}\n\n${sections}`
 }
 
-const index = Object.entries(catalog.categories)
-  .map(([key, title]) => {
-    const names = catalog.mods.filter(mod => mod.category === key).map(mod => `[\`${mod.name}\`](#${mod.name})`)
+const switcher = lang =>
+  catalog.languages.map(one => (one === lang ? `**${LANGUAGE[one]}**` : `[${LANGUAGE[one]}](${README[one]})`)).join(' · ')
 
-    return `| **${title}** (${names.length}) | ${names.join(' · ')} |`
-  })
-  .join('\n')
+const count = key => catalog.mods.filter(mod => mod.category === key && mod.hub !== true).length
 
-const generated = `<!-- catalogo:inicio (gerado por scripts/build-docs.mjs, não edite à mão) -->
-| Categoria | Mods |
-| --- | --- |
-${index}
+for (const lang of catalog.languages) {
+  const template = readFileSync(join(root, 'docs', 'readme', `${lang}.md`), 'utf8')
 
-${Object.entries(catalog.categories).map(section).join('\n')}<!-- catalogo:fim -->`
+  writeFileSync(
+    join(root, README[lang]),
+    template
+      .replaceAll('{{languages}}', switcher(lang))
+      .replaceAll('{{total}}', String(catalog.mods.length))
+      .replaceAll('{{panels}}', String(count('panel')))
+      .replaceAll('{{catalog}}', catalogFor(lang)),
+  )
+}
 
-const readmePath = join(root, 'README.md')
-const readme = readFileSync(readmePath, 'utf8')
-writeFileSync(
-  readmePath,
-  readme
-    .replace(/<!-- catalogo:inicio[\s\S]*<!-- catalogo:fim -->/, generated)
-    .replace(/\*\*\d+ mods para turbinar/, `**${catalog.mods.length} mods para turbinar`),
-)
-
-console.log(`${catalog.mods.length} prévias em docs/previews e catálogo do README atualizado`)
+console.log(`${catalog.mods.length} previews in docs/previews and ${catalog.languages.length} READMEs written`)

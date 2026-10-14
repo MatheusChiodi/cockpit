@@ -1,17 +1,17 @@
 {
   "name": "uncommitted-band",
   "version": "0.1.0",
-  "description": "Faixa de aviso quando há alterações sem commit há mais de 45 minutos",
+  "description": "Warning band when changes have gone uncommitted for more than 45 minutes",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "types": "./types/index.d.ts",
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

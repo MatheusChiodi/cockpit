@@ -2,23 +2,29 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
 import type { Mood } from '../types'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('terminal-pet')
 
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
 const mood = atom({ plugin: 'terminal-pet', key: 'mood' } as const, 'idle')
 
-const FACES: Record<Mood, { face: string; line: string }> = {
-  idle: { face: '(•ᴗ•)', line: 'pronto quando você estiver' },
-  working: { face: '(•̀ᴗ•́)', line: 'trabalhando…' },
-  happy: { face: '(＾▽＾)', line: 'deu certo!' },
-  sad: { face: '(╥﹏╥)', line: 'algo falhou, vamos de novo' },
-  sleepy: { face: '(－_－) zZ', line: 'faz tempo que ninguém fala comigo' },
+const FACES: Record<Mood, string> = {
+  idle: '(•ᴗ•)',
+  working: '(•̀ᴗ•́)',
+  happy: '(＾▽＾)',
+  sad: '(╥﹏╥)',
+  sleepy: '(－_－) zZ',
 }
 
 const SLEEP_AFTER_MS = 5 * 60000
@@ -69,22 +75,24 @@ export const register: Register = on => {
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
     const below = await next(e)
-    const now = FACES[await read($, mood)]
+    const current = await read($, mood)
+    const face = FACES[current]
 
-    if (e.props.hasSurvey || (await isOff($)) || now === undefined) {
+    if (e.props.hasSurvey || (await isOff($)) || face === undefined) {
       return below
     }
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
-      'dia',
-      'pet',
+      'daily',
+      s.label,
       <Text>
-        <Text color="remember">{now.face}</Text>
-        <Text dimColor>  {now.line}</Text>
+        <Text color="remember">{face}</Text>
+        <Text dimColor>  {s[current]}</Text>
       </Text>,
       below,
     )

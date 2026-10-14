@@ -1,16 +1,16 @@
 {
   "name": "idle-clock",
   "version": "0.1.0",
-  "description": "Status line com há quanto tempo a sessão está parada",
+  "description": "Status line with how long the session has been idle",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

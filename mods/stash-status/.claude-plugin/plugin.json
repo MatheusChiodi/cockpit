@@ -1,16 +1,16 @@
 {
   "name": "stash-status",
   "version": "0.1.0",
-  "description": "Status line que lembra quantos stashes estão guardados",
+  "description": "Status line that reminds you how many stashes are saved",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "concise-mode",
   "version": "0.1.0",
-  "description": "/concise liga respostas curtas e diretas, sem introdução nem recapitulação",
+  "description": "/concise turns on short, direct answers, with no introduction or recap",
   "author": {
     "name": "Matheus Chiodi"
   },

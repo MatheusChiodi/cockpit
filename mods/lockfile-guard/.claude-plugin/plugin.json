@@ -1,13 +1,13 @@
 {
   "name": "lockfile-guard",
   "version": "0.1.0",
-  "description": "Impede edição manual de lockfiles (package-lock, yarn.lock, pnpm-lock, Cargo.lock...)",
+  "description": "Prevents hand edits to lockfiles (package-lock, yarn.lock, pnpm-lock, Cargo.lock...)",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "seguranca"
+    "security"
   ]
 }

@@ -1,13 +1,13 @@
 {
   "name": "git-peek",
   "version": "0.1.0",
-  "description": "/gs, /gl e /gd: status, log e diff do git na hora, sem gastar turno do modelo",
+  "description": "/gs, /gl and /gd: git status, log and diff right away, without spending a model turn",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "comandos"
+    "commands"
   ]
 }

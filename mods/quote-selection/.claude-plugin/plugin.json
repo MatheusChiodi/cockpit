@@ -1,13 +1,13 @@
 {
   "name": "quote-selection",
   "version": "0.1.0",
-  "description": "/quote cita no prompt o trecho selecionado com o mouse",
+  "description": "/quote quotes in the prompt the passage selected with the mouse",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "comandos"
+    "commands"
   ]
 }

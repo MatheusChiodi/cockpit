@@ -1,16 +1,16 @@
 {
   "name": "cost-ticker",
   "version": "0.1.0",
-  "description": "Status line com o custo do último turno e o total da sessão",
+  "description": "Status line with the cost of the last turn and the session total",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "painel"
+    "panel"
   ],
   "dependencies": [
-    "turbina"
+    "cockpit"
   ]
 }

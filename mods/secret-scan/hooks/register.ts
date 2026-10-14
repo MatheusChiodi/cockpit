@@ -1,35 +1,48 @@
-import type { Register } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
 
-const SECRETS: readonly { pattern: RegExp; kind: string }[] = [
-  { pattern: /\bAKIA[0-9A-Z]{16}\b/, kind: 'chave de acesso AWS' },
-  { pattern: /-----BEGIN (RSA |EC |DSA |OPENSSH |PGP )?PRIVATE KEY-----/, kind: 'chave privada' },
-  { pattern: /\bsk-ant-[A-Za-z0-9_-]{20,}/, kind: 'chave da API Anthropic' },
-  { pattern: /\bsk-(proj-)?[A-Za-z0-9_-]{32,}/, kind: 'chave de API (sk-...)' },
-  { pattern: /\bgh[pousr]_[A-Za-z0-9]{36,}\b/, kind: 'token do GitHub' },
-  { pattern: /\bgithub_pat_[A-Za-z0-9_]{40,}/, kind: 'token do GitHub' },
-  { pattern: /\bxox[baprs]-[A-Za-z0-9-]{10,}/, kind: 'token do Slack' },
-  { pattern: /\bAIza[0-9A-Za-z_-]{35}\b/, kind: 'chave de API Google' },
-  { pattern: /\b[sr]k_live_[0-9a-zA-Z]{24,}/, kind: 'chave live da Stripe' },
+import { STRINGS } from './strings'
+import type { Kind } from './strings'
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
+const SECRETS: readonly { pattern: RegExp; kind: Kind }[] = [
+  { pattern: /\bAKIA[0-9A-Z]{16}\b/, kind: 'aws' },
+  { pattern: /-----BEGIN (RSA |EC |DSA |OPENSSH |PGP )?PRIVATE KEY-----/, kind: 'privateKey' },
+  { pattern: /\bsk-ant-[A-Za-z0-9_-]{20,}/, kind: 'anthropic' },
+  { pattern: /\bsk-(proj-)?[A-Za-z0-9_-]{32,}/, kind: 'apiKey' },
+  { pattern: /\bgh[pousr]_[A-Za-z0-9]{36,}\b/, kind: 'github' },
+  { pattern: /\bgithub_pat_[A-Za-z0-9_]{40,}/, kind: 'github' },
+  { pattern: /\bxox[baprs]-[A-Za-z0-9-]{10,}/, kind: 'slack' },
+  { pattern: /\bAIza[0-9A-Za-z_-]{35}\b/, kind: 'google' },
+  { pattern: /\b[sr]k_live_[0-9a-zA-Z]{24,}/, kind: 'stripe' },
 ]
 
-const found = (text: string): string | undefined =>
-  SECRETS.find(secret => secret.pattern.test(text))?.kind
+// Why the write is refused, in the session's language; undefined when the text holds no secret.
+const verdict = async ($: EngineInterface, text: string, path: string): Promise<string | undefined> => {
+  const kind = SECRETS.find(secret => secret.pattern.test(text))?.kind
 
-const refusal = (kind: string, path: string): string =>
-  `secret-scan: o conteúdo para ${path} contém ${kind}. Use variável de ambiente em vez de gravar o segredo no arquivo.`
+  if (kind === undefined) {
+    return undefined
+  }
 
-const FAILED = 'secret-scan: a verificação falhou, escrita recusada.'
+  const s = await strings($)
+
+  return s.denied(s[kind], path)
+}
 
 export const register: Register = on => {
-  on('tool.call', { tool: 'Write' }, ($, e, next) => {
-    const kind = found(e.content)
+  on('tool.call', { tool: 'Write' }, async ($, e, next) => {
+    const deny = await verdict($, e.content, e.file_path)
 
-    return kind === undefined ? next(e) : { deny: refusal(kind, e.file_path) }
-  }).catch(($, e, next) => (next.called ? next(e) : { deny: FAILED }))
+    return deny === undefined ? next(e) : { deny }
+  }).catch(($, e, next) => (next.called ? next(e) : { deny: STRINGS.en.failed }))
 
-  on('tool.call', { tool: 'Edit' }, ($, e, next) => {
-    const kind = found(e.new_string)
+  on('tool.call', { tool: 'Edit' }, async ($, e, next) => {
+    const deny = await verdict($, e.new_string, e.file_path)
 
-    return kind === undefined ? next(e) : { deny: refusal(kind, e.file_path) }
-  }).catch(($, e, next) => (next.called ? next(e) : { deny: FAILED }))
+    return deny === undefined ? next(e) : { deny }
+  }).catch(($, e, next) => (next.called ? next(e) : { deny: STRINGS.en.failed }))
 }

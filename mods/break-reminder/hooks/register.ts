@@ -1,24 +1,29 @@
-import type { Register } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
+
+import { STRINGS } from './strings'
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const EVERY_MINUTES = 50
 
-const TIPS = [
-  'Levante, alongue e beba água.',
-  'Olhe para longe por 20 segundos: regra 20-20-20.',
-  'Uma volta rápida ajuda mais que mais um prompt.',
-  'Ombros para baixo, respire fundo três vezes.',
-]
+// A top-level function, because `$` may only be passed to one.
+const remind = async ($: EngineInterface, rounds: number): Promise<void> => {
+  const s = await strings($)
+
+  $.ui.toast(`${s.session(rounds * EVERY_MINUTES)} ${s.tips[rounds % s.tips.length] ?? ''}`, { timeoutMs: 20000 })
+}
 
 export const register: Register = on => {
   on('session.start', ($, e, next) => {
     let rounds = 0
 
-    // O timer morre sozinho num reload do módulo.
+    // The timer dies on its own when the module reloads.
     $.clock.every(EVERY_MINUTES * 60000, () => {
       rounds += 1
-      $.ui.toast(`${rounds * EVERY_MINUTES} min de sessão. ${TIPS[rounds % TIPS.length] ?? ''}`, {
-        timeoutMs: 20000,
-      })
+      void remind($, rounds)
     })
 
     return next(e)

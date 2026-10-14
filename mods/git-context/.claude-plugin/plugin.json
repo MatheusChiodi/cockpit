@@ -1,7 +1,7 @@
 {
   "name": "git-context",
   "version": "0.1.0",
-  "description": "Anexa o estado do git (branch e arquivos alterados) a cada prompt, como contexto oculto",
+  "description": "Attaches the git state (branch and changed files) to every prompt as hidden context",
   "author": {
     "name": "Matheus Chiodi"
   },

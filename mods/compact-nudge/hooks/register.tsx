@@ -2,22 +2,29 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row, meter, toneOf } from './kit'
+import { STRINGS } from './strings'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('compact-nudge')
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const percent = atom({ plugin: 'compact-nudge', key: 'percent' } as const, 0)
 
 const THRESHOLD = 75
 
 const compact = async ($: EngineInterface): Promise<void> => {
-  // Rejeita enquanto um turno roda: aí é só tentar de novo depois.
+  const s = await strings($)
+  // Rejects while a turn runs: just try again later.
   const done = await $.session.compact({}).catch(() => undefined)
 
-  $.ui.toast(done === undefined ? 'Não deu para compactar agora (turno em andamento?).' : 'Conversa compactada.')
+  $.ui.toast(done === undefined ? s.failed : s.done)
 }
 
 export const register: Register = on => {
@@ -38,17 +45,18 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Button, Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
-      'sessao',
-      'compactar',
+      'session',
+      s.label,
       [
         <Text>
           {meter(ui, used, 14)} <Text color={toneOf(used)}>{used}%</Text>
-          <Text dimColor>  contexto quase cheio  </Text>
+          <Text dimColor>  {s.almostFull}  </Text>
         </Text>,
-        <Button key="compact" label="Compactar agora" variant="primary" onPress={() => compact($)} />,
+        <Button key="compact" label={s.button} variant="primary" onPress={() => compact($)} />,
       ],
       below,
     )

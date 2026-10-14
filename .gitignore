@@ -3,3 +3,6 @@ engine-types/
 mods/*/.claude-plugin/types/
 mods/*/tsconfig.json
 *.log
+.typecheck/
+catalog-parts/
+catalog-pending/

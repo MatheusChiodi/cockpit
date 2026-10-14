@@ -1,13 +1,13 @@
 {
   "name": "install-ask",
   "version": "0.1.0",
-  "description": "Exige sua confirmação sempre que o Claude for instalar uma dependência nova",
+  "description": "Requires your confirmation whenever Claude is about to install a new dependency",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "seguranca"
+    "security"
   ]
 }

@@ -1,13 +1,13 @@
 {
   "name": "quick-notes",
   "version": "0.1.0",
-  "description": "/note e /notes: notas rápidas por projeto, persistentes entre sessões",
+  "description": "/note and /notes: quick notes per project, kept between sessions",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "comandos"
+    "commands"
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "name": "cockpit",
+  "version": "0.1.0",
+  "description": "Settings pane: /cockpit switches each panel on and off and sets the language of every mod",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts"
+}

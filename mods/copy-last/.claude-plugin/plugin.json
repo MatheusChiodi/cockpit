@@ -1,13 +1,13 @@
 {
   "name": "copy-last",
   "version": "0.1.0",
-  "description": "/copy-last copia a última resposta; /copy-code copia o último bloco de código",
+  "description": "/copy-last copies the last reply; /copy-code copies the last code block",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "comandos"
+    "commands"
   ]
 }

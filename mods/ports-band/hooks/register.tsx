@@ -2,16 +2,22 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('ports-band')
 
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
 const up = atom({ plugin: 'ports-band', key: 'up' } as const, [])
 
-// Portas comuns de dev: React/Next, Vite, Angular, Expo, APIs.
+// Common dev ports: React/Next, Vite, Angular, Expo, APIs.
 const PORTS = [3000, 3001, 4200, 5000, 5173, 8000, 8080, 8081, 19006] as const
 
 const probe = async ($: EngineInterface): Promise<void> => {
@@ -46,11 +52,12 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
-      'projeto',
-      'no ar',
+      'project',
+      s.label,
       <Text wrap="truncate-end">
         {ports.map(port => (
           <Text>

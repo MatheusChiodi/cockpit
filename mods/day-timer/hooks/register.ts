@@ -1,7 +1,9 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+import { STRINGS } from './strings'
+
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('day-timer')
@@ -9,6 +11,11 @@ const isOff = async ($: EngineInterface): Promise<boolean> =>
 const show = async ($: EngineInterface, text: string | undefined): Promise<void> => {
   $.ui.status((await isOff($)) ? undefined : text)
 }
+
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
 
 const ACTIVE_WINDOW_MS = 5 * 60000
 
@@ -21,10 +28,12 @@ const dayOf = (ms: number): string => {
 }
 
 const display = async ($: EngineInterface, minutes: number): Promise<void> => {
-  void show($, `ativo ${Math.floor(minutes / 60)}h${String(minutes % 60).padStart(2, '0')} hoje`)
+  const s = await strings($)
+
+  void show($, s.active(Math.floor(minutes / 60), String(minutes % 60).padStart(2, '0')))
 }
 
-// A cada minuto com atividade recente (prompt ou tool), soma um minuto ao dia, entre sessões.
+// Every minute with recent activity (prompt or tool) adds a minute to the day, across sessions.
 const tick = async ($: EngineInterface): Promise<void> => {
   const now = await $.clock.now()
   const key = `minutes:${dayOf(now)}`
@@ -39,7 +48,7 @@ const tick = async ($: EngineInterface): Promise<void> => {
 }
 
 export const register: Register = on => {
-  on('state.set', { plugin: 'turbina', key: 'off' }, async ($, e, next) => {
+  on('state.set', { plugin: 'cockpit', key: 'off' }, async ($, e, next) => {
     const set = await next(e)
     await show($, undefined)
 

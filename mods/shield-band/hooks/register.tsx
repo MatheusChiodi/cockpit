@@ -2,17 +2,23 @@ import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
 import { row } from './kit'
+import { STRINGS } from './strings'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('shield-band')
 
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
+
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
 const blocks = atom({ plugin: 'shield-band', key: 'blocks' } as const, { count: 0, last: '' })
 
 export const register: Register = on => {
-  // Conta as chamadas que um guard (ou uma regra de permissão) recusou nesta sessão.
+  // Counts the calls that a guard (or a permission rule) refused in this session.
   on('tool.call', async ($, e, next) => {
     const ran = await next(e)
 
@@ -34,14 +40,15 @@ export const register: Register = on => {
 
     const ui = $.ui.resolve(e)
     const { Text } = ui
+    const s = await strings($)
 
     return row(
       ui,
-      'sessao',
-      'guards',
+      'session',
+      s.label,
       <Text wrap="truncate-end">
         <Text color="permission" bold>
-          {held.count} bloqueio{held.count === 1 ? '' : 's'}
+          {s.blocks(held.count)}
         </Text>
         <Text dimColor>  {held.last}</Text>
       </Text>,

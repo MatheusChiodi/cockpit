@@ -1,7 +1,9 @@
 import type { EngineInterface, Register } from 'claude-code'
 
-// turbina: liga/desliga pelo painel /turbina
-const OFF = { plugin: 'turbina', key: 'off' } as const
+import { STRINGS } from './strings'
+
+// cockpit: switched on and off in the /cockpit pane
+const OFF = { plugin: 'cockpit', key: 'off' } as const
 
 const isOff = async ($: EngineInterface): Promise<boolean> =>
   ((await $.state.get(OFF)).value ?? []).includes('reset-countdown')
@@ -10,9 +12,12 @@ const show = async ($: EngineInterface, text: string | undefined): Promise<void>
   $.ui.status((await isOff($)) ? undefined : text)
 }
 
-const LABEL: Record<string, string> = { five_hour: '5h', seven_day: '7d', spend_limit: 'gasto' }
+// cockpit: the language set in /cockpit (English when the hub is not installed)
+const LANG = { plugin: 'cockpit', key: 'lang' } as const
 
-// A janela mais apertada, como a última resposta da API reportou.
+const strings = async ($: EngineInterface) => STRINGS[(await $.state.get(LANG)).value ?? 'en']
+
+// The tightest window, as the last API response reported it.
 const tightest: { kind: string; percent: number; resetsAt: number } = { kind: '', percent: 0, resetsAt: 0 }
 
 const tick = async ($: EngineInterface): Promise<void> => {
@@ -31,11 +36,13 @@ const tick = async ($: EngineInterface): Promise<void> => {
         ? `${Math.floor(minutes / 60)}h${String(minutes % 60).padStart(2, '0')}`
         : `${minutes}min`
 
-  void show($, `limite ${LABEL[tightest.kind] ?? tightest.kind} ${Math.round(tightest.percent)}% · reseta ${left}`)
+  const s = await strings($)
+
+  void show($, `${s.limit} ${s.kind(tightest.kind)} ${Math.round(tightest.percent)}% · ${s.resets} ${left}`)
 }
 
 export const register: Register = on => {
-  on('state.set', { plugin: 'turbina', key: 'off' }, async ($, e, next) => {
+  on('state.set', { plugin: 'cockpit', key: 'off' }, async ($, e, next) => {
     const set = await next(e)
     await show($, undefined)
 

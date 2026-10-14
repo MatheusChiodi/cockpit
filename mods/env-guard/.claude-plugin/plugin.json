@@ -1,13 +1,13 @@
 {
   "name": "env-guard",
   "version": "0.1.0",
-  "description": "Protege arquivos .env contra leitura e escrita (Read, Edit, Write, cat e @menção)",
+  "description": "Protects .env files from reading and writing (Read, Edit, Write, cat and @mention)",
   "author": {
     "name": "Matheus Chiodi"
   },
   "keywords": [
     "claude-code",
     "mod",
-    "seguranca"
+    "security"
   ]
 }

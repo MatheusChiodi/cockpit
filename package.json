@@ -1,8 +1,8 @@
 {
-  "name": "turbina",
+  "name": "cockpit",
   "version": "0.1.0",
   "private": true,
-  "description": "80 mods para turbinar o Claude Code no terminal",
+  "description": "80 mods para cockpitr o Claude Code no terminal",
   "type": "module",
   "scripts": {
     "build": "node scripts/build-manifests.mjs && node scripts/build-docs.mjs",
