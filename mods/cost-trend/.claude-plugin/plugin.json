@@ -1,0 +1,13 @@
+{
+  "name": "cost-trend",
+  "version": "0.1.0",
+  "description": "Status line with what the last ten turns cost together and whether the spend is rising or falling",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

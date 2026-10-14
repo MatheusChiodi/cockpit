@@ -1,8 +1,8 @@
-# Context and cost — 15 mods
+# Context and cost — 16 mods
 
 [← Back to the README](../../README.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap) · [`agent-straggler`](#agent-straggler) · [`cost-per-hour`](#cost-per-hour)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap) · [`agent-straggler`](#agent-straggler) · [`cost-per-hour`](#cost-per-hour) · [`cost-trend`](#cost-trend)
 
 ## `reread-guard`
 
@@ -153,3 +153,13 @@ Status line with what the session costs per hour at its pace so far.
 ```
 
 ![cost-per-hour](../previews/cost-per-hour.svg)
+
+## `cost-trend`
+
+Status line with what the last ten turns cost together and whether the spend is rising or falling.
+
+```
+/plugin install cost-trend@cockpit
+```
+
+![cost-trend](../previews/cost-trend.svg)

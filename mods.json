@@ -4746,6 +4746,21 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  rate US$ 4.00/h]]"
       ]
+    },
+    {
+      "name": "cost-trend",
+      "category": "context",
+      "description": {
+        "en": "Status line with what the last ten turns cost together and whether the spend is rising or falling",
+        "pt": "Status line com o custo dos últimos dez turnos somados e se o gasto está subindo ou caindo",
+        "es": "Status line con el costo de los últimos diez turnos sumados y si el gasto sube o baja"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  last 10 US$ 3.00 ↑]]"
+      ]
     }
   ],
   "hero": [
