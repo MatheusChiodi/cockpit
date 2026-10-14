@@ -1606,6 +1606,12 @@
       "source": "./mods/symbol-def",
       "description": "/def finds where a function, class, type or variable is defined in the tracked files",
       "category": "commands"
+    },
+    {
+      "name": "file-author",
+      "source": "./mods/file-author",
+      "description": "/who shows who last touched a file or folder, when, and who changed it most",
+      "category": "commands"
     }
   ]
 }

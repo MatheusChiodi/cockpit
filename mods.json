@@ -4161,6 +4161,21 @@
         "[[dim|  ⎿]] src/auth/token.ts:14  export const parseToken = (raw: string) => {",
         "     src/legacy/token.js:8  function parseToken(raw) {"
       ]
+    },
+    {
+      "name": "file-author",
+      "category": "commands",
+      "description": {
+        "en": "/who shows who last touched a file or folder, when, and who changed it most",
+        "pt": "/who mostra quem mexeu por último em um arquivo ou pasta, quando, e quem mais o alterou",
+        "es": "/who muestra quién tocó por última vez un archivo o carpeta, cuándo, y quién más lo cambió"
+      },
+      "preview": [
+        "[[user|> /who src/auth/login.ts]]",
+        "[[dim|  ⎿]] last     Ana Souza  3 days ago  a1b2c3d",
+        "              fix: refresh the token before it expires",
+        "     authors  Ana Souza 9  Bruno Lima 4  Carla Dias 1"
+      ]
     }
   ],
   "hero": [

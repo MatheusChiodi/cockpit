@@ -1,0 +1,13 @@
+{
+  "name": "file-author",
+  "version": "0.1.0",
+  "description": "/who shows who last touched a file or folder, when, and who changed it most",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
