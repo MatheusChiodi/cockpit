@@ -1,0 +1,13 @@
+{
+  "name": "cat-guard",
+  "version": "0.1.0",
+  "description": "Refuses cat, type and Get-Content on a file over 100 KB and points to a slice or Grep",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

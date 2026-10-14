@@ -1078,6 +1078,12 @@
       "source": "./mods/paste-size-toast",
       "description": "A toast when the prompt you send is very large, with its size in lines and tokens, so you can trim a pasted log",
       "category": "context"
+    },
+    {
+      "name": "cat-guard",
+      "source": "./mods/cat-guard",
+      "description": "Refuses cat, type and Get-Content on a file over 100 KB and points to a slice or Grep",
+      "category": "context"
     }
   ]
 }

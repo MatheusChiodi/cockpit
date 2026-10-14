@@ -2872,6 +2872,20 @@
         "[[user|> (pasted build log)]]",
         "[[toast| Prompt is 1,840 lines, about 21,000 tokens: trim the log to the errors ]]"
       ]
+    },
+    {
+      "name": "cat-guard",
+      "category": "context",
+      "description": {
+        "en": "Refuses cat, type and Get-Content on a file over 100 KB and points to a slice or Grep",
+        "pt": "Recusa cat, type e Get-Content em um arquivo com mais de 100 KB e aponta um trecho ou o Grep",
+        "es": "Rechaza cat, type y Get-Content en un archivo de más de 100 KB y apunta a un fragmento o a Grep"
+      },
+      "preview": [
+        "[[tool|● Bash]](cat logs/app.log)",
+        "[[err|  ⎿ cat-guard: logs/app.log is 8421 KB. Read a slice with offset/limit,]]",
+        "[[err|    or use tail, head or Grep.]]"
+      ]
     }
   ],
   "hero": [

@@ -1,8 +1,8 @@
-# Contexto e custo — 5 mods
+# Contexto e custo — 6 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard)
 
 ## `reread-guard`
 
@@ -53,3 +53,13 @@ Um toast quando o prompt enviado é muito grande, com o tamanho em linhas e toke
 ```
 
 ![paste-size-toast](../previews/paste-size-toast.svg)
+
+## `cat-guard`
+
+Recusa cat, type e Get-Content em um arquivo com mais de 100 KB e aponta um trecho ou o Grep.
+
+```
+/plugin install cat-guard@cockpit
+```
+
+![cat-guard](../previews/cat-guard.svg)
