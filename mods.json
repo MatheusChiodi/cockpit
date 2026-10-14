@@ -4578,6 +4578,22 @@
         "  [[ok|+30]]  [[err|-12]]  src/api.ts",
         "  [[ok|+2]]   [[err|-0]]   README.md"
       ]
+    },
+    {
+      "name": "merge-ready",
+      "category": "git",
+      "description": {
+        "en": "/ready tells whether the pull request can merge: draft, conflicts, failing checks and missing approvals",
+        "pt": "/ready diz se o pull request pode ser mesclado: rascunho, conflitos, checks falhando e aprovações faltando",
+        "es": "/ready dice si el pull request puede fusionarse: borrador, conflictos, checks fallando y aprobaciones faltantes"
+      },
+      "preview": [
+        "[[user|> /ready]]",
+        "PR #42  [[err|✗ not ready]]",
+        "  [[ok|✓]] no conflicts",
+        "  [[err|✗]] 1 check failing",
+        "  [[warn|…]] review required"
+      ]
     }
   ],
   "hero": [

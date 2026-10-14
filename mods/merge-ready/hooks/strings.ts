@@ -1,0 +1,66 @@
+const en = {
+  command: 'Tell whether a pull request can merge: draft, conflicts, failing checks and missing approvals',
+  hint: '[number]',
+  usage: 'Usage: /ready [number]',
+  noGh: 'GitHub CLI (gh) is missing, not signed in, or there is no pull request here.',
+  closed: (number: number, state: string) => `PR #${number}  already ${state.toLowerCase()}`,
+  ready: (number: number) => `PR #${number}  ✓ ready to merge`,
+  notReady: (number: number) => `PR #${number}  ✗ not ready`,
+  isDraft: '✗ still a draft',
+  conflicts: '✗ conflicts with the base branch',
+  unknownMerge: '… mergeability not computed yet',
+  noConflicts: '✓ no conflicts',
+  checksFailing: (count: number) => `✗ ${count} check(s) failing`,
+  checksPending: (count: number) => `… ${count} check(s) running`,
+  checksOk: '✓ checks passing',
+  approved: '✓ approved',
+  changes: '✗ changes requested',
+  required: '… review required',
+  noReview: '✓ no review required',
+}
+
+type Strings = typeof en
+
+const pt: Strings = {
+  command: 'Diz se um pull request pode ser mesclado: rascunho, conflitos, checks falhando e aprovações faltando',
+  hint: '[número]',
+  usage: 'Uso: /ready [número]',
+  noGh: 'O GitHub CLI (gh) não está instalado, não está autenticado, ou não há pull request aqui.',
+  closed: (number, state) => `PR #${number}  já está ${state === 'MERGED' ? 'mesclado' : 'fechado'}`,
+  ready: number => `PR #${number}  ✓ pronto para mesclar`,
+  notReady: number => `PR #${number}  ✗ não está pronto`,
+  isDraft: '✗ ainda é rascunho',
+  conflicts: '✗ conflita com a branch base',
+  unknownMerge: '… mesclabilidade ainda não calculada',
+  noConflicts: '✓ sem conflitos',
+  checksFailing: count => `✗ ${count} check(s) falhando`,
+  checksPending: count => `… ${count} check(s) em andamento`,
+  checksOk: '✓ checks passando',
+  approved: '✓ aprovado',
+  changes: '✗ mudanças solicitadas',
+  required: '… revisão necessária',
+  noReview: '✓ nenhuma revisão exigida',
+}
+
+const es: Strings = {
+  command: 'Dice si un pull request puede fusionarse: borrador, conflictos, checks fallando y aprobaciones faltantes',
+  hint: '[número]',
+  usage: 'Uso: /ready [número]',
+  noGh: 'GitHub CLI (gh) no está instalado, no ha iniciado sesión, o no hay pull request aquí.',
+  closed: (number, state) => `PR #${number}  ya está ${state === 'MERGED' ? 'fusionado' : 'cerrado'}`,
+  ready: number => `PR #${number}  ✓ listo para fusionar`,
+  notReady: number => `PR #${number}  ✗ no está listo`,
+  isDraft: '✗ sigue como borrador',
+  conflicts: '✗ tiene conflictos con la rama base',
+  unknownMerge: '… aún no se calculó si se puede fusionar',
+  noConflicts: '✓ sin conflictos',
+  checksFailing: count => `✗ ${count} check(s) fallando`,
+  checksPending: count => `… ${count} check(s) en curso`,
+  checksOk: '✓ checks pasando',
+  approved: '✓ aprobado',
+  changes: '✗ cambios solicitados',
+  required: '… revisión necesaria',
+  noReview: '✓ no se exige revisión',
+}
+
+export const STRINGS = { en, pt, es }

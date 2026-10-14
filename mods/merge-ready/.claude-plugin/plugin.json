@@ -1,0 +1,13 @@
+{
+  "name": "merge-ready",
+  "version": "0.1.0",
+  "description": "/ready tells whether the pull request can merge: draft, conflicts, failing checks and missing approvals",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

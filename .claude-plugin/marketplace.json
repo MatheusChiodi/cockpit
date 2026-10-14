@@ -1774,6 +1774,12 @@
       "source": "./mods/pr-diff",
       "description": "/prdiff shows what a pull request changes against its base: files with lines added and removed",
       "category": "git"
+    },
+    {
+      "name": "merge-ready",
+      "source": "./mods/merge-ready",
+      "description": "/ready tells whether the pull request can merge: draft, conflicts, failing checks and missing approvals",
+      "category": "git"
     }
   ]
 }
