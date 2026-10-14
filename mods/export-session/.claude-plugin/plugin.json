@@ -1,0 +1,13 @@
+{
+  "name": "export-session",
+  "version": "0.1.0",
+  "description": "/save-session writes the conversation so far as Markdown under .claude-exports in the project",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

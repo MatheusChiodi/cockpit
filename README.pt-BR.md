@@ -2,7 +2,7 @@
 
 [English](README.md) · **Português** · [Español](README.es.md)
 
-**Um painel de instrumentos para o Claude Code.** 102 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
+**Um painel de instrumentos para o Claude Code.** 103 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
 
 ![O painel completo do Cockpit em um terminal](docs/cockpit.svg)
 
@@ -70,8 +70,12 @@ As descrições dos slash commands no autocompletar são lidas quando a sessão 
 | [**Segurança**](docs/catalog/security.pt-BR.md) | 14 | `rm-guard` `env-guard` `git-guard` `secret-scan` `prompt-secret-guard` `lockfile-guard` `path-jail` `main-branch-guard` `generated-guard` `sql-guard` `prod-guard` `install-ask` `pipe-shell-guard` `big-read-guard` |
 | [**Interface**](docs/catalog/interface.pt-BR.md) | 8 | `turn-timer` `tool-tally` `file-trail` `cmd-log` `git-status-line` `context-meter` `rate-limit-watch` `session-clock` |
 | [**Prompt e modelo**](docs/catalog/prompt.pt-BR.md) | 8 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` |
-| [**Comandos**](docs/catalog/commands.pt-BR.md) | 28 | `quick-notes` `pomodoro` `copy-last` `session-stats` `quote-selection` `git-peek` `git-branch` `git-stash` `git-undo` `run-script` `open-path` `ports` `kill-port` `tree` `find-file` `last-error` `env-check` `outdated` `json-tool` `uuid` `timestamp` `base64` `hash` `calc` `color-tool` `regex-test` `http-probe` `snippets` |
+| [**Comandos**](docs/catalog/commands.pt-BR.md) | 29 | `quick-notes` `pomodoro` `copy-last` `session-stats` `quote-selection` `git-peek` `git-branch` `git-stash` `git-undo` `run-script` `open-path` `ports` `kill-port` `tree` `find-file` `last-error` `env-check` `outdated` `json-tool` `uuid` `timestamp` `base64` `hash` `calc` `color-tool` `regex-test` `http-probe` `snippets` `export-session` |
 | [**Foco e notificações**](docs/catalog/focus.pt-BR.md) | 3 | `turn-notify` `break-reminder` `daily-streak` |
+| [**Git e GitHub**](docs/catalog/git.pt-BR.md) | 0 |  |
+| [**Qualidade**](docs/catalog/quality.pt-BR.md) | 0 |  |
+| [**Stacks**](docs/catalog/stack.pt-BR.md) | 0 |  |
+| [**Contexto e custo**](docs/catalog/context.pt-BR.md) | 0 |  |
 
 ## Linguagem visual
 

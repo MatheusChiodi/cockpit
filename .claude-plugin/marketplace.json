@@ -616,6 +616,12 @@
       "source": "./mods/snippets",
       "description": "/snip saves reusable prompt snippets across sessions and puts one in the prompt box by name",
       "category": "commands"
+    },
+    {
+      "name": "export-session",
+      "source": "./mods/export-session",
+      "description": "/save-session writes the conversation so far as Markdown under .claude-exports in the project",
+      "category": "commands"
     }
   ]
 }

@@ -1677,6 +1677,20 @@
         "[[user|> /snip review]]",
         "[[dim|Snippet \"review\" is in the prompt box.]]"
       ]
+    },
+    {
+      "name": "export-session",
+      "category": "commands",
+      "description": {
+        "en": "/save-session writes the conversation so far as Markdown under .claude-exports in the project",
+        "pt": "/save-session grava a conversa até agora em Markdown em .claude-exports no projeto",
+        "es": "/save-session guarda la conversación hasta ahora en Markdown en .claude-exports del proyecto"
+      },
+      "preview": [
+        "[[user|> /save-session]]",
+        "Saved 24 message(s) to:",
+        "[[dim|.claude-exports/session-2026-10-13-1542.md]]"
+      ]
     }
   ],
   "hero": [
