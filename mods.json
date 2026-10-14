@@ -3866,6 +3866,22 @@
         "[[rule|────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "daily-budget-alert",
+      "category": "focus",
+      "description": {
+        "en": "/daybudget <usd> sets a budget for the day across sessions and notifies once when the day's total passes it",
+        "pt": "/daybudget <usd> define um orçamento do dia somando as sessões e avisa uma vez quando o total do dia o ultrapassa",
+        "es": "/daybudget <usd> fija un presupuesto del día sumando las sesiones y avisa una vez cuando el total del día lo supera"
+      },
+      "preview": [
+        "[[user|> /daybudget 20]]",
+        "[[dim|Daily budget set to $20.00.]]",
+        "",
+        "[[notify|Claude Code]]",
+        "[[notify|Daily budget passed: $20.31 of $20.00.]]"
+      ]
     }
   ],
   "hero": [

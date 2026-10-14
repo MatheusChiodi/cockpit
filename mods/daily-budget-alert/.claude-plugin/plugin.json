@@ -1,0 +1,13 @@
+{
+  "name": "daily-budget-alert",
+  "version": "0.1.0",
+  "description": "/daybudget <usd> sets a budget for the day across sessions and notifies once when the day's total passes it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

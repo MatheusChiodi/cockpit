@@ -1486,6 +1486,12 @@
       "source": "./mods/budget-alert",
       "description": "/budget <usd> sets a session budget: a toast at 80% and a native notification when the cost passes it",
       "category": "focus"
+    },
+    {
+      "name": "daily-budget-alert",
+      "source": "./mods/daily-budget-alert",
+      "description": "/daybudget <usd> sets a budget for the day across sessions and notifies once when the day's total passes it",
+      "category": "focus"
     }
   ]
 }
