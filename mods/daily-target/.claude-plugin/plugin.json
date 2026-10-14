@@ -1,0 +1,13 @@
+{
+  "name": "daily-target",
+  "version": "0.1.0",
+  "description": "/target sets a daily commit goal for this repository; toasts at half and at the goal",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

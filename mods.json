@@ -1987,6 +1987,21 @@
         "",
         "[[toast| intent-check  Still on: migrate the auth tests? ]]"
       ]
+    },
+    {
+      "name": "daily-target",
+      "category": "focus",
+      "description": {
+        "en": "/target sets a daily commit goal for this repository; toasts at half and at the goal",
+        "pt": "/target define uma meta diária de commits neste repositório; toast na metade e ao atingir",
+        "es": "/target define una meta diaria de commits en este repositorio; toast a la mitad y al alcanzarla"
+      },
+      "preview": [
+        "[[user|> /target 4 commits]]",
+        "[[dim|  ⎿ Daily target set: 4 commits]]",
+        "",
+        "[[toast| daily-target  Halfway there: 2 of 4 commits today ]]"
+      ]
     }
   ],
   "hero": [

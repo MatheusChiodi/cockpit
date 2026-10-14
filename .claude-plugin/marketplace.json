@@ -736,6 +736,12 @@
       "source": "./mods/intent-check",
       "description": "/intent says what the session is for; every 30 minutes of use a toast asks if you are still on it",
       "category": "focus"
+    },
+    {
+      "name": "daily-target",
+      "source": "./mods/daily-target",
+      "description": "/target sets a daily commit goal for this repository; toasts at half and at the goal",
+      "category": "focus"
     }
   ]
 }
