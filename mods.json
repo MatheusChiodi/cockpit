@@ -2255,6 +2255,25 @@
         "[[bold|0]] [[dim|feat/login  ]] wip login form  [[dim|3h]]",
         "[[bold|1]] [[dim|main        ]] try new cache  [[dim|6d]]"
       ]
+    },
+    {
+      "name": "code-todo-pane",
+      "category": "interface",
+      "description": {
+        "en": "/codetodo opens a pane with the TODO, FIXME and HACK lines in tracked files, grouped by tag",
+        "pt": "/codetodo abre um painel com as linhas TODO, FIXME e HACK dos arquivos rastreados, agrupadas por tag",
+        "es": "/codetodo abre un panel con las líneas TODO, FIXME y HACK de los archivos rastreados, agrupadas por etiqueta"
+      },
+      "preview": [
+        "[[user|> /codetodo]]",
+        "[[project|▍ ]][[bold|CODE TODO]][[dim|  7 found]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[err|FIXME]] [[dim|2]]",
+        "[[dim|  src/api/client.ts:41  ]] retry on 429",
+        "[[warn|TODO]] [[dim|4]]",
+        "[[dim|  src/auth/login.ts:12  ]] validate email",
+        "[[accent|HACK]] [[dim|1]]"
+      ]
     }
   ],
   "hero": [

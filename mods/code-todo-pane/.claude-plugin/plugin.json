@@ -1,0 +1,14 @@
+{
+  "name": "code-todo-pane",
+  "version": "0.1.0",
+  "description": "/codetodo opens a pane with the TODO, FIXME and HACK lines in tracked files, grouped by tag",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

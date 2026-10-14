@@ -832,6 +832,12 @@
       "source": "./mods/stash-pane",
       "description": "/stashes opens a pane with the stash list: index, branch, message and how old each one is",
       "category": "interface"
+    },
+    {
+      "name": "code-todo-pane",
+      "source": "./mods/code-todo-pane",
+      "description": "/codetodo opens a pane with the TODO, FIXME and HACK lines in tracked files, grouped by tag",
+      "category": "interface"
     }
   ]
 }
