@@ -3150,6 +3150,23 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  index 2 staged  3 unstaged  1 new]]"
       ]
+    },
+    {
+      "name": "untested-turn-toast",
+      "category": "quality",
+      "description": {
+        "en": "Toast at the end of a turn that changed code without running a single test",
+        "pt": "Toast no fim de um turno que alterou código sem rodar nenhum teste",
+        "es": "Toast al final de un turno que cambió código sin ejecutar ningún test"
+      },
+      "preview": [
+        "[[ok|● Done. Updated the cart total.]]",
+        "",
+        "[[toast| 3 files changed, no tests run this turn ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [

@@ -1192,6 +1192,12 @@
       "source": "./mods/staged-status",
       "description": "Status line with how many files are staged, unstaged and new, hidden when the tree is clean",
       "category": "git"
+    },
+    {
+      "name": "untested-turn-toast",
+      "source": "./mods/untested-turn-toast",
+      "description": "Toast at the end of a turn that changed code without running a single test",
+      "category": "quality"
     }
   ]
 }
