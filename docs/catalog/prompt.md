@@ -1,8 +1,8 @@
-# Prompt and model — 14 mods
+# Prompt and model — 15 mods
 
 [← Back to the README](../../README.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff)
 
 ## `concise-mode`
 
@@ -143,3 +143,13 @@ Keeps comments that restate the code, banners and commented-out code out; only t
 ```
 
 ![no-comments](../previews/no-comments.svg)
+
+## `minimal-diff`
+
+Asks for the smallest change that solves the request, with no drive-by refactors; findings are mentioned instead.
+
+```
+/plugin install minimal-diff@cockpit
+```
+
+![minimal-diff](../previews/minimal-diff.svg)

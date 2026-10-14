@@ -1,0 +1,13 @@
+{
+  "name": "minimal-diff",
+  "version": "0.1.0",
+  "description": "Asks for the smallest change that solves the request, with no drive-by refactors; findings are mentioned instead",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

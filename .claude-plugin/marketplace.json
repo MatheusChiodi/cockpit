@@ -916,6 +916,12 @@
       "source": "./mods/no-comments",
       "description": "Keeps comments that restate the code, banners and commented-out code out; only the why stays",
       "category": "prompt"
+    },
+    {
+      "name": "minimal-diff",
+      "source": "./mods/minimal-diff",
+      "description": "Asks for the smallest change that solves the request, with no drive-by refactors; findings are mentioned instead",
+      "category": "prompt"
     }
   ]
 }

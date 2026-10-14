@@ -2488,6 +2488,21 @@
         "[[dim|No banner or divider comments. No commented-out code.]]",
         "[[dim|Keep a comment only when it explains why.]]"
       ]
+    },
+    {
+      "name": "minimal-diff",
+      "category": "prompt",
+      "description": {
+        "en": "Asks for the smallest change that solves the request, with no drive-by refactors; findings are mentioned instead",
+        "pt": "Pede a menor mudança que resolve o pedido, sem refatorações de carona; o que for notado é apenas mencionado",
+        "es": "Pide el cambio más pequeño que resuelve el pedido, sin refactors de paso; lo que se note solo se menciona"
+      },
+      "preview": [
+        "[[dim|# Minimal diff]]",
+        "[[dim|Make the smallest change that solves the request.]]",
+        "[[dim|No drive-by refactors, renames or reformatting.]]",
+        "[[dim|If you notice such issues, mention them.]]"
+      ]
     }
   ],
   "hero": [
