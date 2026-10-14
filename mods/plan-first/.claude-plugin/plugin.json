@@ -1,0 +1,13 @@
+{
+  "name": "plan-first",
+  "version": "0.1.0",
+  "description": "/plan-first makes Claude list the files and the order before editing a change that spans more than two files",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

@@ -1,8 +1,8 @@
-# Prompt y modelo — 12 mods
+# Prompt y modelo — 13 mods
 
 [← Volver al README](../../README.es.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first)
 
 ## `concise-mode`
 
@@ -123,3 +123,13 @@ Informa a Claude tu sistema operativo, shell y las versiones instaladas de node,
 ```
 
 ![explain-mode](../previews/explain-mode.svg)
+
+## `plan-first`
+
+/plan-first hace que Claude liste los archivos y el orden antes de editar un cambio en más de dos archivos.
+
+```
+/plugin install plan-first@cockpit
+```
+
+![plan-first](../previews/plan-first.svg)

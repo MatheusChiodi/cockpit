@@ -2455,6 +2455,24 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  explain]]"
       ]
+    },
+    {
+      "name": "plan-first",
+      "category": "prompt",
+      "description": {
+        "en": "/plan-first makes Claude list the files and the order before editing a change that spans more than two files",
+        "pt": "/plan-first faz o Claude listar os arquivos e a ordem antes de editar uma mudança em mais de dois arquivos",
+        "es": "/plan-first hace que Claude liste los archivos y el orden antes de editar un cambio en más de dos archivos"
+      },
+      "preview": [
+        "[[user|> /plan-first on]]",
+        "[[dim|  ⎿ Plan-first mode on (applies from the next prompt).]]",
+        "",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  plan]]"
+      ]
     }
   ],
   "hero": [

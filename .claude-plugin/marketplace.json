@@ -904,6 +904,12 @@
       "source": "./mods/explain-mode",
       "description": "/explain makes Claude explain each change in one or two sentences, for someone learning the codebase",
       "category": "prompt"
+    },
+    {
+      "name": "plan-first",
+      "source": "./mods/plan-first",
+      "description": "/plan-first makes Claude list the files and the order before editing a change that spans more than two files",
+      "category": "prompt"
     }
   ]
 }

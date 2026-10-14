@@ -2,7 +2,7 @@
 
 [English](README.md) · **Português** · [Español](README.es.md)
 
-**Um painel de instrumentos para o Claude Code.** 150 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
+**Um painel de instrumentos para o Claude Code.** 151 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
 
 ![O painel completo do Cockpit em um terminal](docs/cockpit.svg)
 
@@ -69,7 +69,7 @@ As descrições dos slash commands no autocompletar são lidas quando a sessão 
 | [**Sempre visível**](docs/catalog/panel.pt-BR.md) | 41 | `cockpit` `git-band` `todo-band` `usage-band` `files-band` `error-band` `goal-band` `agents-band` `activity-status` `test-status` `ci-status` `stash-status` `uncommitted-band` `pr-status` `main-warning-band` `conflict-band` `project-status` `ports-band` `deps-status` `todo-count-status` `quality-status` `model-status` `cost-ticker` `idle-clock` `turn-progress` `last-prompt-band` `compact-nudge` `session-diff-band` `shield-band` `reset-countdown` `spend-today` `focus-band` `deadline-band` `pin-band` `clock-status` `day-timer` `commits-today` `dolar-status` `weather-status` `api-status` `terminal-pet` |
 | [**Segurança**](docs/catalog/security.pt-BR.md) | 14 | `rm-guard` `env-guard` `git-guard` `secret-scan` `prompt-secret-guard` `lockfile-guard` `path-jail` `main-branch-guard` `generated-guard` `sql-guard` `prod-guard` `install-ask` `pipe-shell-guard` `big-read-guard` |
 | [**Interface**](docs/catalog/interface.pt-BR.md) | 29 | `turn-timer` `tool-tally` `file-trail` `cmd-log` `git-status-line` `context-meter` `rate-limit-watch` `session-clock` `diff-pane` `turn-history` `prompt-history` `agent-pane` `token-chart` `cost-pane` `error-pane` `context-pane` `read-pane` `links-pane` `git-pane` `branch-pane` `stash-pane` `code-todo-pane` `deps-pane` `scripts-pane` `env-keys-pane` `test-pane` `slow-toast` `deny-toast` `big-output-toast` |
-| [**Prompt e modelo**](docs/catalog/prompt.pt-BR.md) | 12 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` `time-context` `os-context` `test-first` `explain-mode` |
+| [**Prompt e modelo**](docs/catalog/prompt.pt-BR.md) | 13 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` `time-context` `os-context` `test-first` `explain-mode` `plan-first` |
 | [**Comandos**](docs/catalog/commands.pt-BR.md) | 30 | `quick-notes` `pomodoro` `copy-last` `session-stats` `quote-selection` `git-peek` `git-branch` `git-stash` `git-undo` `run-script` `open-path` `ports` `kill-port` `tree` `find-file` `last-error` `env-check` `outdated` `json-tool` `uuid` `timestamp` `base64` `hash` `calc` `color-tool` `regex-test` `http-probe` `snippets` `export-session` `standup` |
 | [**Foco e notificações**](docs/catalog/focus.pt-BR.md) | 24 | `turn-notify` `break-reminder` `daily-streak` `error-notify` `needs-you-notify` `agent-done-notify` `long-cmd-notify` `tests-notify` `ci-notify` `pr-review-notify` `rate-limit-notify` `hydrate` `posture` `eye-rest` `stand-up` `alarms` `remind` `timebox` `session-cap` `late-night` `intent-check` `daily-target` `weekly-recap` `breathe` |
 | [**Git e GitHub**](docs/catalog/git.pt-BR.md) | 0 |  |
