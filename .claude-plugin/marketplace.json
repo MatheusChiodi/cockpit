@@ -1672,6 +1672,12 @@
       "source": "./mods/long-turn-toast",
       "description": "Toast when a turn runs three times longer than your median and at least two minutes, so you check it is still on track",
       "category": "focus"
+    },
+    {
+      "name": "step-back",
+      "source": "./mods/step-back",
+      "description": "Toast after four failed shell commands in a row at the same thing: time to step back and look at the problem",
+      "category": "focus"
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "name": "step-back",
+  "version": "0.1.0",
+  "description": "Toast after four failed shell commands in a row at the same thing: time to step back and look at the problem",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

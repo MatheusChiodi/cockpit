@@ -4332,6 +4332,22 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "step-back",
+      "category": "focus",
+      "description": {
+        "en": "Toast after four failed shell commands in a row at the same thing: time to step back and look at the problem",
+        "pt": "Toast após quatro comandos de shell seguidos que falharam na mesma coisa: hora de dar um passo atrás e olhar o problema",
+        "es": "Toast tras cuatro comandos de shell seguidos que fallaron en lo mismo: hora de dar un paso atrás y mirar el problema"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm test)",
+        "[[err|  ⎿ Exit code 1]]",
+        "[[toast| step-back  4 failed attempts at \"npm test\". Step back and look at the cause. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [
