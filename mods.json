@@ -2310,6 +2310,25 @@
         "[[accent|▸ ]][[bold|lint      ]] [[dim|eslint .]]",
         "[[accent|▸ ]][[bold|test      ]] [[dim|vitest run]]"
       ]
+    },
+    {
+      "name": "env-keys-pane",
+      "category": "interface",
+      "description": {
+        "en": "/envkeys compares the keys of .env.example with .env and lists the missing and the extra ones, never a value",
+        "pt": "/envkeys compara as chaves do .env.example com o .env e lista as que faltam e as extras, nunca um valor",
+        "es": "/envkeys compara las claves de .env.example con .env y lista las que faltan y las extra, nunca un valor"
+      },
+      "preview": [
+        "[[user|> /envkeys]]",
+        "[[project|▍ ]][[bold|ENV KEYS]][[dim|  2 missing · 1 extra]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[err|missing]] [[dim|in .env]]",
+        "[[err|✗ ]] STRIPE_KEY",
+        "[[err|✗ ]] DATABASE_URL",
+        "[[warn|extra]] [[dim|not in .env.example]]",
+        "[[warn|+ ]] DEBUG_SQL"
+      ]
     }
   ],
   "hero": [

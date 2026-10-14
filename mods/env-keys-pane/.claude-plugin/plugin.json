@@ -1,0 +1,14 @@
+{
+  "name": "env-keys-pane",
+  "version": "0.1.0",
+  "description": "/envkeys compares the keys of .env.example with .env and lists the missing and the extra ones, never a value",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}
