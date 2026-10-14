@@ -1,0 +1,14 @@
+{
+  "name": "error-pane",
+  "version": "0.1.0",
+  "description": "/errors opens a pane with every tool call that failed or was denied, its input and the first line of the error",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

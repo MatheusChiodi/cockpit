@@ -2133,6 +2133,24 @@
         "[[dim|  #3]] [[bold|  $0.730]] [[accent|━━━━━━━━━━━━━━━━━━━━━●]]",
         "[[dim|  #2]] [[bold|  $0.402]] [[accent|━━━━━━━━━━●]][[rule|───────────]]"
       ]
+    },
+    {
+      "name": "error-pane",
+      "category": "interface",
+      "description": {
+        "en": "/errors opens a pane with every tool call that failed or was denied, its input and the first line of the error",
+        "pt": "/errors abre um painel com cada chamada de ferramenta que falhou ou foi negada, a entrada e a primeira linha do erro",
+        "es": "/errors abre un panel con cada llamada de herramienta que falló o fue denegada, su entrada y la primera línea del error"
+      },
+      "preview": [
+        "[[user|> /errors]]",
+        "[[session|▍ ]][[bold|ERRORS]][[dim|  2 failed or denied]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[err|✗]] [[bold|Bash]] [[dim|rm -rf build]]",
+        "[[err|  rm-guard blocked the command: recursively deleting \"build\".]]",
+        "[[err|✗]] [[bold|Read]] [[dim|src/old.ts]]",
+        "[[err|  File does not exist.]]"
+      ]
     }
   ],
   "hero": [

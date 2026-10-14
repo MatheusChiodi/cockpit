@@ -790,6 +790,12 @@
       "source": "./mods/cost-pane",
       "description": "/spend opens a pane with the cost of each turn, the difference of the session cost, and the total",
       "category": "interface"
+    },
+    {
+      "name": "error-pane",
+      "source": "./mods/error-pane",
+      "description": "/errors opens a pane with every tool call that failed or was denied, its input and the first line of the error",
+      "category": "interface"
     }
   ]
 }

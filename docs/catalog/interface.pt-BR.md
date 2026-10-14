@@ -1,8 +1,8 @@
-# Interface — 14 mods
+# Interface — 15 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane) · [`token-chart`](#token-chart) · [`cost-pane`](#cost-pane)
+[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane) · [`token-chart`](#token-chart) · [`cost-pane`](#cost-pane) · [`error-pane`](#error-pane)
 
 ## `turn-timer`
 
@@ -143,3 +143,13 @@ Status line com tempo de sessão e número de prompts.
 ```
 
 ![cost-pane](../previews/cost-pane.svg)
+
+## `error-pane`
+
+/errors abre um painel com cada chamada de ferramenta que falhou ou foi negada, a entrada e a primeira linha do erro.
+
+```
+/plugin install error-pane@cockpit
+```
+
+![error-pane](../previews/error-pane.svg)
