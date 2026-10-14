@@ -2503,6 +2503,20 @@
         "[[dim|No drive-by refactors, renames or reformatting.]]",
         "[[dim|If you notice such issues, mention them.]]"
       ]
+    },
+    {
+      "name": "ask-first",
+      "category": "prompt",
+      "description": {
+        "en": "When a request has two readings that lead to different code, Claude asks one short question first",
+        "pt": "Quando um pedido tem duas leituras que levam a códigos diferentes, o Claude faz uma pergunta curta antes",
+        "es": "Cuando un pedido tiene dos lecturas que llevan a código distinto, Claude hace una pregunta corta antes"
+      },
+      "preview": [
+        "[[user|> make the export faster]]",
+        "",
+        "[[accent|●]] Faster for large files (streaming) or for repeated runs (caching)?"
+      ]
     }
   ],
   "hero": [

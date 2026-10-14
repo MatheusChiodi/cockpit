@@ -1,0 +1,13 @@
+{
+  "name": "ask-first",
+  "version": "0.1.0",
+  "description": "When a request has two readings that lead to different code, Claude asks one short question first",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

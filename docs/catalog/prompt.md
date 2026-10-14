@@ -1,8 +1,8 @@
-# Prompt and model — 15 mods
+# Prompt and model — 16 mods
 
 [← Back to the README](../../README.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first)
 
 ## `concise-mode`
 
@@ -153,3 +153,13 @@ Asks for the smallest change that solves the request, with no drive-by refactors
 ```
 
 ![minimal-diff](../previews/minimal-diff.svg)
+
+## `ask-first`
+
+When a request has two readings that lead to different code, Claude asks one short question first.
+
+```
+/plugin install ask-first@cockpit
+```
+
+![ask-first](../previews/ask-first.svg)

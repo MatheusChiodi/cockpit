@@ -922,6 +922,12 @@
       "source": "./mods/minimal-diff",
       "description": "Asks for the smallest change that solves the request, with no drive-by refactors; findings are mentioned instead",
       "category": "prompt"
+    },
+    {
+      "name": "ask-first",
+      "source": "./mods/ask-first",
+      "description": "When a request has two readings that lead to different code, Claude asks one short question first",
+      "category": "prompt"
     }
   ]
 }
