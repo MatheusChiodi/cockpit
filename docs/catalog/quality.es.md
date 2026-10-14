@@ -1,8 +1,8 @@
-# Calidad — 2 mods
+# Calidad — 3 mods
 
 [← Volver al README](../../README.es.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard)
 
 ## `untested-turn-toast`
 
@@ -23,3 +23,13 @@ Toast cuando un turno termina con la última ejecución de tests aún fallando.
 ```
 
 ![red-turn-toast](../previews/red-turn-toast.svg)
+
+## `debugger-guard`
+
+Rechaza ediciones que añaden debugger, breakpoint(), pdb o binding.pry.
+
+```
+/plugin install debugger-guard@cockpit
+```
+
+![debugger-guard](../previews/debugger-guard.svg)

@@ -1204,6 +1204,12 @@
       "source": "./mods/red-turn-toast",
       "description": "Toast when a turn ends while the last test run is still failing",
       "category": "quality"
+    },
+    {
+      "name": "debugger-guard",
+      "source": "./mods/debugger-guard",
+      "description": "Refuses edits that add a debugger statement, breakpoint(), pdb or binding.pry",
+      "category": "quality"
     }
   ]
 }

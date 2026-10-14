@@ -1,8 +1,8 @@
-# Quality — 2 mods
+# Quality — 3 mods
 
 [← Back to the README](../../README.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard)
 
 ## `untested-turn-toast`
 
@@ -23,3 +23,13 @@ Toast when a turn ends while the last test run is still failing.
 ```
 
 ![red-turn-toast](../previews/red-turn-toast.svg)
+
+## `debugger-guard`
+
+Refuses edits that add a debugger statement, breakpoint(), pdb or binding.pry.
+
+```
+/plugin install debugger-guard@cockpit
+```
+
+![debugger-guard](../previews/debugger-guard.svg)

@@ -1,0 +1,13 @@
+{
+  "name": "debugger-guard",
+  "version": "0.1.0",
+  "description": "Refuses edits that add a debugger statement, breakpoint(), pdb or binding.pry",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

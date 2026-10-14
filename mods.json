@@ -3184,6 +3184,19 @@
         "[[rule|────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "debugger-guard",
+      "category": "quality",
+      "description": {
+        "en": "Refuses edits that add a debugger statement, breakpoint(), pdb or binding.pry",
+        "pt": "Recusa edições que adicionam debugger, breakpoint(), pdb ou binding.pry",
+        "es": "Rechaza ediciones que añaden debugger, breakpoint(), pdb o binding.pry"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/cart.ts)",
+        "[[err|  ⎿ debugger-guard blocked the edit: it adds a \"debugger\" statement.]]"
+      ]
     }
   ],
   "hero": [
