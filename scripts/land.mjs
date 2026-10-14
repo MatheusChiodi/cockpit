@@ -7,7 +7,7 @@ import { spawnSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-import { json, loadCatalog, root, text } from './lib.mjs'
+import { json, loadCatalog, readEntries, root, text } from './lib.mjs'
 
 const args = process.argv.slice(2)
 const shouldPush = !args.includes('--no-push')
@@ -22,7 +22,7 @@ const git = (...argv) => spawnSync('git', argv, { cwd: root, encoding: 'utf8' })
 
 const files = existsSync(pendingDir) ? readdirSync(pendingDir).filter(name => name.endsWith('.json')) : []
 const pending = files.flatMap(file =>
-  JSON.parse(readFileSync(join(pendingDir, file), 'utf8')).map(entry => ({ file, entry })),
+  readEntries(join(pendingDir, file)).map(entry => ({ file, entry })),
 )
 
 const hasTest = name => {

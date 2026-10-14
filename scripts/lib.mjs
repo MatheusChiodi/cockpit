@@ -16,8 +16,21 @@ const entriesIn = folder => {
     ? readdirSync(dir)
         .filter(name => name.endsWith('.json'))
         .sort()
-        .flatMap(name => JSON.parse(readFileSync(join(dir, name), 'utf8')))
+        .flatMap(name => readEntries(join(dir, name)))
     : []
+}
+
+// A file someone is in the middle of writing may not parse: it is skipped, not fatal for everyone else.
+export const readEntries = path => {
+  try {
+    const entries = JSON.parse(readFileSync(path, 'utf8'))
+
+    return Array.isArray(entries) ? entries : []
+  } catch (error) {
+    console.error(`skipped ${path}: ${error.message.split('\n')[0]}`)
+
+    return []
+  }
 }
 
 // Catalog entries being written (catalog-parts/) and the ones waiting to land (catalog-pending/).
