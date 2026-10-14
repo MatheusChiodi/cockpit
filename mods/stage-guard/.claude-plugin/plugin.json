@@ -1,0 +1,13 @@
+{
+  "name": "stage-guard",
+  "version": "0.1.0",
+  "description": "Refuses git add -A, git add . and git commit -a while a .env, key or certificate is waiting to be staged",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

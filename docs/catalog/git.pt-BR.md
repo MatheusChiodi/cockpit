@@ -1,8 +1,8 @@
-# Git e GitHub — 4 mods
+# Git e GitHub — 5 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard)
 
 ## `commit-review`
 
@@ -43,3 +43,13 @@ Pergunta antes de git commit --amend ou git rebase reescreverem commits que já 
 ```
 
 ![amend-guard](../previews/amend-guard.svg)
+
+## `stage-guard`
+
+Recusa git add -A, git add . e git commit -a enquanto um .env, chave ou certificado espera para entrar no stage.
+
+```
+/plugin install stage-guard@cockpit
+```
+
+![stage-guard](../previews/stage-guard.svg)

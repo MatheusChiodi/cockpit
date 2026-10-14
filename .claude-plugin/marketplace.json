@@ -1144,6 +1144,12 @@
       "source": "./mods/amend-guard",
       "description": "Asks before git commit --amend or git rebase rewrites commits that are already on a remote branch",
       "category": "git"
+    },
+    {
+      "name": "stage-guard",
+      "source": "./mods/stage-guard",
+      "description": "Refuses git add -A, git add . and git commit -a while a .env, key or certificate is waiting to be staged",
+      "category": "git"
     }
   ]
 }

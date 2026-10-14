@@ -3026,6 +3026,19 @@
         "[[warn|  ⎿ amend-guard: git commit --amend rewrites commits already on origin/feat/login;]]",
         "[[warn|    pushing will need --force. Confirm before running.]]"
       ]
+    },
+    {
+      "name": "stage-guard",
+      "category": "git",
+      "description": {
+        "en": "Refuses git add -A, git add . and git commit -a while a .env, key or certificate is waiting to be staged",
+        "pt": "Recusa git add -A, git add . e git commit -a enquanto um .env, chave ou certificado espera para entrar no stage",
+        "es": "Rechaza git add -A, git add . y git commit -a mientras un .env, llave o certificado espera entrar al stage"
+      },
+      "preview": [
+        "[[tool|● Bash]](git add -A)",
+        "[[err|  ⎿ stage-guard refused to stage everything: .env, certs/server.pem look like secrets.]]"
+      ]
     }
   ],
   "hero": [
