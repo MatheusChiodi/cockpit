@@ -1,0 +1,13 @@
+{
+  "name": "parking-lot",
+  "version": "0.1.0",
+  "description": "/park <idea> captures an idea without derailing the work and shows it again at the end of the turn",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

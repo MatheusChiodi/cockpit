@@ -1702,6 +1702,12 @@
       "source": "./mods/quiet-window",
       "description": "/quiet <minutes> holds every toast and notification for that long, then says once how many were held; /quiet test checks it",
       "category": "focus"
+    },
+    {
+      "name": "parking-lot",
+      "source": "./mods/parking-lot",
+      "description": "/park <idea> captures an idea without derailing the work and shows it again at the end of the turn",
+      "category": "focus"
     }
   ]
 }

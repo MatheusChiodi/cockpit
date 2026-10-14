@@ -4406,6 +4406,21 @@
         "",
         "[[toast| quiet-window  Quiet window over. 3 notices were held. ]]"
       ]
+    },
+    {
+      "name": "parking-lot",
+      "category": "focus",
+      "description": {
+        "en": "/park <idea> captures an idea without derailing the work and shows it again at the end of the turn",
+        "pt": "/park <ideia> guarda uma ideia sem desviar o trabalho e a mostra de novo no fim do turno",
+        "es": "/park <idea> guarda una idea sin desviar el trabajo y la muestra de nuevo al final del turno"
+      },
+      "preview": [
+        "[[user|> /park add dark mode to the settings page]]",
+        "[[dim|  ⎿ Parked (1). Back to work.]]",
+        "",
+        "[[toast| parking-lot  Parked: add dark mode to the settings page ]]"
+      ]
     }
   ],
   "hero": [
