@@ -4776,6 +4776,21 @@
         "[[dim|Asked: migrate the billing module]]",
         "[[dim|Tools: Read×2  Bash×1]]"
       ]
+    },
+    {
+      "name": "runout-projection",
+      "category": "context",
+      "description": {
+        "en": "A toast when a rate-limit window will run out before it resets at the current pace, and /runout lists the projection",
+        "pt": "Um toast quando uma janela de limite vai acabar antes de renovar no ritmo atual, e /runout lista a projeção",
+        "es": "Un toast cuando una ventana de límite se agotará antes de renovarse al ritmo actual, y /runout lista la proyección"
+      },
+      "preview": [
+        "[[toast| 5h window at 50%: at this pace it runs out in 50m, resets in 4h 00m ]]",
+        "[[user|> /runout]]",
+        "[[dim|5h window: 55%, runs out in 45m, resets in 3h 50m]]",
+        "[[dim|7-day window: 12%, lasts until it resets at this pace]]"
+      ]
     }
   ],
   "hero": [

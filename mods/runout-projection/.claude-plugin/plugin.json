@@ -1,0 +1,13 @@
+{
+  "name": "runout-projection",
+  "version": "0.1.0",
+  "description": "A toast when a rate-limit window will run out before it resets at the current pace, and /runout lists the projection",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

@@ -1852,6 +1852,12 @@
       "source": "./mods/priciest-turn",
       "description": "/priciest shows the most expensive turn of the session, its share of the total, the prompt and the tools it ran",
       "category": "context"
+    },
+    {
+      "name": "runout-projection",
+      "source": "./mods/runout-projection",
+      "description": "A toast when a rate-limit window will run out before it resets at the current pace, and /runout lists the projection",
+      "category": "context"
     }
   ]
 }
