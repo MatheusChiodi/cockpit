@@ -1,0 +1,13 @@
+{
+  "name": "base64",
+  "version": "0.1.0",
+  "description": "/b64 encodes and decodes Base64 safely for UTF-8 text and copies the result",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

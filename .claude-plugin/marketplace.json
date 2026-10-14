@@ -574,6 +574,12 @@
       "source": "./mods/timestamp",
       "description": "/ts converts epoch seconds, milliseconds, ISO 8601 and local time for now or for any epoch or date",
       "category": "commands"
+    },
+    {
+      "name": "base64",
+      "source": "./mods/base64",
+      "description": "/b64 encodes and decodes Base64 safely for UTF-8 text and copies the result",
+      "category": "commands"
     }
   ]
 }

@@ -1546,6 +1546,20 @@
         "local     11/14/2023, 7:13:20 PM",
         "[[dim|Read as seconds.]]"
       ]
+    },
+    {
+      "name": "base64",
+      "category": "commands",
+      "description": {
+        "en": "/b64 encodes and decodes Base64 safely for UTF-8 text and copies the result",
+        "pt": "/b64 codifica e decodifica Base64 com segurança para texto UTF-8 e copia o resultado",
+        "es": "/b64 codifica y decodifica Base64 de forma segura para texto UTF-8 y copia el resultado"
+      },
+      "preview": [
+        "[[user|> /b64 enc ação ✓]]",
+        "YcOnw6NvIOKckw==",
+        "[[dim|Copied to the clipboard.]]"
+      ]
     }
   ],
   "hero": [
