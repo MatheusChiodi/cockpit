@@ -1,0 +1,13 @@
+{
+  "name": "big-files",
+  "version": "0.1.0",
+  "description": "/big lists the largest tracked files of the project with readable sizes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

@@ -4115,6 +4115,22 @@
         "     .css       3 files       410 lines",
         "     total     58 files      6404 lines"
       ]
+    },
+    {
+      "name": "big-files",
+      "category": "commands",
+      "description": {
+        "en": "/big lists the largest tracked files of the project with readable sizes",
+        "pt": "/big lista os maiores arquivos versionados do projeto com tamanhos legíveis",
+        "es": "/big lista los archivos versionados más grandes del proyecto con tamaños legibles"
+      },
+      "preview": [
+        "[[user|> /big 3]]",
+        "[[dim|  ⎿]]    5.0 MB  assets/intro.mp4",
+        "     812.0 KB  public/logo.png",
+        "      96.4 KB  package-lock.json",
+        "     [[dim|(3 of 214 tracked files)]]"
+      ]
     }
   ],
   "hero": [
