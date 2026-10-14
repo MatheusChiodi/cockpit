@@ -1,0 +1,14 @@
+{
+  "name": "prompt-stamp",
+  "version": "0.1.0",
+  "description": "Puts the clock time beside each prompt you typed and the sender beside messages from other agents",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

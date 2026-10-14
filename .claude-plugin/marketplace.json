@@ -1816,6 +1816,12 @@
       "source": "./mods/group-peek",
       "description": "Under a folded run of reads and searches, shows what the live group is on and counts the calls that failed",
       "category": "interface"
+    },
+    {
+      "name": "prompt-stamp",
+      "source": "./mods/prompt-stamp",
+      "description": "Puts the clock time beside each prompt you typed and the sender beside messages from other agents",
+      "category": "interface"
     }
   ]
 }

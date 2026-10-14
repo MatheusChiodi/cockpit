@@ -4688,6 +4688,21 @@
         "[[dim|● Read 2 files]]",
         "[[err|✗ 1 failed]]"
       ]
+    },
+    {
+      "name": "prompt-stamp",
+      "category": "interface",
+      "description": {
+        "en": "Puts the clock time beside each prompt you typed and the sender beside messages from other agents",
+        "pt": "Coloca o horário ao lado de cada prompt digitado e o remetente ao lado das mensagens de outros agentes",
+        "es": "Pone la hora junto a cada prompt escrito y el remitente junto a los mensajes de otros agentes"
+      },
+      "preview": [
+        "[[user|> fix the login hook]] [[dim|14:05]]",
+        "[[tool|● Read]](src/login.ts)",
+        "[[user|> now add a test]] [[dim|14:19]]",
+        "[[dim|> found 3 callers from explorer]]"
+      ]
     }
   ],
   "hero": [
