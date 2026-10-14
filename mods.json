@@ -2622,6 +2622,20 @@
         "[[warn|    docker-guard: removes unused Docker data (system prune). Confirm.]]",
         "    [[btn|[ Yes ]]] [[btn|[ No ]]]"
       ]
+    },
+    {
+      "name": "kill-guard",
+      "category": "security",
+      "description": {
+        "en": "Blocks broad process kills: kill -1, killall, loose pkill, taskkill on system or wildcard names, Stop-Process -Name *",
+        "pt": "Bloqueia encerramento amplo de processos: kill -1, killall, pkill solto, taskkill em nomes de sistema ou com curinga, Stop-Process -Name *",
+        "es": "Bloquea el cierre masivo de procesos: kill -1, killall, pkill suelto, taskkill sobre nombres de sistema o con comodín, Stop-Process -Name *"
+      },
+      "preview": [
+        "[[tool|● Bash]](killall node)",
+        "[[err|  ⎿ kill-guard blocked the command: killing every process by name (killall).]]",
+        "[[err|    Kill one explicit pid instead.]]"
+      ]
     }
   ],
   "hero": [

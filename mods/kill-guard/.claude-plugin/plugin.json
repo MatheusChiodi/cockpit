@@ -1,0 +1,13 @@
+{
+  "name": "kill-guard",
+  "version": "0.1.0",
+  "description": "Blocks broad process kills: kill -1, killall, loose pkill, taskkill on system or wildcard names, Stop-Process -Name *",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

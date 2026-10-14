@@ -970,6 +970,12 @@
       "source": "./mods/docker-guard",
       "description": "Asks before destructive Docker commands: system prune, volume rm or prune, rm -f, rmi -f and compose down -v",
       "category": "security"
+    },
+    {
+      "name": "kill-guard",
+      "source": "./mods/kill-guard",
+      "description": "Blocks broad process kills: kill -1, killall, loose pkill, taskkill on system or wildcard names, Stop-Process -Name *",
+      "category": "security"
     }
   ]
 }
