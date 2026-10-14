@@ -1,8 +1,8 @@
-# Foco e notificações — 10 mods
+# Foco e notificações — 11 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify)
 
 ## `turn-notify`
 
@@ -103,3 +103,13 @@ Consulta o pull request da branch atual a cada três minutos e avisa uma vez qua
 ```
 
 ![pr-review-notify](../previews/pr-review-notify.svg)
+
+## `rate-limit-notify`
+
+Envia uma notificação nativa na primeira vez que uma janela de limite de uso passa de 90%, com a hora do reset.
+
+```
+/plugin install rate-limit-notify@cockpit
+```
+
+![rate-limit-notify](../previews/rate-limit-notify.svg)

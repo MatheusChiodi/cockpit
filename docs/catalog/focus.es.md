@@ -1,8 +1,8 @@
-# Foco y notificaciones — 10 mods
+# Foco y notificaciones — 11 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify)
 
 ## `turn-notify`
 
@@ -103,3 +103,13 @@ Consulta el pull request de la rama actual cada tres minutos y avisa una vez cua
 ```
 
 ![pr-review-notify](../previews/pr-review-notify.svg)
+
+## `rate-limit-notify`
+
+Envía una notificación nativa la primera vez que una ventana de límite de uso supera el 90%, con la hora del reinicio.
+
+```
+/plugin install rate-limit-notify@cockpit
+```
+
+![rate-limit-notify](../previews/rate-limit-notify.svg)

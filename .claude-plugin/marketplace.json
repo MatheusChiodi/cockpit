@@ -670,6 +670,12 @@
       "source": "./mods/pr-review-notify",
       "description": "Polls the current branch's pull request every three minutes and notifies once when its review decision changes",
       "category": "focus"
+    },
+    {
+      "name": "rate-limit-notify",
+      "source": "./mods/rate-limit-notify",
+      "description": "Sends a native notification the first time a rate limit window passes 90%, with when it resets",
+      "category": "focus"
     }
   ]
 }

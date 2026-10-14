@@ -1,8 +1,8 @@
-# Focus and notifications — 10 mods
+# Focus and notifications — 11 mods
 
 [← Back to the README](../../README.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify)
 
 ## `turn-notify`
 
@@ -103,3 +103,13 @@ Polls the current branch's pull request every three minutes and notifies once wh
 ```
 
 ![pr-review-notify](../previews/pr-review-notify.svg)
+
+## `rate-limit-notify`
+
+Sends a native notification the first time a rate limit window passes 90%, with when it resets.
+
+```
+/plugin install rate-limit-notify@cockpit
+```
+
+![rate-limit-notify](../previews/rate-limit-notify.svg)

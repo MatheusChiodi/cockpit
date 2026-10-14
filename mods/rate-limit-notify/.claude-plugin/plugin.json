@@ -1,0 +1,13 @@
+{
+  "name": "rate-limit-notify",
+  "version": "0.1.0",
+  "description": "Sends a native notification the first time a rate limit window passes 90%, with when it resets",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

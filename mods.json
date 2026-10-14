@@ -1824,6 +1824,23 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "rate-limit-notify",
+      "category": "focus",
+      "description": {
+        "en": "Sends a native notification the first time a rate limit window passes 90%, with when it resets",
+        "pt": "Envia uma notificação nativa na primeira vez que uma janela de limite de uso passa de 90%, com a hora do reset",
+        "es": "Envía una notificación nativa la primera vez que una ventana de límite de uso supera el 90%, con la hora del reinicio"
+      },
+      "preview": [
+        "[[notify|Claude Code]]",
+        "[[notify|five_hour limit at 91%. Resets 6:30 PM.]]",
+        "",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [
