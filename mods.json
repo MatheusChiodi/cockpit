@@ -1944,6 +1944,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  timebox 31 min left · fix the login bug]]"
       ]
+    },
+    {
+      "name": "session-cap",
+      "category": "focus",
+      "description": {
+        "en": "Toast after three hours of continuous use in one session, then again every hour",
+        "pt": "Toast após três horas de uso contínuo em uma sessão, e de novo a cada hora",
+        "es": "Toast tras tres horas de uso continuo en una sesión, y otra vez cada hora"
+      },
+      "preview": [
+        "[[toast| session-cap  3 hours straight in this session. Time to stop and rest. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
     }
   ],
   "hero": [

@@ -1,0 +1,13 @@
+{
+  "name": "session-cap",
+  "version": "0.1.0",
+  "description": "Toast after three hours of continuous use in one session, then again every hour",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}
