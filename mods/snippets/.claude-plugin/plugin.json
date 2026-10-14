@@ -1,0 +1,13 @@
+{
+  "name": "snippets",
+  "version": "0.1.0",
+  "description": "/snip saves reusable prompt snippets across sessions and puts one in the prompt box by name",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

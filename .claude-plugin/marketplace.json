@@ -610,6 +610,12 @@
       "source": "./mods/http-probe",
       "description": "/http makes a GET request and shows the status, content type, size and first lines of the body",
       "category": "commands"
+    },
+    {
+      "name": "snippets",
+      "source": "./mods/snippets",
+      "description": "/snip saves reusable prompt snippets across sessions and puts one in the prompt box by name",
+      "category": "commands"
     }
   ]
 }

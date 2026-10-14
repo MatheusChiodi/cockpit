@@ -39,6 +39,26 @@
       "en": "Focus and notifications",
       "pt": "Foco e notificações",
       "es": "Foco y notificaciones"
+    },
+    "git": {
+      "en": "Git and GitHub",
+      "pt": "Git e GitHub",
+      "es": "Git y GitHub"
+    },
+    "quality": {
+      "en": "Quality",
+      "pt": "Qualidade",
+      "es": "Calidad"
+    },
+    "stack": {
+      "en": "Stacks",
+      "pt": "Stacks",
+      "es": "Stacks"
+    },
+    "context": {
+      "en": "Context and cost",
+      "pt": "Contexto e custo",
+      "es": "Contexto y costo"
     }
   },
   "mods": [
@@ -1641,6 +1661,21 @@
         "size    1.2 KB",
         "",
         "[[dim|<!doctype html>]]"
+      ]
+    },
+    {
+      "name": "snippets",
+      "category": "commands",
+      "description": {
+        "en": "/snip saves reusable prompt snippets across sessions and puts one in the prompt box by name",
+        "pt": "/snip guarda trechos de prompt reutilizáveis entre sessões e coloca um na caixa do prompt pelo nome",
+        "es": "/snip guarda fragmentos de prompt reutilizables entre sesiones y pone uno en la caja del prompt por nombre"
+      },
+      "preview": [
+        "[[user|> /snip save review Review this diff for bugs and missing tests]]",
+        "Snippet \"review\" saved.",
+        "[[user|> /snip review]]",
+        "[[dim|Snippet \"review\" is in the prompt box.]]"
       ]
     }
   ],
