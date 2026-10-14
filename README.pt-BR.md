@@ -2,7 +2,7 @@
 
 [English](README.md) · **Português** · [Español](README.es.md)
 
-**Um painel de instrumentos para o Claude Code.** 222 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
+**Um painel de instrumentos para o Claude Code.** 223 mods para o terminal: 41 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
 
 ![O painel completo do Cockpit em um terminal](docs/cockpit.svg)
 
@@ -41,7 +41,7 @@ Remova um mod com `/plugin uninstall <mod>@cockpit`. Desligue todos de uma vez c
 
 ## Painéis e configurações
 
-Os 40 mods de **Sempre visível** são painéis: faixas acima do prompt ou entradas na status line que se atualizam sozinhas (git, contexto, custo, testes, CI, tarefas, prazo, clima). Nenhum precisa de comando para aparecer.
+Os 41 mods de **Sempre visível** são painéis: faixas acima do prompt ou entradas na status line que se atualizam sozinhas (git, contexto, custo, testes, CI, tarefas, prazo, clima). Nenhum precisa de comando para aparecer.
 
 O mod `cockpit` é o painel de configurações deles e vem junto como dependência de qualquer painel.
 
@@ -66,7 +66,7 @@ As descrições dos slash commands no autocompletar são lidas quando a sessão 
 
 | | | |
 | --- | --- | --- |
-| [**Sempre visível**](docs/catalog/panel.pt-BR.md) | 41 | `cockpit` `git-band` `todo-band` `usage-band` `files-band` `error-band` `goal-band` `agents-band` `activity-status` `test-status` `ci-status` `stash-status` `uncommitted-band` `pr-status` `main-warning-band` `conflict-band` `project-status` `ports-band` `deps-status` `todo-count-status` `quality-status` `model-status` `cost-ticker` `idle-clock` `turn-progress` `last-prompt-band` `compact-nudge` `session-diff-band` `shield-band` `reset-countdown` `spend-today` `focus-band` `deadline-band` `pin-band` `clock-status` `day-timer` `commits-today` `dolar-status` `weather-status` `api-status` `terminal-pet` |
+| [**Sempre visível**](docs/catalog/panel.pt-BR.md) | 42 | `cockpit` `git-band` `todo-band` `usage-band` `files-band` `error-band` `goal-band` `agents-band` `activity-status` `test-status` `ci-status` `stash-status` `uncommitted-band` `pr-status` `main-warning-band` `conflict-band` `project-status` `ports-band` `deps-status` `todo-count-status` `quality-status` `model-status` `cost-ticker` `idle-clock` `turn-progress` `last-prompt-band` `compact-nudge` `session-diff-band` `shield-band` `reset-countdown` `spend-today` `focus-band` `deadline-band` `pin-band` `clock-status` `day-timer` `commits-today` `dolar-status` `weather-status` `api-status` `terminal-pet` `runtime-band` |
 | [**Segurança**](docs/catalog/security.pt-BR.md) | 30 | `rm-guard` `env-guard` `git-guard` `secret-scan` `prompt-secret-guard` `lockfile-guard` `path-jail` `main-branch-guard` `generated-guard` `sql-guard` `prod-guard` `install-ask` `pipe-shell-guard` `big-read-guard` `sudo-guard` `chmod-guard` `docker-guard` `kill-guard` `credential-file-guard` `upload-guard` `env-dump-guard` `registry-guard` `persistence-guard` `dotfile-guard` `ci-config-guard` `test-skip-guard` `suppress-guard` `migration-guard` `large-write-guard` `tunnel-guard` |
 | [**Interface**](docs/catalog/interface.pt-BR.md) | 29 | `turn-timer` `tool-tally` `file-trail` `cmd-log` `git-status-line` `context-meter` `rate-limit-watch` `session-clock` `diff-pane` `turn-history` `prompt-history` `agent-pane` `token-chart` `cost-pane` `error-pane` `context-pane` `read-pane` `links-pane` `git-pane` `branch-pane` `stash-pane` `code-todo-pane` `deps-pane` `scripts-pane` `env-keys-pane` `test-pane` `slow-toast` `deny-toast` `big-output-toast` |
 | [**Prompt e modelo**](docs/catalog/prompt.pt-BR.md) | 20 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` `time-context` `os-context` `test-first` `explain-mode` `plan-first` `no-comments` `minimal-diff` `ask-first` `verify-claims` `paste-fence` `file-mention-hint` `trace-helper` |

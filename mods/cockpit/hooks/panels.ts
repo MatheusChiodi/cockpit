@@ -298,6 +298,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "runtime-band",
+    "group": "project",
+    "description": {
+      "en": "Band that appears when the Node, Python or Java version the project asks for differs from the one installed",
+      "pt": "Faixa que aparece quando a versão de Node, Python ou Java que o projeto pede difere da instalada",
+      "es": "Banda que aparece cuando la versión de Node, Python o Java que pide el proyecto difiere de la instalada"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {

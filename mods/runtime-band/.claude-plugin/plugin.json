@@ -1,0 +1,17 @@
+{
+  "name": "runtime-band",
+  "version": "0.1.0",
+  "description": "Band that appears when the Node, Python or Java version the project asks for differs from the one installed",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}

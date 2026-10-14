@@ -1336,6 +1336,12 @@
       "source": "./mods/pm-command",
       "description": "/pm names the project's package manager and shows its install, add, remove, run and exec commands",
       "category": "stack"
+    },
+    {
+      "name": "runtime-band",
+      "source": "./mods/runtime-band",
+      "description": "Band that appears when the Node, Python or Java version the project asks for differs from the one installed",
+      "category": "panel"
     }
   ]
 }
