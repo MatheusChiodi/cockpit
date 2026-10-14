@@ -1742,6 +1742,22 @@
         "[[warn|  Do you want to proceed?]]",
         "[[btn|[ Yes ]]] [[dim|[ No ]]]"
       ]
+    },
+    {
+      "name": "agent-done-notify",
+      "category": "focus",
+      "description": {
+        "en": "Sends a native notification when a subagent that ran for 30 seconds or more finishes",
+        "pt": "Envia uma notificação nativa quando um subagente que rodou 30 segundos ou mais termina",
+        "es": "Envía una notificación nativa cuando termina un subagente que corrió 30 segundos o más"
+      },
+      "preview": [
+        "[[notify|Claude Code]]",
+        "[[notify|Subagent a3f9c2 finished in 1m 12s.]]",
+        "",
+        "[[tool|● Task]](review the auth module)",
+        "[[dim|  ⎿ Done]]"
+      ]
     }
   ],
   "hero": [

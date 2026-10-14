@@ -1,8 +1,8 @@
-# Foco e notificações — 5 mods
+# Foco e notificações — 6 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify)
 
 ## `turn-notify`
 
@@ -53,3 +53,13 @@ Envia uma notificação nativa quando o Claude para para te perguntar algo ou pe
 ```
 
 ![needs-you-notify](../previews/needs-you-notify.svg)
+
+## `agent-done-notify`
+
+Envia uma notificação nativa quando um subagente que rodou 30 segundos ou mais termina.
+
+```
+/plugin install agent-done-notify@cockpit
+```
+
+![agent-done-notify](../previews/agent-done-notify.svg)

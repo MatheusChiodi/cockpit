@@ -640,6 +640,12 @@
       "source": "./mods/needs-you-notify",
       "description": "Sends a native notification when Claude stops to ask you a question or needs your permission",
       "category": "focus"
+    },
+    {
+      "name": "agent-done-notify",
+      "source": "./mods/agent-done-notify",
+      "description": "Sends a native notification when a subagent that ran for 30 seconds or more finishes",
+      "category": "focus"
     }
   ]
 }

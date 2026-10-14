@@ -1,0 +1,13 @@
+{
+  "name": "agent-done-notify",
+  "version": "0.1.0",
+  "description": "Sends a native notification when a subagent that ran for 30 seconds or more finishes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}
