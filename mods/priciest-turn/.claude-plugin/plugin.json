@@ -1,0 +1,13 @@
+{
+  "name": "priciest-turn",
+  "version": "0.1.0",
+  "description": "/priciest shows the most expensive turn of the session, its share of the total, the prompt and the tools it ran",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

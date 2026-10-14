@@ -4761,6 +4761,21 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  last 10 US$ 3.00 ↑]]"
       ]
+    },
+    {
+      "name": "priciest-turn",
+      "category": "context",
+      "description": {
+        "en": "/priciest shows the most expensive turn of the session, its share of the total, the prompt and the tools it ran",
+        "pt": "/priciest mostra o turno mais caro da sessão, sua parte do total, o prompt e as ferramentas que ele rodou",
+        "es": "/priciest muestra el turno más caro de la sesión, su parte del total, el prompt y las herramientas que ejecutó"
+      },
+      "preview": [
+        "[[user|> /priciest]]",
+        "[[dim|Priciest turn: #2  US$ 0.80  (89% of the session)]]",
+        "[[dim|Asked: migrate the billing module]]",
+        "[[dim|Tools: Read×2  Bash×1]]"
+      ]
     }
   ],
   "hero": [

@@ -1846,6 +1846,12 @@
       "source": "./mods/cost-trend",
       "description": "Status line with what the last ten turns cost together and whether the spend is rising or falling",
       "category": "context"
+    },
+    {
+      "name": "priciest-turn",
+      "source": "./mods/priciest-turn",
+      "description": "/priciest shows the most expensive turn of the session, its share of the total, the prompt and the tools it ran",
+      "category": "context"
     }
   ]
 }

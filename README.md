@@ -2,7 +2,7 @@
 
 **English** · [Português](README.pt-BR.md) · [Español](README.es.md)
 
-**An instrument panel for Claude Code.** 307 mods for the terminal: 52 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
+**An instrument panel for Claude Code.** 308 mods for the terminal: 52 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
 
 ![The full Cockpit panel in a terminal](docs/cockpit.svg)
 
@@ -75,7 +75,7 @@ Slash command descriptions in the typeahead are read when a session starts, so t
 | [**Git and GitHub**](docs/catalog/git.md) | 24 | `commit-review` `wip-commit-guard` `marker-guard` `amend-guard` `stage-guard` `git-stage` `git-fixup` `git-sync` `behind-toast` `git-switch` `git-tag` `staged-status` `pr-open` `pr-checks` `pr-comments` `review-queue` `issue-context` `issue-link` `draft-nag` `pr-diff` `merge-ready` `release-notes` `changelog-entry` `merged-branches` |
 | [**Quality**](docs/catalog/quality.md) | 12 | `untested-turn-toast` `red-turn-toast` `debugger-guard` `leftovers-toast` `any-guard` `long-file-toast` `dup-block-guard` `untested` `coverage-status` `empty-test-guard` `snapshot-update-guard` `catch-swallow-guard` |
 | [**Stacks**](docs/catalog/stack.md) | 12 | `pm-guard` `script-guard` `missing-import-guard` `client-env-guard` `next-boundary-guard` `esm-guard` `alias-import-guard` `dev-server-guard` `ts-config-context` `env-undeclared-toast` `node-version-status` `pm-command` |
-| [**Context and cost**](docs/catalog/context.md) | 16 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` `heavy-calls` `tree-flood-guard` `agent-cap` `agent-straggler` `cost-per-hour` `cost-trend` |
+| [**Context and cost**](docs/catalog/context.md) | 17 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` `heavy-calls` `tree-flood-guard` `agent-cap` `agent-straggler` `cost-per-hour` `cost-trend` `priciest-turn` |
 
 ## Visual language
 
