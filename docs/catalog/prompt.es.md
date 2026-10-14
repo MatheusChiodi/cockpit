@@ -1,8 +1,8 @@
-# Prompt y modelo — 11 mods
+# Prompt y modelo — 12 mods
 
 [← Volver al README](../../README.es.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode)
 
 ## `concise-mode`
 
@@ -113,3 +113,13 @@ Informa a Claude tu sistema operativo, shell y las versiones instaladas de node,
 ```
 
 ![test-first](../previews/test-first.svg)
+
+## `explain-mode`
+
+/explain hace que Claude explique cada cambio en una o dos frases, para quien aprende el código.
+
+```
+/plugin install explain-mode@cockpit
+```
+
+![explain-mode](../previews/explain-mode.svg)

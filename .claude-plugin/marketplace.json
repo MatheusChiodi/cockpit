@@ -898,6 +898,12 @@
       "source": "./mods/test-first",
       "description": "/tdd turns on test-first work: a failing test before the code, run before and after",
       "category": "prompt"
+    },
+    {
+      "name": "explain-mode",
+      "source": "./mods/explain-mode",
+      "description": "/explain makes Claude explain each change in one or two sentences, for someone learning the codebase",
+      "category": "prompt"
     }
   ]
 }

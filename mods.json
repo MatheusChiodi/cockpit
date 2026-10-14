@@ -2437,6 +2437,24 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  tdd]]"
       ]
+    },
+    {
+      "name": "explain-mode",
+      "category": "prompt",
+      "description": {
+        "en": "/explain makes Claude explain each change in one or two sentences, for someone learning the codebase",
+        "pt": "/explain faz o Claude explicar cada mudança em uma ou duas frases, para quem está aprendendo o código",
+        "es": "/explain hace que Claude explique cada cambio en una o dos frases, para quien aprende el código"
+      },
+      "preview": [
+        "[[user|> /explain on]]",
+        "[[dim|  ⎿ Explain mode on (applies from the next prompt).]]",
+        "",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  explain]]"
+      ]
     }
   ],
   "hero": [

@@ -1,0 +1,13 @@
+{
+  "name": "explain-mode",
+  "version": "0.1.0",
+  "description": "/explain makes Claude explain each change in one or two sentences, for someone learning the codebase",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}
