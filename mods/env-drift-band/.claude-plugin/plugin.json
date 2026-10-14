@@ -1,0 +1,17 @@
+{
+  "name": "env-drift-band",
+  "version": "0.1.0",
+  "description": "Band with the keys .env.example has and .env lacks, names only, never values",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}

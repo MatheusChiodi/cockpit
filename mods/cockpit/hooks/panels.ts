@@ -316,6 +316,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "env-drift-band",
+    "group": "project",
+    "description": {
+      "en": "Band with the keys .env.example has and .env lacks, names only, never values",
+      "pt": "Faixa com as chaves que o .env.example tem e o .env não, só os nomes, nunca os valores",
+      "es": "Banda con las claves que .env.example tiene y .env no, solo los nombres, nunca los valores"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {

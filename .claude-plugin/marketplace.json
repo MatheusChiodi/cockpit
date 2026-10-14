@@ -1348,6 +1348,12 @@
       "source": "./mods/docker-band",
       "description": "Band that warns when the Docker daemon is down or a compose stack has services stopped",
       "category": "panel"
+    },
+    {
+      "name": "env-drift-band",
+      "source": "./mods/env-drift-band",
+      "description": "Band with the keys .env.example has and .env lacks, names only, never values",
+      "category": "panel"
     }
   ]
 }
