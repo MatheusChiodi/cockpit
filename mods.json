@@ -1691,6 +1691,23 @@
         "Saved 24 message(s) to:",
         "[[dim|.claude-exports/session-2026-10-13-1542.md]]"
       ]
+    },
+    {
+      "name": "standup",
+      "category": "commands",
+      "description": {
+        "en": "/standup lists your commits since yesterday morning in this repository, grouped by day and ready to paste",
+        "pt": "/standup lista seus commits desde ontem de manhã neste repositório, agrupados por dia e prontos para colar",
+        "es": "/standup lista tus commits desde ayer por la mañana en este repositorio, agrupados por día y listos para pegar"
+      },
+      "preview": [
+        "[[user|> /standup]]",
+        "[[bold|2026-10-12 (yesterday)]]",
+        "- fix login redirect",
+        "- add retry to uploads",
+        "[[bold|2026-10-13 (today)]]",
+        "- split settings pane"
+      ]
     }
   ],
   "hero": [

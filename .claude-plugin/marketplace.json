@@ -622,6 +622,12 @@
       "source": "./mods/export-session",
       "description": "/save-session writes the conversation so far as Markdown under .claude-exports in the project",
       "category": "commands"
+    },
+    {
+      "name": "standup",
+      "source": "./mods/standup",
+      "description": "/standup lists your commits since yesterday morning in this repository, grouped by day and ready to paste",
+      "category": "commands"
     }
   ]
 }

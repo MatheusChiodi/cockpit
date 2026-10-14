@@ -1,0 +1,13 @@
+{
+  "name": "standup",
+  "version": "0.1.0",
+  "description": "/standup lists your commits since yesterday morning in this repository, grouped by day and ready to paste",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
