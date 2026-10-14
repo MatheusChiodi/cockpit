@@ -814,6 +814,12 @@
       "source": "./mods/links-pane",
       "description": "/links opens a pane with the URLs that appeared in Claude's answers; press one to copy it",
       "category": "interface"
+    },
+    {
+      "name": "git-pane",
+      "source": "./mods/git-pane",
+      "description": "/repo opens a pane with the branch, ahead and behind, the changed files and the last 8 commits",
+      "category": "interface"
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "name": "git-pane",
+  "version": "0.1.0",
+  "description": "/repo opens a pane with the branch, ahead and behind, the changed files and the last 8 commits",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

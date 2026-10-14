@@ -2203,6 +2203,25 @@
         "[[dim|▸ ]][[accent|https://github.com/acme/app/pull/42]]",
         "[[dim|▸ ]][[accent|https://example.com/changelog]]"
       ]
+    },
+    {
+      "name": "git-pane",
+      "category": "interface",
+      "description": {
+        "en": "/repo opens a pane with the branch, ahead and behind, the changed files and the last 8 commits",
+        "pt": "/repo abre um painel com a branch, à frente e atrás, os arquivos alterados e os últimos 8 commits",
+        "es": "/repo abre un panel con la rama, adelantados y atrasados, los archivos cambiados y los últimos 8 commits"
+      },
+      "preview": [
+        "[[user|> /repo]]",
+        "[[git|▍ ]][[bold|REPO]][[dim|  ⎇ feat/login  ↑2 ↓0  3 changed]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[warn|M ]] src/auth/login.ts",
+        "[[ok|A ]] src/auth/login.test.ts",
+        "[[dim|? ]][[dim| notes.txt]]",
+        "[[dim|a1b2c3d  Add login form  2h]]",
+        "[[dim|9f8e7d6  Fix token refresh  1d]]"
+      ]
     }
   ],
   "hero": [
