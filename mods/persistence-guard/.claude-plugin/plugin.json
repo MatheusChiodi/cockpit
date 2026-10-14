@@ -1,0 +1,13 @@
+{
+  "name": "persistence-guard",
+  "version": "0.1.0",
+  "description": "Asks before a command that makes something run on its own later: cron, schtasks, systemd, launchd or a Startup folder",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

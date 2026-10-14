@@ -1000,6 +1000,12 @@
       "source": "./mods/registry-guard",
       "description": "Asks before a command changes where packages come from: npm, pnpm, yarn and pip registry or index settings",
       "category": "security"
+    },
+    {
+      "name": "persistence-guard",
+      "source": "./mods/persistence-guard",
+      "description": "Asks before a command that makes something run on its own later: cron, schtasks, systemd, launchd or a Startup folder",
+      "category": "security"
     }
   ]
 }

@@ -2696,6 +2696,20 @@
         "[[warn|    registry-guard: points packages at npm.evil.io. Confirm.]]",
         "    [[btn|[ Yes ]]] [[btn|[ No ]]]"
       ]
+    },
+    {
+      "name": "persistence-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before a command that makes something run on its own later: cron, schtasks, systemd, launchd or a Startup folder",
+        "pt": "Pergunta antes de um comando que faz algo rodar sozinho depois: cron, schtasks, systemd, launchd ou pasta Startup",
+        "es": "Pregunta antes de un comando que hace que algo se ejecute solo después: cron, schtasks, systemd, launchd o carpeta Startup"
+      },
+      "preview": [
+        "[[tool|● Bash]](schtasks /create /tn backup /tr backup.bat /sc daily)",
+        "[[warn|  ⎿ persistence-guard: creating a Windows scheduled task. Confirm before running.]]",
+        "[[btn| Yes ]] [[btn| No ]]"
+      ]
     }
   ],
   "hero": [
