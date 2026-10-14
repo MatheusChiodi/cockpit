@@ -1636,6 +1636,12 @@
       "source": "./mods/ignore-check",
       "description": "/ignored tells whether git ignores a path and which rule does it",
       "category": "commands"
+    },
+    {
+      "name": "file-compare",
+      "source": "./mods/file-compare",
+      "description": "/cmp shows how one project file differs from another, and refuses files that hold secrets",
+      "category": "commands"
     }
   ]
 }

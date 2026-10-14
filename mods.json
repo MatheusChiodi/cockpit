@@ -4240,6 +4240,23 @@
         "[[user|> /ignored src/app.ts]]",
         "[[dim|  ⎿]] src/app.ts is not ignored."
       ]
+    },
+    {
+      "name": "file-compare",
+      "category": "commands",
+      "description": {
+        "en": "/cmp shows how one project file differs from another, and refuses files that hold secrets",
+        "pt": "/cmp mostra como um arquivo do projeto difere de outro, e recusa arquivos com segredos",
+        "es": "/cmp muestra en qué se diferencia un archivo del proyecto de otro, y rechaza archivos con secretos"
+      },
+      "preview": [
+        "[[user|> /cmp tsconfig.json tsconfig.build.json]]",
+        "[[dim|  ⎿]] --- a/tsconfig.json",
+        "     +++ b/tsconfig.build.json",
+        "     @@ -3,2 +3,3 @@",
+        "     [[err|-    \"noEmit\": true]]",
+        "     [[ok|+    \"outDir\": \"dist\"]]"
+      ]
     }
   ],
   "hero": [

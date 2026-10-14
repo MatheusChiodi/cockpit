@@ -1,0 +1,13 @@
+{
+  "name": "file-compare",
+  "version": "0.1.0",
+  "description": "/cmp shows how one project file differs from another, and refuses files that hold secrets",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
