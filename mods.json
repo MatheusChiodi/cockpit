@@ -4641,6 +4641,21 @@
         "Delete 3 merged branch(es)? feat/login, fix/typo, chore/deps",
         "[[btn| yes ]] [[btn| no ]]"
       ]
+    },
+    {
+      "name": "tool-clock",
+      "category": "interface",
+      "description": {
+        "en": "Appends the duration to every tool row that took a second or more, and tags calls made by a subagent",
+        "pt": "Acrescenta a duração a cada linha de ferramenta que levou um segundo ou mais e marca as chamadas feitas por um subagente",
+        "es": "Añade la duración a cada fila de herramienta que tardó un segundo o más y marca las llamadas hechas por un subagente"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm test) [[dim|14.2s]]",
+        "[[dim|  ⎿ 214 passing]]",
+        "[[tool|● Read]](src/login.ts) [[dim|subagent]]",
+        "[[tool|● Bash]](npm run build) [[dim|3.1s]] [[err|failed]]"
+      ]
     }
   ],
   "hero": [

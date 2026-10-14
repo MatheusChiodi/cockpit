@@ -1,0 +1,14 @@
+{
+  "name": "tool-clock",
+  "version": "0.1.0",
+  "description": "Appends the duration to every tool row that took a second or more, and tags calls made by a subagent",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

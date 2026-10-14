@@ -1798,6 +1798,12 @@
       "source": "./mods/merged-branches",
       "description": "/merged finds local branches already merged upstream and deletes them after asking",
       "category": "git"
+    },
+    {
+      "name": "tool-clock",
+      "source": "./mods/tool-clock",
+      "description": "Appends the duration to every tool row that took a second or more, and tags calls made by a subagent",
+      "category": "interface"
     }
   ]
 }
