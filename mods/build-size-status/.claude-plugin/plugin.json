@@ -1,0 +1,17 @@
+{
+  "name": "build-size-status",
+  "version": "0.1.0",
+  "description": "Status line with the size of the build output and how much it grew in this session",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}

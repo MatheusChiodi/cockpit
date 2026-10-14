@@ -397,6 +397,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "build-size-status",
+    "group": "project",
+    "description": {
+      "en": "Status line with the size of the build output and how much it grew in this session",
+      "pt": "Status line com o tamanho da saída do build e quanto ela cresceu nesta sessão",
+      "es": "Línea de estado con el tamaño de la salida del build y cuánto creció en esta sesión"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {

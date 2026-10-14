@@ -3665,6 +3665,22 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  env ✗ .env not ignored]]"
       ]
+    },
+    {
+      "name": "build-size-status",
+      "category": "panel",
+      "group": "project",
+      "description": {
+        "en": "Status line with the size of the build output and how much it grew in this session",
+        "pt": "Status line com o tamanho da saída do build e quanto ela cresceu nesta sessão",
+        "es": "Línea de estado con el tamaño de la salida del build y cuánto creció en esta sesión"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  dist 2.4 MB · +120 KB]]"
+      ]
     }
   ],
   "hero": [
