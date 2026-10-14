@@ -1,8 +1,8 @@
-# Contexto e custo — 12 mods
+# Contexto e custo — 13 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap)
 
 ## `reread-guard`
 
@@ -123,3 +123,13 @@ Recusa find, ls -R ou dir /s sem filtro que listaria node_modules, e sugere git 
 ```
 
 ![tree-flood-guard](../previews/tree-flood-guard.svg)
+
+## `agent-cap`
+
+/agentcap <n> limita quantos subagentes rodam ao mesmo tempo e pergunta antes de cada um além do limite.
+
+```
+/plugin install agent-cap@cockpit
+```
+
+![agent-cap](../previews/agent-cap.svg)

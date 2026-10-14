@@ -2,7 +2,7 @@
 
 [English](README.md) · [Português](README.pt-BR.md) · **Español**
 
-**Un panel de instrumentos para Claude Code.** 303 mods para la terminal: 52 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
+**Un panel de instrumentos para Claude Code.** 304 mods para la terminal: 52 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
 
 ![El panel completo de Cockpit en una terminal](docs/cockpit.svg)
 
@@ -75,7 +75,7 @@ Las descripciones de los slash commands en el autocompletado se leen al iniciar 
 | [**Git y GitHub**](docs/catalog/git.es.md) | 24 | `commit-review` `wip-commit-guard` `marker-guard` `amend-guard` `stage-guard` `git-stage` `git-fixup` `git-sync` `behind-toast` `git-switch` `git-tag` `staged-status` `pr-open` `pr-checks` `pr-comments` `review-queue` `issue-context` `issue-link` `draft-nag` `pr-diff` `merge-ready` `release-notes` `changelog-entry` `merged-branches` |
 | [**Calidad**](docs/catalog/quality.es.md) | 12 | `untested-turn-toast` `red-turn-toast` `debugger-guard` `leftovers-toast` `any-guard` `long-file-toast` `dup-block-guard` `untested` `coverage-status` `empty-test-guard` `snapshot-update-guard` `catch-swallow-guard` |
 | [**Stacks**](docs/catalog/stack.es.md) | 12 | `pm-guard` `script-guard` `missing-import-guard` `client-env-guard` `next-boundary-guard` `esm-guard` `alias-import-guard` `dev-server-guard` `ts-config-context` `env-undeclared-toast` `node-version-status` `pm-command` |
-| [**Contexto y costo**](docs/catalog/context.es.md) | 12 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` `heavy-calls` `tree-flood-guard` |
+| [**Contexto y costo**](docs/catalog/context.es.md) | 13 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` `heavy-calls` `tree-flood-guard` `agent-cap` |
 
 ## Lenguaje visual
 

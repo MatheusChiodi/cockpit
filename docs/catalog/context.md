@@ -1,8 +1,8 @@
-# Context and cost — 12 mods
+# Context and cost — 13 mods
 
 [← Back to the README](../../README.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls) · [`tree-flood-guard`](#tree-flood-guard) · [`agent-cap`](#agent-cap)
 
 ## `reread-guard`
 
@@ -123,3 +123,13 @@ Refuses an unfiltered find, ls -R or dir /s that would list node_modules, and su
 ```
 
 ![tree-flood-guard](../previews/tree-flood-guard.svg)
+
+## `agent-cap`
+
+/agentcap <n> caps how many subagents run at once and asks before each one past the cap.
+
+```
+/plugin install agent-cap@cockpit
+```
+
+![agent-cap](../previews/agent-cap.svg)

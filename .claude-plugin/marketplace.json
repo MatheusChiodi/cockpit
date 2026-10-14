@@ -1822,6 +1822,12 @@
       "source": "./mods/prompt-stamp",
       "description": "Puts the clock time beside each prompt you typed and the sender beside messages from other agents",
       "category": "interface"
+    },
+    {
+      "name": "agent-cap",
+      "source": "./mods/agent-cap",
+      "description": "/agentcap <n> caps how many subagents run at once and asks before each one past the cap",
+      "category": "context"
     }
   ]
 }

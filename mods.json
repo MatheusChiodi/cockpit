@@ -4703,6 +4703,21 @@
         "[[user|> now add a test]] [[dim|14:19]]",
         "[[dim|> found 3 callers from explorer]]"
       ]
+    },
+    {
+      "name": "agent-cap",
+      "category": "context",
+      "description": {
+        "en": "/agentcap <n> caps how many subagents run at once and asks before each one past the cap",
+        "pt": "/agentcap <n> limita quantos subagentes rodam ao mesmo tempo e pergunta antes de cada um além do limite",
+        "es": "/agentcap <n> limita cuántos subagentes corren a la vez y pregunta antes de cada uno que pase el límite"
+      },
+      "preview": [
+        "[[user|> /agentcap 3]]",
+        "[[dim|Subagent cap set to 3.]]",
+        "[[tool|● Agent]](map the billing module)",
+        "[[warn|  agent-cap: 3 subagents already running (cap 3). Start another?]]"
+      ]
     }
   ],
   "hero": [

@@ -1,0 +1,13 @@
+{
+  "name": "agent-cap",
+  "version": "0.1.0",
+  "description": "/agentcap <n> caps how many subagents run at once and asks before each one past the cap",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}
