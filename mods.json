@@ -3057,6 +3057,21 @@
         "[[bold|New (1)]]",
         "  notes.md"
       ]
+    },
+    {
+      "name": "git-fixup",
+      "category": "git",
+      "description": {
+        "en": "/fixup commits the staged changes as a fixup of HEAD or any commit, ready for rebase --autosquash",
+        "pt": "/fixup commita o que está no stage como fixup do HEAD ou de qualquer commit, pronto para rebase --autosquash",
+        "es": "/fixup commitea lo que está en el stage como fixup de HEAD o de cualquier commit, listo para rebase --autosquash"
+      },
+      "preview": [
+        "[[user|> /fixup a1b2c3d]]",
+        "Create a fixup commit for \"a1b2c3d add login\" with the staged changes?",
+        "[[btn| yes ]] [[btn| no ]]",
+        "Fixup created for a1b2c3d add login."
+      ]
     }
   ],
   "hero": [

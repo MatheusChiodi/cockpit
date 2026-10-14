@@ -1,8 +1,8 @@
-# Git and GitHub — 6 mods
+# Git and GitHub — 7 mods
 
 [← Back to the README](../../README.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup)
 
 ## `commit-review`
 
@@ -63,3 +63,13 @@ Refuses git add -A, git add . and git commit -a while a .env, key or certificate
 ```
 
 ![git-stage](../previews/git-stage.svg)
+
+## `git-fixup`
+
+/fixup commits the staged changes as a fixup of HEAD or any commit, ready for rebase --autosquash.
+
+```
+/plugin install git-fixup@cockpit
+```
+
+![git-fixup](../previews/git-fixup.svg)

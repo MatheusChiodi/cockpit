@@ -1156,6 +1156,12 @@
       "source": "./mods/git-stage",
       "description": "/stage lists what is staged, unstaged and new; /stage <paths> stages them and -r unstages, asking first",
       "category": "git"
+    },
+    {
+      "name": "git-fixup",
+      "source": "./mods/git-fixup",
+      "description": "/fixup commits the staged changes as a fixup of HEAD or any commit, ready for rebase --autosquash",
+      "category": "git"
     }
   ]
 }

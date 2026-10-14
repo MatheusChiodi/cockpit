@@ -1,0 +1,13 @@
+{
+  "name": "git-fixup",
+  "version": "0.1.0",
+  "description": "/fixup commits the staged changes as a fixup of HEAD or any commit, ready for rebase --autosquash",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}
