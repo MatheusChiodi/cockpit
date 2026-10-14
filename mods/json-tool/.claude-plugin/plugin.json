@@ -1,0 +1,13 @@
+{
+  "name": "json-tool",
+  "version": "0.1.0",
+  "description": "/json validates and pretty-prints JSON, and says the line and column of a syntax error",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

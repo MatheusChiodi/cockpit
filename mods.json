@@ -1499,6 +1499,21 @@
         "typescript   5.4.5    5.4.5   5.6.2",
         "[[warn|2 outdated, 1 major jump]]"
       ]
+    },
+    {
+      "name": "json-tool",
+      "category": "commands",
+      "description": {
+        "en": "/json validates and pretty-prints JSON, and says the line and column of a syntax error",
+        "pt": "/json valida e formata JSON, e diz a linha e a coluna de um erro de sintaxe",
+        "es": "/json valida y formatea JSON, e indica la línea y la columna de un error de sintaxis"
+      },
+      "preview": [
+        "[[user|> /json {\"a\":1,\"b\":}]]",
+        "[[err|Invalid JSON at line 1, column 13: unexpected character \"}\".]]",
+        "[[dim|{\"a\":1,\"b\":}]]",
+        "[[dim|            ^]]"
+      ]
     }
   ],
   "hero": [
