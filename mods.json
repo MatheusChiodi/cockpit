@@ -1514,6 +1514,21 @@
         "[[dim|{\"a\":1,\"b\":}]]",
         "[[dim|            ^]]"
       ]
+    },
+    {
+      "name": "uuid",
+      "category": "commands",
+      "description": {
+        "en": "/uuid generates up to 20 random UUIDs and copies them to the clipboard",
+        "pt": "/uuid gera até 20 UUIDs aleatórios e copia para a área de transferência",
+        "es": "/uuid genera hasta 20 UUID aleatorios y los copia al portapapeles"
+      },
+      "preview": [
+        "[[user|> /uuid 2]]",
+        "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "0b7f2a1e-3d44-4c8a-9a51-6f1d2c3e4b5a",
+        "[[dim|2 UUID(s) copied to the clipboard.]]"
+      ]
     }
   ],
   "hero": [

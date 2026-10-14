@@ -562,6 +562,12 @@
       "source": "./mods/json-tool",
       "description": "/json validates and pretty-prints JSON, and says the line and column of a syntax error",
       "category": "commands"
+    },
+    {
+      "name": "uuid",
+      "source": "./mods/uuid",
+      "description": "/uuid generates up to 20 random UUIDs and copies them to the clipboard",
+      "category": "commands"
     }
   ]
 }

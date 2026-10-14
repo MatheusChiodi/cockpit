@@ -1,0 +1,13 @@
+{
+  "name": "uuid",
+  "version": "0.1.0",
+  "description": "/uuid generates up to 20 random UUIDs and copies them to the clipboard",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
