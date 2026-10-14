@@ -2532,6 +2532,24 @@
         "[[ok|Verified:]] unit tests pass (14/14)",
         "[[warn|Not verified:]] the Windows build"
       ]
+    },
+    {
+      "name": "paste-fence",
+      "category": "prompt",
+      "description": {
+        "en": "Wraps a pasted block of 6+ lines of code or logs in a code fence before it is sent, leaving your sentences outside",
+        "pt": "Envolve em um bloco de código o trecho colado de 6+ linhas de código ou log antes do envio, deixando suas frases de fora",
+        "es": "Envuelve en un bloque de código el fragmento pegado de 6+ líneas de código o log antes de enviar, dejando tus frases fuera"
+      },
+      "preview": [
+        "[[user|> why does this crash?]]",
+        "[[dim|  ```]]",
+        "[[dim|  TypeError: Cannot read properties of undefined]]",
+        "[[dim|      at render (/app/src/view.js:12:5)]]",
+        "[[dim|      at update (/app/src/view.js:30:9)]]",
+        "[[dim|  ... 3 more lines]]",
+        "[[dim|  ```]]"
+      ]
     }
   ],
   "hero": [

@@ -934,6 +934,12 @@
       "source": "./mods/verify-claims",
       "description": "Claude does not say something works without running it, and ends with what was and was not verified",
       "category": "prompt"
+    },
+    {
+      "name": "paste-fence",
+      "source": "./mods/paste-fence",
+      "description": "Wraps a pasted block of 6+ lines of code or logs in a code fence before it is sent, leaving your sentences outside",
+      "category": "prompt"
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "name": "paste-fence",
+  "version": "0.1.0",
+  "description": "Wraps a pasted block of 6+ lines of code or logs in a code fence before it is sent, leaving your sentences outside",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

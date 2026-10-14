@@ -1,8 +1,8 @@
-# Prompt y modelo — 17 mods
+# Prompt y modelo — 18 mods
 
 [← Volver al README](../../README.es.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first) · [`verify-claims`](#verify-claims)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first) · [`verify-claims`](#verify-claims) · [`paste-fence`](#paste-fence)
 
 ## `concise-mode`
 
@@ -173,3 +173,13 @@ Claude no dice que algo funciona sin ejecutarlo, y termina diciendo qué se veri
 ```
 
 ![verify-claims](../previews/verify-claims.svg)
+
+## `paste-fence`
+
+Envuelve en un bloque de código el fragmento pegado de 6+ líneas de código o log antes de enviar, dejando tus frases fuera.
+
+```
+/plugin install paste-fence@cockpit
+```
+
+![paste-fence](../previews/paste-fence.svg)
