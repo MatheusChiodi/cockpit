@@ -1,0 +1,13 @@
+{
+  "name": "color-tool",
+  "version": "0.1.0",
+  "description": "/color converts a color between hex, rgb and hsl and reports its WCAG contrast on white and black",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

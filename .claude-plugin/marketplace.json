@@ -592,6 +592,12 @@
       "source": "./mods/calc",
       "description": "/calc evaluates arithmetic with parentheses and decimals, and says what is wrong with a bad expression",
       "category": "commands"
+    },
+    {
+      "name": "color-tool",
+      "source": "./mods/color-tool",
+      "description": "/color converts a color between hex, rgb and hsl and reports its WCAG contrast on white and black",
+      "category": "commands"
     }
   ]
 }

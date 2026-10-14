@@ -1591,6 +1591,23 @@
         "[[user|> /calc (1 + 2]]",
         "[[err|The \"(\" at position 1 is never closed.]]"
       ]
+    },
+    {
+      "name": "color-tool",
+      "category": "commands",
+      "description": {
+        "en": "/color converts a color between hex, rgb and hsl and reports its WCAG contrast on white and black",
+        "pt": "/color converte uma cor entre hex, rgb e hsl e informa o contraste WCAG sobre branco e preto",
+        "es": "/color convierte un color entre hex, rgb y hsl e informa su contraste WCAG sobre blanco y negro"
+      },
+      "preview": [
+        "[[user|> /color #ff8800]]",
+        "hex       #ff8800",
+        "rgb       rgb(255, 136, 0)",
+        "hsl       hsl(32, 100%, 50%)",
+        "vs white  2.39:1  fail",
+        "vs black  8.77:1  AAA"
+      ]
     }
   ],
   "hero": [
