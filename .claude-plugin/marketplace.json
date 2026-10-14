@@ -892,6 +892,12 @@
       "source": "./mods/os-context",
       "description": "Tells Claude your operating system, shell and installed node, python, java and git versions",
       "category": "prompt"
+    },
+    {
+      "name": "test-first",
+      "source": "./mods/test-first",
+      "description": "/tdd turns on test-first work: a failing test before the code, run before and after",
+      "category": "prompt"
     }
   ]
 }

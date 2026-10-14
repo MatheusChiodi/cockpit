@@ -1,8 +1,8 @@
-# Prompt and model — 10 mods
+# Prompt and model — 11 mods
 
 [← Back to the README](../../README.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first)
 
 ## `concise-mode`
 
@@ -103,3 +103,13 @@ Tells Claude your operating system, shell and installed node, python, java and g
 ```
 
 ![os-context](../previews/os-context.svg)
+
+## `test-first`
+
+/tdd turns on test-first work: a failing test before the code, run before and after.
+
+```
+/plugin install test-first@cockpit
+```
+
+![test-first](../previews/test-first.svg)

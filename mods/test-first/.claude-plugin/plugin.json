@@ -1,0 +1,13 @@
+{
+  "name": "test-first",
+  "version": "0.1.0",
+  "description": "/tdd turns on test-first work: a failing test before the code, run before and after",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

@@ -2419,6 +2419,24 @@
         "[[dim|Installed: node 22.4.0, python 3.12.1, git 2.45.1]]",
         "[[dim|Write commands for this OS and shell.]]"
       ]
+    },
+    {
+      "name": "test-first",
+      "category": "prompt",
+      "description": {
+        "en": "/tdd turns on test-first work: a failing test before the code, run before and after",
+        "pt": "/tdd liga o trabalho test-first: um teste que falha antes do código, rodado antes e depois",
+        "es": "/tdd activa el trabajo test-first: una prueba que falla antes del código, ejecutada antes y después"
+      },
+      "preview": [
+        "[[user|> /tdd on]]",
+        "[[dim|  ⎿ Test-first mode on (applies from the next prompt).]]",
+        "",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  tdd]]"
+      ]
     }
   ],
   "hero": [

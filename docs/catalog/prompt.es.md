@@ -1,8 +1,8 @@
-# Prompt y modelo — 10 mods
+# Prompt y modelo — 11 mods
 
 [← Volver al README](../../README.es.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first)
 
 ## `concise-mode`
 
@@ -103,3 +103,13 @@ Informa a Claude tu sistema operativo, shell y las versiones instaladas de node,
 ```
 
 ![os-context](../previews/os-context.svg)
+
+## `test-first`
+
+/tdd activa el trabajo test-first: una prueba que falla antes del código, ejecutada antes y después.
+
+```
+/plugin install test-first@cockpit
+```
+
+![test-first](../previews/test-first.svg)
