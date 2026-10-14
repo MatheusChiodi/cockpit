@@ -988,6 +988,12 @@
       "source": "./mods/upload-guard",
       "description": "Asks before a command sends a local file out: curl uploads, wget --post-file, scp or rsync to a host, nc",
       "category": "security"
+    },
+    {
+      "name": "env-dump-guard",
+      "source": "./mods/env-dump-guard",
+      "description": "Blocks dumping the whole environment: bare env, printenv, set and export -p, Get-ChildItem Env:",
+      "category": "security"
     }
   ]
 }

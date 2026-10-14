@@ -1,0 +1,13 @@
+{
+  "name": "env-dump-guard",
+  "version": "0.1.0",
+  "description": "Blocks dumping the whole environment: bare env, printenv, set and export -p, Get-ChildItem Env:",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

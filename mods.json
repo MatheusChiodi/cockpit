@@ -2667,6 +2667,20 @@
         "[[warn|    upload-guard: sends a local file out (curl upload). Confirm.]]",
         "    [[btn|[ Yes ]]] [[btn|[ No ]]]"
       ]
+    },
+    {
+      "name": "env-dump-guard",
+      "category": "security",
+      "description": {
+        "en": "Blocks dumping the whole environment: bare env, printenv, set and export -p, Get-ChildItem Env:",
+        "pt": "Bloqueia despejar o ambiente inteiro: env, printenv, set e export -p sem argumentos, Get-ChildItem Env:",
+        "es": "Bloquea volcar todo el entorno: env, printenv, set y export -p sin argumentos, Get-ChildItem Env:"
+      },
+      "preview": [
+        "[[tool|● Bash]](env)",
+        "[[err|  ⎿ env-dump-guard blocked the command: listing the whole environment (env).]]",
+        "[[err|    Read one named variable instead, for example printenv HOME.]]"
+      ]
     }
   ],
   "hero": [

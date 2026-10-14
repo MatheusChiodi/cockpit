@@ -2,7 +2,7 @@
 
 **English** · [Português](README.pt-BR.md) · [Español](README.es.md)
 
-**An instrument panel for Claude Code.** 164 mods for the terminal: 40 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
+**An instrument panel for Claude Code.** 165 mods for the terminal: 40 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
 
 ![The full Cockpit panel in a terminal](docs/cockpit.svg)
 
@@ -67,7 +67,7 @@ Slash command descriptions in the typeahead are read when a session starts, so t
 | | | |
 | --- | --- | --- |
 | [**Always visible**](docs/catalog/panel.md) | 41 | `cockpit` `git-band` `todo-band` `usage-band` `files-band` `error-band` `goal-band` `agents-band` `activity-status` `test-status` `ci-status` `stash-status` `uncommitted-band` `pr-status` `main-warning-band` `conflict-band` `project-status` `ports-band` `deps-status` `todo-count-status` `quality-status` `model-status` `cost-ticker` `idle-clock` `turn-progress` `last-prompt-band` `compact-nudge` `session-diff-band` `shield-band` `reset-countdown` `spend-today` `focus-band` `deadline-band` `pin-band` `clock-status` `day-timer` `commits-today` `dolar-status` `weather-status` `api-status` `terminal-pet` |
-| [**Security**](docs/catalog/security.md) | 20 | `rm-guard` `env-guard` `git-guard` `secret-scan` `prompt-secret-guard` `lockfile-guard` `path-jail` `main-branch-guard` `generated-guard` `sql-guard` `prod-guard` `install-ask` `pipe-shell-guard` `big-read-guard` `sudo-guard` `chmod-guard` `docker-guard` `kill-guard` `credential-file-guard` `upload-guard` |
+| [**Security**](docs/catalog/security.md) | 21 | `rm-guard` `env-guard` `git-guard` `secret-scan` `prompt-secret-guard` `lockfile-guard` `path-jail` `main-branch-guard` `generated-guard` `sql-guard` `prod-guard` `install-ask` `pipe-shell-guard` `big-read-guard` `sudo-guard` `chmod-guard` `docker-guard` `kill-guard` `credential-file-guard` `upload-guard` `env-dump-guard` |
 | [**Interface**](docs/catalog/interface.md) | 29 | `turn-timer` `tool-tally` `file-trail` `cmd-log` `git-status-line` `context-meter` `rate-limit-watch` `session-clock` `diff-pane` `turn-history` `prompt-history` `agent-pane` `token-chart` `cost-pane` `error-pane` `context-pane` `read-pane` `links-pane` `git-pane` `branch-pane` `stash-pane` `code-todo-pane` `deps-pane` `scripts-pane` `env-keys-pane` `test-pane` `slow-toast` `deny-toast` `big-output-toast` |
 | [**Prompt and model**](docs/catalog/prompt.md) | 20 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` `time-context` `os-context` `test-first` `explain-mode` `plan-first` `no-comments` `minimal-diff` `ask-first` `verify-claims` `paste-fence` `file-mention-hint` `trace-helper` |
 | [**Commands**](docs/catalog/commands.md) | 30 | `quick-notes` `pomodoro` `copy-last` `session-stats` `quote-selection` `git-peek` `git-branch` `git-stash` `git-undo` `run-script` `open-path` `ports` `kill-port` `tree` `find-file` `last-error` `env-check` `outdated` `json-tool` `uuid` `timestamp` `base64` `hash` `calc` `color-tool` `regex-test` `http-probe` `snippets` `export-session` `standup` |
