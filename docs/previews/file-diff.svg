@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="202" viewBox="0 0 760 202" role="img" aria-label="file-diff in the terminal">
+<defs><clipPath id="card"><rect width="760" height="202" rx="12"/></clipPath></defs>
+<g clip-path="url(#card)">
+<rect width="760" height="202" fill="#0f131a"/>
+<rect width="760" height="38" fill="#141a24"/>
+<rect y="38" width="760" height="1" fill="#222a38"/>
+<rect width="760" height="3" fill="#74a8f5"/>
+</g>
+<g transform="translate(30 21)" fill="none" stroke="#74a8f5" stroke-width="1.6" stroke-linecap="round">
+<circle r="7.5" opacity="0.45"/><path d="M0 0L0 -6.5M0 0L5.6 3.3M0 0L-5.6 3.3"/><circle r="1.4" fill="#74a8f5" stroke="none"/>
+</g>
+<text y="26" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="12.5"><tspan x="46" fill="#eef2f8" font-weight="700">cockpit</tspan><tspan fill="#677185"> / </tspan><tspan fill="#d5dbe6">file-diff</tspan></text>
+<text x="736" y="26" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="10.5" letter-spacing="1.4" fill="#677185">COMMANDS</text>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="13">
+<text y="66" xml:space="preserve"><tspan x="24.0" textLength="203.6" lengthAdjust="spacingAndGlyphs" fill="#eef2f8">&gt; /fdiff src/auth/login.ts</tspan></text>
+<text y="87" xml:space="preserve"><tspan x="24.0" textLength="23.5" lengthAdjust="spacingAndGlyphs" fill="#677185">  ⎿</tspan><tspan x="47.5" textLength="187.9" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> --- a/src/auth/login.ts</tspan></text>
+<text y="108" xml:space="preserve"><tspan x="24.0" textLength="219.2" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6">     +++ b/src/auth/login.ts</tspan></text>
+<text y="129" xml:space="preserve"><tspan x="24.0" textLength="172.3" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6">     @@ -12,3 +12,4 @@</tspan></text>
+<text y="150" xml:space="preserve"><tspan x="24.0" textLength="39.1" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6">     </tspan><tspan x="63.1" textLength="117.5" lengthAdjust="spacingAndGlyphs" fill="#f07b7b">-  return token</tspan></text>
+<text y="171" xml:space="preserve"><tspan x="24.0" textLength="39.1" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6">     </tspan><tspan x="63.1" textLength="187.9" lengthAdjust="spacingAndGlyphs" fill="#8fd18b">+  return refresh(token)</tspan></text>
+</g>
+</svg>

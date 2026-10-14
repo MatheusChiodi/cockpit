@@ -1618,6 +1618,12 @@
       "source": "./mods/head-file",
       "description": "/head shows the first numbered lines of a project file, and never prints files that hold secrets",
       "category": "commands"
+    },
+    {
+      "name": "file-diff",
+      "source": "./mods/file-diff",
+      "description": "/fdiff shows what changed in one file since the last commit, without printing secret files",
+      "category": "commands"
     }
   ]
 }

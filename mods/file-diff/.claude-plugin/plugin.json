@@ -1,0 +1,13 @@
+{
+  "name": "file-diff",
+  "version": "0.1.0",
+  "description": "/fdiff shows what changed in one file since the last commit, without printing secret files",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

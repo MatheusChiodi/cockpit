@@ -4192,6 +4192,23 @@
         "        3  ",
         "     [[dim|… 41 more lines not shown]]"
       ]
+    },
+    {
+      "name": "file-diff",
+      "category": "commands",
+      "description": {
+        "en": "/fdiff shows what changed in one file since the last commit, without printing secret files",
+        "pt": "/fdiff mostra o que mudou em um arquivo desde o último commit, sem exibir arquivos com segredos",
+        "es": "/fdiff muestra qué cambió en un archivo desde el último commit, sin mostrar archivos con secretos"
+      },
+      "preview": [
+        "[[user|> /fdiff src/auth/login.ts]]",
+        "[[dim|  ⎿]] --- a/src/auth/login.ts",
+        "     +++ b/src/auth/login.ts",
+        "     @@ -12,3 +12,4 @@",
+        "     [[err|-  return token]]",
+        "     [[ok|+  return refresh(token)]]"
+      ]
     }
   ],
   "hero": [
