@@ -1,0 +1,13 @@
+{
+  "name": "review-queue",
+  "version": "0.1.0",
+  "description": "Status line with how many pull requests wait for your review, and a toast when a new one is requested",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

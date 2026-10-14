@@ -4507,6 +4507,21 @@
         "  [[accent|ana]]  src/login.ts:18  Should this trim the email?",
         "  [[accent|bruno]]  src/api.ts:90  This swallows the error."
       ]
+    },
+    {
+      "name": "review-queue",
+      "category": "git",
+      "description": {
+        "en": "Status line with how many pull requests wait for your review, and a toast when a new one is requested",
+        "pt": "Linha de status com quantos pull requests esperam a sua revisão, e um aviso quando chega um novo pedido",
+        "es": "Línea de estado con cuántos pull requests esperan tu revisión, y un aviso cuando llega un pedido nuevo"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[cursor|>]] ",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  reviews 3 waiting · #118 Add retry to uploads]]"
+      ]
     }
   ],
   "hero": [

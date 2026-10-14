@@ -1744,6 +1744,12 @@
       "source": "./mods/pr-comments",
       "description": "/prcomments lists the review comments on your pull request that nobody from your side has answered yet",
       "category": "git"
+    },
+    {
+      "name": "review-queue",
+      "source": "./mods/review-queue",
+      "description": "Status line with how many pull requests wait for your review, and a toast when a new one is requested",
+      "category": "git"
     }
   ]
 }

@@ -1,8 +1,8 @@
-# Git e GitHub — 15 mods
+# Git e GitHub — 16 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue)
 
 ## `commit-review`
 
@@ -153,3 +153,13 @@ Status line com quantos arquivos estão no stage, fora dele e novos, escondida q
 ```
 
 ![pr-comments](../previews/pr-comments.svg)
+
+## `review-queue`
+
+Linha de status com quantos pull requests esperam a sua revisão, e um aviso quando chega um novo pedido.
+
+```
+/plugin install review-queue@cockpit
+```
+
+![review-queue](../previews/review-queue.svg)
