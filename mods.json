@@ -2031,6 +2031,23 @@
         "",
         "[[toast| breathe  Breathe in… 4 ]]"
       ]
+    },
+    {
+      "name": "diff-pane",
+      "category": "interface",
+      "description": {
+        "en": "/edits opens a pane with every Edit and Write of the session, lines added and removed, newest first",
+        "pt": "/edits abre um painel com cada Edit e Write da sessão, linhas adicionadas e removidas, do mais novo ao mais antigo",
+        "es": "/edits abre un panel con cada Edit y Write de la sesión, líneas añadidas y eliminadas, del más nuevo al más antiguo"
+      },
+      "preview": [
+        "[[user|> /edits]]",
+        "[[session|▍ ]][[bold|EDITS]][[dim|  3 edits  +41 −9]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[ok|  +12]] [[err|   −3]] src/hooks/register.tsx",
+        "[[ok|  +24]] [[err|   −0]] src/hooks/strings.ts",
+        "[[ok|   +5]] [[err|   −6]] README.md"
+      ]
     }
   ],
   "hero": [

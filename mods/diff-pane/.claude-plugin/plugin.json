@@ -1,0 +1,14 @@
+{
+  "name": "diff-pane",
+  "version": "0.1.0",
+  "description": "/edits opens a pane with every Edit and Write of the session, lines added and removed, newest first",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

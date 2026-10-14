@@ -754,6 +754,12 @@
       "source": "./mods/breathe",
       "description": "/breathe guides one minute of breathing through toasts: in 4, hold 4, out 6, five rounds",
       "category": "focus"
+    },
+    {
+      "name": "diff-pane",
+      "source": "./mods/diff-pane",
+      "description": "/edits opens a pane with every Edit and Write of the session, lines added and removed, newest first",
+      "category": "interface"
     }
   ]
 }

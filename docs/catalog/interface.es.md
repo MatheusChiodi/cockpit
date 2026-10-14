@@ -1,8 +1,8 @@
-# Interfaz — 8 mods
+# Interfaz — 9 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock)
+[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane)
 
 ## `turn-timer`
 
@@ -83,3 +83,13 @@ Status line con tiempo de sesión y número de prompts.
 ```
 
 ![session-clock](../previews/session-clock.svg)
+
+## `diff-pane`
+
+/edits abre un panel con cada Edit y Write de la sesión, líneas añadidas y eliminadas, del más nuevo al más antiguo.
+
+```
+/plugin install diff-pane@cockpit
+```
+
+![diff-pane](../previews/diff-pane.svg)
