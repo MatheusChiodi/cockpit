@@ -3039,6 +3039,24 @@
         "[[tool|● Bash]](git add -A)",
         "[[err|  ⎿ stage-guard refused to stage everything: .env, certs/server.pem look like secrets.]]"
       ]
+    },
+    {
+      "name": "git-stage",
+      "category": "git",
+      "description": {
+        "en": "/stage lists what is staged, unstaged and new; /stage <paths> stages them and -r unstages, asking first",
+        "pt": "/stage lista o que está no stage, fora dele e novo; /stage <caminhos> adiciona e -r tira, perguntando antes",
+        "es": "/stage lista lo que está en el stage, fuera de él y nuevo; /stage <rutas> agrega y -r quita, preguntando antes"
+      },
+      "preview": [
+        "[[user|> /stage]]",
+        "[[bold|Staged (1)]]",
+        "  M src/api.ts",
+        "[[bold|Unstaged (1)]]",
+        "  M src/ui.tsx",
+        "[[bold|New (1)]]",
+        "  notes.md"
+      ]
     }
   ],
   "hero": [

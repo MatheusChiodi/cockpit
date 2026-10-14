@@ -1,0 +1,13 @@
+{
+  "name": "git-stage",
+  "version": "0.1.0",
+  "description": "/stage lists what is staged, unstaged and new; /stage <paths> stages them and -r unstages, asking first",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

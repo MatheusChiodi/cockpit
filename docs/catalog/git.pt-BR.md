@@ -1,8 +1,8 @@
-# Git e GitHub — 5 mods
+# Git e GitHub — 6 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage)
 
 ## `commit-review`
 
@@ -53,3 +53,13 @@ Recusa git add -A, git add . e git commit -a enquanto um .env, chave ou certific
 ```
 
 ![stage-guard](../previews/stage-guard.svg)
+
+## `git-stage`
+
+/stage lista o que está no stage, fora dele e novo; /stage <caminhos> adiciona e -r tira, perguntando antes.
+
+```
+/plugin install git-stage@cockpit
+```
+
+![git-stage](../previews/git-stage.svg)

@@ -1150,6 +1150,12 @@
       "source": "./mods/stage-guard",
       "description": "Refuses git add -A, git add . and git commit -a while a .env, key or certificate is waiting to be staged",
       "category": "git"
+    },
+    {
+      "name": "git-stage",
+      "source": "./mods/git-stage",
+      "description": "/stage lists what is staged, unstaged and new; /stage <paths> stages them and -r unstages, asking first",
+      "category": "git"
     }
   ]
 }
