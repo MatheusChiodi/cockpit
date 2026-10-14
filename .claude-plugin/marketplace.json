@@ -712,6 +712,12 @@
       "source": "./mods/remind",
       "description": "/remind <minutes> <text> fires a toast and a notification after that many minutes",
       "category": "focus"
+    },
+    {
+      "name": "timebox",
+      "source": "./mods/timebox",
+      "description": "/timebox <minutes> <what> counts down on the status line, warns at 80% and notifies at the end",
+      "category": "focus"
     }
   ]
 }

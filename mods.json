@@ -1927,6 +1927,23 @@
         "",
         "[[toast| remind  check the deploy ]]"
       ]
+    },
+    {
+      "name": "timebox",
+      "category": "focus",
+      "description": {
+        "en": "/timebox <minutes> <what> counts down on the status line, warns at 80% and notifies at the end",
+        "pt": "/timebox <minutos> <o quê> faz contagem regressiva na status line, avisa em 80% e notifica no fim",
+        "es": "/timebox <minutos> <qué> cuenta atrás en la línea de estado, avisa al 80% y notifica al final"
+      },
+      "preview": [
+        "[[user|> /timebox 45 fix the login bug]]",
+        "[[dim|  ⎿ Time box of 45 min started: fix the login bug]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[dim|  timebox 31 min left · fix the login bug]]"
+      ]
     }
   ],
   "hero": [

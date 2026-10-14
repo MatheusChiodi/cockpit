@@ -1,0 +1,13 @@
+{
+  "name": "timebox",
+  "version": "0.1.0",
+  "description": "/timebox <minutes> <what> counts down on the status line, warns at 80% and notifies at the end",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}
