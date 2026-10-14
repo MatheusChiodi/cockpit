@@ -1,0 +1,13 @@
+{
+  "name": "behind-toast",
+  "version": "0.1.0",
+  "description": "Toast when your branch falls 10, 20, 30 commits behind its base, before the conflicts pile up",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

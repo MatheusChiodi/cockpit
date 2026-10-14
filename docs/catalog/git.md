@@ -1,8 +1,8 @@
-# Git and GitHub — 8 mods
+# Git and GitHub — 9 mods
 
 [← Back to the README](../../README.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast)
 
 ## `commit-review`
 
@@ -83,3 +83,13 @@ Refuses git add -A, git add . and git commit -a while a .env, key or certificate
 ```
 
 ![git-sync](../previews/git-sync.svg)
+
+## `behind-toast`
+
+Toast when your branch falls 10, 20, 30 commits behind its base, before the conflicts pile up.
+
+```
+/plugin install behind-toast@cockpit
+```
+
+![behind-toast](../previews/behind-toast.svg)

@@ -3088,6 +3088,21 @@
         "Rebase onto 7 new commit(s) from origin/main onto this branch?",
         "[[btn| yes ]] [[btn| no ]]"
       ]
+    },
+    {
+      "name": "behind-toast",
+      "category": "git",
+      "description": {
+        "en": "Toast when your branch falls 10, 20, 30 commits behind its base, before the conflicts pile up",
+        "pt": "Toast quando sua branch fica 10, 20, 30 commits atrás da base, antes que os conflitos se acumulem",
+        "es": "Toast cuando tu rama queda 10, 20, 30 commits detrás de su base, antes de que se acumulen los conflictos"
+      },
+      "preview": [
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[toast| feat/login is 12 commits behind origin/main. Sync soon (/sync). ]]"
+      ]
     }
   ],
   "hero": [

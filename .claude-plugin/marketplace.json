@@ -1168,6 +1168,12 @@
       "source": "./mods/git-sync",
       "description": "/sync fetches and shows how far the branch is from its base; /sync rebase or merge brings the base in after asking",
       "category": "git"
+    },
+    {
+      "name": "behind-toast",
+      "source": "./mods/behind-toast",
+      "description": "Toast when your branch falls 10, 20, 30 commits behind its base, before the conflicts pile up",
+      "category": "git"
     }
   ]
 }
