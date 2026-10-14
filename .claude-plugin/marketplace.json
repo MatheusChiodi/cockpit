@@ -1222,6 +1222,12 @@
       "source": "./mods/any-guard",
       "description": "Asks before an edit adds any to TypeScript: \": any\", \"as any\", \"<any>\" or any[]",
       "category": "quality"
+    },
+    {
+      "name": "long-file-toast",
+      "source": "./mods/long-file-toast",
+      "description": "Toast when an edit takes a file past 500 lines, and again at every 100 more",
+      "category": "quality"
     }
   ]
 }

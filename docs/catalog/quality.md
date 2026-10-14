@@ -1,8 +1,8 @@
-# Quality — 5 mods
+# Quality — 6 mods
 
 [← Back to the README](../../README.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast)
 
 ## `untested-turn-toast`
 
@@ -53,3 +53,13 @@ Asks before an edit adds any to TypeScript: ": any", "as any", "<any>" or any[].
 ```
 
 ![any-guard](../previews/any-guard.svg)
+
+## `long-file-toast`
+
+Toast when an edit takes a file past 500 lines, and again at every 100 more.
+
+```
+/plugin install long-file-toast@cockpit
+```
+
+![long-file-toast](../previews/long-file-toast.svg)

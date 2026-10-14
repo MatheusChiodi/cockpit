@@ -3228,6 +3228,23 @@
         "[[warn|  ⎿ any-guard: the edit adds \"as any\", which turns type checking off. Confirm.]]",
         "[[btn| Yes ]] [[btn| No ]]"
       ]
+    },
+    {
+      "name": "long-file-toast",
+      "category": "quality",
+      "description": {
+        "en": "Toast when an edit takes a file past 500 lines, and again at every 100 more",
+        "pt": "Toast quando uma edição leva um arquivo além de 500 linhas, e de novo a cada 100 a mais",
+        "es": "Toast cuando una edición lleva un archivo más allá de 500 líneas, y otra vez cada 100 más"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/checkout.ts)",
+        "[[ok|  ⎿ Updated src/checkout.ts]]",
+        "",
+        "[[toast| checkout.ts is now 612 lines: consider splitting it ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [

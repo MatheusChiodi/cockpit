@@ -1,0 +1,13 @@
+{
+  "name": "long-file-toast",
+  "version": "0.1.0",
+  "description": "Toast when an edit takes a file past 500 lines, and again at every 100 more",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

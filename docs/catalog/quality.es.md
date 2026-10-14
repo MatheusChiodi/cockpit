@@ -1,8 +1,8 @@
-# Calidad — 5 mods
+# Calidad — 6 mods
 
 [← Volver al README](../../README.es.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast)
 
 ## `untested-turn-toast`
 
@@ -53,3 +53,13 @@ Pregunta antes de que una edición añada any a TypeScript: ": any", "as any", "
 ```
 
 ![any-guard](../previews/any-guard.svg)
+
+## `long-file-toast`
+
+Toast cuando una edición lleva un archivo más allá de 500 líneas, y otra vez cada 100 más.
+
+```
+/plugin install long-file-toast@cockpit
+```
+
+![long-file-toast](../previews/long-file-toast.svg)
