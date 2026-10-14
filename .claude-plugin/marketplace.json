@@ -1738,6 +1738,12 @@
       "source": "./mods/pr-checks",
       "description": "/checks shows the checks of the current pull request and which ones failed, with their links",
       "category": "git"
+    },
+    {
+      "name": "pr-comments",
+      "source": "./mods/pr-comments",
+      "description": "/prcomments lists the review comments on your pull request that nobody from your side has answered yet",
+      "category": "git"
     }
   ]
 }

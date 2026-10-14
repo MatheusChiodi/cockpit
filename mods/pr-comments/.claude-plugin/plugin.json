@@ -1,0 +1,13 @@
+{
+  "name": "pr-comments",
+  "version": "0.1.0",
+  "description": "/prcomments lists the review comments on your pull request that nobody from your side has answered yet",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

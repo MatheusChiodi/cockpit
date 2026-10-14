@@ -4492,6 +4492,21 @@
         "[[err|  ✗ unit-tests]]  [[dim|https://github.com/o/r/actions/runs/91]]",
         "[[warn|  … e2e]]"
       ]
+    },
+    {
+      "name": "pr-comments",
+      "category": "git",
+      "description": {
+        "en": "/prcomments lists the review comments on your pull request that nobody from your side has answered yet",
+        "pt": "/prcomments lista os comentários de revisão do seu pull request que ainda não receberam resposta sua",
+        "es": "/prcomments lista los comentarios de revisión de tu pull request que aún no recibieron respuesta tuya"
+      },
+      "preview": [
+        "[[user|> /prcomments]]",
+        "PR #42  2 comment(s) waiting for you",
+        "  [[accent|ana]]  src/login.ts:18  Should this trim the email?",
+        "  [[accent|bruno]]  src/api.ts:90  This swallows the error."
+      ]
     }
   ],
   "hero": [

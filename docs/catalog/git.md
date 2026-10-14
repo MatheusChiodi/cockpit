@@ -1,8 +1,8 @@
-# Git and GitHub — 14 mods
+# Git and GitHub — 15 mods
 
 [← Back to the README](../../README.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments)
 
 ## `commit-review`
 
@@ -143,3 +143,13 @@ Status line with how many files are staged, unstaged and new, hidden when the tr
 ```
 
 ![pr-checks](../previews/pr-checks.svg)
+
+## `pr-comments`
+
+/prcomments lists the review comments on your pull request that nobody from your side has answered yet.
+
+```
+/plugin install pr-comments@cockpit
+```
+
+![pr-comments](../previews/pr-comments.svg)
