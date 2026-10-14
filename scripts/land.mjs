@@ -31,6 +31,16 @@ const hasTest = name => {
   return existsSync(dir) && readdirSync(dir).some(file => /\.test\.tsx?$/.test(file))
 }
 
+// The slash commands a mod registers with a literal name.
+const commandsOf = name => {
+  const dir = join(root, 'mods', name, 'hooks')
+  const file = ['register.tsx', 'register.ts'].map(one => join(dir, one)).find(existsSync)
+
+  return file === undefined
+    ? []
+    : [...readFileSync(file, 'utf8').matchAll(/command\.register\(\{\s*name:\s*'([^']+)'/g)].map(match => match[1])
+}
+
 // Takes the landed entry out of its pending file; an emptied file is removed.
 const settle = (file, name) => {
   const path = join(pendingDir, file)
@@ -42,6 +52,11 @@ const settle = (file, name) => {
     writeFileSync(path, json(rest))
   }
 }
+
+// Attribution lines for the commits; COMMIT_TRAILER in the environment replaces the default.
+const TRAILER =
+  process.env.COMMIT_TRAILER ??
+  'Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_01ThD3bYRjgSQpn7hvv9zYRm'
 
 const landed = []
 const held = []
@@ -65,6 +80,20 @@ for (const { file, entry } of pending) {
     continue
   }
 
+  if (catalog.categories[entry.category] === undefined) {
+    held.push(`${name}: unknown category "${entry.category}"`)
+    continue
+  }
+
+  // Two mods answering the same slash command would fight over it.
+  const taken = new Map(catalog.mods.flatMap(mod => commandsOf(mod.name).map(command => [command, mod.name])))
+  const clash = commandsOf(name).find(command => taken.has(command))
+
+  if (clash !== undefined) {
+    held.push(`${name}: /${clash} is already registered by ${taken.get(clash)}`)
+    continue
+  }
+
   // The check reads the entry from the catalog, so it goes in first and comes out again on failure.
   writeFileSync(join(root, 'mods.json'), json({ ...catalog, mods: [...catalog.mods, entry] }))
   const checked = run('node', ['scripts/mod.mjs', name])
@@ -85,7 +114,7 @@ for (const { file, entry } of pending) {
 
   settle(file, name)
   git('add', `mods/${name}`, 'mods.json', 'README.md', 'README.pt-BR.md', 'README.es.md', 'docs', '.claude-plugin', 'mods/cockpit/hooks/panels.ts')
-  const committed = git('commit', '-q', '-m', `feat(${entry.category}): add ${name}`, '-m', `${text(entry.description)}.`, '-m', 'Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>')
+  const committed = git('commit', '-q', '-m', `feat(${entry.category}): add ${name}`, '-m', `${text(entry.description)}.`, '-m', TRAILER)
 
   if (committed.status !== 0) {
     held.push(`${name}: commit failed\n  ${`${committed.stdout}${committed.stderr}`.trim()}`)

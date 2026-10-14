@@ -24,7 +24,7 @@ const compact = async ($: EngineInterface): Promise<void> => {
   // Rejects while a turn runs: just try again later.
   const done = await $.session.compact({}).catch(() => undefined)
 
-  $.ui.toast(done === undefined ? s.failed : s.done)
+  $.ui.toast(done === undefined || done.skip !== undefined ? s.failed : s.done)
 }
 
 export const register: Register = on => {

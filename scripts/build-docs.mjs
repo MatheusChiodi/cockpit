@@ -157,21 +157,22 @@ writeFileSync(
 const README = { en: 'README.md', pt: 'README.pt-BR.md', es: 'README.es.md' }
 const LANGUAGE = { en: 'English', pt: 'Português', es: 'Español' }
 
+const SUFFIX = { en: '', pt: '.pt-BR', es: '.es' }
+const BACK = { en: 'Back to the README', pt: 'Voltar ao README', es: 'Volver al README' }
+
+// One page per category under docs/catalog/, so the README stays readable however many mods there are.
+// The README itself carries the index: each category, how many mods it has and their names.
 const catalogFor = lang => {
   const inCategory = key => catalog.mods.filter(mod => mod.category === key)
+  const page = key => `docs/catalog/${key}${SUFFIX[lang]}.md`
 
-  const index = Object.entries(catalog.categories)
-    .map(([key, title]) => {
-      const names = inCategory(key).map(mod => `[\`${mod.name}\`](#${mod.name})`)
+  mkdirSync(join(root, 'docs', 'catalog'), { recursive: true })
 
-      return `| **${text(title, lang)}** (${names.length}) | ${names.join(' · ')} |`
-    })
-    .join('\n')
-
-  const sections = Object.entries(catalog.categories)
-    .map(([key, title]) => {
-      const entries = inCategory(key).map(
-        mod => `### \`${mod.name}\`
+  for (const [key, title] of Object.entries(catalog.categories)) {
+    const mods = inCategory(key)
+    const list = mods.map(mod => `[\`${mod.name}\`](#${mod.name})`).join(' · ')
+    const entries = mods.map(
+      mod => `## \`${mod.name}\`
 
 ${text(mod.description, lang)}.
 
@@ -179,15 +180,25 @@ ${text(mod.description, lang)}.
 /plugin install ${mod.name}@${catalog.marketplace}
 \`\`\`
 
-![${mod.name}](docs/previews/${mod.name}.svg)
+![${mod.name}](../previews/${mod.name}.svg)
 `,
-      )
+    )
 
-      return `## ${text(title, lang)} (${entries.length})\n\n${entries.join('\n')}`
+    writeFileSync(
+      join(root, page(key)),
+      `# ${text(title, lang)} — ${mods.length} mods\n\n[← ${BACK[lang]}](../../${README[lang]})\n\n${list}\n\n${entries.join('\n')}`,
+    )
+  }
+
+  const rows = Object.entries(catalog.categories)
+    .map(([key, title]) => {
+      const names = inCategory(key).map(mod => `\`${mod.name}\``)
+
+      return `| [**${text(title, lang)}**](${page(key)}) | ${names.length} | ${names.join(' ')} |`
     })
     .join('\n')
 
-  return `| | |\n| --- | --- |\n${index}\n\n${sections}`
+  return `| | | |\n| --- | --- | --- |\n${rows}`
 }
 
 const switcher = lang =>
