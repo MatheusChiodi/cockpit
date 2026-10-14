@@ -1958,6 +1958,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
+    },
+    {
+      "name": "late-night",
+      "category": "focus",
+      "description": {
+        "en": "One toast per session when you work after 23:00 local time: it is late, park the work",
+        "pt": "Um toast por sessão quando você trabalha depois das 23:00 locais: é tarde, deixe o trabalho para amanhã",
+        "es": "Un toast por sesión cuando trabajas después de las 23:00 locales: es tarde, deja el trabajo para mañana"
+      },
+      "preview": [
+        "[[toast| late-night  It is 23:40. Park the work and pick it up tomorrow. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
     }
   ],
   "hero": [

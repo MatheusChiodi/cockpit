@@ -1,0 +1,13 @@
+{
+  "name": "late-night",
+  "version": "0.1.0",
+  "description": "One toast per session when you work after 23:00 local time: it is late, park the work",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

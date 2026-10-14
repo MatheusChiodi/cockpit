@@ -724,6 +724,12 @@
       "source": "./mods/session-cap",
       "description": "Toast after three hours of continuous use in one session, then again every hour",
       "category": "focus"
+    },
+    {
+      "name": "late-night",
+      "source": "./mods/late-night",
+      "description": "One toast per session when you work after 23:00 local time: it is late, park the work",
+      "category": "focus"
     }
   ]
 }
