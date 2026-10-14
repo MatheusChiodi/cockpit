@@ -568,6 +568,12 @@
       "source": "./mods/uuid",
       "description": "/uuid generates up to 20 random UUIDs and copies them to the clipboard",
       "category": "commands"
+    },
+    {
+      "name": "timestamp",
+      "source": "./mods/timestamp",
+      "description": "/ts converts epoch seconds, milliseconds, ISO 8601 and local time for now or for any epoch or date",
+      "category": "commands"
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "name": "timestamp",
+  "version": "0.1.0",
+  "description": "/ts converts epoch seconds, milliseconds, ISO 8601 and local time for now or for any epoch or date",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
