@@ -1841,6 +1841,20 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "hydrate",
+      "category": "focus",
+      "description": {
+        "en": "Toast every 60 minutes of real use reminding you to drink water",
+        "pt": "Toast a cada 60 minutos de uso real lembrando de beber água",
+        "es": "Toast cada 60 minutos de uso real recordando beber agua"
+      },
+      "preview": [
+        "[[toast| hydrate  A glass of water now? You have been at it for an hour. ]]",
+        "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor|█]]"
+      ]
     }
   ],
   "hero": [

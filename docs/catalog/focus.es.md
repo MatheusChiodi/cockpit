@@ -1,8 +1,8 @@
-# Foco y notificaciones — 11 mods
+# Foco y notificaciones — 12 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate)
 
 ## `turn-notify`
 
@@ -113,3 +113,13 @@ Envía una notificación nativa la primera vez que una ventana de límite de uso
 ```
 
 ![rate-limit-notify](../previews/rate-limit-notify.svg)
+
+## `hydrate`
+
+Toast cada 60 minutos de uso real recordando beber agua.
+
+```
+/plugin install hydrate@cockpit
+```
+
+![hydrate](../previews/hydrate.svg)

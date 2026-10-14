@@ -1,0 +1,13 @@
+{
+  "name": "hydrate",
+  "version": "0.1.0",
+  "description": "Toast every 60 minutes of real use reminding you to drink water",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

@@ -1,8 +1,8 @@
-# Focus and notifications — 11 mods
+# Focus and notifications — 12 mods
 
 [← Back to the README](../../README.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify) · [`pr-review-notify`](#pr-review-notify) · [`rate-limit-notify`](#rate-limit-notify) · [`hydrate`](#hydrate)
 
 ## `turn-notify`
 
@@ -113,3 +113,13 @@ Sends a native notification the first time a rate limit window passes 90%, with 
 ```
 
 ![rate-limit-notify](../previews/rate-limit-notify.svg)
+
+## `hydrate`
+
+Toast every 60 minutes of real use reminding you to drink water.
+
+```
+/plugin install hydrate@cockpit
+```
+
+![hydrate](../previews/hydrate.svg)

@@ -676,6 +676,12 @@
       "source": "./mods/rate-limit-notify",
       "description": "Sends a native notification the first time a rate limit window passes 90%, with when it resets",
       "category": "focus"
+    },
+    {
+      "name": "hydrate",
+      "source": "./mods/hydrate",
+      "description": "Toast every 60 minutes of real use reminding you to drink water",
+      "category": "focus"
     }
   ]
 }
