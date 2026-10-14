@@ -2,7 +2,7 @@
 
 [English](README.md) · **Português** · [Español](README.es.md)
 
-**Um painel de instrumentos para o Claude Code.** 178 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
+**Um painel de instrumentos para o Claude Code.** 179 mods para o terminal: 40 painéis que ficam sempre à vista e você liga ou desliga em `/cockpit`, mais guards, automações de prompt, comandos instantâneos e ajudas de foco. Cada mod é um plugin pequeno, instalado com uma linha.
 
 ![O painel completo do Cockpit em um terminal](docs/cockpit.svg)
 
@@ -75,7 +75,7 @@ As descrições dos slash commands no autocompletar são lidas quando a sessão 
 | [**Git e GitHub**](docs/catalog/git.pt-BR.md) | 0 |  |
 | [**Qualidade**](docs/catalog/quality.pt-BR.md) | 0 |  |
 | [**Stacks**](docs/catalog/stack.pt-BR.md) | 0 |  |
-| [**Contexto e custo**](docs/catalog/context.pt-BR.md) | 4 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` |
+| [**Contexto e custo**](docs/catalog/context.pt-BR.md) | 5 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` |
 
 ## Linguagem visual
 

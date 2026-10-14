@@ -1,8 +1,8 @@
-# Contexto y costo — 4 mods
+# Contexto y costo — 5 mods
 
 [← Volver al README](../../README.es.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast)
 
 ## `reread-guard`
 
@@ -43,3 +43,13 @@ Añade -n 30 a un git log sin límite, para que el historial no inunde el contex
 ```
 
 ![git-log-limit](../previews/git-log-limit.svg)
+
+## `paste-size-toast`
+
+Un toast cuando el prompt que envías es muy grande, con su tamaño en líneas y tokens, para que recortes un log pegado.
+
+```
+/plugin install paste-size-toast@cockpit
+```
+
+![paste-size-toast](../previews/paste-size-toast.svg)

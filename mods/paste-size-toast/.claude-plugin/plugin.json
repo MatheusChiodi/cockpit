@@ -1,0 +1,13 @@
+{
+  "name": "paste-size-toast",
+  "version": "0.1.0",
+  "description": "A toast when the prompt you send is very large, with its size in lines and tokens, so you can trim a pasted log",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

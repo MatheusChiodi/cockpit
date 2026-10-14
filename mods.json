@@ -2859,6 +2859,19 @@
         "[[dim|  ⎿ rewritten to: git log -n 30 --stat]]",
         "[[dim|    note to Claude: git log was capped at 30 commits; use -n or a range for more]]"
       ]
+    },
+    {
+      "name": "paste-size-toast",
+      "category": "context",
+      "description": {
+        "en": "A toast when the prompt you send is very large, with its size in lines and tokens, so you can trim a pasted log",
+        "pt": "Um toast quando o prompt enviado é muito grande, com o tamanho em linhas e tokens, para você enxugar um log colado",
+        "es": "Un toast cuando el prompt que envías es muy grande, con su tamaño en líneas y tokens, para que recortes un log pegado"
+      },
+      "preview": [
+        "[[user|> (pasted build log)]]",
+        "[[toast| Prompt is 1,840 lines, about 21,000 tokens: trim the log to the errors ]]"
+      ]
     }
   ],
   "hero": [

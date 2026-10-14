@@ -1072,6 +1072,12 @@
       "source": "./mods/git-log-limit",
       "description": "Adds -n 30 to a git log that has no limit, so the history does not flood the context",
       "category": "context"
+    },
+    {
+      "name": "paste-size-toast",
+      "source": "./mods/paste-size-toast",
+      "description": "A toast when the prompt you send is very large, with its size in lines and tokens, so you can trim a pasted log",
+      "category": "context"
     }
   ]
 }
