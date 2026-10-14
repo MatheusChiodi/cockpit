@@ -1,0 +1,13 @@
+{
+  "name": "script-mode-guard",
+  "version": "0.1.0",
+  "description": "Asks before a script or config gets a world-writable mode, umask 0 or an Everyone grant",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

@@ -3779,6 +3779,20 @@
         "[[warn|  ⎿ debug-flag-guard: turns a debug flag on in app/settings.py.]]",
         "[[warn|    Read it from the environment and default to off.]]"
       ]
+    },
+    {
+      "name": "script-mode-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before a script or config gets a world-writable mode, umask 0 or an Everyone grant",
+        "pt": "Pergunta antes de um script ou configuração receber modo gravável por todos, umask 0 ou permissão para Everyone",
+        "es": "Pregunta antes de que un script o configuración reciba un modo escribible por todos, umask 0 o un permiso para Everyone"
+      },
+      "preview": [
+        "[[tool|● Write]](deploy.sh)",
+        "[[warn|  ⎿ script-mode-guard: loosens file permissions in deploy.sh (chmod 777).]]",
+        "[[warn|    Use 755 for scripts and 644 for data, or give access to one group.]]"
+      ]
     }
   ],
   "hero": [
