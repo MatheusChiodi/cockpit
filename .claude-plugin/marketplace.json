@@ -1474,6 +1474,12 @@
       "source": "./mods/gitignore-guard",
       "description": "Asks before a .gitignore edit drops an entry that protects .env, keys or credentials, or git add -f forces one in",
       "category": "security"
+    },
+    {
+      "name": "archive-add-guard",
+      "source": "./mods/archive-add-guard",
+      "description": "Asks before git add stages an archive, installer or database file, or any file over 5 MB",
+      "category": "security"
     }
   ]
 }

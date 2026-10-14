@@ -1,0 +1,13 @@
+{
+  "name": "archive-add-guard",
+  "version": "0.1.0",
+  "description": "Asks before git add stages an archive, installer or database file, or any file over 5 MB",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

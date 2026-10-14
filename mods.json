@@ -3835,6 +3835,20 @@
         "[[warn|  ⎿ gitignore-guard: removes .env from .gitignore. The files it protected can then]]",
         "[[warn|    be committed with their secrets; keep the entry, use git add -f for an exception.]]"
       ]
+    },
+    {
+      "name": "archive-add-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before git add stages an archive, installer or database file, or any file over 5 MB",
+        "pt": "Pergunta antes de git add incluir arquivo compactado, instalador ou banco de dados, ou qualquer arquivo acima de 5 MB",
+        "es": "Pregunta antes de que git add incluya un archivo comprimido, instalador o base de datos, o cualquier archivo de más de 5 MB"
+      },
+      "preview": [
+        "[[tool|● Bash]](git add release.zip)",
+        "[[warn|  ⎿ archive-add-guard: git add of a binary or archive (release.zip).]]",
+        "[[warn|    Ignore it in .gitignore, or use Git LFS or a release asset.]]"
+      ]
     }
   ],
   "hero": [
