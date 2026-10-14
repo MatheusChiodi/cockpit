@@ -1790,6 +1790,23 @@
         "[[tool|● Bash]](npm test)",
         "[[err|  ⎿ 2 failed, 41 passed]]"
       ]
+    },
+    {
+      "name": "ci-notify",
+      "category": "focus",
+      "description": {
+        "en": "Polls GitHub Actions every two minutes and notifies once when a running workflow completes",
+        "pt": "Consulta o GitHub Actions a cada dois minutos e avisa uma vez quando um workflow em andamento termina",
+        "es": "Consulta GitHub Actions cada dos minutos y avisa una vez cuando termina un workflow en curso"
+      },
+      "preview": [
+        "[[notify|Claude Code]]",
+        "[[notify|CI passed: build (success)]]",
+        "",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [

@@ -1,0 +1,13 @@
+{
+  "name": "ci-notify",
+  "version": "0.1.0",
+  "description": "Polls GitHub Actions every two minutes and notifies once when a running workflow completes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

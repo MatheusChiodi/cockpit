@@ -1,8 +1,8 @@
-# Foco e notificações — 8 mods
+# Foco e notificações — 9 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify) · [`tests-notify`](#tests-notify) · [`ci-notify`](#ci-notify)
 
 ## `turn-notify`
 
@@ -83,3 +83,13 @@ Envia uma notificação nativa com passou ou falhou quando uma execução de tes
 ```
 
 ![tests-notify](../previews/tests-notify.svg)
+
+## `ci-notify`
+
+Consulta o GitHub Actions a cada dois minutos e avisa uma vez quando um workflow em andamento termina.
+
+```
+/plugin install ci-notify@cockpit
+```
+
+![ci-notify](../previews/ci-notify.svg)
