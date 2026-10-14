@@ -1,8 +1,8 @@
-# Calidad — 1 mods
+# Calidad — 2 mods
 
 [← Volver al README](../../README.es.md)
 
-[`untested-turn-toast`](#untested-turn-toast)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast)
 
 ## `untested-turn-toast`
 
@@ -13,3 +13,13 @@ Toast al final de un turno que cambió código sin ejecutar ningún test.
 ```
 
 ![untested-turn-toast](../previews/untested-turn-toast.svg)
+
+## `red-turn-toast`
+
+Toast cuando un turno termina con la última ejecución de tests aún fallando.
+
+```
+/plugin install red-turn-toast@cockpit
+```
+
+![red-turn-toast](../previews/red-turn-toast.svg)

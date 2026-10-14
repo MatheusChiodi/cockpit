@@ -1198,6 +1198,12 @@
       "source": "./mods/untested-turn-toast",
       "description": "Toast at the end of a turn that changed code without running a single test",
       "category": "quality"
+    },
+    {
+      "name": "red-turn-toast",
+      "source": "./mods/red-turn-toast",
+      "description": "Toast when a turn ends while the last test run is still failing",
+      "category": "quality"
     }
   ]
 }

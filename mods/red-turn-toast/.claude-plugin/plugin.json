@@ -1,0 +1,13 @@
+{
+  "name": "red-turn-toast",
+  "version": "0.1.0",
+  "description": "Toast when a turn ends while the last test run is still failing",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

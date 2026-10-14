@@ -3167,6 +3167,23 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "red-turn-toast",
+      "category": "quality",
+      "description": {
+        "en": "Toast when a turn ends while the last test run is still failing",
+        "pt": "Toast quando um turno termina com a última execução de testes ainda falhando",
+        "es": "Toast cuando un turno termina con la última ejecución de tests aún fallando"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm test)",
+        "[[err|  ⎿ 2 failed, 14 passed]]",
+        "",
+        "[[toast| Turn over with failing tests: npm test ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]"
+      ]
     }
   ],
   "hero": [
