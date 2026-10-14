@@ -646,6 +646,12 @@
       "source": "./mods/agent-done-notify",
       "description": "Sends a native notification when a subagent that ran for 30 seconds or more finishes",
       "category": "focus"
+    },
+    {
+      "name": "long-cmd-notify",
+      "source": "./mods/long-cmd-notify",
+      "description": "Sends a native notification when a shell command that ran two minutes or more finishes",
+      "category": "focus"
     }
   ]
 }

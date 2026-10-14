@@ -1,0 +1,13 @@
+{
+  "name": "long-cmd-notify",
+  "version": "0.1.0",
+  "description": "Sends a native notification when a shell command that ran two minutes or more finishes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

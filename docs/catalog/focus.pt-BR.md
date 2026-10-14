@@ -1,8 +1,8 @@
-# Foco e notificações — 6 mods
+# Foco e notificações — 7 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify) · [`needs-you-notify`](#needs-you-notify) · [`agent-done-notify`](#agent-done-notify) · [`long-cmd-notify`](#long-cmd-notify)
 
 ## `turn-notify`
 
@@ -63,3 +63,13 @@ Envia uma notificação nativa quando um subagente que rodou 30 segundos ou mais
 ```
 
 ![agent-done-notify](../previews/agent-done-notify.svg)
+
+## `long-cmd-notify`
+
+Envia uma notificação nativa quando um comando de shell que rodou dois minutos ou mais termina.
+
+```
+/plugin install long-cmd-notify@cockpit
+```
+
+![long-cmd-notify](../previews/long-cmd-notify.svg)

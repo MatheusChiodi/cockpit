@@ -1758,6 +1758,22 @@
         "[[tool|● Task]](review the auth module)",
         "[[dim|  ⎿ Done]]"
       ]
+    },
+    {
+      "name": "long-cmd-notify",
+      "category": "focus",
+      "description": {
+        "en": "Sends a native notification when a shell command that ran two minutes or more finishes",
+        "pt": "Envia uma notificação nativa quando um comando de shell que rodou dois minutos ou mais termina",
+        "es": "Envía una notificación nativa cuando termina un comando de shell que corrió dos minutos o más"
+      },
+      "preview": [
+        "[[notify|Claude Code]]",
+        "[[notify|Command finished after 3m 04s: npm run build]]",
+        "",
+        "[[tool|● Bash]](npm run build)",
+        "[[dim|  ⎿ done]]"
+      ]
     }
   ],
   "hero": [
