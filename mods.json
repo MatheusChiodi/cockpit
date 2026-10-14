@@ -3821,6 +3821,20 @@
         "[[warn|  ⎿ weak-crypto-guard: uses a non-secure random generator for a token in src/reset.ts.]]",
         "[[warn|    Use crypto.randomBytes or the secrets module.]]"
       ]
+    },
+    {
+      "name": "gitignore-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before a .gitignore edit drops an entry that protects .env, keys or credentials, or git add -f forces one in",
+        "pt": "Pergunta antes de uma edição do .gitignore remover a proteção de .env, chaves ou credenciais, ou de git add -f forçá-los",
+        "es": "Pregunta antes de que una edición de .gitignore quite la protección de .env, claves o credenciales, o de que git add -f los fuerce"
+      },
+      "preview": [
+        "[[tool|● Edit]](.gitignore)",
+        "[[warn|  ⎿ gitignore-guard: removes .env from .gitignore. The files it protected can then]]",
+        "[[warn|    be committed with their secrets; keep the entry, use git add -f for an exception.]]"
+      ]
     }
   ],
   "hero": [

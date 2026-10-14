@@ -1468,6 +1468,12 @@
       "source": "./mods/weak-crypto-guard",
       "description": "Asks before an edit hashes passwords with MD5 or SHA-1, makes tokens with Math.random, or picks ECB or an unsigned JWT",
       "category": "security"
+    },
+    {
+      "name": "gitignore-guard",
+      "source": "./mods/gitignore-guard",
+      "description": "Asks before a .gitignore edit drops an entry that protects .env, keys or credentials, or git add -f forces one in",
+      "category": "security"
     }
   ]
 }

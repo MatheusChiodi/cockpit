@@ -1,0 +1,13 @@
+{
+  "name": "gitignore-guard",
+  "version": "0.1.0",
+  "description": "Asks before a .gitignore edit drops an entry that protects .env, keys or credentials, or git add -f forces one in",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}
