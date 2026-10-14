@@ -1,8 +1,8 @@
-# Interface — 13 mods
+# Interface — 14 mods
 
 [← Back to the README](../../README.md)
 
-[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane) · [`token-chart`](#token-chart)
+[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane) · [`token-chart`](#token-chart) · [`cost-pane`](#cost-pane)
 
 ## `turn-timer`
 
@@ -133,3 +133,13 @@ Status line with session time and number of prompts.
 ```
 
 ![token-chart](../previews/token-chart.svg)
+
+## `cost-pane`
+
+/spend opens a pane with the cost of each turn, the difference of the session cost, and the total.
+
+```
+/plugin install cost-pane@cockpit
+```
+
+![cost-pane](../previews/cost-pane.svg)

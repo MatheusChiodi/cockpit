@@ -1,0 +1,14 @@
+{
+  "name": "cost-pane",
+  "version": "0.1.0",
+  "description": "/spend opens a pane with the cost of each turn, the difference of the session cost, and the total",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

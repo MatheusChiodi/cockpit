@@ -784,6 +784,12 @@
       "source": "./mods/token-chart",
       "description": "/tokens opens a pane with output tokens per turn as thin gauges scaled to the largest turn",
       "category": "interface"
+    },
+    {
+      "name": "cost-pane",
+      "source": "./mods/cost-pane",
+      "description": "/spend opens a pane with the cost of each turn, the difference of the session cost, and the total",
+      "category": "interface"
     }
   ]
 }

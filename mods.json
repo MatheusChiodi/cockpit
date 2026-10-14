@@ -2116,6 +2116,23 @@
         "[[dim|  #3]] [[bold|  4.1k]] [[accent|━━━━━━━━━━━━━━━━━━━━━━━━━━━●]]",
         "[[dim|  #2]] [[bold|  1.2k]] [[accent|━━━━━━●]][[rule|─────────────────────]]"
       ]
+    },
+    {
+      "name": "cost-pane",
+      "category": "interface",
+      "description": {
+        "en": "/spend opens a pane with the cost of each turn, the difference of the session cost, and the total",
+        "pt": "/spend abre um painel com o custo de cada turno, a diferença do custo da sessão, e o total",
+        "es": "/spend abre un panel con el costo de cada turno, la diferencia del costo de la sesión, y el total"
+      },
+      "preview": [
+        "[[user|> /spend]]",
+        "[[session|▍ ]][[bold|SPEND]][[dim|  $1.42 total  4 turns]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[dim|  #4]] [[bold|  $0.118]] [[accent|━━●]][[rule|───────────────────]]",
+        "[[dim|  #3]] [[bold|  $0.730]] [[accent|━━━━━━━━━━━━━━━━━━━━━●]]",
+        "[[dim|  #2]] [[bold|  $0.402]] [[accent|━━━━━━━━━━●]][[rule|───────────]]"
+      ]
     }
   ],
   "hero": [
