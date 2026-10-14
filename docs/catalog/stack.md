@@ -1,8 +1,8 @@
-# Stacks — 9 mods
+# Stacks — 10 mods
 
 [← Back to the README](../../README.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard) · [`dev-server-guard`](#dev-server-guard) · [`ts-config-context`](#ts-config-context)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard) · [`dev-server-guard`](#dev-server-guard) · [`ts-config-context`](#ts-config-context) · [`env-undeclared-toast`](#env-undeclared-toast)
 
 ## `pm-guard`
 
@@ -93,3 +93,13 @@ Tells Claude your tsconfig in the system prompt: strict flags, path aliases, mod
 ```
 
 ![ts-config-context](../previews/ts-config-context.svg)
+
+## `env-undeclared-toast`
+
+A toast when an edit reads process.env or import.meta.env variables that .env.example does not declare.
+
+```
+/plugin install env-undeclared-toast@cockpit
+```
+
+![env-undeclared-toast](../previews/env-undeclared-toast.svg)

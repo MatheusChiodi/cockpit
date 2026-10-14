@@ -1318,6 +1318,12 @@
       "source": "./mods/ts-config-context",
       "description": "Tells Claude your tsconfig in the system prompt: strict flags, path aliases, module resolution and type-only imports",
       "category": "stack"
+    },
+    {
+      "name": "env-undeclared-toast",
+      "source": "./mods/env-undeclared-toast",
+      "description": "A toast when an edit reads process.env or import.meta.env variables that .env.example does not declare",
+      "category": "stack"
     }
   ]
 }

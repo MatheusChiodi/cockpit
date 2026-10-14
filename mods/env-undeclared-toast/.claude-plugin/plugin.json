@@ -1,0 +1,13 @@
+{
+  "name": "env-undeclared-toast",
+  "version": "0.1.0",
+  "description": "A toast when an edit reads process.env or import.meta.env variables that .env.example does not declare",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

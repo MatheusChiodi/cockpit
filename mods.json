@@ -3449,6 +3449,18 @@
         "- Path aliases: @/* -> ./src/*. Import through them.",
         "- verbatimModuleSyntax is on: use \"import type\" for types"
       ]
+    },
+    {
+      "name": "env-undeclared-toast",
+      "category": "stack",
+      "description": {
+        "en": "A toast when an edit reads process.env or import.meta.env variables that .env.example does not declare",
+        "pt": "Um toast quando uma edição lê variáveis de process.env ou import.meta.env que o .env.example não declara",
+        "es": "Un toast cuando una edición lee variables de process.env o import.meta.env que .env.example no declara"
+      },
+      "preview": [
+        "[[toast|  env: STRIPE_KEY is read but missing from .env.example  ]]"
+      ]
     }
   ],
   "hero": [
