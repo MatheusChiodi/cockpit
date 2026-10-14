@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="139" viewBox="0 0 760 139" role="img" aria-label="trace-helper in the terminal">
+<defs><clipPath id="card"><rect width="760" height="139" rx="12"/></clipPath></defs>
+<g clip-path="url(#card)">
+<rect width="760" height="139" fill="#0f131a"/>
+<rect width="760" height="38" fill="#141a24"/>
+<rect y="38" width="760" height="1" fill="#222a38"/>
+<rect width="760" height="3" fill="#b39df2"/>
+</g>
+<g transform="translate(30 21)" fill="none" stroke="#b39df2" stroke-width="1.6" stroke-linecap="round">
+<circle r="7.5" opacity="0.45"/><path d="M0 0L0 -6.5M0 0L5.6 3.3M0 0L-5.6 3.3"/><circle r="1.4" fill="#b39df2" stroke="none"/>
+</g>
+<text y="26" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="12.5"><tspan x="46" fill="#eef2f8" font-weight="700">cockpit</tspan><tspan fill="#677185"> / </tspan><tspan fill="#d5dbe6">trace-helper</tspan></text>
+<text x="736" y="26" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="10.5" letter-spacing="1.4" fill="#677185">PROMPT AND MODEL</text>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Cascadia Mono',monospace" font-size="13">
+<text y="66" xml:space="preserve"><tspan x="24.0" textLength="15.7" lengthAdjust="spacingAndGlyphs" fill="#eef2f8">&gt; </tspan><tspan x="39.7" textLength="391.5" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6">TypeError: x is undefined at render (src/ui.js:10)</tspan></text>
+<text y="87" xml:space="preserve"><tspan x="24.0" textLength="117.5" lengthAdjust="spacingAndGlyphs" fill="#677185">system prompt +</tspan><tspan x="141.4" textLength="7.8" lengthAdjust="spacingAndGlyphs" fill="#d5dbe6"> </tspan><tspan x="149.3" textLength="109.6" lengthAdjust="spacingAndGlyphs" fill="#e58c62">hidden context</tspan></text>
+<text y="108" xml:space="preserve"><tspan x="24.0" textLength="462.0" lengthAdjust="spacingAndGlyphs" fill="#677185">  first frame in project → read it → root cause in one line</tspan></text>
+</g>
+</svg>

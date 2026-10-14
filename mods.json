@@ -2565,6 +2565,20 @@
         "[[dim|  + - src/app/login.ts]]",
         "[[dim|  + - src/old/login.ts]]"
       ]
+    },
+    {
+      "name": "trace-helper",
+      "category": "prompt",
+      "description": {
+        "en": "Adds a hidden hint to prompts with a stack trace: find the first project frame, read it, state the root cause",
+        "pt": "Adiciona uma dica oculta aos prompts com stack trace: achar o primeiro frame do projeto, ler o código e dizer a causa raiz",
+        "es": "Añade una pista oculta a los prompts con stack trace: hallar el primer frame del proyecto, leer el código y decir la causa raíz"
+      },
+      "preview": [
+        "[[user|> ]]TypeError: x is undefined at render (src/ui.js:10)",
+        "[[dim|system prompt +]] [[accent|hidden context]]",
+        "[[dim|  first frame in project → read it → root cause in one line]]"
+      ]
     }
   ],
   "hero": [

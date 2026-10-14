@@ -946,6 +946,12 @@
       "source": "./mods/file-mention-hint",
       "description": "When a prompt names a file without a path, adds the matching tracked paths so Claude opens the right file first",
       "category": "prompt"
+    },
+    {
+      "name": "trace-helper",
+      "source": "./mods/trace-helper",
+      "description": "Adds a hidden hint to prompts with a stack trace: find the first project frame, read it, state the root cause",
+      "category": "prompt"
     }
   ]
 }

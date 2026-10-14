@@ -1,0 +1,13 @@
+{
+  "name": "trace-helper",
+  "version": "0.1.0",
+  "description": "Adds a hidden hint to prompts with a stack trace: find the first project frame, read it, state the root cause",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}
