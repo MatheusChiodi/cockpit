@@ -3927,6 +3927,21 @@
         "[[user|> ]][[cursor| ]]",
         "[[rule|────────────────────────────────────────────────────────]]"
       ]
+    },
+    {
+      "name": "idle-commit-nudge",
+      "category": "focus",
+      "description": {
+        "en": "Shows a toast when the session has been idle for 10 minutes with uncommitted changes",
+        "pt": "Mostra um aviso quando a sessão está parada há 10 minutos com alterações sem commit",
+        "es": "Muestra un aviso cuando la sesión lleva 10 minutos inactiva con cambios sin commit"
+      },
+      "preview": [
+        "[[toast| Idle for 10 min with 6 uncommitted files ]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [

@@ -1,0 +1,13 @@
+{
+  "name": "idle-commit-nudge",
+  "version": "0.1.0",
+  "description": "Shows a toast when the session has been idle for 10 minutes with uncommitted changes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

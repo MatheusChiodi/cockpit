@@ -1510,6 +1510,12 @@
       "source": "./mods/push-reminder",
       "description": "Shows a toast when the branch has been three or more commits ahead of its upstream for an hour",
       "category": "focus"
+    },
+    {
+      "name": "idle-commit-nudge",
+      "source": "./mods/idle-commit-nudge",
+      "description": "Shows a toast when the session has been idle for 10 minutes with uncommitted changes",
+      "category": "focus"
     }
   ]
 }
