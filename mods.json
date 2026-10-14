@@ -3681,6 +3681,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  dist 2.4 MB · +120 KB]]"
       ]
+    },
+    {
+      "name": "hardcoded-secret-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before an edit puts a hardcoded password, connection string or JWT into source",
+        "pt": "Pergunta antes de uma edição colocar senha fixa, connection string ou JWT no código",
+        "es": "Pregunta antes de que una edición ponga una contraseña fija, cadena de conexión o JWT en el código"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/db.ts)",
+        "[[warn|  ⎿ hardcoded-secret-guard: adds a hardcoded password or key to src/db.ts.]]",
+        "[[warn|    Read it from an environment variable or a secret store instead.]]"
+      ]
     }
   ],
   "hero": [

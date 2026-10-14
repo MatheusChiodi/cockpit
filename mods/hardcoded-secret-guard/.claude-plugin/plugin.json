@@ -1,0 +1,13 @@
+{
+  "name": "hardcoded-secret-guard",
+  "version": "0.1.0",
+  "description": "Asks before an edit puts a hardcoded password, connection string or JWT into source",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

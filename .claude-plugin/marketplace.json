@@ -1408,6 +1408,12 @@
       "source": "./mods/build-size-status",
       "description": "Status line with the size of the build output and how much it grew in this session",
       "category": "panel"
+    },
+    {
+      "name": "hardcoded-secret-guard",
+      "source": "./mods/hardcoded-secret-guard",
+      "description": "Asks before an edit puts a hardcoded password, connection string or JWT into source",
+      "category": "security"
     }
   ]
 }
