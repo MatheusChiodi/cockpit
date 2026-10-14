@@ -1648,6 +1648,12 @@
       "source": "./mods/churn",
       "description": "/churn lists the files changed in the most commits among the last 300, lockfiles left out",
       "category": "commands"
+    },
+    {
+      "name": "hit-count",
+      "source": "./mods/hit-count",
+      "description": "/hits counts how many times a text appears in each tracked file, most first",
+      "category": "commands"
     }
   ]
 }

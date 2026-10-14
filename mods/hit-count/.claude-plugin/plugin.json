@@ -1,0 +1,13 @@
+{
+  "name": "hit-count",
+  "version": "0.1.0",
+  "description": "/hits counts how many times a text appears in each tracked file, most first",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

@@ -4273,6 +4273,22 @@
         "      27  src/api/client.ts",
         "      19  package.json"
       ]
+    },
+    {
+      "name": "hit-count",
+      "category": "commands",
+      "description": {
+        "en": "/hits counts how many times a text appears in each tracked file, most first",
+        "pt": "/hits conta quantas vezes um texto aparece em cada arquivo versionado, do maior para o menor",
+        "es": "/hits cuenta cuántas veces aparece un texto en cada archivo versionado, de mayor a menor"
+      },
+      "preview": [
+        "[[user|> /hits useAuth]]",
+        "[[dim|  ⎿]]    12  src/pages/Account.tsx",
+        "      5  src/hooks/useAuth.ts",
+        "      2  src/App.tsx",
+        "     [[dim|19 matches in 3 files]]"
+      ]
     }
   ],
   "hero": [
