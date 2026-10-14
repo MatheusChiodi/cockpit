@@ -1972,6 +1972,21 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
+    },
+    {
+      "name": "intent-check",
+      "category": "focus",
+      "description": {
+        "en": "/intent says what the session is for; every 30 minutes of use a toast asks if you are still on it",
+        "pt": "/intent diz para que serve a sessão; a cada 30 minutos de uso um toast pergunta se você ainda está nisso",
+        "es": "/intent dice para qué sirve la sesión; cada 30 minutos de uso un toast pregunta si sigues en ello"
+      },
+      "preview": [
+        "[[user|> /intent migrate the auth tests]]",
+        "[[dim|  ⎿ Intent set: migrate the auth tests]]",
+        "",
+        "[[toast| intent-check  Still on: migrate the auth tests? ]]"
+      ]
     }
   ],
   "hero": [
