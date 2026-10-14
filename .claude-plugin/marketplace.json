@@ -1804,6 +1804,12 @@
       "source": "./mods/tool-clock",
       "description": "Appends the duration to every tool row that took a second or more, and tags calls made by a subagent",
       "category": "interface"
+    },
+    {
+      "name": "result-fold",
+      "source": "./mods/result-fold",
+      "description": "Folds a shell result of more than 40 lines to its first and last 15 in the transcript; the model still reads all of it",
+      "category": "interface"
     }
   ]
 }

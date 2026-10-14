@@ -4656,6 +4656,23 @@
         "[[tool|● Read]](src/login.ts) [[dim|subagent]]",
         "[[tool|● Bash]](npm run build) [[dim|3.1s]] [[err|failed]]"
       ]
+    },
+    {
+      "name": "result-fold",
+      "category": "interface",
+      "description": {
+        "en": "Folds a shell result of more than 40 lines to its first and last 15 in the transcript; the model still reads all of it",
+        "pt": "Dobra um resultado de shell com mais de 40 linhas às primeiras e últimas 15 no transcript; o modelo continua lendo tudo",
+        "es": "Pliega un resultado de shell de más de 40 líneas a las primeras y últimas 15 en el transcript; el modelo sigue leyéndolo todo"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm test)",
+        "[[dim|  ⎿ PASS src/a.test.ts]]",
+        "[[dim|    PASS src/b.test.ts]]",
+        "[[dim|    … 70 lines folded]]",
+        "[[dim|    PASS src/z.test.ts]]",
+        "[[dim|    Tests: 100 passed]]"
+      ]
     }
   ],
   "hero": [

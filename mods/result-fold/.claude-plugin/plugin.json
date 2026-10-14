@@ -1,0 +1,13 @@
+{
+  "name": "result-fold",
+  "version": "0.1.0",
+  "description": "Folds a shell result of more than 40 lines to its first and last 15 in the transcript; the model still reads all of it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

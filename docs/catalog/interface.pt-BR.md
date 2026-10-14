@@ -1,8 +1,8 @@
-# Interface — 31 mods
+# Interface — 32 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane) · [`token-chart`](#token-chart) · [`cost-pane`](#cost-pane) · [`error-pane`](#error-pane) · [`context-pane`](#context-pane) · [`read-pane`](#read-pane) · [`links-pane`](#links-pane) · [`git-pane`](#git-pane) · [`branch-pane`](#branch-pane) · [`stash-pane`](#stash-pane) · [`code-todo-pane`](#code-todo-pane) · [`deps-pane`](#deps-pane) · [`scripts-pane`](#scripts-pane) · [`env-keys-pane`](#env-keys-pane) · [`test-pane`](#test-pane) · [`slow-toast`](#slow-toast) · [`deny-toast`](#deny-toast) · [`big-output-toast`](#big-output-toast) · [`timeline`](#timeline) · [`tool-clock`](#tool-clock)
+[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history) · [`agent-pane`](#agent-pane) · [`token-chart`](#token-chart) · [`cost-pane`](#cost-pane) · [`error-pane`](#error-pane) · [`context-pane`](#context-pane) · [`read-pane`](#read-pane) · [`links-pane`](#links-pane) · [`git-pane`](#git-pane) · [`branch-pane`](#branch-pane) · [`stash-pane`](#stash-pane) · [`code-todo-pane`](#code-todo-pane) · [`deps-pane`](#deps-pane) · [`scripts-pane`](#scripts-pane) · [`env-keys-pane`](#env-keys-pane) · [`test-pane`](#test-pane) · [`slow-toast`](#slow-toast) · [`deny-toast`](#deny-toast) · [`big-output-toast`](#big-output-toast) · [`timeline`](#timeline) · [`tool-clock`](#tool-clock) · [`result-fold`](#result-fold)
 
 ## `turn-timer`
 
@@ -313,3 +313,13 @@ Acrescenta a duração a cada linha de ferramenta que levou um segundo ou mais e
 ```
 
 ![tool-clock](../previews/tool-clock.svg)
+
+## `result-fold`
+
+Dobra um resultado de shell com mais de 40 linhas às primeiras e últimas 15 no transcript; o modelo continua lendo tudo.
+
+```
+/plugin install result-fold@cockpit
+```
+
+![result-fold](../previews/result-fold.svg)
