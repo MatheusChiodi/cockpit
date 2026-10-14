@@ -1435,6 +1435,22 @@
         "[[dim|  app.test.ts]]",
         "package.json"
       ]
+    },
+    {
+      "name": "find-file",
+      "category": "commands",
+      "description": {
+        "en": "/ff lists the tracked files whose path contains a text, best matches first",
+        "pt": "/ff lista os arquivos versionados cujo caminho contém um texto, os melhores resultados primeiro",
+        "es": "/ff lista los archivos versionados cuya ruta contiene un texto, los mejores resultados primero"
+      },
+      "preview": [
+        "[[user|> /ff login]]",
+        "src/pages/login.tsx",
+        "[[dim|src/hooks/useLogin.ts]]",
+        "[[dim|tests/login.test.ts]]",
+        "[[dim|3 files]]"
+      ]
     }
   ],
   "hero": [

@@ -532,6 +532,12 @@
       "source": "./mods/tree",
       "description": "/tree prints the project's directory tree two levels deep, skipping node_modules, .git, build output and dot folders",
       "category": "commands"
+    },
+    {
+      "name": "find-file",
+      "source": "./mods/find-file",
+      "description": "/ff lists the tracked files whose path contains a text, best matches first",
+      "category": "commands"
     }
   ]
 }

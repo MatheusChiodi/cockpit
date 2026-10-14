@@ -1,0 +1,13 @@
+{
+  "name": "find-file",
+  "version": "0.1.0",
+  "description": "/ff lists the tracked files whose path contains a text, best matches first",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
