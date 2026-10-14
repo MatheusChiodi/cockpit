@@ -4224,6 +4224,22 @@
         "     files    64",
         "     biggest  src/assets/hero.png  812.0 KB"
       ]
+    },
+    {
+      "name": "ignore-check",
+      "category": "commands",
+      "description": {
+        "en": "/ignored tells whether git ignores a path and which rule does it",
+        "pt": "/ignored diz se o git ignora um caminho e qual regra faz isso",
+        "es": "/ignored dice si git ignora una ruta y qué regla lo hace"
+      },
+      "preview": [
+        "[[user|> /ignored dist/app.js]]",
+        "[[dim|  ⎿]] dist/app.js is ignored by \"dist/\" (.gitignore:4)",
+        "",
+        "[[user|> /ignored src/app.ts]]",
+        "[[dim|  ⎿]] src/app.ts is not ignored."
+      ]
     }
   ],
   "hero": [

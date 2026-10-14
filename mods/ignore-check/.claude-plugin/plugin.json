@@ -1,0 +1,13 @@
+{
+  "name": "ignore-check",
+  "version": "0.1.0",
+  "description": "/ignored tells whether git ignores a path and which rule does it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

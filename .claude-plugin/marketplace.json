@@ -1630,6 +1630,12 @@
       "source": "./mods/path-size",
       "description": "/size shows how big a file is, in bytes and lines, or a folder, in tracked size and files",
       "category": "commands"
+    },
+    {
+      "name": "ignore-check",
+      "source": "./mods/ignore-check",
+      "description": "/ignored tells whether git ignores a path and which rule does it",
+      "category": "commands"
     }
   ]
 }
