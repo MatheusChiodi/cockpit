@@ -4000,6 +4000,20 @@
         "[[dim|  labels on controls · alt on images · keyboard reach]]",
         "[[dim|  visible focus · semantic elements · 4.5:1 contrast]]"
       ]
+    },
+    {
+      "name": "security-rules",
+      "category": "prompt",
+      "description": {
+        "en": "Always-on security rules: validate input, parameterized queries, no secrets in code or logs, least privilege, TLS on",
+        "pt": "Regras de segurança sempre ativas: validar entrada, queries parametrizadas, sem segredos em código ou logs, privilégio mínimo, TLS ligado",
+        "es": "Reglas de seguridad siempre activas: validar entrada, consultas parametrizadas, sin secretos en código o logs, mínimo privilegio, TLS activo"
+      },
+      "preview": [
+        "[[dim|system prompt +]] [[accent|Security rules]]",
+        "[[dim|  validate input at the boundary · parameterized queries]]",
+        "[[dim|  no secrets in code or logs · least privilege · TLS on]]"
+      ]
     }
   ],
   "hero": [

@@ -1540,6 +1540,12 @@
       "source": "./mods/a11y-rules",
       "description": "In web projects, keeps Claude to accessibility rules when editing markup: labels, alt text, keyboard, focus, contrast",
       "category": "prompt"
+    },
+    {
+      "name": "security-rules",
+      "source": "./mods/security-rules",
+      "description": "Always-on security rules: validate input, parameterized queries, no secrets in code or logs, least privilege, TLS on",
+      "category": "prompt"
     }
   ]
 }

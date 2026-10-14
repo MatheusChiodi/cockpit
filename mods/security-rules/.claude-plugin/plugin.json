@@ -1,0 +1,13 @@
+{
+  "name": "security-rules",
+  "version": "0.1.0",
+  "description": "Always-on security rules: validate input, parameterized queries, no secrets in code or logs, least privilege, TLS on",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}
