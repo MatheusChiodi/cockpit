@@ -1,0 +1,13 @@
+{
+  "name": "issue-context",
+  "version": "0.1.0",
+  "description": "When your prompt names an issue (issue #12 or an issue link), its title, labels and text reach Claude as hidden context",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

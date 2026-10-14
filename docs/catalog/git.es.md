@@ -1,8 +1,8 @@
-# Git y GitHub — 16 mods
+# Git y GitHub — 17 mods
 
 [← Volver al README](../../README.es.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag) · [`staged-status`](#staged-status) · [`pr-open`](#pr-open) · [`pr-checks`](#pr-checks) · [`pr-comments`](#pr-comments) · [`review-queue`](#review-queue) · [`issue-context`](#issue-context)
 
 ## `commit-review`
 
@@ -163,3 +163,13 @@ Línea de estado con cuántos pull requests esperan tu revisión, y un aviso cua
 ```
 
 ![review-queue](../previews/review-queue.svg)
+
+## `issue-context`
+
+Cuando tu prompt nombra un issue (issue #12 o un enlace de issue), su título, etiquetas y texto llegan a Claude como contexto oculto.
+
+```
+/plugin install issue-context@cockpit
+```
+
+![issue-context](../previews/issue-context.svg)

@@ -4522,6 +4522,20 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  reviews 3 waiting · #118 Add retry to uploads]]"
       ]
+    },
+    {
+      "name": "issue-context",
+      "category": "git",
+      "description": {
+        "en": "When your prompt names an issue (issue #12 or an issue link), its title, labels and text reach Claude as hidden context",
+        "pt": "Quando o prompt cita uma issue (issue #12 ou um link de issue), o título, os rótulos e o texto chegam ao Claude como contexto oculto",
+        "es": "Cuando tu prompt nombra un issue (issue #12 o un enlace de issue), su título, etiquetas y texto llegan a Claude como contexto oculto"
+      },
+      "preview": [
+        "[[user|> fix issue #12]]",
+        "[[dim|  hidden context: issue #12 \"Login fails on Safari\" (open, bug)]]",
+        "[[tool|● Read]](src/login.ts)"
+      ]
     }
   ],
   "hero": [

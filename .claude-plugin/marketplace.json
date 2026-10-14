@@ -1750,6 +1750,12 @@
       "source": "./mods/review-queue",
       "description": "Status line with how many pull requests wait for your review, and a toast when a new one is requested",
       "category": "git"
+    },
+    {
+      "name": "issue-context",
+      "source": "./mods/issue-context",
+      "description": "When your prompt names an issue (issue #12 or an issue link), its title, labels and text reach Claude as hidden context",
+      "category": "git"
     }
   ]
 }
