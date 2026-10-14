@@ -1810,6 +1810,12 @@
       "source": "./mods/result-fold",
       "description": "Folds a shell result of more than 40 lines to its first and last 15 in the transcript; the model still reads all of it",
       "category": "interface"
+    },
+    {
+      "name": "group-peek",
+      "source": "./mods/group-peek",
+      "description": "Under a folded run of reads and searches, shows what the live group is on and counts the calls that failed",
+      "category": "interface"
     }
   ]
 }

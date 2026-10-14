@@ -1,0 +1,13 @@
+{
+  "name": "group-peek",
+  "version": "0.1.0",
+  "description": "Under a folded run of reads and searches, shows what the live group is on and counts the calls that failed",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

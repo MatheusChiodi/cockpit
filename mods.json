@@ -4673,6 +4673,21 @@
         "[[dim|    PASS src/z.test.ts]]",
         "[[dim|    Tests: 100 passed]]"
       ]
+    },
+    {
+      "name": "group-peek",
+      "category": "interface",
+      "description": {
+        "en": "Under a folded run of reads and searches, shows what the live group is on and counts the calls that failed",
+        "pt": "Sob uma sequência dobrada de leituras e buscas, mostra no que o grupo ativo está e conta as chamadas que falharam",
+        "es": "Bajo una secuencia plegada de lecturas y búsquedas, muestra en qué está el grupo activo y cuenta las llamadas que fallaron"
+      },
+      "preview": [
+        "[[dim|● Read 3 files, searched for 2 patterns]]",
+        "[[dim|▸ Grep useAuth]]",
+        "[[dim|● Read 2 files]]",
+        "[[err|✗ 1 failed]]"
+      ]
     }
   ],
   "hero": [
