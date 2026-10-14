@@ -4042,6 +4042,20 @@
         "[[dim|  theme tokens · scale steps, no w-[13px]]]",
         "[[dim|  no inline style · mobile-first]]"
       ]
+    },
+    {
+      "name": "rn-rules",
+      "category": "prompt",
+      "description": {
+        "en": "In React Native and Expo projects, keeps Claude on FlatList, StyleSheet, Platform checks and EAS-compatible config",
+        "pt": "Em projetos React Native e Expo, mantém o Claude em FlatList, StyleSheet, checagens via Platform e config compatível com EAS",
+        "es": "En proyectos React Native y Expo, mantiene a Claude en FlatList, StyleSheet, chequeos con Platform y config compatible con EAS"
+      },
+      "preview": [
+        "[[dim|system prompt +]] [[accent|React Native rules]]",
+        "[[dim|  FlatList for long lists · StyleSheet, no inline styles]]",
+        "[[dim|  Platform.select · Expo modules first · EAS config]]"
+      ]
     }
   ],
   "hero": [

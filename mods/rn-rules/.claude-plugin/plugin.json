@@ -1,0 +1,13 @@
+{
+  "name": "rn-rules",
+  "version": "0.1.0",
+  "description": "In React Native and Expo projects, keeps Claude on FlatList, StyleSheet, Platform checks and EAS-compatible config",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

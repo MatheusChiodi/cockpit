@@ -1558,6 +1558,12 @@
       "source": "./mods/tailwind-rules",
       "description": "In Tailwind projects, keeps Claude on theme tokens, scale steps and mobile-first, without inline styles",
       "category": "prompt"
+    },
+    {
+      "name": "rn-rules",
+      "source": "./mods/rn-rules",
+      "description": "In React Native and Expo projects, keeps Claude on FlatList, StyleSheet, Platform checks and EAS-compatible config",
+      "category": "prompt"
     }
   ]
 }
