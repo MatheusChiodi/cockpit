@@ -1,0 +1,13 @@
+{
+  "name": "esm-guard",
+  "version": "0.1.0",
+  "description": "Refuses require, module.exports and __dirname in .js files of a package that declares \"type\": \"module\"",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

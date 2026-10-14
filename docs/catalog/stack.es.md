@@ -1,8 +1,8 @@
-# Stacks — 5 mods
+# Stacks — 6 mods
 
 [← Volver al README](../../README.es.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard)
 
 ## `pm-guard`
 
@@ -53,3 +53,13 @@ Rechaza ediciones del app router de Next.js que rompen la frontera cliente/servi
 ```
 
 ![next-boundary-guard](../previews/next-boundary-guard.svg)
+
+## `esm-guard`
+
+Rechaza require, module.exports y __dirname en archivos .js de un paquete que declara "type": "module".
+
+```
+/plugin install esm-guard@cockpit
+```
+
+![esm-guard](../previews/esm-guard.svg)

@@ -1294,6 +1294,12 @@
       "source": "./mods/next-boundary-guard",
       "description": "Refuses Next.js app router edits that break the client/server boundary: hooks without 'use client', or server-only code inside a client file",
       "category": "stack"
+    },
+    {
+      "name": "esm-guard",
+      "source": "./mods/esm-guard",
+      "description": "Refuses require, module.exports and __dirname in .js files of a package that declares \"type\": \"module\"",
+      "category": "stack"
     }
   ]
 }

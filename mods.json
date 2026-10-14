@@ -3394,6 +3394,19 @@
         "[[tool|● Write]](app/cart/page.tsx)",
         "[[err|  ⎿ next-boundary-guard: useState needs 'use client' as the file's first line.]]"
       ]
+    },
+    {
+      "name": "esm-guard",
+      "category": "stack",
+      "description": {
+        "en": "Refuses require, module.exports and __dirname in .js files of a package that declares \"type\": \"module\"",
+        "pt": "Recusa require, module.exports e __dirname em arquivos .js de um pacote que declara \"type\": \"module\"",
+        "es": "Rechaza require, module.exports y __dirname en archivos .js de un paquete que declara \"type\": \"module\""
+      },
+      "preview": [
+        "[[tool|● Write]](scripts/build.js)",
+        "[[err|  ⎿ esm-guard: package.json is \"type\": \"module\"; use import instead of require.]]"
+      ]
     }
   ],
   "hero": [
