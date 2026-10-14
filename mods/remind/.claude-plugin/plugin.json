@@ -1,0 +1,13 @@
+{
+  "name": "remind",
+  "version": "0.1.0",
+  "description": "/remind <minutes> <text> fires a toast and a notification after that many minutes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

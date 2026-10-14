@@ -706,6 +706,12 @@
       "source": "./mods/alarms",
       "description": "/alarm sets daily alarms at a local time, kept across sessions, with a toast and a notification",
       "category": "focus"
+    },
+    {
+      "name": "remind",
+      "source": "./mods/remind",
+      "description": "/remind <minutes> <text> fires a toast and a notification after that many minutes",
+      "category": "focus"
     }
   ]
 }

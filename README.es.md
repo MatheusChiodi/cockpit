@@ -2,7 +2,7 @@
 
 [English](README.md) · [Português](README.pt-BR.md) · **Español**
 
-**Un panel de instrumentos para Claude Code.** 117 mods para la terminal: 40 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
+**Un panel de instrumentos para Claude Code.** 118 mods para la terminal: 40 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
 
 ![El panel completo de Cockpit en una terminal](docs/cockpit.svg)
 
@@ -71,7 +71,7 @@ Las descripciones de los slash commands en el autocompletado se leen al iniciar 
 | [**Interfaz**](docs/catalog/interface.es.md) | 8 | `turn-timer` `tool-tally` `file-trail` `cmd-log` `git-status-line` `context-meter` `rate-limit-watch` `session-clock` |
 | [**Prompt y modelo**](docs/catalog/prompt.es.md) | 8 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` |
 | [**Comandos**](docs/catalog/commands.es.md) | 30 | `quick-notes` `pomodoro` `copy-last` `session-stats` `quote-selection` `git-peek` `git-branch` `git-stash` `git-undo` `run-script` `open-path` `ports` `kill-port` `tree` `find-file` `last-error` `env-check` `outdated` `json-tool` `uuid` `timestamp` `base64` `hash` `calc` `color-tool` `regex-test` `http-probe` `snippets` `export-session` `standup` |
-| [**Foco y notificaciones**](docs/catalog/focus.es.md) | 16 | `turn-notify` `break-reminder` `daily-streak` `error-notify` `needs-you-notify` `agent-done-notify` `long-cmd-notify` `tests-notify` `ci-notify` `pr-review-notify` `rate-limit-notify` `hydrate` `posture` `eye-rest` `stand-up` `alarms` |
+| [**Foco y notificaciones**](docs/catalog/focus.es.md) | 17 | `turn-notify` `break-reminder` `daily-streak` `error-notify` `needs-you-notify` `agent-done-notify` `long-cmd-notify` `tests-notify` `ci-notify` `pr-review-notify` `rate-limit-notify` `hydrate` `posture` `eye-rest` `stand-up` `alarms` `remind` |
 | [**Git y GitHub**](docs/catalog/git.es.md) | 0 |  |
 | [**Calidad**](docs/catalog/quality.es.md) | 0 |  |
 | [**Stacks**](docs/catalog/stack.es.md) | 0 |  |
