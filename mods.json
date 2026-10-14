@@ -2803,6 +2803,20 @@
         "[[warn|  ⎿ tunnel-guard: opening a public tunnel (ngrok). Confirm before running.]]",
         "[[btn| Yes ]] [[btn| No ]]"
       ]
+    },
+    {
+      "name": "reread-guard",
+      "category": "context",
+      "description": {
+        "en": "Refuses reading again a file Claude already read this session when it has not changed, once, with a reason",
+        "pt": "Recusa reler um arquivo que Claude já leu na sessão e que não mudou, uma vez, com o motivo",
+        "es": "Rechaza releer un archivo que Claude ya leyó en la sesión y que no cambió, una vez, con el motivo"
+      },
+      "preview": [
+        "[[tool|● Read]](src/engine/loop.ts)",
+        "[[err|  ⎿ reread-guard: src/engine/loop.ts is unchanged and already in the context.]]",
+        "[[err|    Use what was read, or Grep for the line. Repeat the call to read it anyway.]]"
+      ]
     }
   ],
   "hero": [

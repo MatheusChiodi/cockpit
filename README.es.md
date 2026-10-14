@@ -2,7 +2,7 @@
 
 [English](README.md) · [Português](README.pt-BR.md) · **Español**
 
-**Un panel de instrumentos para Claude Code.** 174 mods para la terminal: 40 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
+**Un panel de instrumentos para Claude Code.** 175 mods para la terminal: 40 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
 
 ![El panel completo de Cockpit en una terminal](docs/cockpit.svg)
 
@@ -75,7 +75,7 @@ Las descripciones de los slash commands en el autocompletado se leen al iniciar 
 | [**Git y GitHub**](docs/catalog/git.es.md) | 0 |  |
 | [**Calidad**](docs/catalog/quality.es.md) | 0 |  |
 | [**Stacks**](docs/catalog/stack.es.md) | 0 |  |
-| [**Contexto y costo**](docs/catalog/context.es.md) | 0 |  |
+| [**Contexto y costo**](docs/catalog/context.es.md) | 1 | `reread-guard` |
 
 ## Lenguaje visual
 

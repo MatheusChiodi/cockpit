@@ -1048,6 +1048,12 @@
       "source": "./mods/tunnel-guard",
       "description": "Asks before a command that exposes your machine to the internet: ngrok, cloudflared, ssh -R, tailscale funnel, a dev server on 0.0.0.0",
       "category": "security"
+    },
+    {
+      "name": "reread-guard",
+      "source": "./mods/reread-guard",
+      "description": "Refuses reading again a file Claude already read this session when it has not changed, once, with a reason",
+      "category": "context"
     }
   ]
 }
