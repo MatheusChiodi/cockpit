@@ -2151,6 +2151,24 @@
         "[[err|✗]] [[bold|Read]] [[dim|src/old.ts]]",
         "[[err|  File does not exist.]]"
       ]
+    },
+    {
+      "name": "context-pane",
+      "category": "interface",
+      "description": {
+        "en": "/window opens a pane with the context window by category, each with a gauge and its share, and a Refresh button",
+        "pt": "/window abre um painel com a janela de contexto por categoria, cada uma com medidor e participação, e um botão Atualizar",
+        "es": "/window abre un panel con la ventana de contexto por categoría, cada una con medidor y participación, y un botón Actualizar"
+      },
+      "preview": [
+        "[[user|> /window]]",
+        "[[session|▍ ]][[bold|WINDOW]][[dim|  84.2k of 200.0k  42%]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[btn|[ Refresh ]]]",
+        "[[bold|  52.3k]] [[dim|  26%]] [[accent|━━━━━━●]][[rule|──────────────]] Messages",
+        "[[bold|  16.0k]] [[dim|   8%]] [[accent|━●]][[rule|─────────────────]] System tools",
+        "[[bold| 115.8k]] [[dim|  58%]] [[rule|●────────────────────]] Free space"
+      ]
     }
   ],
   "hero": [

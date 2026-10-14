@@ -1,0 +1,14 @@
+{
+  "name": "context-pane",
+  "version": "0.1.0",
+  "description": "/window opens a pane with the context window by category, each with a gauge and its share, and a Refresh button",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

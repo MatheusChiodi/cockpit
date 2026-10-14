@@ -796,6 +796,12 @@
       "source": "./mods/error-pane",
       "description": "/errors opens a pane with every tool call that failed or was denied, its input and the first line of the error",
       "category": "interface"
+    },
+    {
+      "name": "context-pane",
+      "source": "./mods/context-pane",
+      "description": "/window opens a pane with the context window by category, each with a gauge and its share, and a Refresh button",
+      "category": "interface"
     }
   ]
 }
