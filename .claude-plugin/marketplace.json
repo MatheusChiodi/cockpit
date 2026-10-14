@@ -760,6 +760,12 @@
       "source": "./mods/diff-pane",
       "description": "/edits opens a pane with every Edit and Write of the session, lines added and removed, newest first",
       "category": "interface"
+    },
+    {
+      "name": "turn-history",
+      "source": "./mods/turn-history",
+      "description": "/turns opens a pane with one row per finished turn: duration, tool calls, output tokens and a cross for failed ones",
+      "category": "interface"
     }
   ]
 }

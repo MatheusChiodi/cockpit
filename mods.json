@@ -2048,6 +2048,23 @@
         "[[ok|  +24]] [[err|   −0]] src/hooks/strings.ts",
         "[[ok|   +5]] [[err|   −6]] README.md"
       ]
+    },
+    {
+      "name": "turn-history",
+      "category": "interface",
+      "description": {
+        "en": "/turns opens a pane with one row per finished turn: duration, tool calls, output tokens and a cross for failed ones",
+        "pt": "/turns abre um painel com uma linha por turno concluído: duração, chamadas de ferramenta, tokens de saída e um ✗ nos que falharam",
+        "es": "/turns abre un panel con una fila por turno terminado: duración, llamadas de herramienta, tokens de salida y una ✗ en los que fallaron"
+      },
+      "preview": [
+        "[[user|> /turns]]",
+        "[[session|▍ ]][[bold|TURNS]][[dim|  3 turns  1 failed]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[err|✗]] [[dim|  #3]] [[bold|   0.9s]] [[dim|    0 calls]] [[dim|     0 out]]",
+        "[[ok|✓]] [[dim|  #2]] [[bold|  12.4s]] [[dim|    7 calls]] [[dim|   321 out]]",
+        "[[ok|✓]] [[dim|  #1]] [[bold|   4.1s]] [[dim|    2 calls]] [[dim|   188 out]]"
+      ]
     }
   ],
   "hero": [

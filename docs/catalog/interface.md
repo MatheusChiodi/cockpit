@@ -1,8 +1,8 @@
-# Interface — 9 mods
+# Interface — 10 mods
 
 [← Back to the README](../../README.md)
 
-[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane)
+[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history)
 
 ## `turn-timer`
 
@@ -93,3 +93,13 @@ Status line with session time and number of prompts.
 ```
 
 ![diff-pane](../previews/diff-pane.svg)
+
+## `turn-history`
+
+/turns opens a pane with one row per finished turn: duration, tool calls, output tokens and a cross for failed ones.
+
+```
+/plugin install turn-history@cockpit
+```
+
+![turn-history](../previews/turn-history.svg)
