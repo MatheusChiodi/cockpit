@@ -1,0 +1,13 @@
+{
+  "name": "wip-commit-guard",
+  "version": "0.1.0",
+  "description": "Refuses commits whose message is wip, fix, asdf, a dot or similar, so the history says what changed",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

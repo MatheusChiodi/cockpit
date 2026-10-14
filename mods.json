@@ -2986,6 +2986,19 @@
         "[[warn|    Review the diff, then confirm to commit.]]",
         "[[btn| Yes ]] [[btn| No ]]"
       ]
+    },
+    {
+      "name": "wip-commit-guard",
+      "category": "git",
+      "description": {
+        "en": "Refuses commits whose message is wip, fix, asdf, a dot or similar, so the history says what changed",
+        "pt": "Recusa commits com mensagem wip, fix, asdf, um ponto ou parecida, para o histórico dizer o que mudou",
+        "es": "Rechaza commits con mensaje wip, fix, asdf, un punto o similar, para que el historial diga qué cambió"
+      },
+      "preview": [
+        "[[tool|● Bash]](git commit -am \"wip\")",
+        "[[err|  ⎿ wip-commit-guard refused the commit: \"wip\" says nothing about the change.]]"
+      ]
     }
   ],
   "hero": [

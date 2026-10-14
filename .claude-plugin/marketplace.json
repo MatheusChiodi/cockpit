@@ -1126,6 +1126,12 @@
       "source": "./mods/commit-review",
       "description": "Asks you to look at the diff before a big commit goes through, showing the files and lines staged",
       "category": "git"
+    },
+    {
+      "name": "wip-commit-guard",
+      "source": "./mods/wip-commit-guard",
+      "description": "Refuses commits whose message is wip, fix, asdf, a dot or similar, so the history says what changed",
+      "category": "git"
     }
   ]
 }
