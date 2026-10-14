@@ -1,0 +1,13 @@
+{
+  "name": "ports",
+  "version": "0.1.0",
+  "description": "/ports probes the common dev ports on localhost and lists which ones answer",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

@@ -514,6 +514,12 @@
       "source": "./mods/open-path",
       "description": "/open opens a file or folder of the project in the system's default app; refuses paths outside the project",
       "category": "commands"
+    },
+    {
+      "name": "ports",
+      "source": "./mods/ports",
+      "description": "/ports probes the common dev ports on localhost and lists which ones answer",
+      "category": "commands"
     }
   ]
 }

@@ -1386,6 +1386,22 @@
         "[[user|> /open ../secrets]]",
         "[[err|Outside the project: ../secrets]]"
       ]
+    },
+    {
+      "name": "ports",
+      "category": "commands",
+      "description": {
+        "en": "/ports probes the common dev ports on localhost and lists which ones answer",
+        "pt": "/ports sonda as portas de desenvolvimento comuns no localhost e lista quais respondem",
+        "es": "/ports sondea los puertos de desarrollo comunes en localhost y lista cuáles responden"
+      },
+      "preview": [
+        "[[user|> /ports]]",
+        "[[ok|● ]]3000  [[dim|200]]",
+        "[[ok|● ]]5173  [[dim|200]]",
+        "[[ok|● ]]8080  [[dim|404]]",
+        "[[dim|3 of 9 ports answer]]"
+      ]
     }
   ],
   "hero": [
