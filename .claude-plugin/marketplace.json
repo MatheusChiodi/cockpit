@@ -1546,6 +1546,12 @@
       "source": "./mods/security-rules",
       "description": "Always-on security rules: validate input, parameterized queries, no secrets in code or logs, least privilege, TLS on",
       "category": "prompt"
+    },
+    {
+      "name": "react-rules",
+      "source": "./mods/react-rules",
+      "description": "In React projects, keeps Claude to the rules of hooks, stable keys, derived state and effects only for synchronization",
+      "category": "prompt"
     }
   ]
 }

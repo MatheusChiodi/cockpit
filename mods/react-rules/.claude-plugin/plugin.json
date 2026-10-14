@@ -1,0 +1,13 @@
+{
+  "name": "react-rules",
+  "version": "0.1.0",
+  "description": "In React projects, keeps Claude to the rules of hooks, stable keys, derived state and effects only for synchronization",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

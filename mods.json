@@ -4014,6 +4014,20 @@
         "[[dim|  validate input at the boundary · parameterized queries]]",
         "[[dim|  no secrets in code or logs · least privilege · TLS on]]"
       ]
+    },
+    {
+      "name": "react-rules",
+      "category": "prompt",
+      "description": {
+        "en": "In React projects, keeps Claude to the rules of hooks, stable keys, derived state and effects only for synchronization",
+        "pt": "Em projetos React, mantém o Claude nas regras de hooks, keys estáveis, estado derivado e effects só para sincronização",
+        "es": "En proyectos React, mantiene a Claude en las reglas de hooks, keys estables, estado derivado y effects solo para sincronización"
+      },
+      "preview": [
+        "[[dim|system prompt +]] [[accent|React rules]]",
+        "[[dim|  hooks at top level · no component inside a component]]",
+        "[[dim|  stable keys · derive, do not mirror · effects sync only]]"
+      ]
     }
   ],
   "hero": [
