@@ -1,0 +1,13 @@
+{
+  "name": "script-guard",
+  "version": "0.1.0",
+  "description": "Refuses npm run or pnpm run of a script that package.json does not declare and lists the ones it does",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

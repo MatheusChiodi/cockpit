@@ -3342,6 +3342,19 @@
         "[[tool|● Bash]](npm install zod)",
         "[[err|  ⎿ pm-guard: this project uses pnpm (pnpm-lock.yaml). Run \"pnpm add zod\".]]"
       ]
+    },
+    {
+      "name": "script-guard",
+      "category": "stack",
+      "description": {
+        "en": "Refuses npm run or pnpm run of a script that package.json does not declare and lists the ones it does",
+        "pt": "Recusa npm run ou pnpm run de um script que o package.json não declara e lista os que ele declara",
+        "es": "Rechaza npm run o pnpm run de un script que package.json no declara y lista los que sí declara"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm run lint)",
+        "[[err|  ⎿ script-guard: package.json has no \"lint\" script. Available: dev, build, test.]]"
+      ]
     }
   ],
   "hero": [

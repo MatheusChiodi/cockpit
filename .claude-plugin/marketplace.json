@@ -1270,6 +1270,12 @@
       "source": "./mods/pm-guard",
       "description": "Refuses npm, pnpm, yarn or bun commands that use a different package manager than the project's lockfile, and names the right one",
       "category": "stack"
+    },
+    {
+      "name": "script-guard",
+      "source": "./mods/script-guard",
+      "description": "Refuses npm run or pnpm run of a script that package.json does not declare and lists the ones it does",
+      "category": "stack"
     }
   ]
 }
