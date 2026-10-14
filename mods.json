@@ -2971,6 +2971,21 @@
         "[[err|  ⎿ tree-flood-guard: an unfiltered find lists node_modules and build output.]]",
         "[[err|    Use git ls-files, Glob, or add -maxdepth or -name.]]"
       ]
+    },
+    {
+      "name": "commit-review",
+      "category": "git",
+      "description": {
+        "en": "Asks you to look at the diff before a big commit goes through, showing the files and lines staged",
+        "pt": "Pede que você olhe o diff antes de passar um commit grande, mostrando os arquivos e linhas no stage",
+        "es": "Te pide mirar el diff antes de que pase un commit grande, mostrando los archivos y líneas en el stage"
+      },
+      "preview": [
+        "[[tool|● Bash]](git commit -m \"refactor settings\")",
+        "[[warn|  ⎿ commit-review: 14 file(s), 612 changed line(s) staged.]]",
+        "[[warn|    Review the diff, then confirm to commit.]]",
+        "[[btn| Yes ]] [[btn| No ]]"
+      ]
     }
   ],
   "hero": [

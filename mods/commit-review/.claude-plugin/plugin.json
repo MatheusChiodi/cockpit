@@ -1,0 +1,13 @@
+{
+  "name": "commit-review",
+  "version": "0.1.0",
+  "description": "Asks you to look at the diff before a big commit goes through, showing the files and lines staged",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

@@ -1120,6 +1120,12 @@
       "source": "./mods/tree-flood-guard",
       "description": "Refuses an unfiltered find, ls -R or dir /s that would list node_modules, and suggests git ls-files or Glob",
       "category": "context"
+    },
+    {
+      "name": "commit-review",
+      "source": "./mods/commit-review",
+      "description": "Asks you to look at the diff before a big commit goes through, showing the files and lines staged",
+      "category": "git"
     }
   ]
 }
