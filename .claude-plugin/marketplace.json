@@ -1612,6 +1612,12 @@
       "source": "./mods/file-author",
       "description": "/who shows who last touched a file or folder, when, and who changed it most",
       "category": "commands"
+    },
+    {
+      "name": "head-file",
+      "source": "./mods/head-file",
+      "description": "/head shows the first numbered lines of a project file, and never prints files that hold secrets",
+      "category": "commands"
     }
   ]
 }

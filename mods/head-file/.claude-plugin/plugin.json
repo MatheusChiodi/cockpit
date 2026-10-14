@@ -1,0 +1,13 @@
+{
+  "name": "head-file",
+  "version": "0.1.0",
+  "description": "/head shows the first numbered lines of a project file, and never prints files that hold secrets",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

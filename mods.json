@@ -4176,6 +4176,22 @@
         "              fix: refresh the token before it expires",
         "     authors  Ana Souza 9  Bruno Lima 4  Carla Dias 1"
       ]
+    },
+    {
+      "name": "head-file",
+      "category": "commands",
+      "description": {
+        "en": "/head shows the first numbered lines of a project file, and never prints files that hold secrets",
+        "pt": "/head mostra as primeiras linhas numeradas de um arquivo do projeto, e nunca exibe arquivos com segredos",
+        "es": "/head muestra las primeras líneas numeradas de un archivo del proyecto, y nunca muestra archivos con secretos"
+      },
+      "preview": [
+        "[[user|> /head src/index.ts 3]]",
+        "[[dim|  ⎿]]    1  import { createApp } from './app'",
+        "        2  import { loadConfig } from './config'",
+        "        3  ",
+        "     [[dim|… 41 more lines not shown]]"
+      ]
     }
   ],
   "hero": [
