@@ -1,8 +1,8 @@
-# Interfaz — 10 mods
+# Interfaz — 11 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history)
+[`turn-timer`](#turn-timer) · [`tool-tally`](#tool-tally) · [`file-trail`](#file-trail) · [`cmd-log`](#cmd-log) · [`git-status-line`](#git-status-line) · [`context-meter`](#context-meter) · [`rate-limit-watch`](#rate-limit-watch) · [`session-clock`](#session-clock) · [`diff-pane`](#diff-pane) · [`turn-history`](#turn-history) · [`prompt-history`](#prompt-history)
 
 ## `turn-timer`
 
@@ -103,3 +103,13 @@ Status line con tiempo de sesión y número de prompts.
 ```
 
 ![turn-history](../previews/turn-history.svg)
+
+## `prompt-history`
+
+/prompts abre un panel con los prompts escritos en esta sesión; pulsa uno para volver a ponerlo en la caja de prompt.
+
+```
+/plugin install prompt-history@cockpit
+```
+
+![prompt-history](../previews/prompt-history.svg)

@@ -766,6 +766,12 @@
       "source": "./mods/turn-history",
       "description": "/turns opens a pane with one row per finished turn: duration, tool calls, output tokens and a cross for failed ones",
       "category": "interface"
+    },
+    {
+      "name": "prompt-history",
+      "source": "./mods/prompt-history",
+      "description": "/prompts opens a pane with the prompts you typed this session; press one to put it back in the prompt box",
+      "category": "interface"
     }
   ]
 }

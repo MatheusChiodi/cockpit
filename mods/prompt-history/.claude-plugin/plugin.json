@@ -1,0 +1,14 @@
+{
+  "name": "prompt-history",
+  "version": "0.1.0",
+  "description": "/prompts opens a pane with the prompts you typed this session; press one to put it back in the prompt box",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

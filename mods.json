@@ -2065,6 +2065,23 @@
         "[[ok|✓]] [[dim|  #2]] [[bold|  12.4s]] [[dim|    7 calls]] [[dim|   321 out]]",
         "[[ok|✓]] [[dim|  #1]] [[bold|   4.1s]] [[dim|    2 calls]] [[dim|   188 out]]"
       ]
+    },
+    {
+      "name": "prompt-history",
+      "category": "interface",
+      "description": {
+        "en": "/prompts opens a pane with the prompts you typed this session; press one to put it back in the prompt box",
+        "pt": "/prompts abre um painel com os prompts digitados nesta sessão; pressione um para recolocá-lo na caixa de prompt",
+        "es": "/prompts abre un panel con los prompts escritos en esta sesión; pulsa uno para volver a ponerlo en la caja de prompt"
+      },
+      "preview": [
+        "[[user|> /prompts]]",
+        "[[session|▍ ]][[bold|PROMPTS]][[dim|  3 typed  press a row to reuse it]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[dim|▸ ]]add a test for the login hook",
+        "[[dim|▸ ]]rename the helper and update its imports",
+        "[[dim|▸ ]]why does the build fail on CI?"
+      ]
     }
   ],
   "hero": [
