@@ -1228,6 +1228,12 @@
       "source": "./mods/long-file-toast",
       "description": "Toast when an edit takes a file past 500 lines, and again at every 100 more",
       "category": "quality"
+    },
+    {
+      "name": "dup-block-guard",
+      "source": "./mods/dup-block-guard",
+      "description": "Refuses an edit whose new code repeats a block of 6 or more lines already in the same file",
+      "category": "quality"
     }
   ]
 }

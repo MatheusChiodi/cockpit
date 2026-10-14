@@ -1,8 +1,8 @@
-# Qualidade — 6 mods
+# Qualidade — 7 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast)
+[`untested-turn-toast`](#untested-turn-toast) · [`red-turn-toast`](#red-turn-toast) · [`debugger-guard`](#debugger-guard) · [`leftovers-toast`](#leftovers-toast) · [`any-guard`](#any-guard) · [`long-file-toast`](#long-file-toast) · [`dup-block-guard`](#dup-block-guard)
 
 ## `untested-turn-toast`
 
@@ -63,3 +63,13 @@ Toast quando uma edição leva um arquivo além de 500 linhas, e de novo a cada 
 ```
 
 ![long-file-toast](../previews/long-file-toast.svg)
+
+## `dup-block-guard`
+
+Recusa uma edição cujo código novo repete um bloco de 6 ou mais linhas que já está no mesmo arquivo.
+
+```
+/plugin install dup-block-guard@cockpit
+```
+
+![dup-block-guard](../previews/dup-block-guard.svg)

@@ -3245,6 +3245,20 @@
         "[[rule|────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor| ]]"
       ]
+    },
+    {
+      "name": "dup-block-guard",
+      "category": "quality",
+      "description": {
+        "en": "Refuses an edit whose new code repeats a block of 6 or more lines already in the same file",
+        "pt": "Recusa uma edição cujo código novo repete um bloco de 6 ou mais linhas que já está no mesmo arquivo",
+        "es": "Rechaza una edición cuyo código nuevo repite un bloque de 6 o más líneas que ya está en el mismo archivo"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/report.ts)",
+        "[[err|  ⎿ dup-block-guard blocked the edit: it repeats 6 lines already in this file]]",
+        "[[err|    (from \"const rows = items.filter(...)\"). Extract a function instead.]]"
+      ]
     }
   ],
   "hero": [
