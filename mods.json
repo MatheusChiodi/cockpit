@@ -4099,6 +4099,22 @@
         "[[rule|────────────────────────────────────────]]",
         "[[dim|  format table]]"
       ]
+    },
+    {
+      "name": "loc-count",
+      "category": "commands",
+      "description": {
+        "en": "/loc counts lines of code by file type for the project or a path, with a total",
+        "pt": "/loc conta linhas de código por tipo de arquivo no projeto ou em um caminho, com o total",
+        "es": "/loc cuenta líneas de código por tipo de archivo en el proyecto o en una ruta, con el total"
+      },
+      "preview": [
+        "[[user|> /loc src]]",
+        "[[dim|  ⎿]] .tsx      24 files      3120 lines",
+        "     .ts       31 files      2874 lines",
+        "     .css       3 files       410 lines",
+        "     total     58 files      6404 lines"
+      ]
     }
   ],
   "hero": [

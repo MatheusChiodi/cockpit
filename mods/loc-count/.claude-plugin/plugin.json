@@ -1,0 +1,13 @@
+{
+  "name": "loc-count",
+  "version": "0.1.0",
+  "description": "/loc counts lines of code by file type for the project or a path, with a total",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

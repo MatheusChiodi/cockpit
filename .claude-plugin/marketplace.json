@@ -1582,6 +1582,12 @@
       "source": "./mods/answer-format",
       "description": "/format sets the shape of answers (bullets, steps, table or prose) and shows it in the status line",
       "category": "prompt"
+    },
+    {
+      "name": "loc-count",
+      "source": "./mods/loc-count",
+      "description": "/loc counts lines of code by file type for the project or a path, with a total",
+      "category": "commands"
     }
   ]
 }
