@@ -4131,6 +4131,22 @@
         "      96.4 KB  package-lock.json",
         "     [[dim|(3 of 214 tracked files)]]"
       ]
+    },
+    {
+      "name": "recent-files",
+      "category": "commands",
+      "description": {
+        "en": "/recent lists the files changed most recently, with when, from the last 100 commits",
+        "pt": "/recent lista os arquivos alterados mais recentemente, com quando, nos últimos 100 commits",
+        "es": "/recent lista los archivos cambiados más recientemente, con cuándo, en los últimos 100 commits"
+      },
+      "preview": [
+        "[[user|> /recent 4]]",
+        "[[dim|  ⎿]] 2 hours ago  src/auth/login.ts",
+        "     2 hours ago  src/auth/login.test.ts",
+        "     yesterday    package.json",
+        "     3 days ago   README.md"
+      ]
     }
   ],
   "hero": [

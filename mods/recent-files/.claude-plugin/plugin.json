@@ -1,0 +1,13 @@
+{
+  "name": "recent-files",
+  "version": "0.1.0",
+  "description": "/recent lists the files changed most recently, with when, from the last 100 commits",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

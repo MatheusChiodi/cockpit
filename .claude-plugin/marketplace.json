@@ -1594,6 +1594,12 @@
       "source": "./mods/big-files",
       "description": "/big lists the largest tracked files of the project with readable sizes",
       "category": "commands"
+    },
+    {
+      "name": "recent-files",
+      "source": "./mods/recent-files",
+      "description": "/recent lists the files changed most recently, with when, from the last 100 commits",
+      "category": "commands"
     }
   ]
 }
