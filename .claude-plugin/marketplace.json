@@ -1372,6 +1372,12 @@
       "source": "./mods/release-status",
       "description": "Status line with the package version, the latest tag and the commits waiting for the next release",
       "category": "panel"
+    },
+    {
+      "name": "license-status",
+      "source": "./mods/license-status",
+      "description": "Status line that warns when the project has no license file or no license field in package.json",
+      "category": "panel"
     }
   ]
 }

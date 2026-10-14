@@ -352,6 +352,15 @@ export const PANELS: readonly Panel[] = [
     }
   },
   {
+    "name": "license-status",
+    "group": "project",
+    "description": {
+      "en": "Status line that warns when the project has no license file or no license field in package.json",
+      "pt": "Status line que avisa quando o projeto não tem arquivo de licença nem campo license no package.json",
+      "es": "Línea de estado que avisa cuando el proyecto no tiene archivo de licencia ni campo license en package.json"
+    }
+  },
+  {
     "name": "todo-band",
     "group": "daily",
     "description": {

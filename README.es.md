@@ -2,7 +2,7 @@
 
 [English](README.md) · [Português](README.pt-BR.md) · **Español**
 
-**Un panel de instrumentos para Claude Code.** 228 mods para la terminal: 46 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
+**Un panel de instrumentos para Claude Code.** 229 mods para la terminal: 47 paneles que quedan siempre a la vista y se activan o desactivan en `/cockpit`, además de guards, automatizaciones de prompt, comandos instantáneos y ayudas de foco. Cada mod es un plugin pequeño que se instala con una línea.
 
 ![El panel completo de Cockpit en una terminal](docs/cockpit.svg)
 
@@ -41,7 +41,7 @@ Quita un mod con `/plugin uninstall <mod>@cockpit`. Apaga todos de una vez con `
 
 ## Paneles y ajustes
 
-Los 46 mods de **Siempre visible** son paneles: franjas sobre el prompt o entradas en la status line que se actualizan solas (git, contexto, costo, tests, CI, tareas, plazo, clima). Ninguno necesita un comando para aparecer.
+Los 47 mods de **Siempre visible** son paneles: franjas sobre el prompt o entradas en la status line que se actualizan solas (git, contexto, costo, tests, CI, tareas, plazo, clima). Ninguno necesita un comando para aparecer.
 
 El mod `cockpit` es su panel de ajustes y llega como dependencia de cualquier panel.
 
@@ -66,7 +66,7 @@ Las descripciones de los slash commands en el autocompletado se leen al iniciar 
 
 | | | |
 | --- | --- | --- |
-| [**Siempre visible**](docs/catalog/panel.es.md) | 47 | `cockpit` `git-band` `todo-band` `usage-band` `files-band` `error-band` `goal-band` `agents-band` `activity-status` `test-status` `ci-status` `stash-status` `uncommitted-band` `pr-status` `main-warning-band` `conflict-band` `project-status` `ports-band` `deps-status` `todo-count-status` `quality-status` `model-status` `cost-ticker` `idle-clock` `turn-progress` `last-prompt-band` `compact-nudge` `session-diff-band` `shield-band` `reset-countdown` `spend-today` `focus-band` `deadline-band` `pin-band` `clock-status` `day-timer` `commits-today` `dolar-status` `weather-status` `api-status` `terminal-pet` `runtime-band` `docker-band` `env-drift-band` `deploy-status` `todo-new-status` `release-status` |
+| [**Siempre visible**](docs/catalog/panel.es.md) | 48 | `cockpit` `git-band` `todo-band` `usage-band` `files-band` `error-band` `goal-band` `agents-band` `activity-status` `test-status` `ci-status` `stash-status` `uncommitted-band` `pr-status` `main-warning-band` `conflict-band` `project-status` `ports-band` `deps-status` `todo-count-status` `quality-status` `model-status` `cost-ticker` `idle-clock` `turn-progress` `last-prompt-band` `compact-nudge` `session-diff-band` `shield-band` `reset-countdown` `spend-today` `focus-band` `deadline-band` `pin-band` `clock-status` `day-timer` `commits-today` `dolar-status` `weather-status` `api-status` `terminal-pet` `runtime-band` `docker-band` `env-drift-band` `deploy-status` `todo-new-status` `release-status` `license-status` |
 | [**Seguridad**](docs/catalog/security.es.md) | 30 | `rm-guard` `env-guard` `git-guard` `secret-scan` `prompt-secret-guard` `lockfile-guard` `path-jail` `main-branch-guard` `generated-guard` `sql-guard` `prod-guard` `install-ask` `pipe-shell-guard` `big-read-guard` `sudo-guard` `chmod-guard` `docker-guard` `kill-guard` `credential-file-guard` `upload-guard` `env-dump-guard` `registry-guard` `persistence-guard` `dotfile-guard` `ci-config-guard` `test-skip-guard` `suppress-guard` `migration-guard` `large-write-guard` `tunnel-guard` |
 | [**Interfaz**](docs/catalog/interface.es.md) | 29 | `turn-timer` `tool-tally` `file-trail` `cmd-log` `git-status-line` `context-meter` `rate-limit-watch` `session-clock` `diff-pane` `turn-history` `prompt-history` `agent-pane` `token-chart` `cost-pane` `error-pane` `context-pane` `read-pane` `links-pane` `git-pane` `branch-pane` `stash-pane` `code-todo-pane` `deps-pane` `scripts-pane` `env-keys-pane` `test-pane` `slow-toast` `deny-toast` `big-output-toast` |
 | [**Prompt y modelo**](docs/catalog/prompt.es.md) | 20 | `concise-mode` `persona` `prompt-shortcuts` `tldr` `git-context` `stack-context` `commit-style` `reply-language` `time-context` `os-context` `test-first` `explain-mode` `plan-first` `no-comments` `minimal-diff` `ask-first` `verify-claims` `paste-fence` `file-mention-hint` `trace-helper` |

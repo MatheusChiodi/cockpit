@@ -1,0 +1,17 @@
+{
+  "name": "license-status",
+  "version": "0.1.0",
+  "description": "Status line that warns when the project has no license file or no license field in package.json",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}
