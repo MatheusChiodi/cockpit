@@ -2750,6 +2750,19 @@
         "[[tool|● Edit]](src/cart.test.ts)",
         "[[err|  ⎿ test-skip-guard blocked the edit: it adds \".skip(\". Fix the test instead.]]"
       ]
+    },
+    {
+      "name": "suppress-guard",
+      "category": "security",
+      "description": {
+        "en": "Refuses an edit that adds a blanket suppression: eslint-disable, @ts-ignore, @ts-nocheck, bare # noqa or # type: ignore",
+        "pt": "Recusa uma edição que adiciona supressão genérica: eslint-disable, @ts-ignore, @ts-nocheck, # noqa ou # type: ignore sem código",
+        "es": "Rechaza una edición que añade una supresión genérica: eslint-disable, @ts-ignore, @ts-nocheck, # noqa o # type: ignore sin código"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/api.ts)",
+        "[[err|  ⎿ suppress-guard blocked the edit: it adds \"@ts-ignore\". Fix the cause instead.]]"
+      ]
     }
   ],
   "hero": [

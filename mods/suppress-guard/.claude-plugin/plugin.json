@@ -1,0 +1,13 @@
+{
+  "name": "suppress-guard",
+  "version": "0.1.0",
+  "description": "Refuses an edit that adds a blanket suppression: eslint-disable, @ts-ignore, @ts-nocheck, bare # noqa or # type: ignore",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

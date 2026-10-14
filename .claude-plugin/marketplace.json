@@ -1024,6 +1024,12 @@
       "source": "./mods/test-skip-guard",
       "description": "Refuses an edit that adds a skipped or focused test: .skip, .only, xit, fit, @Ignore, @Disabled, @pytest.mark.skip",
       "category": "security"
+    },
+    {
+      "name": "suppress-guard",
+      "source": "./mods/suppress-guard",
+      "description": "Refuses an edit that adds a blanket suppression: eslint-disable, @ts-ignore, @ts-nocheck, bare # noqa or # type: ignore",
+      "category": "security"
     }
   ]
 }
