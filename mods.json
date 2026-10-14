@@ -1466,6 +1466,23 @@
         "[[dim|src/app.ts(12,5): error TS2322: Type 'string' is not assignable to 'number'.]]",
         "[[dim|Found 1 error.]]"
       ]
+    },
+    {
+      "name": "env-check",
+      "category": "commands",
+      "description": {
+        "en": "/envcheck compares the keys of .env.example with .env and lists the missing and extra ones, never a value",
+        "pt": "/envcheck compara as chaves do .env.example com o .env e lista as que faltam e as extras, nunca um valor",
+        "es": "/envcheck compara las claves de .env.example con .env y lista las que faltan y las sobrantes, nunca un valor"
+      },
+      "preview": [
+        "[[user|> /envcheck]]",
+        "[[warn|Missing in .env]]",
+        "[[dim|  DATABASE_URL]]",
+        "[[dim|  STRIPE_KEY]]",
+        "[[warn|Not in .env.example]]",
+        "[[dim|  DEBUG_SQL]]"
+      ]
     }
   ],
   "hero": [

@@ -1,0 +1,13 @@
+{
+  "name": "env-check",
+  "version": "0.1.0",
+  "description": "/envcheck compares the keys of .env.example with .env and lists the missing and extra ones, never a value",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}
