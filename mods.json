@@ -2579,6 +2579,20 @@
         "[[dim|system prompt +]] [[accent|hidden context]]",
         "[[dim|  first frame in project → read it → root cause in one line]]"
       ]
+    },
+    {
+      "name": "sudo-guard",
+      "category": "security",
+      "description": {
+        "en": "Blocks privilege elevation: sudo, doas, su -c, runas and Start-Process -Verb RunAs",
+        "pt": "Bloqueia elevação de privilégio: sudo, doas, su -c, runas e Start-Process -Verb RunAs",
+        "es": "Bloquea la elevación de privilegios: sudo, doas, su -c, runas y Start-Process -Verb RunAs"
+      },
+      "preview": [
+        "[[tool|● Bash]](sudo rm /etc/hosts)",
+        "[[err|  ⎿ sudo-guard blocked the command: privilege elevation (sudo, doas).]]",
+        "[[err|    Run it without elevation, or ask the user to run it by hand.]]"
+      ]
     }
   ],
   "hero": [

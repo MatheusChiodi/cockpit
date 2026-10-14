@@ -1,0 +1,13 @@
+{
+  "name": "sudo-guard",
+  "version": "0.1.0",
+  "description": "Blocks privilege elevation: sudo, doas, su -c, runas and Start-Process -Verb RunAs",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

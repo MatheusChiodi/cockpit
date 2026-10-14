@@ -952,6 +952,12 @@
       "source": "./mods/trace-helper",
       "description": "Adds a hidden hint to prompts with a stack trace: find the first project frame, read it, state the root cause",
       "category": "prompt"
+    },
+    {
+      "name": "sudo-guard",
+      "source": "./mods/sudo-guard",
+      "description": "Blocks privilege elevation: sudo, doas, su -c, runas and Start-Process -Verb RunAs",
+      "category": "security"
     }
   ]
 }

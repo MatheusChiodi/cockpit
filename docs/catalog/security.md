@@ -1,8 +1,8 @@
-# Security — 14 mods
+# Security — 15 mods
 
 [← Back to the README](../../README.md)
 
-[`rm-guard`](#rm-guard) · [`env-guard`](#env-guard) · [`git-guard`](#git-guard) · [`secret-scan`](#secret-scan) · [`prompt-secret-guard`](#prompt-secret-guard) · [`lockfile-guard`](#lockfile-guard) · [`path-jail`](#path-jail) · [`main-branch-guard`](#main-branch-guard) · [`generated-guard`](#generated-guard) · [`sql-guard`](#sql-guard) · [`prod-guard`](#prod-guard) · [`install-ask`](#install-ask) · [`pipe-shell-guard`](#pipe-shell-guard) · [`big-read-guard`](#big-read-guard)
+[`rm-guard`](#rm-guard) · [`env-guard`](#env-guard) · [`git-guard`](#git-guard) · [`secret-scan`](#secret-scan) · [`prompt-secret-guard`](#prompt-secret-guard) · [`lockfile-guard`](#lockfile-guard) · [`path-jail`](#path-jail) · [`main-branch-guard`](#main-branch-guard) · [`generated-guard`](#generated-guard) · [`sql-guard`](#sql-guard) · [`prod-guard`](#prod-guard) · [`install-ask`](#install-ask) · [`pipe-shell-guard`](#pipe-shell-guard) · [`big-read-guard`](#big-read-guard) · [`sudo-guard`](#sudo-guard)
 
 ## `rm-guard`
 
@@ -143,3 +143,13 @@ Refuses reading a file over 512 KB whole and asks for a slice.
 ```
 
 ![big-read-guard](../previews/big-read-guard.svg)
+
+## `sudo-guard`
+
+Blocks privilege elevation: sudo, doas, su -c, runas and Start-Process -Verb RunAs.
+
+```
+/plugin install sudo-guard@cockpit
+```
+
+![sudo-guard](../previews/sudo-guard.svg)
