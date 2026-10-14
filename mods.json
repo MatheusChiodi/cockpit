@@ -1897,6 +1897,21 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────────────]]",
         "[[user|> ]][[cursor|█]]"
       ]
+    },
+    {
+      "name": "alarms",
+      "category": "focus",
+      "description": {
+        "en": "/alarm sets daily alarms at a local time, kept across sessions, with a toast and a notification",
+        "pt": "/alarm cria alarmes diários em um horário local, mantidos entre sessões, com toast e notificação",
+        "es": "/alarm crea alarmas diarias a una hora local, conservadas entre sesiones, con toast y notificación"
+      },
+      "preview": [
+        "[[user|> /alarm 12:30 lunch]]",
+        "[[dim|  ⎿ Alarm 1 set for 12:30: lunch]]",
+        "",
+        "[[toast| alarms  12:30  lunch ]]"
+      ]
     }
   ],
   "hero": [

@@ -1,0 +1,13 @@
+{
+  "name": "alarms",
+  "version": "0.1.0",
+  "description": "/alarm sets daily alarms at a local time, kept across sessions, with a toast and a notification",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

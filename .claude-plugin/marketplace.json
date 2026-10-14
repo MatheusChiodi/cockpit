@@ -700,6 +700,12 @@
       "source": "./mods/stand-up",
       "description": "Toast after two hours of use without a 10 minute break: stand up and walk",
       "category": "focus"
+    },
+    {
+      "name": "alarms",
+      "source": "./mods/alarms",
+      "description": "/alarm sets daily alarms at a local time, kept across sessions, with a toast and a notification",
+      "category": "focus"
     }
   ]
 }
