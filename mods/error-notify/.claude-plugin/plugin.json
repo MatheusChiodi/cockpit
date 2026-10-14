@@ -1,0 +1,13 @@
+{
+  "name": "error-notify",
+  "version": "0.1.0",
+  "description": "Sends a native notification when a turn ends on an error or a refusal",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "focus"
+  ]
+}

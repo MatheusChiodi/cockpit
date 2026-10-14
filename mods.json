@@ -1708,6 +1708,23 @@
         "[[bold|2026-10-13 (today)]]",
         "- split settings pane"
       ]
+    },
+    {
+      "name": "error-notify",
+      "category": "focus",
+      "description": {
+        "en": "Sends a native notification when a turn ends on an error or a refusal",
+        "pt": "Envia uma notificação nativa quando um turno termina em erro ou recusa",
+        "es": "Envía una notificación nativa cuando un turno termina en error o rechazo"
+      },
+      "preview": [
+        "[[notify|Claude Code]]",
+        "[[notify|The turn ended with an error.]]",
+        "",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[user|> ]][[cursor| ]]",
+        "[[rule|────────────────────────────────────────────────────────]]"
+      ]
     }
   ],
   "hero": [

@@ -1,8 +1,8 @@
-# Foco y notificaciones — 3 mods
+# Foco y notificaciones — 4 mods
 
 [← Volver al README](../../README.es.md)
 
-[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak)
+[`turn-notify`](#turn-notify) · [`break-reminder`](#break-reminder) · [`daily-streak`](#daily-streak) · [`error-notify`](#error-notify)
 
 ## `turn-notify`
 
@@ -33,3 +33,13 @@ Cuenta tus días seguidos con Claude Code; un toast al abrir y el comando /strea
 ```
 
 ![daily-streak](../previews/daily-streak.svg)
+
+## `error-notify`
+
+Envía una notificación nativa cuando un turno termina en error o rechazo.
+
+```
+/plugin install error-notify@cockpit
+```
+
+![error-notify](../previews/error-notify.svg)
