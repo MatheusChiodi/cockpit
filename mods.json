@@ -3709,6 +3709,20 @@
         "[[warn|  ⎿ private-host-guard: adds a private IP address to src/api.ts.]]",
         "[[warn|    Take it from configuration or an environment variable.]]"
       ]
+    },
+    {
+      "name": "dynamic-exec-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before an edit adds eval, new Function, innerHTML or a shell command built from a variable",
+        "pt": "Pergunta antes de uma edição adicionar eval, new Function, innerHTML ou comando de shell montado com variável",
+        "es": "Pregunta antes de que una edición agregue eval, new Function, innerHTML o un comando de shell armado con una variable"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/view.ts)",
+        "[[warn|  ⎿ dynamic-exec-guard: writes raw HTML into the page in src/view.ts.]]",
+        "[[warn|    Use textContent, or sanitise it with DOMPurify first.]]"
+      ]
     }
   ],
   "hero": [

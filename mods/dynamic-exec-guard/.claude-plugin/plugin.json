@@ -1,0 +1,13 @@
+{
+  "name": "dynamic-exec-guard",
+  "version": "0.1.0",
+  "description": "Asks before an edit adds eval, new Function, innerHTML or a shell command built from a variable",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

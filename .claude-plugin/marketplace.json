@@ -1420,6 +1420,12 @@
       "source": "./mods/private-host-guard",
       "description": "Asks before an edit adds a private IP address or an internal hostname to source",
       "category": "security"
+    },
+    {
+      "name": "dynamic-exec-guard",
+      "source": "./mods/dynamic-exec-guard",
+      "description": "Asks before an edit adds eval, new Function, innerHTML or a shell command built from a variable",
+      "category": "security"
     }
   ]
 }
