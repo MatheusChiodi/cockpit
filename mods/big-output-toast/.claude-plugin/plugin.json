@@ -1,0 +1,13 @@
+{
+  "name": "big-output-toast",
+  "version": "0.1.0",
+  "description": "A toast when one tool result is larger than 20,000 characters, since that much output eats the context",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

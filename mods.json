@@ -2374,6 +2374,20 @@
         "[[err|  ⎿ rm-guard blocked the command: recursively deleting \"~/\".]]",
         "[[toast| Bash refused: rm-guard blocked the command ]]"
       ]
+    },
+    {
+      "name": "big-output-toast",
+      "category": "interface",
+      "description": {
+        "en": "A toast when one tool result is larger than 20,000 characters, since that much output eats the context",
+        "pt": "Um aviso quando o resultado de uma ferramenta passa de 20.000 caracteres, porque tanta saída consome o contexto",
+        "es": "Un aviso cuando el resultado de una herramienta supera los 20.000 caracteres, porque tanta salida consume el contexto"
+      },
+      "preview": [
+        "[[tool|● Bash]](git log -p)",
+        "[[dim|  ⎿ 84,310 characters]]",
+        "[[toast| Bash returned 84,310 characters: that eats the context ]]"
+      ]
     }
   ],
   "hero": [

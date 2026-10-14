@@ -874,6 +874,12 @@
       "source": "./mods/deny-toast",
       "description": "A toast whenever a tool call is refused, naming the tool and the first line of the reason",
       "category": "interface"
+    },
+    {
+      "name": "big-output-toast",
+      "source": "./mods/big-output-toast",
+      "description": "A toast when one tool result is larger than 20,000 characters, since that much output eats the context",
+      "category": "interface"
     }
   ]
 }
