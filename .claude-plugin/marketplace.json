@@ -1264,6 +1264,12 @@
       "source": "./mods/catch-swallow-guard",
       "description": "Refuses edits that add an empty catch block or an except that only passes",
       "category": "quality"
+    },
+    {
+      "name": "pm-guard",
+      "source": "./mods/pm-guard",
+      "description": "Refuses npm, pnpm, yarn or bun commands that use a different package manager than the project's lockfile, and names the right one",
+      "category": "stack"
     }
   ]
 }

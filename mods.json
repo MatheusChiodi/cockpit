@@ -3329,6 +3329,19 @@
         "[[tool|● Edit]](src/sync.ts)",
         "[[err|  ⎿ catch-swallow-guard blocked the edit: it adds an empty catch block.]]"
       ]
+    },
+    {
+      "name": "pm-guard",
+      "category": "stack",
+      "description": {
+        "en": "Refuses npm, pnpm, yarn or bun commands that use a different package manager than the project's lockfile, and names the right one",
+        "pt": "Recusa comandos npm, pnpm, yarn ou bun de um gerenciador diferente do lockfile do projeto e indica o certo",
+        "es": "Rechaza comandos npm, pnpm, yarn o bun de un gestor distinto al lockfile del proyecto e indica el correcto"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm install zod)",
+        "[[err|  ⎿ pm-guard: this project uses pnpm (pnpm-lock.yaml). Run \"pnpm add zod\".]]"
+      ]
     }
   ],
   "hero": [

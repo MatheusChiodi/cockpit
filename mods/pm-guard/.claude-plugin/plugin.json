@@ -1,0 +1,13 @@
+{
+  "name": "pm-guard",
+  "version": "0.1.0",
+  "description": "Refuses npm, pnpm, yarn or bun commands that use a different package manager than the project's lockfile, and names the right one",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}
