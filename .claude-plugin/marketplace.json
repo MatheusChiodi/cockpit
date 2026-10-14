@@ -856,6 +856,12 @@
       "source": "./mods/env-keys-pane",
       "description": "/envkeys compares the keys of .env.example with .env and lists the missing and the extra ones, never a value",
       "category": "interface"
+    },
+    {
+      "name": "test-pane",
+      "source": "./mods/test-pane",
+      "description": "/testlog opens a pane with every test run of the session: command, pass or fail, duration and time",
+      "category": "interface"
     }
   ]
 }

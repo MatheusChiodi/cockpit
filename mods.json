@@ -2329,6 +2329,23 @@
         "[[warn|extra]] [[dim|not in .env.example]]",
         "[[warn|+ ]] DEBUG_SQL"
       ]
+    },
+    {
+      "name": "test-pane",
+      "category": "interface",
+      "description": {
+        "en": "/testlog opens a pane with every test run of the session: command, pass or fail, duration and time",
+        "pt": "/testlog abre um painel com cada execução de testes da sessão: comando, passou ou falhou, duração e horário",
+        "es": "/testlog abre un panel con cada ejecución de pruebas de la sesión: comando, pasó o falló, duración y hora"
+      },
+      "preview": [
+        "[[user|> /testlog]]",
+        "[[session|▍ ]][[bold|TEST LOG]][[dim|  3 runs · 1 failed]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[ok|✓ ]][[dim|14:32]]  [[bold| 3.1s]]  npm test",
+        "[[err|✗ ]][[dim|14:25]]  [[bold| 4.0s]]  npm test",
+        "[[ok|✓ ]][[dim|14:11]]  [[bold|12.8s]]  pytest -q"
+      ]
     }
   ],
   "hero": [

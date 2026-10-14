@@ -1,0 +1,14 @@
+{
+  "name": "test-pane",
+  "version": "0.1.0",
+  "description": "/testlog opens a pane with every test run of the session: command, pass or fail, duration and time",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}
