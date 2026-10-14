@@ -1108,6 +1108,12 @@
       "source": "./mods/flood-note",
       "description": "Tells Claude when a search or command returned over 300 lines, so it narrows the next one instead of repeating it",
       "category": "context"
+    },
+    {
+      "name": "heavy-calls",
+      "source": "./mods/heavy-calls",
+      "description": "/heavy lists the five tool results that took the most context this session, with tool, target and size",
+      "category": "context"
     }
   ]
 }

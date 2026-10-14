@@ -2,7 +2,7 @@
 
 **English** · [Português](README.pt-BR.md) · [Español](README.es.md)
 
-**An instrument panel for Claude Code.** 184 mods for the terminal: 40 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
+**An instrument panel for Claude Code.** 185 mods for the terminal: 40 panels that stay in sight and switch on and off in `/cockpit`, plus guards, prompt automations, instant commands and focus helpers. Every mod is a small plugin you install with one line.
 
 ![The full Cockpit panel in a terminal](docs/cockpit.svg)
 
@@ -75,7 +75,7 @@ Slash command descriptions in the typeahead are read when a session starts, so t
 | [**Git and GitHub**](docs/catalog/git.md) | 0 |  |
 | [**Quality**](docs/catalog/quality.md) | 0 |  |
 | [**Stacks**](docs/catalog/stack.md) | 0 |  |
-| [**Context and cost**](docs/catalog/context.md) | 10 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` |
+| [**Context and cost**](docs/catalog/context.md) | 11 | `reread-guard` `grep-limit` `read-cap` `git-log-limit` `paste-size-toast` `cat-guard` `explore-nudge` `fill-toast` `cache-cold-toast` `flood-note` `heavy-calls` |
 
 ## Visual language
 

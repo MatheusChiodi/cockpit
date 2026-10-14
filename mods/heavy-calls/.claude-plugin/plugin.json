@@ -1,0 +1,13 @@
+{
+  "name": "heavy-calls",
+  "version": "0.1.0",
+  "description": "/heavy lists the five tool results that took the most context this session, with tool, target and size",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

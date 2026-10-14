@@ -1,8 +1,8 @@
-# Context and cost — 10 mods
+# Context and cost — 11 mods
 
 [← Back to the README](../../README.md)
 
-[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note)
+[`reread-guard`](#reread-guard) · [`grep-limit`](#grep-limit) · [`read-cap`](#read-cap) · [`git-log-limit`](#git-log-limit) · [`paste-size-toast`](#paste-size-toast) · [`cat-guard`](#cat-guard) · [`explore-nudge`](#explore-nudge) · [`fill-toast`](#fill-toast) · [`cache-cold-toast`](#cache-cold-toast) · [`flood-note`](#flood-note) · [`heavy-calls`](#heavy-calls)
 
 ## `reread-guard`
 
@@ -103,3 +103,13 @@ Tells Claude when a search or command returned over 300 lines, so it narrows the
 ```
 
 ![flood-note](../previews/flood-note.svg)
+
+## `heavy-calls`
+
+/heavy lists the five tool results that took the most context this session, with tool, target and size.
+
+```
+/plugin install heavy-calls@cockpit
+```
+
+![heavy-calls](../previews/heavy-calls.svg)

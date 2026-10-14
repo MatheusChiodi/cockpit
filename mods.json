@@ -2941,6 +2941,22 @@
         "[[dim|  ⎿ 1,204 lines]]",
         "[[dim|    note to Claude: that was 1,204 lines (about 9,000 tokens); narrow the next one]]"
       ]
+    },
+    {
+      "name": "heavy-calls",
+      "category": "context",
+      "description": {
+        "en": "/heavy lists the five tool results that took the most context this session, with tool, target and size",
+        "pt": "/heavy lista os cinco resultados de ferramenta que mais gastaram contexto na sessão, com ferramenta, alvo e tamanho",
+        "es": "/heavy lista los cinco resultados de herramienta que más contexto gastaron en la sesión, con herramienta, destino y tamaño"
+      },
+      "preview": [
+        "[[user|> /heavy]]",
+        "[[dim|  ⎿]] Heaviest results (about 31,000 tokens in 212 calls)",
+        "    1.  9,400 tok  Bash  npm test",
+        "    2.  6,100 tok  Read  src/engine/loop.ts",
+        "    3.  4,800 tok  Grep  useEffect"
+      ]
     }
   ],
   "hero": [
