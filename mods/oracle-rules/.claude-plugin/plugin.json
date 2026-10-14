@@ -1,0 +1,13 @@
+{
+  "name": "oracle-rules",
+  "version": "0.1.0",
+  "description": "In Oracle projects, makes Claude write SQL that runs on Oracle 11g: ROWNUM, sequences with triggers, bind variables, MERGE",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

@@ -4070,6 +4070,20 @@
         "[[dim|  constructor injection · try-with-resources]]",
         "[[dim|  no swallowed exceptions · immutable DTOs · declared Java version]]"
       ]
+    },
+    {
+      "name": "oracle-rules",
+      "category": "prompt",
+      "description": {
+        "en": "In Oracle projects, makes Claude write SQL that runs on Oracle 11g: ROWNUM, sequences with triggers, bind variables, MERGE",
+        "pt": "Em projetos Oracle, faz o Claude escrever SQL que roda no Oracle 11g: ROWNUM, sequence com trigger, bind variables, MERGE",
+        "es": "En proyectos Oracle, hace que Claude escriba SQL que corre en Oracle 11g: ROWNUM, secuencia con trigger, bind variables, MERGE"
+      },
+      "preview": [
+        "[[dim|system prompt +]] [[accent|Oracle 11g rules]]",
+        "[[dim|  ROWNUM, not FETCH FIRST/LIMIT · sequence + trigger, no IDENTITY]]",
+        "[[dim|  VARCHAR2 · bind variables · MERGE for upserts]]"
+      ]
     }
   ],
   "hero": [

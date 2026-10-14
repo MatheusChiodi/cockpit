@@ -1570,6 +1570,12 @@
       "source": "./mods/java-rules",
       "description": "In Java projects, keeps Claude on constructor injection, try-with-resources, no swallowed exceptions and the declared Java version",
       "category": "prompt"
+    },
+    {
+      "name": "oracle-rules",
+      "source": "./mods/oracle-rules",
+      "description": "In Oracle projects, makes Claude write SQL that runs on Oracle 11g: ROWNUM, sequences with triggers, bind variables, MERGE",
+      "category": "prompt"
     }
   ]
 }
