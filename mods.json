@@ -2292,6 +2292,24 @@
         "[[warn|vite            5.2.0    5.4.8    5.5.0]]",
         "[[dim|typescript      5.4.2    5.4.5    5.4.5]]"
       ]
+    },
+    {
+      "name": "scripts-pane",
+      "category": "interface",
+      "description": {
+        "en": "/scripts opens a pane with the scripts of package.json; pressing one asks Claude to run it and fix what fails",
+        "pt": "/scripts abre um painel com os scripts do package.json; apertar um pede ao Claude para rodá-lo e corrigir o que falhar",
+        "es": "/scripts abre un panel con los scripts de package.json; pulsar uno pide a Claude ejecutarlo y corregir lo que falle"
+      },
+      "preview": [
+        "[[user|> /scripts]]",
+        "[[project|▍ ]][[bold|SCRIPTS]][[dim|  4 in package.json]]",
+        "[[rule|────────────────────────────────────────────────────────]]",
+        "[[accent|▸ ]][[bold|build     ]] [[dim|tsc && vite build]]",
+        "[[accent|▸ ]][[bold|dev       ]] [[dim|vite]]",
+        "[[accent|▸ ]][[bold|lint      ]] [[dim|eslint .]]",
+        "[[accent|▸ ]][[bold|test      ]] [[dim|vitest run]]"
+      ]
     }
   ],
   "hero": [

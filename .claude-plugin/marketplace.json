@@ -844,6 +844,12 @@
       "source": "./mods/deps-pane",
       "description": "/deps opens a pane with npm outdated as a table, major jumps in red and minor ones in amber",
       "category": "interface"
+    },
+    {
+      "name": "scripts-pane",
+      "source": "./mods/scripts-pane",
+      "description": "/scripts opens a pane with the scripts of package.json; pressing one asks Claude to run it and fix what fails",
+      "category": "interface"
     }
   ]
 }

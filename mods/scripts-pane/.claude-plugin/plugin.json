@@ -1,0 +1,14 @@
+{
+  "name": "scripts-pane",
+  "version": "0.1.0",
+  "description": "/scripts opens a pane with the scripts of package.json; pressing one asks Claude to run it and fix what fails",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}
