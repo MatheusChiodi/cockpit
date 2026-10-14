@@ -1330,6 +1330,12 @@
       "source": "./mods/node-version-status",
       "description": "Status line entry that shows only when the running Node does not satisfy engines.node, .nvmrc or .node-version",
       "category": "stack"
+    },
+    {
+      "name": "pm-command",
+      "source": "./mods/pm-command",
+      "description": "/pm names the project's package manager and shows its install, add, remove, run and exec commands",
+      "category": "stack"
     }
   ]
 }

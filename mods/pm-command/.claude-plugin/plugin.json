@@ -1,0 +1,13 @@
+{
+  "name": "pm-command",
+  "version": "0.1.0",
+  "description": "/pm names the project's package manager and shows its install, add, remove, run and exec commands",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

@@ -1,8 +1,8 @@
-# Stacks — 11 mods
+# Stacks — 12 mods
 
 [← Back to the README](../../README.md)
 
-[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard) · [`dev-server-guard`](#dev-server-guard) · [`ts-config-context`](#ts-config-context) · [`env-undeclared-toast`](#env-undeclared-toast) · [`node-version-status`](#node-version-status)
+[`pm-guard`](#pm-guard) · [`script-guard`](#script-guard) · [`missing-import-guard`](#missing-import-guard) · [`client-env-guard`](#client-env-guard) · [`next-boundary-guard`](#next-boundary-guard) · [`esm-guard`](#esm-guard) · [`alias-import-guard`](#alias-import-guard) · [`dev-server-guard`](#dev-server-guard) · [`ts-config-context`](#ts-config-context) · [`env-undeclared-toast`](#env-undeclared-toast) · [`node-version-status`](#node-version-status) · [`pm-command`](#pm-command)
 
 ## `pm-guard`
 
@@ -113,3 +113,13 @@ Status line entry that shows only when the running Node does not satisfy engines
 ```
 
 ![node-version-status](../previews/node-version-status.svg)
+
+## `pm-command`
+
+/pm names the project's package manager and shows its install, add, remove, run and exec commands.
+
+```
+/plugin install pm-command@cockpit
+```
+
+![pm-command](../previews/pm-command.svg)

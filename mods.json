@@ -3476,6 +3476,22 @@
         "[[rule|────────────────────────────────────────────────────────────────────────────────]]",
         "[[dim|  node 18.19.0 ✗ wants 20]]"
       ]
+    },
+    {
+      "name": "pm-command",
+      "category": "stack",
+      "description": {
+        "en": "/pm names the project's package manager and shows its install, add, remove, run and exec commands",
+        "pt": "/pm informa o gerenciador de pacotes do projeto e mostra seus comandos de install, add, remove, run e exec",
+        "es": "/pm indica el gestor de paquetes del proyecto y muestra sus comandos de install, add, remove, run y exec"
+      },
+      "preview": [
+        "[[user|> /pm]]",
+        "pnpm (pnpm-lock.yaml)",
+        "[[dim|install  ]]pnpm install",
+        "[[dim|add      ]]pnpm add <package>",
+        "[[dim|run      ]]pnpm run <script>"
+      ]
     }
   ],
   "hero": [
