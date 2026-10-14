@@ -1,0 +1,13 @@
+{
+  "name": "dep-source-guard",
+  "version": "0.1.0",
+  "description": "Asks before a dependency is pinned to a git URL or tarball, or pulled over plain http",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

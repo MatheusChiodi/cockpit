@@ -1,8 +1,8 @@
-# Segurança — 38 mods
+# Segurança — 39 mods
 
 [← Voltar ao README](../../README.pt-BR.md)
 
-[`rm-guard`](#rm-guard) · [`env-guard`](#env-guard) · [`git-guard`](#git-guard) · [`secret-scan`](#secret-scan) · [`prompt-secret-guard`](#prompt-secret-guard) · [`lockfile-guard`](#lockfile-guard) · [`path-jail`](#path-jail) · [`main-branch-guard`](#main-branch-guard) · [`generated-guard`](#generated-guard) · [`sql-guard`](#sql-guard) · [`prod-guard`](#prod-guard) · [`install-ask`](#install-ask) · [`pipe-shell-guard`](#pipe-shell-guard) · [`big-read-guard`](#big-read-guard) · [`sudo-guard`](#sudo-guard) · [`chmod-guard`](#chmod-guard) · [`docker-guard`](#docker-guard) · [`kill-guard`](#kill-guard) · [`credential-file-guard`](#credential-file-guard) · [`upload-guard`](#upload-guard) · [`env-dump-guard`](#env-dump-guard) · [`registry-guard`](#registry-guard) · [`persistence-guard`](#persistence-guard) · [`dotfile-guard`](#dotfile-guard) · [`ci-config-guard`](#ci-config-guard) · [`test-skip-guard`](#test-skip-guard) · [`suppress-guard`](#suppress-guard) · [`migration-guard`](#migration-guard) · [`large-write-guard`](#large-write-guard) · [`tunnel-guard`](#tunnel-guard) · [`hardcoded-secret-guard`](#hardcoded-secret-guard) · [`private-host-guard`](#private-host-guard) · [`dynamic-exec-guard`](#dynamic-exec-guard) · [`sql-concat-guard`](#sql-concat-guard) · [`tls-off-guard`](#tls-off-guard) · [`cors-open-guard`](#cors-open-guard) · [`debug-flag-guard`](#debug-flag-guard) · [`script-mode-guard`](#script-mode-guard)
+[`rm-guard`](#rm-guard) · [`env-guard`](#env-guard) · [`git-guard`](#git-guard) · [`secret-scan`](#secret-scan) · [`prompt-secret-guard`](#prompt-secret-guard) · [`lockfile-guard`](#lockfile-guard) · [`path-jail`](#path-jail) · [`main-branch-guard`](#main-branch-guard) · [`generated-guard`](#generated-guard) · [`sql-guard`](#sql-guard) · [`prod-guard`](#prod-guard) · [`install-ask`](#install-ask) · [`pipe-shell-guard`](#pipe-shell-guard) · [`big-read-guard`](#big-read-guard) · [`sudo-guard`](#sudo-guard) · [`chmod-guard`](#chmod-guard) · [`docker-guard`](#docker-guard) · [`kill-guard`](#kill-guard) · [`credential-file-guard`](#credential-file-guard) · [`upload-guard`](#upload-guard) · [`env-dump-guard`](#env-dump-guard) · [`registry-guard`](#registry-guard) · [`persistence-guard`](#persistence-guard) · [`dotfile-guard`](#dotfile-guard) · [`ci-config-guard`](#ci-config-guard) · [`test-skip-guard`](#test-skip-guard) · [`suppress-guard`](#suppress-guard) · [`migration-guard`](#migration-guard) · [`large-write-guard`](#large-write-guard) · [`tunnel-guard`](#tunnel-guard) · [`hardcoded-secret-guard`](#hardcoded-secret-guard) · [`private-host-guard`](#private-host-guard) · [`dynamic-exec-guard`](#dynamic-exec-guard) · [`sql-concat-guard`](#sql-concat-guard) · [`tls-off-guard`](#tls-off-guard) · [`cors-open-guard`](#cors-open-guard) · [`debug-flag-guard`](#debug-flag-guard) · [`script-mode-guard`](#script-mode-guard) · [`dep-source-guard`](#dep-source-guard)
 
 ## `rm-guard`
 
@@ -383,3 +383,13 @@ Pergunta antes de um script ou configuração receber modo gravável por todos, 
 ```
 
 ![script-mode-guard](../previews/script-mode-guard.svg)
+
+## `dep-source-guard`
+
+Pergunta antes de uma dependência ser fixada em URL git ou tarball, ou baixada por http puro.
+
+```
+/plugin install dep-source-guard@cockpit
+```
+
+![dep-source-guard](../previews/dep-source-guard.svg)

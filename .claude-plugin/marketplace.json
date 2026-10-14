@@ -1456,6 +1456,12 @@
       "source": "./mods/script-mode-guard",
       "description": "Asks before a script or config gets a world-writable mode, umask 0 or an Everyone grant",
       "category": "security"
+    },
+    {
+      "name": "dep-source-guard",
+      "source": "./mods/dep-source-guard",
+      "description": "Asks before a dependency is pinned to a git URL or tarball, or pulled over plain http",
+      "category": "security"
     }
   ]
 }

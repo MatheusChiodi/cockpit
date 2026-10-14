@@ -3793,6 +3793,20 @@
         "[[warn|  ⎿ script-mode-guard: loosens file permissions in deploy.sh (chmod 777).]]",
         "[[warn|    Use 755 for scripts and 644 for data, or give access to one group.]]"
       ]
+    },
+    {
+      "name": "dep-source-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before a dependency is pinned to a git URL or tarball, or pulled over plain http",
+        "pt": "Pergunta antes de uma dependência ser fixada em URL git ou tarball, ou baixada por http puro",
+        "es": "Pregunta antes de que una dependencia se fije a una URL git o tarball, o se descargue por http plano"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm install github:someone/fork)",
+        "[[warn|  ⎿ dep-source-guard: pins a dependency to a git URL or tarball.]]",
+        "[[warn|    Publish it to a registry, or pin an exact commit and keep the lockfile.]]"
+      ]
     }
   ],
   "hero": [
