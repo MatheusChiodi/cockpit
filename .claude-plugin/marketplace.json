@@ -1564,6 +1564,12 @@
       "source": "./mods/rn-rules",
       "description": "In React Native and Expo projects, keeps Claude on FlatList, StyleSheet, Platform checks and EAS-compatible config",
       "category": "prompt"
+    },
+    {
+      "name": "java-rules",
+      "source": "./mods/java-rules",
+      "description": "In Java projects, keeps Claude on constructor injection, try-with-resources, no swallowed exceptions and the declared Java version",
+      "category": "prompt"
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "name": "java-rules",
+  "version": "0.1.0",
+  "description": "In Java projects, keeps Claude on constructor injection, try-with-resources, no swallowed exceptions and the declared Java version",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

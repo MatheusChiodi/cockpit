@@ -4056,6 +4056,20 @@
         "[[dim|  FlatList for long lists · StyleSheet, no inline styles]]",
         "[[dim|  Platform.select · Expo modules first · EAS config]]"
       ]
+    },
+    {
+      "name": "java-rules",
+      "category": "prompt",
+      "description": {
+        "en": "In Java projects, keeps Claude on constructor injection, try-with-resources, no swallowed exceptions and the declared Java version",
+        "pt": "Em projetos Java, mantém o Claude em injeção por construtor, try-with-resources, sem exceções engolidas e na versão de Java declarada",
+        "es": "En proyectos Java, mantiene a Claude en inyección por constructor, try-with-resources, sin excepciones tragadas y en la versión de Java declarada"
+      },
+      "preview": [
+        "[[dim|system prompt +]] [[accent|Java rules]]",
+        "[[dim|  constructor injection · try-with-resources]]",
+        "[[dim|  no swallowed exceptions · immutable DTOs · declared Java version]]"
+      ]
     }
   ],
   "hero": [
