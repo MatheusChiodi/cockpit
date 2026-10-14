@@ -1,0 +1,13 @@
+{
+  "name": "git-tag",
+  "version": "0.1.0",
+  "description": "/gtag shows the latest tag and the commits since; /gtag patch, minor or major creates the next version tag after asking",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "git"
+  ]
+}

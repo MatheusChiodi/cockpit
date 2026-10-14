@@ -1180,6 +1180,12 @@
       "source": "./mods/git-switch",
       "description": "/gsw switches branch carrying your uncommitted work: stashes it, switches, and offers it back when you return",
       "category": "git"
+    },
+    {
+      "name": "git-tag",
+      "source": "./mods/git-tag",
+      "description": "/gtag shows the latest tag and the commits since; /gtag patch, minor or major creates the next version tag after asking",
+      "category": "git"
     }
   ]
 }

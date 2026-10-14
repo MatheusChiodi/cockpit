@@ -1,8 +1,8 @@
-# Git and GitHub — 10 mods
+# Git and GitHub — 11 mods
 
 [← Back to the README](../../README.md)
 
-[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch)
+[`commit-review`](#commit-review) · [`wip-commit-guard`](#wip-commit-guard) · [`marker-guard`](#marker-guard) · [`amend-guard`](#amend-guard) · [`stage-guard`](#stage-guard) · [`git-stage`](#git-stage) · [`git-fixup`](#git-fixup) · [`git-sync`](#git-sync) · [`behind-toast`](#behind-toast) · [`git-switch`](#git-switch) · [`git-tag`](#git-tag)
 
 ## `commit-review`
 
@@ -103,3 +103,13 @@ Toast when your branch falls 10, 20, 30 commits behind its base, before the conf
 ```
 
 ![git-switch](../previews/git-switch.svg)
+
+## `git-tag`
+
+/gtag shows the latest tag and the commits since; /gtag patch, minor or major creates the next version tag after asking.
+
+```
+/plugin install git-tag@cockpit
+```
+
+![git-tag](../previews/git-tag.svg)

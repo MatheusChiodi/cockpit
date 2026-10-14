@@ -3119,6 +3119,22 @@
         "Stashed the work of feat/login.",
         "Switched to main."
       ]
+    },
+    {
+      "name": "git-tag",
+      "category": "git",
+      "description": {
+        "en": "/gtag shows the latest tag and the commits since; /gtag patch, minor or major creates the next version tag after asking",
+        "pt": "/gtag mostra a última tag e os commits desde então; /gtag patch, minor ou major cria a tag da próxima versão depois de perguntar",
+        "es": "/gtag muestra la última tag y los commits desde entonces; /gtag patch, minor o major crea la tag de la próxima versión tras preguntar"
+      },
+      "preview": [
+        "[[user|> /gtag]]",
+        "Latest tag v1.4.2, 9 commit(s) since",
+        "[[user|> /gtag minor]]",
+        "Create annotated tag v1.5.0 on \"a1b2c3d add login\"?",
+        "[[btn| yes ]] [[btn| no ]]"
+      ]
     }
   ],
   "hero": [
