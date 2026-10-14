@@ -3807,6 +3807,20 @@
         "[[warn|  ⎿ dep-source-guard: pins a dependency to a git URL or tarball.]]",
         "[[warn|    Publish it to a registry, or pin an exact commit and keep the lockfile.]]"
       ]
+    },
+    {
+      "name": "weak-crypto-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before an edit hashes passwords with MD5 or SHA-1, makes tokens with Math.random, or picks ECB or an unsigned JWT",
+        "pt": "Pergunta antes de uma edição fazer hash de senha com MD5 ou SHA-1, gerar token com Math.random, ou usar ECB ou JWT sem assinatura",
+        "es": "Pregunta antes de que una edición hashee contraseñas con MD5 o SHA-1, genere tokens con Math.random, o use ECB o un JWT sin firma"
+      },
+      "preview": [
+        "[[tool|● Edit]](src/reset.ts)",
+        "[[warn|  ⎿ weak-crypto-guard: uses a non-secure random generator for a token in src/reset.ts.]]",
+        "[[warn|    Use crypto.randomBytes or the secrets module.]]"
+      ]
     }
   ],
   "hero": [

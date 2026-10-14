@@ -1,0 +1,13 @@
+{
+  "name": "weak-crypto-guard",
+  "version": "0.1.0",
+  "description": "Asks before an edit hashes passwords with MD5 or SHA-1, makes tokens with Math.random, or picks ECB or an unsigned JWT",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}

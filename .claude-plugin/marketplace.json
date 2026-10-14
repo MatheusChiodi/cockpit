@@ -1462,6 +1462,12 @@
       "source": "./mods/dep-source-guard",
       "description": "Asks before a dependency is pinned to a git URL or tarball, or pulled over plain http",
       "category": "security"
+    },
+    {
+      "name": "weak-crypto-guard",
+      "source": "./mods/weak-crypto-guard",
+      "description": "Asks before an edit hashes passwords with MD5 or SHA-1, makes tokens with Math.random, or picks ECB or an unsigned JWT",
+      "category": "security"
     }
   ]
 }
