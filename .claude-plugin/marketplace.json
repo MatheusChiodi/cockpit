@@ -994,6 +994,12 @@
       "source": "./mods/env-dump-guard",
       "description": "Blocks dumping the whole environment: bare env, printenv, set and export -p, Get-ChildItem Env:",
       "category": "security"
+    },
+    {
+      "name": "registry-guard",
+      "source": "./mods/registry-guard",
+      "description": "Asks before a command changes where packages come from: npm, pnpm, yarn and pip registry or index settings",
+      "category": "security"
     }
   ]
 }

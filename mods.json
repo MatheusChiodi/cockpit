@@ -2681,6 +2681,21 @@
         "[[err|  ⎿ env-dump-guard blocked the command: listing the whole environment (env).]]",
         "[[err|    Read one named variable instead, for example printenv HOME.]]"
       ]
+    },
+    {
+      "name": "registry-guard",
+      "category": "security",
+      "description": {
+        "en": "Asks before a command changes where packages come from: npm, pnpm, yarn and pip registry or index settings",
+        "pt": "Pede confirmação antes de um comando mudar de onde vêm os pacotes: registry ou index do npm, pnpm, yarn e pip",
+        "es": "Pide confirmación antes de que un comando cambie de dónde vienen los paquetes: registry o index de npm, pnpm, yarn y pip"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm config set registry https://npm.evil.io/)",
+        "[[warn|  ⎿ Permission needed]]",
+        "[[warn|    registry-guard: points packages at npm.evil.io. Confirm.]]",
+        "    [[btn|[ Yes ]]] [[btn|[ No ]]]"
+      ]
     }
   ],
   "hero": [

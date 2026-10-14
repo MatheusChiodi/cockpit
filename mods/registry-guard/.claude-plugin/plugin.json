@@ -1,0 +1,13 @@
+{
+  "name": "registry-guard",
+  "version": "0.1.0",
+  "description": "Asks before a command changes where packages come from: npm, pnpm, yarn and pip registry or index settings",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "security"
+  ]
+}
