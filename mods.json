@@ -2346,6 +2346,20 @@
         "[[err|✗ ]][[dim|14:25]]  [[bold| 4.0s]]  npm test",
         "[[ok|✓ ]][[dim|14:11]]  [[bold|12.8s]]  pytest -q"
       ]
+    },
+    {
+      "name": "slow-toast",
+      "category": "interface",
+      "description": {
+        "en": "A toast when a shell command took a minute or more, with the command and how long it ran",
+        "pt": "Um aviso quando um comando de shell levou um minuto ou mais, com o comando e quanto tempo rodou",
+        "es": "Un aviso cuando un comando de shell tardó un minuto o más, con el comando y cuánto tiempo corrió"
+      },
+      "preview": [
+        "[[tool|● Bash]](npm run build)",
+        "[[dim|  ⎿ done]]",
+        "[[toast| slow command: npm run build took 1m 12s ]]"
+      ]
     }
   ],
   "hero": [

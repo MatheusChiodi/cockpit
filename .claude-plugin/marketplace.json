@@ -862,6 +862,12 @@
       "source": "./mods/test-pane",
       "description": "/testlog opens a pane with every test run of the session: command, pass or fail, duration and time",
       "category": "interface"
+    },
+    {
+      "name": "slow-toast",
+      "source": "./mods/slow-toast",
+      "description": "A toast when a shell command took a minute or more, with the command and how long it ran",
+      "category": "interface"
     }
   ]
 }

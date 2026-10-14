@@ -1,0 +1,13 @@
+{
+  "name": "slow-toast",
+  "version": "0.1.0",
+  "description": "A toast when a shell command took a minute or more, with the command and how long it ran",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}
