@@ -1,0 +1,13 @@
+{
+  "name": "urlcode",
+  "version": "0.1.0",
+  "description": "/url encodes or decodes a string for a URL and copies the result",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

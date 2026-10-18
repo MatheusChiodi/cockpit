@@ -1,0 +1,13 @@
+{
+  "name": "memo-prop-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit passes an inline object, array or function to a component wrapped in memo, which defeats the memo",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

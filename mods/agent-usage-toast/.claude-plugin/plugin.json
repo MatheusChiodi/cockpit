@@ -1,0 +1,13 @@
+{
+  "name": "agent-usage-toast",
+  "version": "0.1.0",
+  "description": "A toast with the tokens a subagent used, and its model, when a run of 10k tokens or more finishes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

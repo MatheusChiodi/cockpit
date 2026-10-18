@@ -1,0 +1,13 @@
+{
+  "name": "model-upgrade-toast",
+  "version": "0.1.0",
+  "description": "A toast when the session switches to a pricier model family, such as Sonnet to Opus",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

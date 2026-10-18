@@ -1,0 +1,13 @@
+{
+  "name": "sql-no-where-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when a .sql script edit adds a DELETE or UPDATE with no WHERE clause",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

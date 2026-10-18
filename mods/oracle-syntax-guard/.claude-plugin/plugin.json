@@ -1,0 +1,13 @@
+{
+  "name": "oracle-syntax-guard",
+  "version": "0.1.0",
+  "description": "Refuses an edit that adds IDENTITY columns, LISTAGG ON OVERFLOW, JSON functions or BOOLEAN columns, none of which Oracle 11g has",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

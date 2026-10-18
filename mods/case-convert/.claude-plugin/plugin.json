@@ -1,0 +1,13 @@
+{
+  "name": "case-convert",
+  "version": "0.1.0",
+  "description": "/case converts a name between camelCase, snake_case, kebab-case, PascalCase and a URL slug",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "field-injection-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when a Java edit adds @Autowired or @Inject on a field instead of the constructor",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

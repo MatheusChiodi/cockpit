@@ -1,0 +1,13 @@
+{
+  "name": "remote-context",
+  "version": "0.1.0",
+  "description": "Tells Claude the default branch and the remote of the repository, so it never guesses main or origin",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

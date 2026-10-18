@@ -1,0 +1,13 @@
+{
+  "name": "oracle-paging-guard",
+  "version": "0.1.0",
+  "description": "Refuses an edit that adds FETCH FIRST, OFFSET ROWS or LIMIT to SQL, which Oracle 11g cannot run, and names the ROWNUM form",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

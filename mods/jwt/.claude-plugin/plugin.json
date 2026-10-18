@@ -1,0 +1,13 @@
+{
+  "name": "jwt",
+  "version": "0.1.0",
+  "description": "/jwt decodes a JWT's header and payload locally, with dates in readable form, and never verifies or sends it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "commands"
+  ]
+}

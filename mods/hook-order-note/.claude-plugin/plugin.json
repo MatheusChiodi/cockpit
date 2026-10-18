@@ -1,0 +1,13 @@
+{
+  "name": "hook-order-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit calls a React hook inside a condition, a loop, a callback or after an early return",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "test-setup-context",
+  "version": "0.1.0",
+  "description": "Tells Claude the test framework in use and where the tests live, so new tests go in the right place",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

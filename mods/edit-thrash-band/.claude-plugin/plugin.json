@@ -1,0 +1,17 @@
+{
+  "name": "edit-thrash-band",
+  "version": "0.1.0",
+  "description": "Band that appears when the current turn edits the same file three times or more, a sign that Claude is going in circles",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "commented-code-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit leaves three or more lines of commented-out code",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

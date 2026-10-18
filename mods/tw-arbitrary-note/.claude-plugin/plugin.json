@@ -1,0 +1,13 @@
+{
+  "name": "tw-arbitrary-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit writes an arbitrary Tailwind value like w-[16px] where the scale has the step (w-4)",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

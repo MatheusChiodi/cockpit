@@ -1,0 +1,13 @@
+{
+  "name": "doc-missing-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit exports a function without the doc comment the file's other exports have",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

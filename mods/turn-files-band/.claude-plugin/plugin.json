@@ -1,0 +1,17 @@
+{
+  "name": "turn-files-band",
+  "version": "0.1.0",
+  "description": "Band with the files this turn has read and edited so far, naming the edited ones, cleared when the next turn starts",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}

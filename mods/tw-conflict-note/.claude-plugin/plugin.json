@@ -1,0 +1,13 @@
+{
+  "name": "tw-conflict-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit puts two Tailwind classes that set the same property on one element, like p-4 and p-2",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "state-mutation-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit changes React state in place (push, splice, sort, property assignment) instead of building a new value",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

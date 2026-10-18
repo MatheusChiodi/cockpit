@@ -1,0 +1,13 @@
+{
+  "name": "param-count-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit adds a function with more than five parameters",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

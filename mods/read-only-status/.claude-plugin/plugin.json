@@ -1,0 +1,16 @@
+{
+  "name": "read-only-status",
+  "version": "0.1.0",
+  "description": "Status line with the files Claude read in this session and never edited, a measure of how much context went to looking",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "dependencies": [
+    "cockpit"
+  ]
+}

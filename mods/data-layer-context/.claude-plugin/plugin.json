@@ -1,0 +1,13 @@
+{
+  "name": "data-layer-context",
+  "version": "0.1.0",
+  "description": "Tells Claude the database and ORM in use and where the schema and migrations live",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

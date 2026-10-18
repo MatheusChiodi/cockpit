@@ -1,0 +1,13 @@
+{
+  "name": "env-names-context",
+  "version": "0.1.0",
+  "description": "Lists the environment variable names the app expects, from .env.example, never their values",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

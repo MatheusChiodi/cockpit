@@ -1,0 +1,14 @@
+{
+  "name": "spinner-doing",
+  "version": "0.1.0",
+  "description": "Names the tool call that is running beside the spinner word, so a long wait says what it is waiting on",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

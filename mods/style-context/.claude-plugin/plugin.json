@@ -1,0 +1,13 @@
+{
+  "name": "style-context",
+  "version": "0.1.0",
+  "description": "Tells Claude the code style your formatter and linter enforce: quotes, semicolons, indent, line width",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

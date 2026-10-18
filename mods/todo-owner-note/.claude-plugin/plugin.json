@@ -1,0 +1,13 @@
+{
+  "name": "todo-owner-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit adds a TODO, FIXME or HACK with no owner or ticket",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

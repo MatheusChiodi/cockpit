@@ -1,0 +1,13 @@
+{
+  "name": "output-lines",
+  "version": "0.1.0",
+  "description": "Heads a long slash command output with the command name and its line count, so you know how far to scroll back",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

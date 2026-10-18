@@ -1,0 +1,13 @@
+{
+  "name": "log-concat-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when a Java edit builds a log message by string concatenation or String.format instead of placeholders",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

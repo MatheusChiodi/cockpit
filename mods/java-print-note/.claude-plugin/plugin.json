@@ -1,0 +1,13 @@
+{
+  "name": "java-print-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when a Java edit adds System.out or System.err output or a printStackTrace call instead of the logger",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

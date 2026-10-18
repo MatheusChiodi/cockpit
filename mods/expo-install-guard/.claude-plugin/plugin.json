@@ -1,0 +1,13 @@
+{
+  "name": "expo-install-guard",
+  "version": "0.1.0",
+  "description": "Refuses npm, pnpm or yarn installs of packages the Expo SDK pins and names the npx expo install command, and tells Claude to rebuild the dev client after a native one",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

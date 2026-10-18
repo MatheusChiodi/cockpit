@@ -1,0 +1,13 @@
+{
+  "name": "effect-cleanup-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit adds a useEffect that starts an interval, listener or subscription and returns no cleanup",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

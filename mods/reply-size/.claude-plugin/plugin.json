@@ -1,0 +1,13 @@
+{
+  "name": "reply-size",
+  "version": "0.1.0",
+  "description": "Under a long reply block, shows its word count and how many code blocks it holds, so you can decide whether to read it now",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

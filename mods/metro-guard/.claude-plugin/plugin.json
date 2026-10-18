@@ -1,0 +1,13 @@
+{
+  "name": "metro-guard",
+  "version": "0.1.0",
+  "description": "Asks before expo start or react-native start when a Metro bundler already answers on its port",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}
