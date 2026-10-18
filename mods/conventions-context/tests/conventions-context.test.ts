@@ -92,6 +92,6 @@ test('follows the order of the candidates', async ($, on) => {
   project(on, { 'docs/conventions.md': '## Late', 'docs/CONTRIBUTING.md': '## Early' })
 
   const text = (await composed($))[1]!.text
-  expect(text).toContain('docs/CONTRIBUTING.md (1 lines): Early')
+  expect(text).toContain('docs/CONTRIBUTING.md (1 line): Early')
   expect(text).not.toContain('Late')
 })

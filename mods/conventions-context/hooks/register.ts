@@ -33,7 +33,7 @@ const describe = async ($: EngineInterface): Promise<string> => {
 
       return [
         '# Conventions file',
-        `${path} (${lines} lines)${headings.length > 0 ? `: ${headings.join(', ')}` : ''}`,
+        `${path} (${lines} ${lines === 1 ? 'line' : 'lines'})${headings.length > 0 ? `: ${headings.join(', ')}` : ''}`,
         'Read it before writing code or opening a pull request.',
       ].join('\n')
     }
