@@ -1,0 +1,13 @@
+{
+  "name": "map-key-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit maps a list to elements without a key, or uses the array index as the key",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

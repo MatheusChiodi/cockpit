@@ -94,3 +94,70 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await has(ui, /1 arquivo sem commit/)).toBe(true)
   expect(await has(ui, /último há 50min/)).toBe(true)
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  hub(on, [], 'es')
+  repo(on, 2, 125)
+
+  const ui = await draw($)
+  expect(await has(ui, /2 archivos sin commit/)).toBe(true)
+  expect(await has(ui, /último hace 2h05/)).toBe(true)
+})
+
+test('shows from 45 minutes on, with the singular for one file', async ($, on) => {
+  hub(on)
+  repo(on, 1, 45)
+
+  const ui = await draw($)
+  expect(await has(ui, /1 uncommitted file(?!s)/)).toBe(true)
+  expect(await has(ui, /last 45min ago/)).toBe(true)
+})
+
+test('stays quiet at 44 minutes', async ($, on) => {
+  hub(on)
+  repo(on, 5, 44)
+  expect(await has(await draw($), /uncommitted/)).toBe(false)
+})
+
+test('hides while a survey takes the space above the prompt', async ($, on) => {
+  hub(on)
+  repo(on, 3, 90)
+  await $.session.start(START)
+
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await has(ui, /uncommitted/)).toBe(false)
+})
+
+test('the minute timer brings the band up once the commit grows old', async ($, on) => {
+  hub(on)
+  const clock = mock.clock(on, { now: NOW })
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) =>
+    e.argv[1] === 'status' ? done(0, ' M a.ts\n') : done(0, `${(NOW - 30 * 60000) / 1000}\n`),
+  )
+
+  const ui = await draw($)
+  expect(await has(ui, /uncommitted/)).toBe(false)
+
+  await clock.advance(16 * 60000)
+  expect(await has(ui, /1 uncommitted file/)).toBe(true)
+  expect(await has(ui, /last 46min ago/)).toBe(true)
+})
+
+test('a turn that ends after a commit takes the band down', async ($, on) => {
+  hub(on)
+  mock.clock(on, { now: NOW })
+  const tree = { changed: 2 }
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) =>
+    e.argv[1] === 'status'
+      ? done(0, Array.from({ length: tree.changed }, (_, i) => ` M f${i}.ts\n`).join(''))
+      : done(0, `${(NOW - 120 * 60000) / 1000}\n`),
+  )
+  on('turn.complete', (_: unknown, e: any) => ({ text: e.answer }))
+
+  const ui = await draw($)
+  expect(await has(ui, /2 uncommitted files/)).toBe(true)
+
+  tree.changed = 0
+  await $.turn.complete({ answer: '', durationMs: 1, isAborted: false, turnId: 't1', reason: 'answer' })
+  expect(await has(ui, /uncommitted/)).toBe(false)
+})

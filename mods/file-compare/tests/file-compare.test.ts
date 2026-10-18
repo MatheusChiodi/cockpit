@@ -69,3 +69,71 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run('a.ts b.ts'))).text).toBe('a.ts e b.ts são idênticos.')
 })
+
+test('cuts a long diff at 40 lines and says how many more', async ($, on) => {
+  const body = Array.from({ length: 50 }, (_, i) => `+line ${i}`)
+  project(on, () => done(1, ['diff --git a/a b/b', 'index 1..2', ...body, ''].join('\n')))
+
+  const lines = ((await $.command.run(run('a.ts b.ts'))).text ?? '').split('\n')
+  expect(lines).toHaveLength(41)
+  expect(lines[39]).toBe('+line 39')
+  expect(lines[40]).toBe('… 10 more lines not shown')
+})
+
+test('says git is not responding when it cannot start', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('env.get', () => ({ value: undefined }))
+  on('fs.exists', () => ({ value: true }))
+  on('process.run', () => {
+    throw new Error('spawn git ENOENT')
+  })
+
+  expect((await $.command.run(run('a.ts b.ts'))).text).toBe('git is not responding.')
+})
+
+test('refuses keys, credentials and the second file too', async ($, on) => {
+  const argvs: string[] = []
+  project(on, () => done(1, patch), argvs)
+
+  expect((await $.command.run(run('a.ts .ssh/id_rsa'))).text).toBe('.ssh/id_rsa may hold secrets: not compared.')
+  expect((await $.command.run(run('cert.pem a.ts'))).text).toBe('cert.pem may hold secrets: not compared.')
+  expect((await $.command.run(run('a.ts config/credentials.json'))).text).toBe('config/credentials.json may hold secrets: not compared.')
+  expect((await $.command.run(run('a.ts .env.local'))).text).toBe('.env.local may hold secrets: not compared.')
+  expect(argvs).toEqual([])
+})
+
+test('folds dot segments and accepts absolute paths inside the root', async ($, on) => {
+  const argvs: string[] = []
+  project(on, () => done(0, ''), argvs)
+
+  expect((await $.command.run(run('src/../a.ts /work/docs/b.ts'))).text).toBe('a.ts and docs/b.ts are identical.')
+  expect((await $.command.run(run('a.ts /workspace/b.ts'))).text).toBe('Outside the project: /workspace/b.ts')
+  expect(argvs).toHaveLength(1)
+})
+
+test('compares Windows paths without regard to case', async ($, on) => {
+  const exists: string[] = []
+  on('session.root', () => ({ value: String.raw`C:\Work` }))
+  on('env.get', () => ({ value: 'Windows_NT' }))
+  on('fs.exists', (_, e) => {
+    exists.push(e.path)
+
+    return { value: true }
+  })
+  on('process.run', () => done(0, ''))
+
+  expect((await $.command.run(run(String.raw`c:\work\src\a.ts b.ts`))).text).toBe('src/a.ts and b.ts are identical.')
+  expect(exists[0]).toBe(String.raw`c:\work\src\a.ts`)
+})
+
+test('speaks Spanish and Portuguese for the refusals', async ($, on) => {
+  let lang = 'es'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+  project(on, () => done(1, patch))
+
+  expect((await $.command.run(run(''))).text).toBe('Uso: /cmp <archivo-a> <archivo-b>')
+  expect((await $.command.run(run('a.ts ghost.ts'))).text).toBe('No encontrado: ghost.ts')
+  lang = 'pt'
+  expect((await $.command.run(run('a.ts ../x'))).text).toBe('Fora do projeto: ../x')
+  expect((await $.command.run(run('.npmrc a.ts'))).text).toBe('.npmrc pode guardar segredos: não comparado.')
+})

@@ -45,3 +45,40 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.turn.complete({ ...turn, durationMs: 45000, agentId: 'a1' })
   expect(sent).toEqual(['El subagente a1 terminó en 45s.'])
 })
+
+test('speaks Portuguese and sends the title', async ($, on) => {
+  const sent: { text: string; title?: string }[] = []
+  on('turn.complete', (_, e) => ({ text: e.answer }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+  on('ui.notify', (_, e) => {
+    sent.push({ text: e.text, title: e.title })
+
+    return SENT
+  })
+
+  await $.turn.complete({ ...turn, durationMs: 125000, agentId: 'b7' })
+  expect(sent).toEqual([{ text: 'O subagente b7 terminou em 2m 05s.', title: 'Claude Code' }])
+})
+
+test('rounds the duration to the second at the 30 second threshold', async ($, on) => {
+  const sent: string[] = []
+  on('turn.complete', (_, e) => ({ text: e.answer }))
+  on('ui.notify', (_, e) => {
+    sent.push(e.text)
+
+    return SENT
+  })
+
+  await $.turn.complete({ ...turn, durationMs: 29499, agentId: 'under' })
+  await $.turn.complete({ ...turn, durationMs: 29500, agentId: 'over' })
+  await $.turn.complete({ ...turn, durationMs: 60000, agentId: 'minute' })
+  expect(sent).toEqual(['Subagent over finished in 30s.', 'Subagent minute finished in 1m 00s.'])
+})
+
+test('a notification that fails does not break the end of the turn', async ($, on) => {
+  on('turn.complete', (_, e) => ({ text: e.answer }))
+  on('ui.notify', () => ({ deny: 'notifications blocked' }) as never)
+
+  const done = await $.turn.complete({ ...turn, durationMs: 45000, agentId: 'a1' })
+  expect(done.text).toBe('report')
+})

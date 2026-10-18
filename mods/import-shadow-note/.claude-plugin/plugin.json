@@ -1,0 +1,13 @@
+{
+  "name": "import-shadow-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit declares a variable, function or class with the same name as one of the file's imports",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

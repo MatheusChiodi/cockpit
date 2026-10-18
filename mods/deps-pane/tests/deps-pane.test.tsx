@@ -86,3 +86,91 @@ test('reports a failure when npm answers something that is not JSON', async ($, 
   expect(await ui.find({ type: 'Text', text: /npm outdated failed/ })).toBeDefined()
   await ui.unmount()
 })
+
+const answer = (stdout: string) => ({
+  value: { exitCode: 1, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false },
+})
+
+test('runs npm directly outside Windows', async ($, on) => {
+  mock.env(on, { OS: 'Linux' })
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  const argvs: (readonly string[])[] = []
+  on('process.run', (_$, e) => {
+    argvs.push(e.argv)
+
+    return answer('{}')
+  })
+
+  await $.command.run(RUN)
+  expect(argvs[0]).toEqual(['npm', 'outdated', '--json'])
+})
+
+test('shows loading before the first run', async ($, on) => {
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /Loading…/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('a JSON array counts as a failure', async ($, on) => {
+  mock.env(on, { OS: 'Linux' })
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer('[1, 2]'))
+
+  await $.command.run(RUN)
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /npm outdated failed/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('registers the command and speaks Portuguese from the hub', async ($, on) => {
+  mock.env(on, { OS: 'Linux' })
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  const described: string[] = []
+  on('command.register', (_$, e) => {
+    described.push(e.description ?? '')
+
+    return { value: { command: e.name } }
+  })
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer(JSON.stringify(OUTDATED)))
+
+  await $.session.start({ cwd: '/p', surface: 'terminal', isInteractive: true })
+  expect(described[0]).toContain('pacotes npm desatualizados')
+  expect((await $.command.run(RUN)).text).toBe('Painel de dependências aberto.')
+
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /3 desatualizados · 1 major/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /pacote/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('speaks Spanish from the hub', async ($, on) => {
+  mock.env(on, { OS: 'Linux' })
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer(''))
+
+  expect((await $.command.run(RUN)).text).toBe('Panel de dependencias abierto.')
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /Todo está actualizado/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('the refresh button runs npm outdated again', async ($, on) => {
+  mock.env(on, { OS: 'Linux' })
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  let runs = 0
+  on('process.run', () => {
+    runs += 1
+
+    return answer(runs === 1 ? '' : JSON.stringify(OUTDATED))
+  })
+
+  await $.command.run(RUN)
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  await ui.press({ key: 'refresh' })
+  expect(runs).toBe(2)
+  expect(await ui.find({ type: 'Text', text: /3 outdated/ })).toBeDefined()
+  await ui.unmount()
+})

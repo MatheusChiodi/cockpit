@@ -100,3 +100,67 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run())).text).toBe('O pull request #4 já existe: u')
 })
+
+test('reports no commits ahead of the base', async ($, on) => {
+  on('process.run', repo([], { subjects: [] }))
+  expect((await $.command.run(run())).text).toBe('No commits ahead of main: nothing to open a pull request for.')
+})
+
+test('reports the first line of what gh said when create fails', async ($, on) => {
+  const inner = repo([])
+  on('process.run', (_: unknown, e: any) =>
+    e.argv.join(' ').startsWith('gh pr create') ? done(1, '', 'GraphQL: base branch not found\nmore detail') : inner(_, e),
+  )
+  answer(on, () => 'yes')
+
+  expect((await $.command.run(run())).text).toBe('gh failed: GraphQL: base branch not found')
+})
+
+test('takes the base from origin/HEAD', async ($, on) => {
+  const calls: string[] = []
+  const inner = repo(calls)
+  on('process.run', (_: unknown, e: any) => (e.argv.join(' ').includes('symbolic-ref') ? done(0, 'origin/develop\n') : inner(_, e)))
+  answer(on, () => 'yes')
+
+  await $.command.run(run())
+  expect(calls).toContain('git --no-pager log --reverse --format=%s origin/develop..HEAD')
+  expect(calls.find(call => call.startsWith('gh pr create'))).toContain('--base develop')
+})
+
+test('falls back to main when origin/HEAD is unset and refuses on it', async ($, on) => {
+  const inner = repo([], { branch: 'main' })
+  on('process.run', (_: unknown, e: any) => (e.argv.join(' ').includes('symbolic-ref') ? done(1, '', 'not a symbolic ref') : inner(_, e)))
+
+  expect((await $.command.run(run())).text).toBe('You are on main, the base branch: switch to a feature branch first.')
+})
+
+test('outside a repository it says gh or the repo is missing', async ($, on) => {
+  on('process.run', (_: unknown, e: any) => (e.argv[0] === 'git' ? done(128, '', 'not a git repository') : done(0, '[]')))
+
+  expect((await $.command.run(run())).text).toContain('GitHub CLI (gh) is missing')
+})
+
+test('an unreadable pr list is treated as no pull request', async ($, on) => {
+  const inner = repo([])
+  on('process.run', (_: unknown, e: any) => (e.argv.join(' ').startsWith('gh pr list') ? done(0, 'not json') : inner(_, e)))
+  answer(on, () => 'no')
+
+  expect((await $.command.run(run())).text).toBe('Cancelled.')
+})
+
+test('the Portuguese draft answer opens a draft', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', repo(calls))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+  answer(on, () => 'como rascunho')
+
+  expect((await $.command.run(run())).text).toBe('Pull request aberto: https://github.com/o/r/pull/7')
+  expect(calls.find(call => call.startsWith('gh pr create'))).toContain('--draft')
+})
+
+test('speaks Spanish from the hub', async ($, on) => {
+  on('process.run', repo([], { upstream: false }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run())).text).toContain('Sube la rama primero:')
+})

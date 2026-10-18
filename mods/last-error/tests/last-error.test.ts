@@ -57,3 +57,66 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run)).text).toBe('Nenhum comando de shell falhou nesta sessão.')
 })
+
+const START = { cwd: '/work', surface: null, isInteractive: true } as const
+
+test('shows (no output) for a failure that printed nothing, in each language', async ($, on) => {
+  mock.store(on)
+  let lang = 'en'
+  on('session.root', () => ({ value: '/work' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+  on('tool.call', { tool: 'Bash' }, () => fails('  \n\n', ''))
+
+  await $.tool.call({ tool: 'Bash', command: 'false', tool_use_id: 'b-1' })
+  expect((await $.command.run(run)).text).toBe('✗ false\n(no output)')
+  lang = 'pt'
+  expect((await $.command.run(run)).text).toBe('✗ false\n(sem saída)')
+  lang = 'es'
+  expect((await $.command.run(run)).text).toBe('✗ false\n(sin salida)')
+})
+
+test('leaves denied calls out and hands the result back untouched', async ($, on) => {
+  mock.store(on)
+  on('session.root', () => ({ value: '/work' }))
+  on('tool.call', { tool: 'Bash' }, () => ({ deny: 'blocked', isError: true } as never))
+
+  const answer = await $.tool.call({ tool: 'Bash', command: 'rm -rf /', tool_use_id: 'b-1' })
+  expect(answer.deny).toBe('blocked')
+  expect((await $.command.run(run)).text).toBe('No shell command has failed this session.')
+})
+
+test('reads a failure whose result is plain text', async ($, on) => {
+  mock.store(on)
+  on('session.root', () => ({ value: '/work' }))
+  on('tool.call', { tool: 'PowerShell' }, () => ({ result: 'boom\nat line 3' as never, isError: true as const }))
+
+  await $.tool.call({ tool: 'PowerShell', command: 'Get-Item x', tool_use_id: 'p-1' })
+  expect((await $.command.run(run)).text).toBe('✗ Get-Item x\nboom\nat line 3')
+})
+
+test('a new session forgets the previous failure', async ($, on) => {
+  mock.store(on)
+  on('session.root', () => ({ value: '/work' }))
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('command.register', (_$, e) => ({ value: { command: e.name } }))
+  on('tool.call', { tool: 'Bash' }, () => fails('oops'))
+
+  await $.tool.call({ tool: 'Bash', command: 'make', tool_use_id: 'b-1' })
+  expect((await $.command.run(run)).text).toBe('✗ make\noops')
+
+  await $.session.start(START)
+  expect((await $.command.run(run)).text).toBe('No shell command has failed this session.')
+})
+
+test('keeps the failure of each project apart', async ($, on) => {
+  mock.store(on)
+  let root = '/work'
+  on('session.root', () => ({ value: root }))
+  on('tool.call', { tool: 'Bash' }, () => fails('oops'))
+
+  await $.tool.call({ tool: 'Bash', command: 'make', tool_use_id: 'b-1' })
+  root = '/other'
+  expect((await $.command.run(run)).text).toBe('No shell command has failed this session.')
+  root = '/work'
+  expect((await $.command.run(run)).text).toBe('✗ make\noops')
+})

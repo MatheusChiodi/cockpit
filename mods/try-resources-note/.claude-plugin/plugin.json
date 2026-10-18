@@ -1,0 +1,13 @@
+{
+  "name": "try-resources-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when a Java edit opens a stream, connection or statement in a local variable outside try-with-resources",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

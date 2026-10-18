@@ -67,3 +67,56 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(verdict.decision).toBe('ask')
   expect(verdict.reason).toContain('adiciona uma senha ou chave fixa em src/db.ts')
 })
+
+const SECRET = `${'k9'.repeat(3)}Zq${'x7'.repeat(2)}`
+
+test('leaves tools other than Write and Edit alone', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command: `echo password="${SECRET}"` } })
+  expect(verdict.decision).toBe('allow')
+})
+
+test('keeps an ask from beneath as it was', async ($, on) => {
+  on('tool.check', () => ({ decision: 'ask', reason: 'asked beneath' }))
+
+  const { tool, input } = ASKED[0] as Call
+  const verdict = await $.tool.check({ tool, input })
+  expect(verdict).toMatchObject({ decision: 'ask', reason: 'asked beneath' })
+})
+
+test('skips fixtures, mocks, examples and sample files', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const file_path of ['src/fixtures/users.ts', 'src/__tests__/db.ts', 'mocks/api.ts', 'examples/app.py', 'config.sample', '.env.example', 'src/db.spec.mjs']) {
+    const verdict = await $.tool.check({ tool: 'Write', input: { file_path, content: `api_key = "${SECRET}"` } })
+    expect(verdict.decision, file_path).toBe('allow')
+  }
+})
+
+test('lets placeholders, constant names and paths through', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const line of ['secret: "your-secret-here"', 'apiKey = "API_KEY_NAME"', 'token = "./secrets/token.txt"', 'pwd = "short"', 'password = "<%= pass %>"', 'url = "mongodb://app:changeme@db.example.com/app"']) {
+    const verdict = await $.tool.check({ tool: 'Edit', input: { file_path: 'src/a.ts', old_string: '', new_string: line } })
+    expect(verdict.decision, line).toBe('allow')
+  }
+})
+
+test('names the kind of secret in the reason', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const url = await $.tool.check({ tool: 'Write', input: { file_path: 'app.ts', content: `const u = "mongodb+srv://app:${SECRET}@cluster0.example.net/db"` } })
+  expect(url.reason).toContain('adds a connection string with the password inside to app.ts')
+
+  const { tool, input } = ASKED[3] as Call
+  expect((await $.tool.check({ tool, input })).reason).toContain('adds what looks like a JWT to src/api.ts')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const { tool, input } = ASKED[1] as Call
+  expect((await $.tool.check({ tool, input })).reason).toContain('agrega en config.py una cadena de conexión con la contraseña dentro')
+})

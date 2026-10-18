@@ -1,0 +1,13 @@
+{
+  "name": "oracle-name-guard",
+  "version": "0.1.0",
+  "description": "Refuses an edit that creates a table, index, constraint, sequence or trigger named over 30 characters, the Oracle 11g limit",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "turn-tokens-status",
+  "version": "0.1.0",
+  "description": "Live status line with the output tokens of the running turn, growing as the model writes",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "dependencies": [
+    "cockpit"
+  ]
+}

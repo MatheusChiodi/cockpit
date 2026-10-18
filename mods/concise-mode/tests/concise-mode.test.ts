@@ -62,3 +62,74 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await $.command.run(run('on'))
   expect(answer.text).toContain('Modo conciso ligado')
 })
+
+const START = { cwd: '/project', surface: 'terminal', isInteractive: true } as const
+
+// The session beneath the mod; returns the status entries and the commands registered.
+const session = (on: any) => {
+  const statuses: (string | undefined)[] = []
+  const commands: string[] = []
+  on('session.start', (_: unknown, e: { cwd: string }) => ({ cwd: e.cwd }))
+  on('command.register', (_: unknown, e: { name: string; description?: string }) => {
+    commands.push(`${e.name}: ${e.description}`)
+
+    return { value: { command: e.name } }
+  })
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    statuses.push(e.text)
+
+    return { value: undefined }
+  })
+
+  return { statuses, commands }
+}
+
+test('shows the status entry at start when concise mode was left on', async ($, on) => {
+  mock.store(on, { isOn: true })
+  const { statuses, commands } = session(on)
+
+  await $.session.start(START)
+
+  expect(statuses).toEqual(['concise'])
+  expect(commands).toEqual(['concise: Turns concise mode on or off (short, direct answers)'])
+})
+
+test('shows nothing at start when concise mode is off', async ($, on) => {
+  mock.store(on, { isOn: false })
+  const { statuses } = session(on)
+
+  await $.session.start(START)
+
+  expect(statuses).toEqual([])
+})
+
+test('keeps what was composed beneath and adds the section after it', async ($, on) => {
+  mock.store(on, { isOn: true })
+  on('prompt.compose', () => ({ sections: [{ id: 'other', text: 'kept', scope: 'session' as const }] }))
+
+  const sections = (await $.prompt.compose(INPUT)).sections
+  expect(sections.map(section => section.id)).toEqual(['other', 'concise-mode:style'])
+  expect(sections[1]?.text).toContain('# Concise mode')
+})
+
+test('an unknown argument toggles like no argument', async ($, on) => {
+  mock.store(on, { isOn: true })
+  on('ui.status', () => ({ value: undefined }))
+
+  expect((await $.command.run(run('maybe'))).text).toBe('Concise mode off (applies from the next prompt).')
+})
+
+test('speaks Spanish and Portuguese at start and in the command', async ($, on) => {
+  mock.store(on, { isOn: true })
+  const lang = { value: 'es' }
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang.value as 'es', version: 1 } }))
+  const { statuses, commands } = session(on)
+
+  await $.session.start(START)
+  expect(statuses).toEqual(['conciso'])
+  expect(commands).toEqual(['concise: Activa/desactiva el modo conciso (respuestas cortas y directas)'])
+  expect((await $.command.run(run('off'))).text).toBe('Modo conciso desactivado (vale desde el próximo prompt).')
+
+  lang.value = 'pt'
+  expect((await $.command.run(run('off'))).text).toBe('Modo conciso desligado (vale a partir do próximo prompt).')
+})

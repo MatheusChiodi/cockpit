@@ -76,3 +76,90 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['Form.tsx editado 6 vezes em 30 min. Dê um passo atrás e olhe o conjunto?'])
 })
+
+test('does not count edits made by a subagent', async ($, on) => {
+  mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+
+  for (let i = 0; i < 8; i += 1) {
+    await $.tool.call({
+      tool: 'Edit',
+      file_path: '/project/src/sub.ts',
+      old_string: 'a',
+      new_string: 'b',
+      tool_use_id: `s-${i}`,
+      agentId: 'sub-1',
+    } as never)
+  }
+
+  expect(toasts).toEqual([])
+})
+
+test('does not count an edit that was denied', async ($, on) => {
+  mock.clock(on)
+  const toasts: string[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('tool.call', { tool: 'Edit' }, () => ({ deny: 'not allowed' }))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.session.start(START)
+
+  for (let i = 0; i < 8; i += 1) {
+    await edit($, '/project/src/denied.ts')
+  }
+
+  expect(toasts).toEqual([])
+})
+
+test('speaks again after six more edits once it has spoken', async ($, on) => {
+  mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+
+  for (let i = 0; i < 12; i += 1) {
+    await edit($, '/project/src/loop.ts')
+  }
+
+  expect(toasts).toHaveLength(2)
+})
+
+test('a new session forgets the earlier edits', async ($, on) => {
+  mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+
+  for (let i = 0; i < 5; i += 1) {
+    await edit($, '/project/src/reset.ts')
+  }
+
+  await $.session.start(START)
+  await edit($, '/project/src/reset.ts')
+
+  expect(toasts).toEqual([])
+})
+
+test('speaks Spanish when the hub language is es', async ($, on) => {
+  mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+
+  for (let i = 0; i < 6; i += 1) {
+    await edit($, '/project/lib/db.py')
+  }
+
+  expect(toasts).toEqual(['db.py editado 6 veces en 30 min. ¿Un paso atrás para mirar el conjunto?'])
+})

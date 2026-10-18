@@ -80,3 +80,62 @@ test('speaks the language set in the hub', async ($, on) => {
   await write($, `const b = process.env.STRIPE_KEY`)
   expect(toasts).toEqual(['env: STRIPE_KEY sem declaração em .env.example'])
 })
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const toasts = project(on, { 'package.json': '{}', '.env.example': EXAMPLE })
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await write($, `const b = process.env.STRIPE_KEY`)
+  expect(toasts).toEqual(['env: STRIPE_KEY sin declarar en .env.example'])
+})
+
+test('names three variables and counts the rest', async ($, on) => {
+  const toasts = project(on, { 'package.json': '{}', '.env.example': EXAMPLE })
+
+  await write($, ['A_ONE', 'B_TWO', 'C_THREE', 'D_FOUR', 'E_FIVE'].map(name => `process.env.${name}`).join('\n'))
+  expect(toasts).toEqual(['env: A_ONE, B_TWO, C_THREE +2 missing from .env.example'])
+})
+
+test('stays quiet when the write was refused', async ($, on) => {
+  const toasts: string[] = []
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.read', (_$, e) => {
+    const file = fileOf(e.path)
+
+    return file === 'package.json' ? { value: '{}' } : file === '.env.example' ? { value: EXAMPLE } : { deny: 'ENOENT' }
+  })
+  on('tool.call', { tool: 'Write' }, () => ({ deny: 'blocked' }))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await write($, `process.env.STRIPE_KEY`)
+  expect(toasts).toEqual([])
+})
+
+test('the example file wins over .env, and the example files are read together', async ($, on) => {
+  const toasts = project(on, {
+    'package.json': '{}',
+    '.env.example': 'A_KEY=\n',
+    '.env.sample': 'B_KEY=\n',
+    '.env': 'C_KEY=1\n',
+  })
+
+  await write($, 'process.env.A_KEY + process.env.B_KEY + process.env.C_KEY')
+  expect(toasts).toEqual(['env: C_KEY missing from .env.example'])
+})
+
+test('an Edit that adds a variable is reported', async ($, on) => {
+  const toasts = project(on, { 'package.json': '{}', '.env.example': EXAMPLE })
+
+  await $.tool.call({
+    tool: 'Edit',
+    file_path: '/work/src/pay.vue',
+    old_string: 'const a = 1',
+    new_string: 'const a = import.meta.env.PAYMENT_ID',
+    tool_use_id: 'e-add',
+  })
+  expect(toasts).toEqual(['env: PAYMENT_ID missing from .env.example'])
+})

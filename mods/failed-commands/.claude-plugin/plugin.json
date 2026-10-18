@@ -1,0 +1,13 @@
+{
+  "name": "failed-commands",
+  "version": "0.1.0",
+  "description": "Reminds Claude of the commands that failed earlier in this session, so it does not retry them blindly",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

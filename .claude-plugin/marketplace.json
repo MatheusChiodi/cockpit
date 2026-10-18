@@ -1858,6 +1858,12 @@
       "source": "./mods/runout-projection",
       "description": "A toast when a rate-limit window will run out before it resets at the current pace, and /runout lists the projection",
       "category": "context"
+    },
+    {
+      "name": "readme-context",
+      "source": "./mods/readme-context",
+      "description": "Gives Claude the first paragraph of the README, so it knows what the project is without reading it",
+      "category": "prompt"
     }
   ]
 }

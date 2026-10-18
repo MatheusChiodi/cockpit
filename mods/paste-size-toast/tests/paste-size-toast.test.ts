@@ -46,3 +46,41 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts[0]).toMatch(/^O prompt tem 500 linhas, cerca de \d+\.\d00 tokens: enxugue o que colou/)
 })
+
+test('toasts from exactly 20,000 characters', async ($, on) => {
+  const toasts = world(on)
+
+  await $.prompt.submit(send('a'.repeat(19_999)))
+  expect(toasts).toEqual([])
+
+  await $.prompt.submit(send('a'.repeat(20_000)))
+  expect(toasts).toEqual(['Prompt is 1 lines, about 5,000 tokens: trim the paste to the part that matters'])
+})
+
+test('rounds the tokens to the nearest hundred', async ($, on) => {
+  const toasts = world(on)
+
+  await $.prompt.submit(send('a'.repeat(20_199)))
+  await $.prompt.submit(send('a'.repeat(20_200)))
+
+  expect(toasts).toEqual([
+    'Prompt is 1 lines, about 5,000 tokens: trim the paste to the part that matters',
+    'Prompt is 1 lines, about 5,100 tokens: trim the paste to the part that matters',
+  ])
+})
+
+test('sends the prompt unchanged', async ($, on) => {
+  world(on)
+  const text = `${'x'.repeat(25_000)}\nend`
+
+  expect((await $.prompt.submit(send(text))).text).toBe(text)
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const toasts = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.prompt.submit(send(LOG))
+
+  expect(toasts[0]).toMatch(/^El prompt tiene 500 líneas, unos [\d.]+ tokens: recorta lo pegado a la parte que importa$/)
+})

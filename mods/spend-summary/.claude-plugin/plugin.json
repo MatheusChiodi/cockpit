@@ -1,0 +1,13 @@
+{
+  "name": "spend-summary",
+  "version": "0.1.0",
+  "description": "A notification when the session ends with what it spent in total, how long it ran and the cost per turn",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

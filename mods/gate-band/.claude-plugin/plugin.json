@@ -1,0 +1,17 @@
+{
+  "name": "gate-band",
+  "version": "0.1.0",
+  "description": "Band with the tool calls denied and the ones that stopped to ask you in the current turn, and the last one",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}

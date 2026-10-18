@@ -100,3 +100,74 @@ test('reads a repository with no commits yet', async ($, on) => {
   await $.session.start(START)
   expect(statuses.at(-1)).toBe('⎇ trunk ±1')
 })
+
+const recorder = (on: any) => {
+  const statuses: (string | undefined)[] = []
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    statuses.push(e.text)
+
+    return { value: undefined }
+  })
+
+  return statuses
+}
+
+test('shows only the side that diverges', async ($, on) => {
+  const statuses = recorder(on)
+  let stdout = '## main...origin/main [ahead 3]\n'
+  on('session.start', () => ({ cwd: '/p' }))
+  on('process.run', () => ran(0, stdout))
+
+  await $.session.start(START)
+  expect(statuses.at(-1)).toBe('⎇ main ✓ ↑3')
+
+  stdout = '## main...origin/main [behind 4]\nA  new.ts\n'
+  await $.session.start(START)
+  expect(statuses.at(-1)).toBe('⎇ main ±1 ↓4')
+})
+
+test('refreshes after Edit, Write, PowerShell and NotebookEdit, not after Grep', async ($, on) => {
+  const clock = mock.clock(on)
+  let calls = 0
+  recorder(on)
+  on('process.run', () => {
+    calls += 1
+
+    return ran(0, '## main\n')
+  })
+  on('tool.call', () => ({ result: undefined as never }))
+
+  await $.tool.call({ tool: 'Grep', pattern: 'x', tool_use_id: 'g' })
+  await clock.settle()
+  expect(calls).toBe(0)
+
+  await $.tool.call({ tool: 'Edit', file_path: '/a', old_string: 'a', new_string: 'b', tool_use_id: 'e' })
+  await $.tool.call({ tool: 'Write', file_path: '/a', content: 'x', tool_use_id: 'w' })
+  await $.tool.call({ tool: 'PowerShell', command: 'ni a', tool_use_id: 'p' })
+  await $.tool.call({ tool: 'NotebookEdit', notebook_path: '/n.ipynb', new_source: 'x', tool_use_id: 'n' })
+  await clock.settle()
+  expect(calls).toBe(4)
+})
+
+test('asks git for the porcelain status with the branch line', async ($, on) => {
+  const asked: (readonly string[])[] = []
+  recorder(on)
+  on('session.start', () => ({ cwd: '/p' }))
+  on('process.run', (_, e) => {
+    asked.push(e.argv)
+
+    return ran(0, '## main\n')
+  })
+
+  await $.session.start(START)
+  expect(asked[0]).toEqual(['git', 'status', '--porcelain=v1', '--branch'])
+})
+
+test('falls back to ? when the branch line cannot be read', async ($, on) => {
+  const statuses = recorder(on)
+  on('session.start', () => ({ cwd: '/p' }))
+  on('process.run', () => ran(0, ''))
+
+  await $.session.start(START)
+  expect(statuses.at(-1)).toBe('⎇ ? ✓')
+})

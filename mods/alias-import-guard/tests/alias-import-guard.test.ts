@@ -76,3 +76,64 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await write($, '/work/src/a/b/c/d.ts', `import x from '../../../lib/x'`)
   expect(answer.deny).toContain('alias-import-guard: "../../../lib/x" sobe 3 pastas em src/a/b/c/d.ts. O paths do tsconfig tem "@/*": importe "@/lib/x".')
 })
+
+test('reads jsconfig.json when tsconfig.json has no paths, and resolves against baseUrl', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.read', (_: unknown, e: { path: string }) => {
+    const path = slashed(e.path)
+
+    if (path.endsWith('/work/tsconfig.json')) {
+      return { value: '{ "compilerOptions": {} }' }
+    }
+
+    return path.endsWith('/work/jsconfig.json')
+      ? { value: '{ "compilerOptions": { "baseUrl": "src", "paths": { "#lib/*": ["lib/*"] } } }' }
+      : { deny: 'ENOENT' }
+  })
+  on('tool.call', { tool: 'Write' }, () => ({ result: undefined as never }))
+
+  const answer = await write($, '/work/src/a/b/c/d.js', `const x = require('../../../lib/x')`)
+  expect(answer.deny).toContain('"#lib/*": import "#lib/x" instead.')
+})
+
+test('picks the most specific alias for the target', async ($, on) => {
+  project(on)
+
+  const answer = await write($, '/work/src/a/b/c.tsx', `export * from '../../../src/components/ui/card'`.replace('../../../src/', '../../'))
+  expect(answer.deny).toBeUndefined()
+
+  const deep = await write($, '/work/src/a/b/c/d.tsx', `export { Card } from '../../../components/ui/card'`)
+  expect(deep.deny).toContain('"@ui/*": import "@ui/card" instead.')
+})
+
+test('leaves files outside the project root alone', async ($, on) => {
+  project(on)
+  expect((await write($, '/elsewhere/src/a/b/c/d.ts', `import x from '../../../lib/x'`)).deny).toBeUndefined()
+})
+
+test('ignores an unreadable config', async ($, on) => {
+  project(on, '{ "compilerOptions": { "paths": ')
+  expect((await write($, '/work/src/a/b/c/d.ts', `import x from '../../../lib/x'`)).deny).toBeUndefined()
+})
+
+test('fails closed with a clear reason when the check throws', async ($, on) => {
+  let ran = 0
+  on('session.root', () => ({ deny: 'no root' }))
+  on('tool.call', { tool: 'Edit' }, () => {
+    ran += 1
+
+    return { result: undefined as never }
+  })
+
+  const answer = await $.tool.call({ tool: 'Edit', file_path: '/work/src/a.ts', old_string: 'a', new_string: 'b', tool_use_id: 'e-fail' })
+  expect(answer.deny).toContain('alias-import-guard: the check failed')
+  expect(ran).toBe(0)
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  project(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await write($, '/work/src/a/b/c/d.ts', `import x from '../../../lib/x'`)
+  expect(answer.deny).toContain('sube 3 carpetas en src/a/b/c/d.ts. El paths de tsconfig tiene "@/*": importa "@/lib/x".')
+})

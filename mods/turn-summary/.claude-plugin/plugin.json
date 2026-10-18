@@ -1,0 +1,14 @@
+{
+  "name": "turn-summary",
+  "version": "0.1.0",
+  "description": "Under the duration line that closes a turn, sums it up: tool calls, files changed and failures",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

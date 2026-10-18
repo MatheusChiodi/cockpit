@@ -83,3 +83,55 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await check($, 'npm run dev')).reason).toBe('dev-server-guard: algo já responde na porta :5173. Subir outro servidor de desenvolvimento?')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  world(on, [3000])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await check($, 'next dev')).reason).toBe('dev-server-guard: algo ya responde en el puerto :3000. ¿Iniciar otro servidor de desarrollo?')
+})
+
+test('reads a port passed after -- or with an equals sign', async ($, on) => {
+  world(on, [3001, 3005, 5173])
+
+  expect((await check($, 'npm run dev -- --port 3001')).reason).toContain('on :3001.')
+  expect((await check($, 'bun run dev --port=3005')).reason).toContain('on :3005.')
+  expect((await check($, 'next dev --port=3005')).reason).toContain('on :3005.')
+})
+
+test('a dev script it cannot place on a port lets the command through', async ($, on) => {
+  world(on, [3000, 5173], { dev: 'nodemon server.js' })
+
+  expect((await check($, 'npm run dev')).decision).toBe('allow')
+})
+
+test('an invalid package.json leaves only the command to read', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.read', (_: unknown, e: { path: string }) =>
+    slashed(e.path).endsWith('/work/package.json') ? { value: '{ broken' } : { deny: 'ENOENT' },
+  )
+  on('http.fetch', () => ({ value: { status: 200, ok: true, headers: {}, text: '' } }))
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  expect((await check($, 'npm run dev')).decision).toBe('allow')
+  expect((await check($, 'npx vite')).reason).toContain('on :5173.')
+})
+
+test('reads the Vite port from a vite.config.mjs', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.read', (_: unknown, e: { path: string }) =>
+    slashed(e.path).endsWith('/work/vite.config.mjs') ? { value: 'export default { server: { port: 7000 } }' } : { deny: 'ENOENT' },
+  )
+  on('http.fetch', (_: unknown, e: { url: string }) =>
+    e.url === 'http://localhost:7000/' ? { value: { status: 200, ok: true, headers: {}, text: '' } } : { deny: 'refused' },
+  )
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  expect((await check($, 'vite')).reason).toContain('on :7000.')
+})
+
+test('ignores tools that do not run commands', async ($, on) => {
+  world(on, [5173])
+
+  expect((await $.tool.check({ tool: 'Read', input: { file_path: '/work/package.json' } })).decision).toBe('allow')
+})

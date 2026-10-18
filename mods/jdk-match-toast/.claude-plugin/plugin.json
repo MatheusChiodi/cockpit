@@ -1,0 +1,13 @@
+{
+  "name": "jdk-match-toast",
+  "version": "0.1.0",
+  "description": "At session start, toasts when the java on the PATH is older than the JDK that pom.xml or build.gradle declares",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

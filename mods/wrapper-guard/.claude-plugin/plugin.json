@@ -1,0 +1,13 @@
+{
+  "name": "wrapper-guard",
+  "version": "0.1.0",
+  "description": "Refuses a global mvn or gradle command when the project ships mvnw or gradlew, so the pinned build tool runs",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

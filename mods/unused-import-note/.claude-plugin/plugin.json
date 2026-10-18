@@ -1,0 +1,13 @@
+{
+  "name": "unused-import-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit leaves an import that nothing in the file uses",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

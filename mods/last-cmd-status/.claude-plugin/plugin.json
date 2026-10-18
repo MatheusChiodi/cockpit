@@ -1,0 +1,16 @@
+{
+  "name": "last-cmd-status",
+  "version": "0.1.0",
+  "description": "Status line with how the last shell command ended, passed, failed or interrupted, how long it took and what it was",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "dependencies": [
+    "cockpit"
+  ]
+}

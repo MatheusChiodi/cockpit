@@ -97,3 +97,58 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['Guardado: modo escuro'])
 })
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  mock.store(on)
+  mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect(await run($, '')).toBe('Nada guardado.')
+  expect(await run($, 'modo oscuro')).toBe('Guardada (1). De vuelta al trabajo.')
+  expect(await run($, '')).toBe('Ideas guardadas (1):\n1. modo oscuro')
+  expect(await run($, 'done 3')).toBe('No hay una idea con ese número. Hay 1.')
+  await $.turn.complete(DONE)
+  expect(toasts).toEqual(['Guardado: modo oscuro'])
+  expect(await run($, 'done 1')).toBe('Hecho: modo oscuro')
+  expect(await run($, 'clear')).toBe('Estacionamiento vaciado.')
+})
+
+test('parks words that only look like actions', async ($, on) => {
+  mock.store(on)
+  mock.clock(on)
+  world(on, [])
+
+  await $.session.start(START)
+  expect(await run($, 'done abc')).toBe('Parked (1). Back to work.')
+  expect(await run($, 'clear the cache')).toBe('Parked (2). Back to work.')
+  expect(await run($, 'done 0')).toBe('No idea with that number. There are 2.')
+  expect(await run($, '')).toBe('Parked ideas (2):\n1. done abc\n2. clear the cache')
+})
+
+test('reads the ideas the store kept for this project, and ignores a broken entry', async ($, on) => {
+  mock.store(on, {
+    'park:/project': [{ text: 'kept idea', at: 0, isShown: true }],
+    'park:/other': 'broken',
+  })
+  mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  expect(await run($, '')).toBe('Parked ideas (1):\n1. kept idea')
+  // Already shown in an earlier session: not toasted again.
+  await $.turn.complete(DONE)
+  expect(toasts).toEqual([])
+})
+
+test('keeps one list per project root', async ($, on) => {
+  mock.store(on, { 'park:/other': [{ text: 'elsewhere', at: 0, isShown: false }] })
+  mock.clock(on)
+  world(on, [])
+
+  await $.session.start(START)
+  expect(await run($, '')).toBe('Nothing parked.')
+})

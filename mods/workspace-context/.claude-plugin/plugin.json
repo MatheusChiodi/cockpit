@@ -1,0 +1,13 @@
+{
+  "name": "workspace-context",
+  "version": "0.1.0",
+  "description": "Lists the packages of a monorepo with their folders, so Claude knows where each piece lives",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

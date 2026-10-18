@@ -83,3 +83,75 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['Branch feat/checkout, mas 6 arquivos editados não têm a ver com ela.'])
 })
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts, { name: 'feat/checkout' })
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  await edit($, ...UNRELATED)
+
+  expect(toasts).toEqual(['Rama feat/checkout, pero 6 archivos editados no tienen que ver con ella.'])
+})
+
+test('counts a path once whatever its case, and leaves out subagent edits', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts, { name: 'feat/login-form' })
+
+  await $.session.start(START)
+  for (const path of UNRELATED.slice(0, 5)) {
+    await $.tool.call({ tool: 'Write', file_path: path.toUpperCase(), content: 'x', tool_use_id: `u-${path}` })
+  }
+  await edit($, ...UNRELATED.slice(0, 5))
+  await $.tool.call({ tool: 'Write', file_path: '/project/sub.ts', content: 'x', tool_use_id: 'sub', ...{ agentId: 'agent-1' } })
+  await $.turn.complete(DONE)
+
+  expect(toasts).toEqual([])
+})
+
+test('checks nothing at the end of an aborted or a subagent turn', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts, { name: 'feat/login-form' })
+
+  await $.session.start(START)
+  for (const path of UNRELATED) {
+    await $.tool.call({ tool: 'Write', file_path: path, content: 'x', tool_use_id: path })
+  }
+  await $.turn.complete({ ...DONE, isAborted: true, reason: 'aborted' })
+  await $.turn.complete({ ...DONE, agentId: 'agent-1' })
+  expect(toasts).toEqual([])
+
+  await $.turn.complete(DONE)
+  expect(toasts).toHaveLength(1)
+})
+
+test('counts Edit calls too, and tells again on another branch', async ($, on) => {
+  const toasts: string[] = []
+  const branch = { name: 'feat/search' }
+  world(on, toasts, branch)
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  await $.session.start(START)
+  for (const path of UNRELATED) {
+    await $.tool.call({ tool: 'Edit', file_path: path, old_string: 'a', new_string: 'b', tool_use_id: `e-${path}` })
+  }
+  await $.turn.complete(DONE)
+  expect(toasts).toEqual(['Branch feat/search, but 6 edited files have nothing to do with it.'])
+
+  branch.name = 'feat/profile'
+  await $.turn.complete(DONE)
+  expect(toasts[1]).toBe('Branch feat/profile, but 6 edited files have nothing to do with it.')
+})
+
+test('a new session starts the count over', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts, { name: 'feat/login-form' })
+
+  await $.session.start(START)
+  await edit($, ...UNRELATED.slice(0, 5))
+  await $.session.start(START)
+  await edit($, UNRELATED[5] ?? '')
+
+  expect(toasts).toEqual([])
+})

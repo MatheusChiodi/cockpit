@@ -1,0 +1,13 @@
+{
+  "name": "runtime-pin-context",
+  "version": "0.1.0",
+  "description": "Tells Claude the runtime versions the project pins: .nvmrc, engines, packageManager, .tool-versions",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

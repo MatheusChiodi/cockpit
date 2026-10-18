@@ -120,3 +120,60 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await has(ui, /ERRO/)).toBe(true)
   expect(await has(ui, /sem saída/)).toBe(true)
 })
+
+test('cuts the command to 60 characters and the line to 160', async ($, on) => {
+  hub(on)
+  on('tool.call', { tool: 'Bash' }, () => failed(`fatal: ${'z'.repeat(300)}`))
+
+  await bash($, `fail ${'c'.repeat(100)}`)
+
+  const ui = await draw($)
+  expect(await has(ui, new RegExp(`✗ fail ${'c'.repeat(55)}`))).toBe(true)
+  expect(await has(ui, new RegExp('c'.repeat(56)))).toBe(false)
+  expect(await has(ui, new RegExp(`fatal: ${'z'.repeat(153)}`))).toBe(true)
+  expect(await has(ui, new RegExp('z'.repeat(154)))).toBe(false)
+  await ui.unmount()
+})
+
+test('a newer failure takes the place of the older one', async ($, on) => {
+  world(on)
+  await bash($, 'fail first')
+  await bash($, 'fail second')
+
+  const ui = await draw($)
+  expect(await has(ui, /✗ fail second/)).toBe(true)
+  expect(await has(ui, /fail first/)).toBe(false)
+  await ui.unmount()
+})
+
+test('keeps the band beneath and steps aside for a survey', async ($, on) => {
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('ui.render', { component: 'AbovePrompt' }, ($: any, e: any) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>beneath</Text>
+  })
+  on('tool.call', { tool: 'Bash' }, () => failed('Error: x'))
+  await bash($, 'fail once')
+  await $.session.start(START)
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await has(ui, /beneath/)).toBe(true)
+  expect(await has(ui, /ERROR/)).toBe(true)
+  await ui.unmount()
+
+  const survey = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await has(survey, /beneath/)).toBe(true)
+  expect(await has(survey, /ERROR/)).toBe(false)
+  await survey.unmount()
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  world(on, [], 'es')
+  await bash($, 'silent fail')
+
+  const ui = await draw($)
+  expect(await has(ui, /sin salida/)).toBe(true)
+  expect(await ui.find({ type: 'Button', text: 'Descartar' })).toBeDefined()
+  await ui.unmount()
+})

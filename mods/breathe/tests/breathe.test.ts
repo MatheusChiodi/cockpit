@@ -81,3 +81,70 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts[0]).toBe('Inspire… 4  (1/5)')
 })
+
+test('each toast lasts as long as its phase', async ($, on) => {
+  const clock = mock.clock(on)
+  const timeouts: (number | undefined)[] = []
+  on('ui.toast', (_$, e) => {
+    timeouts.push(e.timeoutMs)
+
+    return { value: undefined }
+  })
+
+  await $.command.run(run)
+  await clock.advance(4 * SECOND)
+  await clock.advance(4 * SECOND)
+  expect(timeouts).toEqual([4000, 4000, 6000])
+
+  await clock.advance(80 * SECOND)
+  expect(timeouts.at(-1)).toBe(6000)
+})
+
+test('registers /breathe with its description', async ($, on) => {
+  const described: string[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('command.register', (_$, e) => {
+    described.push(`${e.name}: ${e.description}`)
+
+    return { value: { command: e.name } }
+  })
+
+  await $.session.start(START)
+  expect(described).toEqual(['breathe: One minute of guided breathing through toasts: in 4, hold 4, out 6, five rounds'])
+})
+
+test('the last round is numbered 5/5', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.command.run(run)
+  await clock.advance(4 * 14 * SECOND)
+  expect(toasts.at(-1)).toBe('Breathe in… 4  (5/5)')
+})
+
+test('speaks Spanish from the hub, through to the end', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run)).text).toBe('Respirando, 5 rondas. Ponte cómodo.')
+  await clock.advance(4 * SECOND)
+  await clock.advance(4 * SECOND)
+  expect(toasts.slice(0, 3)).toEqual(['Inhala… 4  (1/5)', 'Sostén… 4  (1/5)', 'Exhala… 6  (1/5)'])
+
+  await clock.advance(80 * SECOND)
+  expect(toasts.at(-1)).toBe('Listo. Vuelve con calma.')
+})
+
+test('the Portuguese closing line', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  await $.command.run(run)
+  await clock.advance(80 * SECOND)
+  expect(toasts.at(-1)).toBe('Pronto. Volte com calma.')
+})

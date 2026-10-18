@@ -56,3 +56,57 @@ test('speaks the language set in the hub', async ($, on) => {
   })
   expect(answer.deny).toContain('migration-guard bloqueou a edição')
 })
+
+test('refuses a Write over a migration when it cannot tell whether the file exists', async ($, on) => {
+  let ran = 0
+  on('tool.call', { tool: 'Write' }, () => {
+    ran += 1
+
+    return ANSWER
+  })
+  on('fs.exists', () => ({ deny: 'no access' }))
+
+  const answer = await $.tool.call({ tool: 'Write', file_path: 'db/migrate/20240101_a.rb', content: 'x', tool_use_id: 'w-x' })
+  expect(answer.deny).toBe('migration-guard: the check failed, edit refused.')
+  expect(ran).toBe(0)
+})
+
+test('a Write outside the migrations never looks at the disk', async ($, on) => {
+  let looked = 0
+  on('tool.call', { tool: 'Write' }, () => ANSWER)
+  on('fs.exists', () => {
+    looked += 1
+
+    return { value: true }
+  })
+
+  for (const file_path of OTHERS) {
+    expect((await $.tool.call({ tool: 'Write', file_path, content: 'x', tool_use_id: `wo-${file_path}` })).deny, file_path).toBeUndefined()
+  }
+
+  expect(looked).toBe(0)
+})
+
+test('names the file and points to a new migration', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  const answer = await $.tool.call({
+    tool: 'Edit',
+    file_path: 'alembic/versions/1a2b_users.py',
+    old_string: 'a',
+    new_string: 'b',
+    tool_use_id: 'n-1',
+  })
+  expect(answer.deny).toBe(
+    'migration-guard blocked the edit: alembic/versions/1a2b_users.py is an existing migration, and applied migrations are append-only. Add a new migration file instead.',
+  )
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  on('tool.call', { tool: 'Write' }, () => ANSWER)
+  on('fs.exists', () => ({ value: true }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await $.tool.call({ tool: 'Write', file_path: 'prisma/migrations/1/migration.sql', content: 'x', tool_use_id: 'es-1' })
+  expect(answer.deny).toContain('migration-guard bloqueó la edición: prisma/migrations/1/migration.sql es una migración existente')
+})

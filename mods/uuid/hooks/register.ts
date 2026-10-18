@@ -39,8 +39,8 @@ export const register: Register = on => {
     }
 
     const ids = Array.from({ length: n }, () => crypto.randomUUID())
-    await $.ui.copy({ text: ids.join('\n') })
+    const { isCopied } = await $.ui.copy({ text: ids.join('\n') })
 
-    return { text: `${ids.join('\n')}\n${s.copied(n)}` }
+    return { text: `${ids.join('\n')}\n${isCopied ? s.copied(n) : s.noClipboard}` }
   })
 }

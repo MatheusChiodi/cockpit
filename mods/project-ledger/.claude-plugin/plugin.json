@@ -1,0 +1,13 @@
+{
+  "name": "project-ledger",
+  "version": "0.1.0",
+  "description": "/projspend shows what this project has cost across all its sessions, kept in a ledger per project",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

@@ -86,3 +86,94 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['Assunto novo com 3 arquivos em andamento. Deixar para depois ou commitar antes?'])
 })
+
+test('edits count as files in flight, the same file only once', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  await $.session.start(START)
+  await say($, 'fix the login redirect after logout')
+
+  for (const path of [...LOGIN, LOGIN[0] as string]) {
+    await $.tool.call({ tool: 'Edit', file_path: path, old_string: 'a', new_string: 'b', tool_use_id: `e-${path}` })
+  }
+
+  await say($, INVOICE)
+  expect(toasts).toEqual(['New subject with 3 files in flight. Park it, or commit first?'])
+})
+
+test('files written by a subagent are not in flight', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await say($, 'fix the login redirect after logout')
+
+  for (const path of LOGIN) {
+    await $.tool.call({ tool: 'Write', file_path: path, content: 'x', tool_use_id: path, agentId: 'sub-1' } as never)
+  }
+
+  await say($, INVOICE)
+  expect(toasts).toEqual([])
+})
+
+test('a refused commit does not close the work', async ($, on) => {
+  const toasts: string[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('prompt.submit', (_$, e) => ({ text: e.text }))
+  on('tool.call', { tool: 'Write' }, () => ANSWER)
+  on('tool.call', { tool: 'Bash' }, () => ({ deny: 'no commits now' }))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.session.start(START)
+  await say($, 'fix the login redirect after logout')
+  await write($, ...LOGIN)
+  await $.tool.call({ tool: 'Bash', command: 'git commit -m "wip"', tool_use_id: 'c-1' })
+  await say($, INVOICE)
+
+  expect(toasts).toHaveLength(1)
+})
+
+test('a commit with git options also closes the work', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await say($, 'fix the login redirect after logout')
+  await write($, ...LOGIN)
+  await $.tool.call({ tool: 'Bash', command: 'git -c user.name=x commit -m "fix"', tool_use_id: 'c-2' })
+  await say($, INVOICE)
+
+  expect(toasts).toEqual([])
+})
+
+test('a new session forgets the work in flight', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await say($, 'fix the login redirect after logout')
+  await write($, ...LOGIN)
+  await $.session.start(START)
+  await say($, INVOICE)
+
+  expect(toasts).toEqual([])
+})
+
+test('speaks Spanish when the hub language is es', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  await say($, 'fix the login redirect after logout')
+  await write($, ...LOGIN)
+  await say($, INVOICE)
+
+  expect(toasts).toEqual(['Tema nuevo con 3 archivos en curso. ¿Dejarlo para después o hacer commit antes?'])
+})

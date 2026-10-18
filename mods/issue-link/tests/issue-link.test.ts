@@ -71,3 +71,67 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run('12'))).text).toBe('O PR #42 já fecha a #12.')
 })
+
+test('speaks Spanish when the hub is set to es, from the question to the answer', async ($, on) => {
+  const calls: string[] = []
+  const asked: string[] = []
+  on('process.run', world(calls))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('tool.call', { tool: 'AskUserQuestion' }, (_: unknown, e: any) => {
+    asked.push(e.questions[0].question)
+
+    return { result: { questions: e.questions, answers: { [e.questions[0].question]: 'sí' } } }
+  })
+
+  expect((await $.command.run(run('12'))).text).toBe('El PR #42 ahora cierra el #12 al fusionarse.')
+  expect(asked[0]).toBe('¿Agregar "Closes #12" (Login fails on Safari) al PR #42?')
+  expect((await $.command.run(run('x'))).text).toBe('Uso: /closes <número del issue>')
+})
+
+test('a reference to a longer issue number does not count as closing this one', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', world(calls, 'Closes #120'))
+  answer(on, () => 'yes')
+
+  expect((await $.command.run(run('12'))).text).toBe('PR #42 now closes #12 when it merges.')
+  expect(calls.at(-1)).toBe('gh pr edit 42 --body Closes #120\n\nCloses #12\n')
+})
+
+test('recognises every closing keyword, in any case', async ($, on) => {
+  let body = ''
+  on('process.run', (_: unknown, e: any) => (e.argv.join(' ').startsWith('gh pr view') ? done(0, JSON.stringify({ number: 42, body })) : done(0)))
+
+  for (const word of ['close', 'closed', 'fix', 'fixed', 'RESOLVES', 'resolved']) {
+    body = `${word} #7`
+    expect((await $.command.run(run('7'))).text, word).toBe('PR #42 already closes #7.')
+  }
+})
+
+test('an empty body gets only the closing line', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', world(calls, ''))
+  answer(on, () => 'yes')
+
+  await $.command.run(run('3'))
+  expect(calls.at(-1)).toBe('gh pr edit 42 --body Closes #3\n')
+})
+
+test('reports the first line of the gh error when the edit fails', async ($, on) => {
+  on('process.run', (_: unknown, e: any) => {
+    const call = e.argv.join(' ')
+
+    if (call.startsWith('gh pr view')) return done(0, JSON.stringify({ number: 42, body: 'x' }))
+    if (call.startsWith('gh issue view')) return done(0, '{"title":"t"}')
+
+    return done(1, '', 'HTTP 403: forbidden\nmore detail')
+  })
+  answer(on, () => 'yes')
+
+  expect((await $.command.run(run('5'))).text).toBe('gh failed: HTTP 403: forbidden')
+})
+
+test('says the gh line when there is no pull request on the branch', async ($, on) => {
+  on('process.run', () => done(1, '', 'no pull requests found'))
+
+  expect((await $.command.run(run('5'))).text).toContain('no pull request on this branch')
+})

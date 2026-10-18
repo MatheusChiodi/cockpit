@@ -84,3 +84,71 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run('nope'))).text).toContain('inexistente')
 })
+
+// A project at /work whose package.json reads `text` (or is missing when undefined).
+const manifest = (on: any, text: string | undefined | (() => string | undefined)) => {
+  const read = typeof text === 'function' ? text : () => text
+  on('session.root', () => ({ value: '/work' }))
+  on('env.get', () => ({ value: 'Linux' }))
+  on('fs.read', (_: unknown, e: { path: string }) => {
+    const held = read()
+
+    return held !== undefined && at(e.path, 'package.json') ? { value: held } : { deny: 'ENOENT' }
+  })
+  on('fs.exists', () => ({ value: false }))
+}
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  project(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('process.run', () => done(2))
+
+  expect((await $.command.run(run('nope'))).text).toBe('No existe el script "nope". Disponibles: test, build')
+  expect((await $.command.run(run('test'))).text).toBe('$ npm run test\n(sin salida)\nsalida 2')
+})
+
+test('says so when there is no package.json or it is not JSON', async ($, on) => {
+  let text: string | undefined
+  manifest(on, () => text)
+
+  expect((await $.command.run(run(''))).text).toBe('No package.json in this project.')
+  text = '{ broken'
+  expect((await $.command.run(run('test'))).text).toBe('No package.json in this project.')
+})
+
+test('says so when package.json declares no scripts', async ($, on) => {
+  manifest(on, JSON.stringify({ name: 'app' }))
+
+  expect((await $.command.run(run(''))).text).toBe('package.json has no scripts.')
+  expect((await $.command.run(run('test'))).text).toBe('No script "test". Available: ')
+})
+
+test('an inherited property name is not a script', async ($, on) => {
+  project(on)
+  let ran = 0
+  on('process.run', () => {
+    ran += 1
+
+    return done(0)
+  })
+
+  expect((await $.command.run(run('constructor'))).text).toContain('No script "constructor"')
+  expect(ran).toBe(0)
+})
+
+test('answers with the failure text when the package manager cannot start', async ($, on) => {
+  project(on, ['yarn.lock'])
+  on('process.run', () => {
+    throw new Error('spawn yarn ENOENT')
+  })
+
+  expect((await $.command.run(run('build'))).text).toBe('Could not run the package manager.')
+})
+
+test('picks bun from its lockfile, and shows the Portuguese exit line', async ($, on) => {
+  project(on, ['bun.lock'])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+  on('process.run', () => done(0, 'built\n\n'))
+
+  expect((await $.command.run(run('build'))).text).toBe('$ bun run build\nbuilt\nsaída 0')
+})

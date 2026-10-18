@@ -1,0 +1,13 @@
+{
+  "name": "bg-hint",
+  "version": "0.1.0",
+  "description": "Shows the run-in-background pill under a running tool call in Portuguese or Spanish, keeping your own key binding",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

@@ -82,3 +82,51 @@ test('speaks the language set in the hub', async ($, on) => {
   await edit($, '/src/a.ts', 'x', '// TODO\n// TODO')
   expect(status.at(-1)).toBe('todo +2 novos')
 })
+
+test('a refused or failed edit adds nothing', async ($, on) => {
+  const status: (string | undefined)[] = []
+  on('tool.call', { tool: 'Edit' }, (_: unknown, e: { file_path: string }) =>
+    e.file_path.endsWith('a.ts') ? { deny: 'blocked' } : ({ ...ANSWER, isError: true } as never),
+  )
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await edit($, '/src/a.ts', 'x', '// TODO')
+  await edit($, '/src/b.ts', 'x', '// TODO')
+  expect(status).toEqual([])
+})
+
+test('counts XXX but not names that only contain a marker', async ($, on) => {
+  const status = world(on)
+
+  await edit($, '/src/a.ts', 'x', 'const TODO_LIST = []\nconst FIXMEs = 1\n// XXX remove')
+  expect(status.at(-1)).toBe('todo +1 new')
+})
+
+test('a new session starts the count again and clears the entry', async ($, on) => {
+  const status = world(on)
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+
+  await edit($, '/src/a.ts', 'x', '// TODO')
+  expect(status.at(-1)).toBe('todo +1 new')
+
+  await $.session.start({ cwd: '/repo', surface: null, isInteractive: true })
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+
+  await edit($, '/src/a.ts', 'y', '// FIXME')
+  expect(status.at(-1)).toBe('todo +1 new')
+})
+
+test('speaks Spanish, singular and plural', async ($, on) => {
+  const status = world(on, {}, [], 'es')
+
+  await edit($, '/src/a.ts', 'x', '// TODO')
+  expect(status.at(-1)).toBe('todo +1 nuevo')
+
+  await edit($, '/src/b.ts', 'x', '// HACK')
+  expect(status.at(-1)).toBe('todo +2 nuevos')
+})

@@ -1,0 +1,13 @@
+{
+  "name": "transactional-private-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when a Java edit puts @Transactional on a private, static or final method, where Spring's proxy ignores it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

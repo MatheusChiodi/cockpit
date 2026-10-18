@@ -107,3 +107,54 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await has(ui, /cherry-pick em andamento/)).toBe(true)
   expect(await has(ui, /2 arquivos para resolver/)).toBe(true)
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  hub(on, [], 'es')
+  repo(on, 'UU a.ts\n', 'REVERT_HEAD')
+
+  const ui = await draw($)
+  expect(await has(ui, /CONFLICTO/)).toBe(true)
+  expect(await has(ui, /revert en curso/)).toBe(true)
+  expect(await has(ui, /1 archivo por resolver/)).toBe(true)
+})
+
+test('counts every unmerged status code and ignores the rest', async ($, on) => {
+  hub(on)
+  repo(on, 'DD a.ts\nAU b.ts\nUA c.ts\nDU d.ts\nUD e.ts\nA  f.ts\n?? g.ts\n D h.ts\n')
+
+  expect(await has(await draw($), /5 files to resolve/)).toBe(true)
+})
+
+test('hides while a survey takes the space above the prompt', async ($, on) => {
+  hub(on)
+  repo(on, 'UU a.ts\n', 'MERGE_HEAD')
+  await $.session.start(START)
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, hasSurvey: true } })
+  expect(await has(ui, /CONFLICT/)).toBe(false)
+})
+
+test('picks up a resolved conflict when the turn completes', async ($, on) => {
+  hub(on)
+  mock.clock(on)
+  const tree = { status: 'UU a.ts\n' }
+  on('turn.complete', (_, e) => ({ text: e.answer }))
+  on('process.run', (_, e) => (e.argv[1] === 'status' ? done(0, tree.status) : done(1)))
+
+  const ui = await draw($)
+  expect(await has(ui, /files in conflict/)).toBe(true)
+
+  tree.status = ' M a.ts\n'
+  await $.turn.complete({ answer: '', durationMs: 1, isAborted: false, turnId: 't-1', reason: 'answer' })
+  expect(await has(ui, /CONFLICT/)).toBe(false)
+})
+
+test('stays quiet when git cannot be run at all', async ($, on) => {
+  hub(on)
+  mock.clock(on)
+  on('process.run', () => {
+    throw new Error('git not found')
+  })
+
+  expect(await has(await draw($), /CONFLICT/)).toBe(false)
+})

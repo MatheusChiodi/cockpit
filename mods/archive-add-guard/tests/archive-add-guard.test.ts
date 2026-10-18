@@ -67,3 +67,47 @@ test('speaks the language set in the hub', async ($, on) => {
   const verdict = await $.tool.check(bash('git add release.zip'))
   expect(verdict.reason).toContain('archive-add-guard: git add de um binário ou arquivo compactado (release.zip)')
 })
+
+test('asks in PowerShell and inside a chained command', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('fs.stat', () => ({ value: { kind: 'file', size: 10, mtimeMs: 0, isLink: false } }))
+
+  expect((await $.tool.check({ tool: 'PowerShell', input: { command: 'git add setup.msi' } })).decision).toBe('ask')
+  expect((await $.tool.check(bash('cd out && git add video.MP4 && git status'))).decision).toBe('ask')
+})
+
+test('ignores other tools, files it cannot stat and a file of exactly 5 MB', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  let size = 5 * 1024 * 1024
+  let fails = false
+  on('fs.stat', () => {
+    if (fails) {
+      throw new Error('ENOENT')
+    }
+
+    return { value: { kind: 'file', size, mtimeMs: 0, isLink: false } }
+  })
+
+  expect((await $.tool.check({ tool: 'Write', input: { file_path: 'a.sh', content: 'git add release.zip' } })).decision).toBe('allow')
+  expect((await $.tool.check(bash('git add data.json'))).decision).toBe('allow')
+  fails = true
+  size = 50 * 1024 * 1024
+  expect((await $.tool.check(bash('git add missing.json'))).decision).toBe('allow')
+})
+
+test('keeps an ask from beneath as it is', async ($, on) => {
+  on('tool.check', () => ({ decision: 'ask', reason: 'beneath' }))
+
+  expect(await $.tool.check(bash('git add release.zip'))).toEqual({ decision: 'ask', reason: 'beneath' })
+})
+
+test('speaks Spanish from the hub', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('fs.stat', () => ({ value: { kind: 'file', size: 7.5 * 1024 * 1024, mtimeMs: 0, isLink: false } }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const verdict = await $.tool.check(bash('git add model.bin'))
+  expect(verdict.reason).toBe(
+    'archive-add-guard: git add de model.bin, 7.5 MB. Queda en el historial para siempre y pesa en cada clon; ignóralo en .gitignore o usa Git LFS o un asset de release.',
+  )
+})

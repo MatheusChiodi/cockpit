@@ -89,3 +89,70 @@ test('says failed on an errored row', async ($, on) => {
   expect(await ui.find({ type: 'Text', text: /failed/ })).toBeDefined()
   await ui.unmount()
 })
+
+const slowBash = (on: On, clock: { sleep: (ms: number) => Promise<void> }, ms: number) =>
+  on('tool.call', { tool: 'Bash' }, async () => {
+    await clock.sleep(ms)
+
+    return { result: { stdout: '', stderr: '', interrupted: false } }
+  })
+
+test('shows minutes and seconds past a minute', async ($, on) => {
+  const clock = mock.clock(on)
+  bottom(on)
+  slowBash(on, clock, 125000)
+
+  const call = $.tool.call({ tool: 'Bash', command: 'npm ci', tool_use_id: 'm1' })
+  await clock.advance(125000)
+  await call
+
+  const ui = await $.ui.mount({ ...row('m1'), surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /2m 5s/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('leaves a running row and an unknown row untouched', async ($, on) => {
+  const clock = mock.clock(on)
+  bottom(on)
+  slowBash(on, clock, 5000)
+
+  const call = $.tool.call({ tool: 'Bash', command: 'sleep 5', tool_use_id: 'r1' })
+  await clock.advance(5000)
+  await call
+
+  const running = await $.ui.mount({ ...row('r1'), props: { ...row('r1').props, isRunning: true }, surface: 'terminal' })
+  expect(await running.find({ type: 'Text', text: /5\.0s/ })).toBeUndefined()
+  await running.unmount()
+
+  const unknown = await $.ui.mount({ ...row('never-ran', 'Bash', true), surface: 'terminal' })
+  expect(await unknown.find({ type: 'Text', text: /failed/ })).toBeUndefined()
+  await unknown.unmount()
+})
+
+test('a quick failed call says failed without a time', async ($, on) => {
+  mock.clock(on)
+  bottom(on)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await $.tool.call({ tool: 'Bash', command: 'false', tool_use_id: 'q1' })
+  const ui = await $.ui.mount({ ...row('q1', 'Bash', true), surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /failed/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /\d+ms/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('a slow subagent call shows both, in Spanish', async ($, on) => {
+  const clock = mock.clock(on)
+  bottom(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  slowBash(on, clock, 2500)
+
+  const call = $.tool.call({ tool: 'Bash', command: 'make', tool_use_id: 's1', agentId: 'a1' } as never)
+  await clock.advance(2500)
+  await call
+
+  const ui = await $.ui.mount({ ...row('s1', 'Bash', true), surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /2\.5s {2}subagente/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /falló/ })).toBeDefined()
+  await ui.unmount()
+})

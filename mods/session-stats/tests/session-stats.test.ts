@@ -72,3 +72,51 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(text).toContain('Contexto    42% de 200.000 tokens')
   expect(text).toContain('Custo       US$ 1.23')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  world(on, false)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const text = (await $.command.run(STATS)).text ?? ''
+  expect(text).toContain('Sesión      1h30 en /work/app')
+  expect(text).toContain('Tools       0 (0 con error o bloqueadas)')
+  expect(text).toContain('Salida      0 tokens')
+  expect(text).toContain('Coste       n/d')
+})
+
+test('shows minutes under an hour and pads the minutes past one', async ($, on) => {
+  const clock = mock.clock(on, { now: 25 * 60000 })
+  on('session.usage', () => ({ value: { startedAt: 0, context: { window: 200000, percent: 1, tokens: 2000 }, rateLimits: [], cost: undefined } }))
+  on('session.turns', () => ({ value: 0 }))
+  on('session.model', () => ({ value: 'claude-test' }))
+  on('session.cwd', () => ({ value: '/w' }))
+
+  expect((await $.command.run(STATS)).text).toContain('Session     25min in /w')
+
+  await clock.set(125 * 60000)
+  expect((await $.command.run(STATS)).text).toContain('Session     2h05 in /w')
+})
+
+test('counts a tool that errored as failed, and a turn with no usage as no tokens', async ($, on) => {
+  world(on)
+  on('tool.call', { tool: 'Bash' }, () => ({ isError: true, result: 'boom' }))
+
+  await $.tool.call({ tool: 'Bash', command: 'false', tool_use_id: 'x' })
+  await $.turn.complete({ answer: '', durationMs: 1, isAborted: false, turnId: 't2', reason: 'answer' })
+
+  const text = (await $.command.run(STATS)).text ?? ''
+  expect(text).toContain('Tools       1 (1 failed or blocked)')
+  expect(text).toContain('Output      0 tokens')
+})
+
+test('shows 0% when the context percent is unknown', async ($, on) => {
+  mock.clock(on, { now: 0 })
+  on('session.usage', () => ({ value: { startedAt: 0, context: { window: 1000000, percent: null, tokens: 0 }, rateLimits: [], cost: { usd: 0 } } }) as never)
+  on('session.turns', () => ({ value: 0 }))
+  on('session.model', () => ({ value: 'claude-test' }))
+  on('session.cwd', () => ({ value: '/w' }))
+
+  const text = (await $.command.run(STATS)).text ?? ''
+  expect(text).toContain('Context     0% of 1,000,000 tokens')
+  expect(text).toContain('Cost        $0.00')
+})

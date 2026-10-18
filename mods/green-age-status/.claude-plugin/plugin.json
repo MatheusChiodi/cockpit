@@ -1,0 +1,16 @@
+{
+  "name": "green-age-status",
+  "version": "0.1.0",
+  "description": "Status line with how long ago the tests last passed and how many edits Claude has made since",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "dependencies": [
+    "cockpit"
+  ]
+}

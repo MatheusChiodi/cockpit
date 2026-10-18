@@ -40,3 +40,66 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await $.tool.call({ tool: 'Bash', command: 'git commit -m "x"', tool_use_id: 'pt' })
   expect(answer.deny).toContain('marcadores de conflito sem resolver')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('process.run', () => done('src/a.ts\n'))
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await $.tool.call({ tool: 'Bash', command: 'git commit -m "x"', tool_use_id: 'es' })
+  expect(answer.deny).toBe(
+    'marker-guard rechazó el commit: marcadores de conflicto sin resolver en src/a.ts. Resuélvelos, haz el stage de nuevo y commitea.',
+  )
+})
+
+test('names five files and counts the rest', async ($, on) => {
+  on('process.run', () => done(Array.from({ length: 8 }, (_, i) => `f${i}.ts`).join('\n')))
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+
+  const answer = await $.tool.call({ tool: 'Bash', command: 'git commit -m "x"', tool_use_id: 'n1' })
+  expect(answer.deny).toContain('in f0.ts, f1.ts, f2.ts, f3.ts, f4.ts (+3).')
+})
+
+test('reads the whole tree for --all and guards PowerShell too', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', (_, e) => {
+    calls.push(e.argv.slice(2).join(' '))
+
+    return done('a.ts\n')
+  })
+  on('tool.call', { tool: 'PowerShell' }, () => ANSWER as never)
+
+  const answer = await $.tool.call({ tool: 'PowerShell', command: 'git commit --all -m "x"', tool_use_id: 'ps1' })
+  expect(answer.deny).toContain('marker-guard refused the commit')
+  expect(calls).toEqual(['diff HEAD --name-only -G^(<<<<<<< |>>>>>>> )'])
+})
+
+test('lets the commit through when git diff fails', async ($, on) => {
+  let ran = 0
+  on('process.run', () => done('a.ts\n', 128))
+  on('tool.call', { tool: 'Bash' }, () => {
+    ran += 1
+
+    return ANSWER
+  })
+
+  const answer = await $.tool.call({ tool: 'Bash', command: 'git commit -m "x"', tool_use_id: 'g1' })
+  expect(answer.deny).toBeUndefined()
+  expect(ran).toBe(1)
+})
+
+test('refuses with the fallback reason when git cannot be run', async ($, on) => {
+  let ran = 0
+  on('process.run', () => {
+    throw new Error('spawn git ENOENT')
+  })
+  on('tool.call', { tool: 'Bash' }, () => {
+    ran += 1
+
+    return ANSWER
+  })
+
+  const answer = await $.tool.call({ tool: 'Bash', command: 'git commit -m "x"', tool_use_id: 'g2' })
+  expect(answer.deny).toBe('marker-guard: the check failed, command refused.')
+  expect(ran).toBe(0)
+})

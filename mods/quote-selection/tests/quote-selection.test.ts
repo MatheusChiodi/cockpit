@@ -45,3 +45,51 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(QUOTE)).text).toContain('Nada selecionado')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  let isFilled = true
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('ui.selection', () => ({ value: { text: 'x' } }))
+  on('prompt.fill', () => ({ isFilled }))
+
+  expect((await $.command.run(QUOTE)).text).toBe('Selección citada en el prompt.')
+  isFilled = false
+  expect((await $.command.run(QUOTE)).text).toBe('No se pudo escribir en el prompt ahora.')
+})
+
+test('speaks Portuguese when the quote lands and when it fails', async ($, on) => {
+  let isFilled = true
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => PT)
+  on('ui.selection', () => ({ value: { text: 'x' } }))
+  on('prompt.fill', () => ({ isFilled }))
+
+  expect((await $.command.run(QUOTE)).text).toBe('Seleção citada no prompt.')
+  isFilled = false
+  expect((await $.command.run(QUOTE)).text).toBe('Não foi possível escrever no prompt agora.')
+})
+
+test('quotes blank lines inside the selection too', async ($, on) => {
+  const filled: string[] = []
+  on('ui.selection', () => ({ value: { text: 'one\n\nthree' } }))
+  on('prompt.fill', ($, e) => {
+    filled.push(e.text)
+
+    return { isFilled: true }
+  })
+
+  await $.command.run(QUOTE)
+  expect(filled).toEqual(['> one\n> \n> three\n\n'])
+})
+
+test('does not touch the prompt when nothing is selected', async ($, on) => {
+  let fills = 0
+  on('ui.selection', () => ({ value: { text: '' } }))
+  on('prompt.fill', () => {
+    fills += 1
+
+    return { isFilled: true }
+  })
+
+  await $.command.run(QUOTE)
+  expect(fills).toBe(0)
+})

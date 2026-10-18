@@ -67,3 +67,64 @@ test('speaks the language set in the hub', async ($, on) => {
   expect((await $.command.run(run('note', 'x'))).text).toBe('Nota 1 salva.')
   expect((await $.command.run(run('notes', 'rm 9'))).text).toBe('Nota inexistente: 9')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ES)
+
+  expect((await $.command.run(run('notes', ''))).text).toBe('Todavía no hay notas en este proyecto. Añade una con /note <texto>.')
+  expect((await $.command.run(run('note', 'llamar a Ana'))).text).toBe('Nota 1 guardada.')
+  expect((await $.command.run(run('notes', 'rm 1'))).text).toBe('Nota 1 borrada.')
+  expect((await $.command.run(run('notes', 'rm 1'))).text).toBe('No existe la nota: 1')
+  expect((await $.command.run(run('notes', 'clear'))).text).toBe('0 nota(s) borrada(s).')
+})
+
+test('dates each note in the format of the language', async ($, on) => {
+  world(on)
+  const lang = { value: 'en' }
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang.value as 'en', version: 1 } }))
+
+  await $.command.run(run('note', 'ship it'))
+  const day = new Date(Date.UTC(2026, 5, 15, 12))
+
+  for (const [code, locale] of [['en', 'en-US'], ['pt', 'pt-BR'], ['es', 'es-ES']] as const) {
+    lang.value = code
+    expect((await $.command.run(run('notes', ''))).text, code).toBe(`1. ship it  (${day.toLocaleDateString(locale)})`)
+  }
+})
+
+test('takes up the notes a previous session left in the store', async ($, on) => {
+  mock.store(on, { 'notes:/proj': [{ text: 'from yesterday', at: Date.UTC(2026, 5, 14, 12) }] })
+  mock.clock(on, { now: Date.UTC(2026, 5, 15, 12) })
+  on('session.root', () => ({ value: '/proj' }))
+
+  expect((await $.command.run(run('notes', ''))).text).toContain('1. from yesterday')
+  expect((await $.command.run(run('note', 'today'))).text).toBe('Note 2 saved.')
+})
+
+test('ignores a store entry that is not a list', async ($, on) => {
+  mock.store(on, { 'notes:/proj': 'garbage' })
+  mock.clock(on)
+  on('session.root', () => ({ value: '/proj' }))
+
+  expect((await $.command.run(run('notes', ''))).text).toContain('No notes in this project yet')
+  expect((await $.command.run(run('notes', 'rm 0'))).text).toBe('No such note: 0')
+})
+
+test('registers both commands in the language set in the hub', async ($, on) => {
+  world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => PT)
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  const registered: string[] = []
+  on('command.register', (_$, e) => {
+    registered.push(`${e.name}: ${e.description}`)
+
+    return { value: { command: e.name } }
+  })
+
+  await $.session.start({ cwd: '/proj', surface: null, isInteractive: true })
+  expect(registered).toEqual([
+    'note: Salva uma nota rápida neste projeto (persistente entre sessões)',
+    'notes: Lista as notas do projeto; /notes rm <n> remove uma; /notes clear apaga todas',
+  ])
+})

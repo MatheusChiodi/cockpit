@@ -104,3 +104,43 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(status[0]).toBe('testes …')
   expect(status.at(-1)).toMatch(new RegExp(`^testes ✓ ${TIME} · 1\\.2s$`))
 })
+
+test('recognises the other runners it lists', async ($, on) => {
+  const { clock, status } = world(on)
+  shell(on, clock, 10)
+
+  for (const command of ['pnpm run test', 'bun test', 'npx jest --watch=false', 'mocha spec', 'npx playwright test', 'cypress run', 'gradle test', 'mvn test', 'deno test', 'ava']) {
+    status.length = 0
+    await bash($, command)
+    expect(status[0], command).toBe('tests …')
+  }
+})
+
+test('ignores commands that only mention a test word', async ($, on) => {
+  const { clock, status } = world(on)
+  shell(on, clock, 10)
+
+  for (const command of ['npm install testing-library', 'cat test.log', 'mkdir tests', 'npm run lint', 'echo jestful']) {
+    await bash($, command)
+  }
+
+  expect(status).toEqual([])
+})
+
+test('passes the result from beneath through unchanged', async ($, on) => {
+  const { clock } = world(on)
+  shell(on, clock, 10, true)
+
+  const ran = await bash($, 'npm test')
+  expect(ran.isError).toBe(true)
+  expect(ran.text).toBe('boom')
+})
+
+test('speaks Spanish when the hub is set to es, with a 24-hour clock', async ($, on) => {
+  const { clock, status } = world(on, [], 'es')
+  shell(on, clock, 2500, true)
+
+  await bash($, 'npm test')
+  expect(status[0]).toBe('tests …')
+  expect(status.at(-1)).toMatch(/^tests ✗ \d{2}:\d{2} · 2\.5s$/)
+})

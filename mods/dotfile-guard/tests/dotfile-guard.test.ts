@@ -54,3 +54,52 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await $.tool.call({ tool: 'Edit', file_path: '~/.bashrc', old_string: 'a', new_string: 'b', tool_use_id: 'pt-1' })
   expect(answer.deny).toContain('dotfile-guard bloqueou a edição: ~/.bashrc')
 })
+
+const editOf = (file_path: string) =>
+  ({ tool: 'Edit', file_path, old_string: 'a', new_string: 'b', tool_use_id: `x-${file_path}` }) as const
+
+test('knows the home in every spelling, in any letter case', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  for (const file_path of [
+    '$HOME/.profile',
+    '${HOME}/.zshenv',
+    '$env:USERPROFILE/.gitconfig',
+    '%USERPROFILE%/.bash_profile',
+    '/root/.bashrc',
+    '/mnt/c/Users/ana/.zprofile',
+    '/c/Users/ana/.bash_login',
+    'd:/users/ana/.GITCONFIG',
+    '~/.BASHRC',
+    '$PROFILE',
+  ]) {
+    expect((await $.tool.call(editOf(file_path))).deny, file_path).toContain('dotfile-guard blocked the edit')
+  }
+})
+
+test('lets other files of the home and lookalike names through', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  for (const file_path of ['~/.ssh/known_hosts', '~/.bashrc.bak', '~/notes/.zshrc', '~/.config/git/config', '/home/ana/.npmrc']) {
+    expect((await $.tool.call(editOf(file_path))).deny, file_path).toBeUndefined()
+  }
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  on('tool.call', { tool: 'Write' }, () => ANSWER)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await $.tool.call({ tool: 'Write', file_path: '~/.zshrc', content: 'x', tool_use_id: 'es-1' })
+  expect(answer.deny).toBe(
+    'dotfile-guard bloqueó la edición: ~/.zshrc es un perfil personal de shell o herramienta fuera del proyecto. Si de verdad es intencional, pide al usuario que lo edite a mano.',
+  )
+})
+
+test('the denial names the path as it was typed', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  const answer = await $.tool.call(editOf('/home/ana/.gitconfig'))
+  expect(answer.deny).toBe(
+    'dotfile-guard blocked the edit: /home/ana/.gitconfig is a personal shell or tool profile outside the project. If it really is intended, ask the user to edit it by hand.',
+  )
+})

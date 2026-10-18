@@ -108,3 +108,77 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await ui.find({ type: 'Text', text: /COMPACTAR/ })).toBeDefined()
   await ui.unmount()
 })
+
+test('shows at exactly 75% and hides again when the context drops', async ($, on) => {
+  world(on)
+  await $.session.measure(measure(75))
+
+  const at = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await at.find({ type: 'Text', text: /75%/ })).toBeDefined()
+  await at.unmount()
+
+  await $.session.measure(measure(20))
+  const after = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await after.find({ type: 'Text', text: /COMPACT/ })).toBeUndefined()
+  await after.unmount()
+})
+
+test('reads a measure without a percent as an empty context', async ($, on) => {
+  world(on)
+  await $.session.measure(measure(90))
+  await $.session.measure({ context: { window: 200000 }, rateLimits: [], changed: ['context'] })
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /COMPACT/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('says it could not compact when compacting throws', async ($, on) => {
+  const toasts = world(on)
+  on('session.compact', () => {
+    throw new Error('turn in progress')
+  })
+  await $.session.measure(measure(90))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  await ui.press({ key: 'compact' })
+
+  expect(toasts).toEqual(["Couldn't compact right now (turn in progress?)."])
+  await ui.unmount()
+})
+
+test('hides while a survey is open', async ($, on) => {
+  world(on)
+  await $.session.measure(measure(90))
+
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await ui.find({ key: 'compact' })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('speaks Spanish in the band and the toasts, and Portuguese in the toasts', async ($, on) => {
+  const toasts = world(on)
+  let lang = 'es'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+  let veto = false
+  on('session.compact', () => (veto ? { skip: 'vetoed' } : { messages: [{ role: 'user' as const, text: 'summary', toolUses: [] }] }))
+  await $.session.measure(measure(88))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /contexto casi lleno/ })).toBeDefined()
+  await ui.press({ key: 'compact' })
+  veto = true
+  await ui.press({ key: 'compact' })
+  lang = 'pt'
+  await ui.press({ key: 'compact' })
+  veto = false
+  await ui.press({ key: 'compact' })
+  await ui.unmount()
+
+  expect(toasts).toEqual([
+    'Conversación compactada.',
+    'No se pudo compactar ahora (¿turno en curso?).',
+    'Não deu para compactar agora (turno em andamento?).',
+    'Conversa compactada.',
+  ])
+})

@@ -1,0 +1,16 @@
+{
+  "name": "explore-status",
+  "version": "0.1.0",
+  "description": "Status line with the reads against the edits of the turn, saying whether Claude is still exploring or already changing code",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "dependencies": [
+    "cockpit"
+  ]
+}

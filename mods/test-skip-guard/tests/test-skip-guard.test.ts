@@ -68,3 +68,54 @@ test('speaks the language set in the hub', async ($, on) => {
   })
   expect(answer.deny).toContain('test-skip-guard bloqueou a edição')
 })
+
+const edit = ($: any, file_path: string, old_string: string, new_string: string) =>
+  $.tool.call({ tool: 'Edit', file_path, old_string, new_string, tool_use_id: `e-${file_path}-${new_string}` })
+
+test('names the marker that was added', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  const CASES: [string, string, string][] = [
+    ['a.test.tsx', "test.only('a', () => {})", '".only("'],
+    ['a.test.mjs', "xtest('a', () => {})", '"xit("'],
+    ['a.spec.cts', "fit('a', () => {})", '"fit("'],
+    ['ATest.scala', '@Ignore def works = ()', '"@Ignore"'],
+    ['ATest.cs', '@Disabled void works() {}', '"@Disabled"'],
+  ]
+
+  for (const [file, text, marker] of CASES) {
+    expect((await edit($, file, 'x', text)).deny, text).toBe(`test-skip-guard blocked the edit: it adds ${marker}. A skipped or focused test hides failures; fix the test instead.`)
+  }
+})
+
+test('refuses a second marker of a kind the old text already had', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  const answer = await edit($, 'a.test.ts', "it.only('a', () => {})", "it.only('a', () => {})\nit.only('b', () => {})")
+  expect(answer.deny).toContain('".only("')
+})
+
+test('lets markers in files of other languages through', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+  on('tool.call', { tool: 'Write' }, () => ANSWER)
+
+  expect((await edit($, 'README.md', 'x', '@Ignore and @Disabled')).deny).toBeUndefined()
+  expect((await edit($, 'test_a.py', 'x', "it.skip('a')")).deny).toBeUndefined()
+  expect((await $.tool.call({ tool: 'Write', file_path: 'config.yaml', content: "xit('a')", tool_use_id: 'w-yaml' })).deny).toBeUndefined()
+})
+
+test('lets names that merely end in it or fit through', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  for (const text of ['submit(form)', 'outfit(x)', 'obj.xit(1)', 'retrofit(a)']) {
+    expect((await edit($, 'a.test.ts', 'x', text)).deny, text).toBeUndefined()
+  }
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.call', { tool: 'Write' }, () => ANSWER)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await $.tool.call({ tool: 'Write', file_path: 'test_a.py', content: '@pytest.mark.skip\ndef test_a(): pass', tool_use_id: 'w-es' })
+  expect(answer.deny).toBe('test-skip-guard bloqueó la edición: añade "@pytest.mark.skip". Un test omitido o enfocado oculta fallos; corrige el test.')
+})

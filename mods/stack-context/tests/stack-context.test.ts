@@ -67,3 +67,37 @@ test('survives an invalid package.json and still reads the marker files', async 
   const sections = await composed($)
   expect(sections[0]!.text).toContain('Rust')
 })
+
+test('names a stack once even when two marker files point to it', async ($, on) => {
+  project(on, { 'requirements.txt': 'flask', 'pyproject.toml': '[project]' })
+
+  const sections = await composed($)
+  expect(sections[0]!.text).toBe(
+    "# This project's stack\nPython.\nUse the patterns and APIs of these tools; do not propose changing the stack unless asked.",
+  )
+})
+
+test('lists dependencies in a fixed order, then the marker files', async ($, on) => {
+  project(on, {
+    'package.json': JSON.stringify({ devDependencies: { jest: '29', '@nestjs/core': '10', prisma: '5' } }),
+    'go.mod': 'module x',
+  })
+
+  expect((await composed($))[0]!.text).toContain('\nNestJS, Prisma, Jest, Go.\n')
+})
+
+test('reads the marker files when there is no package.json', async ($, on) => {
+  const fileOf = (path: string) => path.replaceAll('/', '|').split('|').pop() ?? ''
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.exists', (_: unknown, e: { path: string }) => ({ value: ['build.gradle', 'app.json'].some(name => e.path.endsWith(name)) }))
+  on('fs.read', (_: unknown, e: { path: string }) => (fileOf(e.path).endsWith('package.json') ? { deny: 'ENOENT' } : { value: '' }))
+  on('prompt.compose', () => ({ sections: [] }))
+
+  expect((await composed($))[0]!.text).toContain('\nJava/Kotlin (Gradle), Expo (app.json).\n')
+})
+
+test('a package.json without known dependencies adds nothing and keeps the sections beneath', async ($, on) => {
+  project(on, { 'package.json': JSON.stringify({ dependencies: { lodash: '4' } }) }, [{ id: 'other', text: 'kept', scope: 'session' }])
+
+  expect((await composed($)).map(section => section.id)).toEqual(['other'])
+})

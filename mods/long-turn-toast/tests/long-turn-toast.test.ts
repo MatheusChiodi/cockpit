@@ -83,3 +83,53 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['Este turno levou 8m 00s, em geral cerca de 1m 00s. Ainda no rumo?'])
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  await usual($)
+  await finish($, 5 * MINUTE + 7 * SECOND)
+
+  expect(toasts).toEqual(['Este turno tardó 5m 07s, normalmente unos 1m 00s. ¿Sigue en rumbo?'])
+})
+
+test('two minutes is enough when the usual turn is short', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  for (const seconds of [20, 30, 40, 30, 25]) {
+    await finish($, seconds * SECOND)
+  }
+  await finish($, 2 * MINUTE)
+
+  expect(toasts).toEqual(['This turn took 2m 00s, usually about 30s. Still on track?'])
+})
+
+test('averages the two middle turns of an even history', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  for (const seconds of [10, 20, 40, 50, 60, 70]) {
+    await finish($, seconds * SECOND)
+  }
+  await finish($, 10 * MINUTE)
+
+  expect(toasts).toEqual(['This turn took 10m 00s, usually about 45s. Still on track?'])
+})
+
+test('a new session starts the history over', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await usual($)
+  await $.session.start(START)
+  await finish($, 9 * MINUTE)
+
+  expect(toasts).toEqual([])
+})

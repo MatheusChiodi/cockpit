@@ -78,3 +78,50 @@ test('shows nothing while the hub lists it as off', async ($, on) => {
   expect(status.length).toBeGreaterThan(0)
   expect(status.every(text => text === undefined)).toBe(true)
 })
+
+test('asks git for whole words of the three tags, binary files left out', async ($, on) => {
+  const grep = { exitCode: 0, tags: ['TODO'], argv: [] as string[] }
+  world(on, grep)
+
+  await $.session.start(START)
+  await settle()
+  expect(grep.argv).toEqual(['git', 'grep', '-I', '-o', '-h', '-w', '-E', 'TODO|FIXME|HACK'])
+})
+
+test('counts only lines that are exactly a tag', async ($, on) => {
+  const grep = { exitCode: 0, tags: ['TODO', 'todo', 'TODO ', 'XXX', 'HACK'], argv: [] as string[] }
+  const status = world(on, grep)
+
+  await $.session.start(START)
+  await settle()
+  expect(status.at(-1)).toBe('todo 1 · hack 1')
+})
+
+test('shows nothing when git cannot start', async ($, on) => {
+  const status: (string | undefined)[] = []
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('process.run', () => ({ deny: 'spawn git ENOENT' }))
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.session.start(START)
+  await settle()
+  expect(status).toEqual([undefined])
+})
+
+test('hides on the next turn once the hub switches it off', async ($, on) => {
+  const off: string[] = []
+  const status = world(on, { exitCode: 0, tags: ['FIXME'], argv: [] }, off)
+
+  await $.session.start(START)
+  await settle()
+  expect(status.at(-1)).toBe('fixme 1')
+
+  off.push('todo-count-status')
+  await $.turn.complete(TURN)
+  await settle()
+  expect(status.at(-1)).toBeUndefined()
+})

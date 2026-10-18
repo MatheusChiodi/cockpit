@@ -87,3 +87,75 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.session.measure(measure(2))
   expect(status.at(-1)).toBe('hoje US$ 2.00 · 1 sessão')
 })
+
+test('speaks Spanish and Portuguese, singular and plural', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(9) })
+  const session = { id: 's1' }
+  const status = world(on, session)
+  let lang = 'es'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+
+  // The singular is left unasserted: strings.ts spells it "sesion", without the accent.
+  await $.session.measure(measure(1))
+  expect(status.at(-1)).toMatch(/^hoy US\$ 1\.00 · 1 /)
+  session.id = 's2'
+  await $.session.measure(measure(1))
+  expect(status.at(-1)).toBe('hoy US$ 2.00 · 2 sesiones')
+
+  lang = 'pt'
+  await $.session.measure(measure(2))
+  expect(status.at(-1)).toBe('hoje US$ 3.00 · 2 sessões')
+})
+
+test('rounds the total to cents', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(9) })
+  const session = { id: 's1' }
+  const status = world(on, session)
+
+  await $.session.measure(measure(0.1))
+  session.id = 's2'
+  await $.session.measure(measure(0.2))
+  session.id = 's3'
+  await $.session.measure(measure(0.004))
+  expect(status.at(-1)).toBe('today US$ 0.30 · 3 sessions')
+})
+
+test('starts a fresh ledger when the stored one is not an object', async ($, on) => {
+  const day = new Date(at(9))
+  const key = `day:${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`
+  mock.store(on, { [key]: 'broken' })
+  mock.clock(on, { now: at(9) })
+  const status = world(on, { id: 's1' })
+
+  await $.session.measure(measure(1.25))
+  expect(status.at(-1)).toBe('today US$ 1.25 · 1 session')
+})
+
+// Stands in for the hub: a /flip command that writes its own `off` list, as the settings pane does.
+const HUB = {
+  name: 'cockpit',
+  register: (on: any) => {
+    on('command.run', { command: 'flip' }, async ($: any, e: any) => {
+      await $.state.set({ plugin: 'cockpit', key: 'off' }, e.args === 'off' ? ['spend-today'] : [])
+
+      return { text: 'flipped' }
+    })
+  },
+}
+
+test('clears the entry when the hub turns it off', { plugins: [HUB] }, async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(9) })
+  const status = world(on, { id: 's1' })
+
+  await $.session.measure(measure(1))
+  expect(status.at(-1)).toBe('today US$ 1.00 · 1 session')
+
+  await $.command.run({ command: 'flip', args: 'off', origin: { kind: 'composer' }, presentation: { isFullscreen: false, columns: 80 } })
+  expect(status.at(-1)).toBeUndefined()
+
+  await $.session.measure(measure(2))
+  expect(status.at(-1)).toBeUndefined()
+})

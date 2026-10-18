@@ -71,3 +71,69 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(verdict.decision).toBe('ask')
   expect(verdict.reason).toContain('fixa uma dependência em uma URL git ou tarball (package.json)')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command: 'npm i http://example.com/lib.tgz' } })
+  expect(verdict.reason).toBe(
+    'dep-source-guard: descarga una dependencia por http plano (npm i http://example.com/lib.tgz). La descarga puede ser alterada en tránsito; usa una fuente https.',
+  )
+})
+
+test('covers Cargo git dependencies, pip editable installs and PowerShell', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const cargo = await $.tool.check({
+    tool: 'Edit',
+    input: { file_path: 'Cargo.toml', old_string: '', new_string: 'serde = { git = "https://github.com/serde-rs/serde" }' },
+  })
+  expect(cargo.reason).toContain('pins a dependency to a git URL or tarball (Cargo.toml)')
+
+  const pip = await $.tool.check({ tool: 'Bash', input: { command: 'pip3 install -e git+https://github.com/org/lib.git#egg=lib' } })
+  expect(pip.decision).toBe('ask')
+
+  const ps = await $.tool.check({ tool: 'PowerShell', input: { command: 'yarn add git@github.com:me/x.git' } })
+  expect(ps.decision).toBe('ask')
+})
+
+test('skips comments and homepage lines in Python and Rust manifests', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const [file_path, content] of [
+    ['requirements.txt', '# git+https://github.com/org/lib.git'],
+    ['pyproject.toml', 'homepage = "http://example.com"'],
+    ['Cargo.toml', 'repository = "https://github.com/me/crate"'],
+  ] as const) {
+    expect((await $.tool.check({ tool: 'Write', input: { file_path, content } })).decision, content).toBe('allow')
+  }
+})
+
+test('names at most 60 characters of the command', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  const command = `npm install github:someone/${'x'.repeat(80)}`
+
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command } })
+  expect(verdict.reason).toContain(`(${command.slice(0, 60)})`)
+  expect(verdict.reason).not.toContain(command)
+})
+
+test('leaves other tools and an existing ask untouched', async ($, on) => {
+  on('tool.check', () => ({ decision: 'ask', reason: 'asked beneath' }))
+
+  const read = await $.tool.check({ tool: 'Read', input: { file_path: 'package.json' } })
+  expect(read).toMatchObject({ decision: 'ask', reason: 'asked beneath' })
+
+  const { tool, input } = ASKED[0] as Call
+  expect(await $.tool.check({ tool, input })).toMatchObject({ decision: 'ask', reason: 'asked beneath' })
+})
+
+test('asks with the failure text when the check itself fails', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ deny: 'state unavailable' }))
+
+  const { tool, input } = ASKED[0] as Call
+  const verdict = await $.tool.check({ tool, input })
+  expect(verdict).toMatchObject({ decision: 'ask', reason: 'dep-source-guard: the check failed, confirm before continuing.' })
+})

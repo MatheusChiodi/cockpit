@@ -1,0 +1,13 @@
+{
+  "name": "build-result-status",
+  "version": "0.1.0",
+  "description": "Keeps the last mvn or gradle run in the status line: pass or fail, time, tests run and failures",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

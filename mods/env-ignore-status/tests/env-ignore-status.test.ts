@@ -13,8 +13,10 @@ const done = (exitCode: number, stdout = '') => ({
 
 type Repo = { env: string[]; tracked: string[]; ignored: string[]; isRepo?: boolean }
 
+const last: { clock?: ReturnType<typeof mock.clock> } = {}
+
 const world = (on: any, repo: Repo, off: string[] = [], lang = 'en') => {
-  mock.clock(on)
+  last.clock = mock.clock(on)
   const status: (string | undefined)[] = []
   const key = (path: string) => path.replaceAll('\\', '/').replace(/^.*\/repo\//, '')
 
@@ -98,4 +100,73 @@ test('speaks the language set in the hub', async ($, on) => {
 
   await started($)
   expect(status.at(-1)).toBe('env ✗ .env fora do .gitignore')
+})
+
+test('leaves .env.example out: it is meant to be committed', async ($, on) => {
+  const status = world(on, { env: ['.env.example'], tracked: ['.env.example'], ignored: [] })
+
+  await started($)
+  expect(status).toEqual([])
+})
+
+test('looks again after a git command and clears the warning once the file is ignored', async ($, on) => {
+  const repo: Repo = { env: ['.env.local'], tracked: [], ignored: [] }
+  const status = world(on, repo)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await started($)
+  expect(status.at(-1)).toBe('env ✗ .env.local not ignored')
+
+  repo.ignored.push('.env.local')
+  await $.tool.call({ tool: 'Bash', command: 'git rm --cached .env.local', tool_use_id: 'b-1' })
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('looks again after .gitignore is written', async ($, on) => {
+  const repo: Repo = { env: ['.env'], tracked: [], ignored: [] }
+  const status = world(on, repo)
+  on('tool.call', { tool: 'Write' }, () => ({ result: undefined as never }))
+
+  await started($)
+  repo.ignored.push('.env')
+  await $.tool.call({ tool: 'Write', file_path: '/repo/.gitignore', content: '.env\n', tool_use_id: 'w-1' })
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('writing an unrelated file does not look again', async ($, on) => {
+  const repo: Repo = { env: ['.env'], tracked: [], ignored: [] }
+  const status = world(on, repo)
+  on('tool.call', { tool: 'Write' }, () => ({ result: undefined as never }))
+
+  await started($)
+  const before = status.length
+  repo.ignored.push('.env')
+  await $.tool.call({ tool: 'Write', file_path: '/repo/src/app.ts', content: 'x', tool_use_id: 'w-2' })
+  await flush()
+  expect(status.length).toBe(before)
+  expect(status.at(-1)).toBe('env ✗ .env not ignored')
+})
+
+test('refreshes on its two minute timer', async ($, on) => {
+  const repo: Repo = { env: ['.env'], tracked: [], ignored: [] }
+  const status = world(on, repo)
+
+  const clock = last.clock as ReturnType<typeof mock.clock>
+
+  await started($)
+  expect(status.at(-1)).toBe('env ✗ .env not ignored')
+
+  repo.tracked.push('.env')
+  await clock.advance(120000)
+  await flush()
+  expect(status.at(-1)).toBe('env ✗ .env tracked by git')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const status = world(on, { env: ['.env', '.env.production'], tracked: ['.env.production'], ignored: ['.env'] }, [], 'es')
+
+  await started($)
+  expect(status.at(-1)).toBe('env ✗ .env.production rastreado por git')
 })

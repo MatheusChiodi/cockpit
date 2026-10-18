@@ -102,3 +102,51 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await has(ui, /ARQUIVOS/)).toBe(true)
   expect(await has(ui, /2 alterados/)).toBe(true)
 })
+
+test('hides while a survey is shown above the prompt', async ($, on) => {
+  world(on)
+  await edit($, '/w/a.ts')
+  await $.session.start(START)
+
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await has(ui, /FILES/)).toBe(false)
+})
+
+test('passes the answer from beneath through unchanged', async ($, on) => {
+  world(on)
+
+  expect((await edit($, '/w/bad.ts')).deny).toBe('no')
+  expect((await $.tool.call({ tool: 'Write', file_path: '/w/broken.ts', content: 'x', tool_use_id: 'w-2' })).isError).toBe(true)
+})
+
+test('remembers at most 200 files', async ($, on) => {
+  world(on)
+
+  for (let index = 0; index < 205; index += 1) {
+    await edit($, `/w/f${index}.ts`)
+  }
+
+  const ui = await draw($)
+  expect(await has(ui, /200 changed/)).toBe(true)
+  expect(await has(ui, /f204\.ts {2}f203\.ts {2}f202\.ts {2}f201\.ts/)).toBe(true)
+  expect(await has(ui, /\+196/)).toBe(true)
+})
+
+test('uses the singular in Portuguese for one file', async ($, on) => {
+  world(on, [], 'pt')
+  await edit($, '/w/a.ts')
+
+  const ui = await draw($)
+  expect(await has(ui, /1 alterado$/)).toBe(true)
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  world(on, [], 'es')
+  await edit($, '/w/a.ts')
+  expect(await has(await draw($), /1 modificado$/)).toBe(true)
+
+  await edit($, '/w/b.ts')
+  const ui = await draw($)
+  expect(await has(ui, /ARCHIVOS/)).toBe(true)
+  expect(await has(ui, /2 modificados/)).toBe(true)
+})

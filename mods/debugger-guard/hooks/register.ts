@@ -16,7 +16,8 @@ const MARKERS: readonly { name: string; pattern: RegExp; files: RegExp }[] = [
   { name: '"breakpoint()"', pattern: /(?<![\w.])breakpoint\s*\(\s*\)/g, files: PY },
   { name: '"pdb.set_trace()"', pattern: /\bi?pdb\.set_trace\s*\(/g, files: PY },
   { name: '"import pdb"', pattern: /^[ \t]*import\s+i?pdb\b/gm, files: PY },
-  { name: '"binding.pry"', pattern: /\bbinding\.(?:pry|irb)\b/g, files: RB },
+  { name: '"binding.pry"', pattern: /\bbinding\.pry\b/g, files: RB },
+  { name: '"binding.irb"', pattern: /\bbinding\.irb\b/g, files: RB },
   { name: '"byebug"', pattern: /^[ \t]*byebug\b/gm, files: RB },
 ]
 

@@ -68,3 +68,54 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(verdict.decision).toBe('ask')
   expect(verdict.reason).toContain('adiciona um endereço IP privado em src/api.ts')
 })
+
+const check = async ($: any, content: string, file_path = 'src/net.ts') =>
+  $.tool.check({ tool: 'Write', input: { file_path, content } })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const verdict = await check($, 'const url = "https://billing.corp/api"')
+  expect(verdict.reason).toBe(
+    'private-host-guard: agrega un hostname interno en src/net.ts. Revela la red interna y falla en cualquier otro entorno; lee la dirección de la configuración o de una variable de entorno.',
+  )
+})
+
+test('keeps to the edges of the 172.16/12 block', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const ip of ['172.16.0.1', '172.31.255.1']) {
+    expect((await check($, `host = "${ip}"`)).decision, ip).toBe('ask')
+  }
+
+  for (const ip of ['172.15.0.1', '172.32.0.1', '192.169.1.1', '11.0.0.1']) {
+    expect((await check($, `host = "${ip}"`)).decision, ip).toBe('allow')
+  }
+})
+
+test('catches internal hostnames with credentials, ports and other suffixes', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const url of ['postgres://app:pw@db.internal:5432/app', 'http://nas.lan', 'https://printer.home.arpa/ui', 'ldap://dc1.intranet']) {
+    const verdict = await check($, `url = "${url}"`)
+    expect(verdict.decision, url).toBe('ask')
+    expect(verdict.reason, url).toContain('adds an internal hostname to src/net.ts')
+  }
+
+  expect((await check($, 'url = "https://corp.example.com"')).decision).toBe('allow')
+})
+
+test('lets tests, fixtures and examples through', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const file_path of ['tests/net.ts', 'src/net.spec.ts', '__tests__/a.js', 'fixtures/hosts.json', 'examples/app.ts', '.env.example']) {
+    expect((await check($, 'host = "10.0.0.5"', file_path)).decision, file_path).toBe('allow')
+  }
+})
+
+test('ignores tools that do not write files', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  expect((await $.tool.check({ tool: 'Bash', input: { command: 'ping 10.0.0.1' } })).decision).toBe('allow')
+})

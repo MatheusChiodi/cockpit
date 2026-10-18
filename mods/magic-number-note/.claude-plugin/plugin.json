@@ -1,0 +1,13 @@
+{
+  "name": "magic-number-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit repeats the same bare number three times instead of naming it once",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

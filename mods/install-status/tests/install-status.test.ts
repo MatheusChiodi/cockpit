@@ -114,3 +114,62 @@ test('speaks the language set in the hub', async ($, on) => {
   await started($)
   expect(status.at(-1)).toBe('instalação ✗ node_modules ausente')
 })
+
+test('an install run from Bash clears the warning', async ($, on) => {
+  const project: Project = { files: { 'package.json': MANIFEST }, mtimes: { 'package.json': NOW } }
+  const status = world(on, project)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await started($)
+  expect(status.at(-1)).toBe('install ✗ node_modules missing')
+
+  project.mtimes.node_modules = NOW + 10000
+  await $.tool.call({ tool: 'Bash', command: 'npm ci', tool_use_id: 'b-1' })
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('a command that is not about packages does not look again', async ($, on) => {
+  const project: Project = { files: { 'package.json': MANIFEST }, mtimes: { 'package.json': NOW } }
+  const status = world(on, project)
+  on('tool.call', { tool: 'PowerShell' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }) as never)
+
+  await started($)
+  project.mtimes.node_modules = NOW + 10000
+  await $.tool.call({ tool: 'PowerShell', command: 'Get-ChildItem', tool_use_id: 'p-1' })
+  await flush()
+  expect(status).toEqual(['install ✗ node_modules missing'])
+
+  await $.tool.call({ tool: 'PowerShell', command: 'pnpm install', tool_use_id: 'p-2' })
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('with no lockfile, compares against package.json, within a little slack', async ($, on) => {
+  const project: Project = {
+    files: { 'package.json': MANIFEST },
+    mtimes: { 'package.json': NOW + 1500, node_modules: NOW },
+  }
+  const status = world(on, project)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await started($)
+  expect(status).toEqual([])
+
+  project.mtimes['package.json'] = NOW + 5000
+  await $.tool.call({ tool: 'Bash', command: 'git pull', tool_use_id: 'b-2' })
+  await flush()
+  expect(status.at(-1)).toBe('install ✗ lockfile newer')
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const status = world(
+    on,
+    { files: { 'package.json': MANIFEST }, mtimes: { 'package.json': NOW, 'yarn.lock': NOW + 60000, node_modules: NOW } },
+    [],
+    'es',
+  )
+
+  await started($)
+  expect(status.at(-1)).toBe('instalación ✗ lockfile más nuevo')
+})

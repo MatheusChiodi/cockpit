@@ -83,3 +83,69 @@ test('speaks the language set in the hub', async ($, on) => {
   const verdict = await $.tool.check(edit('node_modules\n', '.env\nnode_modules\n'))
   expect(verdict.reason).toContain('gitignore-guard: remove .env de .gitignore')
 })
+
+test('asks for other secret entries: keys, cloud folders and state files', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const entry of ['id_rsa', '.npmrc', '.aws/', 'terraform.tfstate', 'credentials.json', 'secrets/', '**/.env.local', '/.env']) {
+    const verdict = await $.tool.check(edit('dist\n', `${entry}\ndist\n`))
+    expect(verdict.decision, entry).toBe('ask')
+    expect(verdict.reason, entry).toContain(`removes ${entry} from .gitignore`)
+  }
+})
+
+test('names at most three of the entries it would remove', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const verdict = await $.tool.check(edit('dist\n', '.env\n*.pem\n*.key\n.npmrc\ndist\n'))
+  expect(verdict.reason).toContain('removes .env, *.pem, *.key from')
+  expect(verdict.reason).not.toContain('.npmrc')
+})
+
+test('a Write of a new .gitignore that cannot be read compares against nothing', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('fs.read', () => ({ deny: 'ENOENT' }) as never)
+
+  const fresh = await $.tool.check({ tool: 'Write', input: { file_path: '.gitignore', content: 'node_modules\n.env\n' } })
+  expect(fresh.decision).toBe('allow')
+
+  const negated = await $.tool.check({ tool: 'Write', input: { file_path: '.gitignore', content: '!.env\n' } })
+  expect(negated.decision).toBe('ask')
+})
+
+test('asks for a forced add in PowerShell and of a private key', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const shell = await $.tool.check({ tool: 'PowerShell', input: { command: 'git add --force .npmrc' } })
+  expect(shell.decision).toBe('ask')
+  expect(shell.reason).toContain('force-adds .npmrc past .gitignore (git add --force .npmrc)')
+
+  const key = await $.tool.check({ tool: 'Bash', input: { command: 'git add -f ~/.ssh/id_ed25519' } })
+  expect(key.decision).toBe('ask')
+
+  const later = await $.tool.check({ tool: 'Bash', input: { command: 'git add .env.example && git commit -f' } })
+  expect(later.decision).toBe('allow')
+})
+
+test('leaves other tools and an ask beneath alone', async ($, on) => {
+  let decision: 'allow' | 'ask' = 'allow'
+  on('tool.check', () => (decision === 'ask' ? { decision, reason: 'asked beneath' } : { decision }))
+
+  const read = await $.tool.check({ tool: 'Read', input: { file_path: '.gitignore' } })
+  expect(read.decision).toBe('allow')
+
+  decision = 'ask'
+  const beneath = await $.tool.check(edit('node_modules\n', '.env\nnode_modules\n'))
+  expect(beneath.reason).toBe('asked beneath')
+})
+
+test('speaks Spanish when the hub language is es', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const removed = await $.tool.check(edit('node_modules\n', '.env\nnode_modules\n'))
+  expect(removed.reason).toContain('gitignore-guard: quita .env de .gitignore')
+
+  const forced = await $.tool.check({ tool: 'Bash', input: { command: 'git add -f .env' } })
+  expect(forced.reason).toContain('gitignore-guard: fuerza .env dentro del commit')
+})

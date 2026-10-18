@@ -101,3 +101,72 @@ test('speaks the language set in the hub', async ($, on) => {
   await started($)
   expect(status.at(-1)).toBe('release 1.3.0 · 2 desde v1.3.0 · sem bump')
 })
+
+test('speaks Spanish from the hub', async ($, on) => {
+  const status = world(on, { files: pkg('1.4.0'), tag: 'v1.3.0', count: 0 }, [], 'es')
+
+  await started($)
+  expect(status.at(-1)).toBe('release 1.4.0 · listo para tag')
+})
+
+test('shows nothing when package.json is broken', async ($, on) => {
+  const status = world(on, { files: { 'package.json': '{ broken' }, tag: 'v1.0.0', count: 4 })
+
+  await started($)
+  expect(status).toEqual([])
+})
+
+test('refreshes after a git command in Bash, not after other commands', async ($, on) => {
+  const repo = { files: pkg('1.4.0'), tag: 'v1.3.0', count: 1 }
+  const status = world(on, repo)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await started($)
+  expect(status.at(-1)).toBe('release 1.4.0 · 1 since v1.3.0')
+
+  repo.count = 2
+  await $.tool.call({ tool: 'Bash', command: 'ls -la', tool_use_id: 'b1' })
+  await flush()
+  expect(status.at(-1)).toBe('release 1.4.0 · 1 since v1.3.0')
+
+  await $.tool.call({ tool: 'Bash', command: 'git pull', tool_use_id: 'b2' })
+  await flush()
+  expect(status.at(-1)).toBe('release 1.4.0 · 2 since v1.3.0')
+})
+
+test('clears the entry once the new version is tagged', async ($, on) => {
+  const repo = { files: pkg('1.4.0'), tag: 'v1.3.0', count: 3 }
+  const status = world(on, repo)
+  on('tool.call', { tool: 'PowerShell' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }) as never)
+
+  await started($)
+  expect(status.at(-1)).toBe('release 1.4.0 · 3 since v1.3.0')
+
+  repo.tag = 'v1.4.0'
+  repo.count = 0
+  await $.tool.call({ tool: 'PowerShell', command: 'git tag v1.4.0', tool_use_id: 'p1' })
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('refreshes after npm version in PowerShell', async ($, on) => {
+  const repo = { files: pkg('1.4.0'), tag: 'v1.3.0', count: 3 }
+  const status = world(on, repo)
+  on('tool.call', { tool: 'PowerShell' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }) as never)
+
+  await started($)
+  repo.files = pkg('1.5.0')
+  await $.tool.call({ tool: 'PowerShell', command: 'npm version minor', tool_use_id: 'p1' })
+  await flush()
+  expect(status.at(-1)).toBe('release 1.5.0 · 3 since v1.3.0')
+})
+
+test('does not send the same line twice', async ($, on) => {
+  const status = world(on, { files: pkg('1.4.0'), tag: 'v1.3.0', count: 1 })
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await started($)
+  await $.tool.call({ tool: 'Bash', command: 'git status', tool_use_id: 'b1' })
+  await flush()
+  expect(status).toEqual(['release 1.4.0 · 1 since v1.3.0'])
+})

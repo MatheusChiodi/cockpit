@@ -54,3 +54,67 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts[0]).toContain('copo de água')
 })
+
+test('a non-interactive session never toasts', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start({ ...START, isInteractive: false })
+  await work($, clock, 130)
+
+  expect(toasts).toHaveLength(0)
+})
+
+test('tool calls count as use too', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await $.session.start(START)
+
+  for (let spent = 0; spent < 65; spent += 5) {
+    await $.tool.call({ tool: 'Bash', command: 'ls', tool_use_id: `b${spent}` })
+    await clock.advance(5 * MINUTE)
+  }
+
+  expect(toasts).toHaveLength(1)
+})
+
+test('an idle stretch pauses the hour without starting it over', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await work($, clock, 40)
+  await clock.advance(120 * MINUTE)
+  expect(toasts).toHaveLength(0)
+
+  await work($, clock, 15)
+  expect(toasts).toHaveLength(1)
+})
+
+test('toasts again after another hour', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await work($, clock, 125)
+
+  expect(toasts).toHaveLength(2)
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  await work($, clock, 65)
+
+  expect(toasts).toEqual(['¿Un vaso de agua ahora? Llevas una hora en esto.'])
+})

@@ -47,3 +47,45 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run)).text).toContain('1 de 9 portas respondem')
 })
+
+test('lists open ports in the fixed order and pads the five-digit one', async ($, on) => {
+  listening(on, { 19006: 200, 3001: 500, 5173: 301 })
+
+  expect((await $.command.run(run)).text).toBe('● 3001  500\n● 5173  301\n● 19006 200\n3 of 9 ports answer')
+})
+
+test('asks plain http on localhost at the root path', async ($, on) => {
+  const urls: string[] = []
+  on('http.fetch', (_: unknown, e: { url: string }) => {
+    urls.push(e.url)
+
+    return { deny: 'ECONNREFUSED' }
+  })
+
+  await $.command.run(run)
+  expect(urls).toContain('http://localhost:3000/')
+  expect(urls.every(url => /^http:\/\/localhost:\d+\/$/.test(url))).toBe(true)
+})
+
+test('counts every port when all of them answer', async ($, on) => {
+  listening(on, Object.fromEntries([3000, 3001, 4200, 5000, 5173, 8000, 8080, 8081, 19006].map(port => [port, 200])))
+
+  expect((await $.command.run(run)).text).toMatch(/\n9 of 9 ports answer$/)
+})
+
+test('speaks Spanish, and Portuguese when nothing answers', async ($, on) => {
+  let open: Record<number, number> = { 8000: 200 }
+  on('http.fetch', (_: unknown, e: { url: string }) => {
+    const code = open[Number(new URL(e.url).port)]
+
+    return code === undefined ? { deny: 'ECONNREFUSED' } : { value: { status: code, ok: true, headers: {}, text: '' } }
+  })
+  let lang = 'es'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+
+  expect((await $.command.run(run)).text).toBe('● 8000  200\n1 de 9 puertos responden')
+  open = {}
+  expect((await $.command.run(run)).text).toBe('Ningún puerto de desarrollo responde en localhost.')
+  lang = 'pt'
+  expect((await $.command.run(run)).text).toBe('Nenhuma porta de desenvolvimento responde no localhost.')
+})

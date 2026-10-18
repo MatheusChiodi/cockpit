@@ -1,0 +1,13 @@
+{
+  "name": "agent-trivial-note",
+  "version": "0.1.0",
+  "description": "A toast when a subagent is spawned for a task one Read, Bash or Grep call would answer",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

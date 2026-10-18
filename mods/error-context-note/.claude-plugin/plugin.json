@@ -1,0 +1,13 @@
+{
+  "name": "error-context-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit throws an error whose message names nothing, like \"failed\" or \"something went wrong\"",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

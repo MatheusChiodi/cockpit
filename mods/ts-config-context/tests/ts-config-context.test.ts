@@ -77,3 +77,55 @@ test('adds nothing for a tsconfig that sets none of the options', async ($, on) 
   project(on, { 'tsconfig.json': `{ "compilerOptions": { "target": "es2022" } }` })
   expect(await composed($)).toEqual([])
 })
+
+test('names exactOptionalPropertyTypes, isolatedModules and Node16', async ($, on) => {
+  project(on, {
+    'tsconfig.json': `{ "compilerOptions": { "exactOptionalPropertyTypes": true, "isolatedModules": true, "moduleResolution": "node16" } }`,
+  })
+
+  const text = (await composed($))[0]!.text
+  expect(text).toContain('exactOptionalPropertyTypes is on')
+  expect(text).toContain('must use `import type`')
+  expect(text).toContain('moduleResolution is NodeNext')
+  expect(text).not.toContain('strict mode is on')
+})
+
+test('keeps // inside strings and skips aliases that are not lists', async ($, on) => {
+  project(on, {
+    'tsconfig.json': `{
+      /* block comment */
+      "compilerOptions": {
+        "paths": { "cdn/*": ["https://cdn.example.com/*"], "bad": "./x", "empty": [] }
+      }
+    }`,
+  })
+
+  const text = (await composed($))[0]!.text
+  expect(text).toContain('Path aliases: cdn/* -> https://cdn.example.com/*.')
+  expect(text).not.toContain('bad')
+  expect(text).not.toContain('empty')
+})
+
+test('follows an extends written without .json, and ignores package extends', async ($, on) => {
+  project(on, {
+    'tsconfig.json': `{ "extends": "./tsconfig.base" }`,
+    'tsconfig.base.json': `{ "extends": "@tsconfig/node20/tsconfig.json", "compilerOptions": { "strict": true } }`,
+  })
+
+  expect((await composed($))[0]!.text).toContain('strict mode is on')
+})
+
+test('stops following an extends that loops', async ($, on) => {
+  project(on, {
+    'tsconfig.json': `{ "extends": "./a.json" }`,
+    'a.json': `{ "extends": "./b.json", "compilerOptions": { "strict": true } }`,
+    'b.json': `{ "extends": "./a.json" }`,
+  })
+
+  expect((await composed($))[0]!.text).toContain('strict mode is on')
+})
+
+test('adds nothing for a tsconfig that does not parse', async ($, on) => {
+  project(on, { 'tsconfig.json': `{ "compilerOptions": { "strict": true ` })
+  expect(await composed($)).toEqual([])
+})

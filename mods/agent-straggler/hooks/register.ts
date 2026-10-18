@@ -29,9 +29,14 @@ const median = (values: number[]): number => {
 
 const tick = async ($: EngineInterface): Promise<void> => {
   const now = await $.clock.now()
-  const alive = new Set(
-    (await $.agent.list().catch(() => [])).filter(agent => ACTIVE.has(agent.status)).map(agent => agent.id),
-  )
+  const listed = await $.agent.list().catch(() => undefined)
+
+  // An unreadable list says nothing about the runs: keep them for the next tick.
+  if (listed === undefined) {
+    return
+  }
+
+  const alive = new Set(listed.filter(agent => ACTIVE.has(agent.status)).map(agent => agent.id))
   const typical = finished.length >= 2 ? median(finished) : undefined
   const limit = typical === undefined ? ALONE_MS : Math.max(FLOOR_MS, typical * FACTOR)
 

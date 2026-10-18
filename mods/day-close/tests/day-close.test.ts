@@ -129,3 +129,91 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['Por hoje chega? 1 prompt, 1 turno, 4 edições. Bom trabalho.'])
 })
+
+test('does not count aborted turns, subagent turns or refused edits', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: at(9, 0) })
+  const toasts: string[] = []
+  world(on, toasts)
+  on('tool.call', { tool: 'Edit' }, () => ({ deny: 'no' }))
+
+  await $.session.start(START)
+  await $.prompt.submit({ text: 'go', wait: false, origin: { kind: 'composer' } })
+  await $.tool.call({ tool: 'Edit', file_path: '/project/a.ts', old_string: 'a', new_string: 'b', tool_use_id: 'e1' })
+  await $.tool.call({ tool: 'Write', file_path: '/project/b.ts', content: 'x', tool_use_id: 'w-sub', agentId: 'sub' } as never)
+  await $.turn.complete({ ...DONE, agentId: 'sub' })
+  await $.turn.complete({ ...DONE, isAborted: true, reason: 'aborted' } as never)
+  await $.turn.complete(DONE)
+  await through(clock, 18, 0)
+
+  expect(toasts).toEqual(['Done for today? 1 prompt, 1 turn, 0 edits. Good work.'])
+})
+
+test('adds to the record another session left for the same day', async ($, on) => {
+  mock.store(on, { 'day:2026-10-13': { prompts: 4, turns: 3, edits: 7, isTold: false } })
+  const clock = mock.clock(on, { now: at(9, 0) })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await work($, 1)
+  await through(clock, 18, 0)
+
+  expect(toasts).toEqual(['Done for today? 5 prompts, 4 turns, 8 edits. Good work.'])
+})
+
+test('a day another session already summed up is not told again', async ($, on) => {
+  mock.store(on, { 'day:2026-10-13': { prompts: 4, turns: 3, edits: 7, isTold: true } })
+  const clock = mock.clock(on, { now: at(9, 0) })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await work($, 1)
+  await through(clock, 18, 30)
+
+  expect(toasts).toEqual([])
+})
+
+test('a session that is not interactive never toasts', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: at(9, 0) })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start({ ...START, isInteractive: false })
+  await work($, 2)
+  await through(clock, 18, 30)
+
+  expect(toasts).toEqual([])
+})
+
+test('an unreadable stored hour falls back to 18:00', async ($, on) => {
+  mock.store(on, { 'dayend:time': '99:99' })
+  mock.clock(on, { now: at(9, 0) })
+  world(on, [])
+
+  await $.session.start(START)
+  expect((await $.command.run(dayend(''))).text).toBe(
+    'Day summary at 18:00. /dayend HH:MM changes it, /dayend off turns it off.',
+  )
+})
+
+test('speaks Spanish in the command and the summary', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: at(9, 0) })
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect((await $.command.run(dayend('17:45'))).text).toBe('Resumen del día a las 17:45.')
+  expect((await $.command.run(dayend('mañana'))).text).toBe('Indica la hora como HH:MM, por ejemplo /dayend 18:00, u off.')
+
+  await work($, 1)
+  await through(clock, 17, 46)
+  expect(toasts).toEqual(['¿Por hoy es suficiente? 1 prompt, 1 turno, 1 edición. Buen trabajo.'])
+
+  expect((await $.command.run(dayend('OFF'))).text).toBe('Resumen del día apagado.')
+  expect((await $.command.run(dayend(''))).text).toBe('Resumen del día apagado. /dayend HH:MM lo enciende.')
+})

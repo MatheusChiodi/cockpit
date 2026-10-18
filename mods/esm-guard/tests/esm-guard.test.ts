@@ -75,3 +75,65 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await write($, '/work/scripts/build.js', `const fs = require('fs')`)
   expect(answer.deny).toContain('esm-guard: o package.json é "type": "module", então scripts/build.js não pode usar require()')
 })
+
+test('refuses __filename and an exports assignment, and names them', async ($, on) => {
+  project(on, { type: 'module' })
+
+  const file = await write($, '/work/src/a.jsx', `console.log(__filename)`)
+  expect(file.deny).toBe(
+    'esm-guard: __filename does not exist in ES modules (src/a.jsx). Use import.meta.dirname, or fileURLToPath(import.meta.url) before Node 20.11.',
+  )
+
+  const exp = await write($, '/work/src/b.js', `exports.run = () => 1`)
+  expect(exp.deny).toContain('src/b.js cannot use module.exports')
+})
+
+test('lets files outside the project and look-alike names through', async ($, on) => {
+  project(on, { type: 'module' })
+
+  expect((await write($, '/elsewhere/a.js', `module.exports = 1`)).deny).toBeUndefined()
+  expect((await write($, '/work/a.js', `const x = obj.require('y')\nconst d = my__dirname`)).deny).toBeUndefined()
+  expect((await write($, '/work/a.js', `const url = 'http://example.com' // module.exports`)).deny).toBeUndefined()
+})
+
+test('a Write that keeps CommonJS already in the file is not refused', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.read', (_: unknown, e: { path: string }) =>
+    slashed(e.path).endsWith('/work/package.json')
+      ? { value: JSON.stringify({ type: 'module' }) }
+      : { value: `const fs = require('fs')\n` },
+  )
+  on('tool.call', { tool: 'Write' }, () => ({ result: undefined as never }))
+
+  const kept = await write($, '/work/old.js', `const fs = require('fs')\nfs.readFileSync('x')\n`)
+  expect(kept.deny).toBeUndefined()
+})
+
+test('a package.json that is not valid JSON counts as CommonJS', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.read', () => ({ value: '{ not json' }))
+  on('tool.call', { tool: 'Write' }, () => ({ result: undefined as never }))
+
+  expect((await write($, '/work/a.js', `module.exports = 1`)).deny).toBeUndefined()
+})
+
+test('matches the project root regardless of slashes and case', async ($, on) => {
+  on('session.root', () => ({ value: 'C:\\Work' }))
+  on('fs.read', (_: unknown, e: { path: string }) =>
+    slashed(e.path).endsWith('/package.json') ? { value: JSON.stringify({ type: 'module' }) } : { deny: 'ENOENT' },
+  )
+  on('tool.call', { tool: 'Write' }, () => ({ result: undefined as never }))
+
+  const answer = await write($, 'c:\\work\\lib\\x.mjs', `module.exports = 1`)
+  expect(answer.deny).toContain('so lib/x.mjs cannot use module.exports')
+})
+
+test('speaks Spanish when the hub language is es', async ($, on) => {
+  project(on, { type: 'module' })
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await write($, '/work/x.js', `module.exports = {}`)
+  expect(answer.deny).toBe(
+    'esm-guard: package.json es "type": "module", así que x.js no puede usar module.exports. Usa export / export default.',
+  )
+})

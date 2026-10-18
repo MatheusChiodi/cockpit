@@ -1,0 +1,17 @@
+{
+  "name": "hands-band",
+  "version": "0.1.0",
+  "description": "Band that splits the uncommitted files into the ones Claude edited in this session and the ones you changed yourself",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "types": "./types/index.d.ts",
+  "dependencies": [
+    "cockpit"
+  ]
+}

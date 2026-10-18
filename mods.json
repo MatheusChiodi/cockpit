@@ -4791,6 +4791,20 @@
         "[[dim|5h window: 55%, runs out in 45m, resets in 3h 50m]]",
         "[[dim|7-day window: 12%, lasts until it resets at this pace]]"
       ]
+    },
+    {
+      "name": "readme-context",
+      "category": "prompt",
+      "description": {
+        "en": "Gives Claude the first paragraph of the README, so it knows what the project is without reading it",
+        "pt": "Dá ao Claude o primeiro parágrafo do README, para saber o que é o projeto sem precisar lê-lo",
+        "es": "Da a Claude el primer párrafo del README, para saber qué es el proyecto sin leerlo"
+      },
+      "preview": [
+        "[[dim|system prompt]]",
+        "[[bold|# About this project (README.md)]]",
+        "A small CLI that syncs invoices to the accounting system."
+      ]
     }
   ],
   "hero": [

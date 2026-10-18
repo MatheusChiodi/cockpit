@@ -82,3 +82,67 @@ test('speaks the language set in the hub', async ($, on) => {
   await started($, clock)
   expect(status.at(-1)).toBe('revisões 1 · #7 Title 7')
 })
+
+test('cuts a long title to 40 characters in the entry and the toast', async ($, on) => {
+  const long = 'Refactor the payment gateway adapter for the new provider API'
+  const gh = { exitCode: 0, stdout: '[]' }
+  const { clock, status, toasts } = world(on, gh)
+
+  await started($, clock)
+  gh.stdout = JSON.stringify([{ number: 9, title: long }])
+  await clock.advance(5 * MIN)
+
+  const cut = `${long.slice(0, 39)}…`
+  expect(status.at(-1)).toBe(`reviews 1 · #9 ${cut}`)
+  expect(toasts).toEqual([`Review requested on #9: ${cut}`])
+})
+
+test('stays silent on output that is not JSON, and skips entries without a number', async ($, on) => {
+  const gh = { exitCode: 0, stdout: 'not json' }
+  const { clock, status } = world(on, gh)
+
+  await started($, clock)
+  expect(status.every(text => text === undefined)).toBe(true)
+
+  gh.stdout = JSON.stringify([{ title: 'no number' }, { number: 4, title: 'Kept' }])
+  await clock.advance(5 * MIN)
+  expect(status.at(-1)).toBe('reviews 1 · #4 Kept')
+})
+
+test('the first successful look never toasts, even after gh failed', async ($, on) => {
+  const gh = { exitCode: 1, stdout: '' }
+  const { clock, status, toasts } = world(on, gh)
+
+  await started($, clock)
+  gh.exitCode = 0
+  gh.stdout = prs(5, 6)
+  await clock.advance(5 * MIN)
+  expect(status.at(-1)).toBe('reviews 2 · #5 Title 5')
+  expect(toasts).toEqual([])
+})
+
+test('asks gh for the open pull requests waiting on the person', async ($, on) => {
+  const argvs: string[] = []
+  const clock = mock.clock(on)
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('ui.status', () => ({ value: undefined }))
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    argvs.push(e.argv.join(' '))
+
+    return done(0, '[]')
+  })
+
+  await started($, clock)
+  expect(argvs).toEqual(['gh search prs --review-requested=@me --state=open --json number,title --limit 30'])
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const gh = { exitCode: 0, stdout: '[]' }
+  const { clock, status, toasts } = world(on, gh, [], 'es')
+
+  await started($, clock)
+  gh.stdout = prs(12)
+  await clock.advance(5 * MIN)
+  expect(status.at(-1)).toBe('revisiones 1 · #12 Title 12')
+  expect(toasts).toEqual(['Revisión pedida en #12: Title 12'])
+})

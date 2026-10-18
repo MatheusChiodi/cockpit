@@ -119,3 +119,72 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(shown).toEqual(['toast: Janela de silêncio terminou. 2 avisos foram retidos.'])
 })
+
+test('accepts the bounds of 1 and 480 minutes, in any case for the words', async ($, on) => {
+  mock.clock(on, { now: at(9, 0) })
+  world(on, [])
+
+  await $.session.start(START)
+  expect((await $.command.run(quiet('1'))).text).toBe('Quiet for 1 min, until 09:01. Toasts and notifications are held.')
+  expect((await $.command.run(quiet('480'))).text).toBe('Quiet for 480 min, until 17:00. Toasts and notifications are held.')
+  expect((await $.command.run(quiet('481'))).text).toBe('Give the minutes, from 1 to 480: /quiet 45')
+  expect((await $.command.run(quiet('-5'))).text).toBe('Give the minutes, from 1 to 480: /quiet 45')
+  expect((await $.command.run(quiet('  OFF '))).text).toBe('Quiet window ended. 0 notices were held.')
+})
+
+test('once the window is over, /quiet says it is not quiet', async ($, on) => {
+  const clock = mock.clock(on, { now: at(9, 0) })
+  world(on, [])
+
+  await $.session.start(START)
+  await $.command.run(quiet('5'))
+  expect((await $.command.run(quiet(''))).text).toBe('Quiet until 09:05. 0 held so far.')
+
+  await clock.advance(5 * MINUTE)
+  expect((await $.command.run(quiet(''))).text).toBe('Not quiet. /quiet <minutes> holds toasts and notifications.')
+})
+
+test('a new session ends the window without a summary from the old timer', async ($, on) => {
+  const clock = mock.clock(on, { now: at(9, 0) })
+  const shown: string[] = []
+  world(on, shown)
+
+  await $.session.start(START)
+  await $.command.run(quiet('10'))
+  await $.command.run(quiet('test'))
+  await $.session.start(START)
+  expect((await $.command.run(quiet(''))).text).toBe('Not quiet. /quiet <minutes> holds toasts and notifications.')
+
+  await clock.advance(15 * MINUTE)
+  expect(shown).toEqual([])
+})
+
+test('registers /quiet at session start', async ($, on) => {
+  mock.clock(on)
+  const names: string[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('command.register', (_$, e) => {
+    names.push(e.name)
+
+    return { value: { command: e.name } }
+  })
+
+  await $.session.start(START)
+  expect(names).toEqual(['quiet'])
+})
+
+test('speaks Spanish when the hub language is es', async ($, on) => {
+  const clock = mock.clock(on, { now: at(9, 0) })
+  const shown: string[] = []
+  world(on, shown)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect((await $.command.run(quiet('test'))).text).toBe('Sin silencio: se mostraron el toast y la notificación de prueba.')
+  expect((await $.command.run(quiet('15'))).text).toBe('Silencio por 15 min, hasta 09:15. Los toasts y notificaciones quedan retenidos.')
+  expect((await $.command.run(quiet('test'))).text).toBe('El toast y la notificación de prueba quedaron retenidos. La ventana funciona.')
+  expect((await $.command.run(quiet('off'))).text).toBe('Ventana de silencio terminada. Se retuvieron 2 avisos.')
+
+  await clock.advance(20 * MINUTE)
+  expect(shown).toEqual(['toast: prueba de silencio', 'notify: prueba de silencio'])
+})

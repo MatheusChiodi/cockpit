@@ -105,3 +105,84 @@ test('speaks the language set in the hub', async ($, on) => {
   await clock.advance(60000)
   expect(toasts).toEqual(['Pomodoro concluído. Hora da pausa.'])
 })
+
+// Records the status line, toasts and notifications.
+const seen = (on: any) => {
+  const out = { statuses: [] as (string | undefined)[], toasts: [] as string[], notices: [] as string[] }
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    out.statuses.push(e.text)
+
+    return { value: undefined }
+  })
+  on('ui.toast', (_: unknown, e: { text: string }) => {
+    out.toasts.push(e.text)
+
+    return { value: undefined }
+  })
+  on('ui.notify', (_: unknown, e: { text: string }) => {
+    out.notices.push(e.text)
+
+    return { value: { isSent: true, channel: 'kitty' } }
+  })
+
+  return out
+}
+
+test('a new pomodoro replaces the running one', async ($, on) => {
+  const clock = mock.clock(on)
+  const out = seen(on)
+
+  await $.command.run(run('10'))
+  await clock.advance(5 * 60000)
+  expect((await $.command.run(run('3'))).text).toBe('3 min pomodoro started.')
+  expect(out.statuses.at(-1)).toBe('focus 3 min')
+
+  await clock.advance(3 * 60000)
+  expect(out.toasts).toHaveLength(1)
+
+  await clock.advance(10 * 60000)
+  expect(out.toasts).toHaveLength(1)
+  expect(out.notices).toHaveLength(1)
+})
+
+test('accepts fractional minutes and rounds the countdown up', async ($, on) => {
+  const clock = mock.clock(on)
+  const out = seen(on)
+
+  expect((await $.command.run(run('1.5'))).text).toBe('1.5 min pomodoro started.')
+  expect(out.statuses.at(-1)).toBe('focus 2 min')
+
+  await clock.advance(45000)
+  expect(out.statuses.at(-1)).toBe('focus 1 min')
+
+  await clock.advance(45000)
+  expect(out.toasts).toEqual(['Pomodoro finished. Time for a break.'])
+})
+
+test('stop works in any case and with nothing running', async ($, on) => {
+  mock.clock(on)
+  const out = seen(on)
+
+  expect((await $.command.run(run('  STOP '))).text).toBe('Pomodoro cancelled.')
+  expect(out.statuses).toEqual([undefined])
+})
+
+test('accepts the longest pomodoro', async ($, on) => {
+  mock.clock(on)
+  const out = seen(on)
+
+  expect((await $.command.run(run('240'))).text).toBe('240 min pomodoro started.')
+  expect(out.statuses.at(-1)).toBe('focus 240 min')
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const clock = mock.clock(on)
+  const out = seen(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run('x'))).text).toBe('Uso: /pomodoro [minutos de 1 a 240 | stop]')
+  await $.command.run(run('1'))
+  await clock.advance(60000)
+  expect(out.notices).toEqual(['Pomodoro terminado. Hora de la pausa.'])
+  expect((await $.command.run(run('stop'))).text).toBe('Pomodoro cancelado.')
+})

@@ -65,3 +65,50 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts[0]).toContain('Ombros para baixo')
 })
+
+test('starts with the shoulders check in English', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await work($, clock, 30)
+  expect(toasts).toEqual(['Shoulders down, away from your ears.'])
+})
+
+test('never toasts in a session that is not interactive', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start({ ...START, isInteractive: false })
+  await work($, clock, 120)
+  expect(toasts).toEqual([])
+})
+
+test('counts tool calls as use too', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await $.session.start(START)
+
+  for (let spent = 0; spent < 30; spent += 5) {
+    await $.tool.call({ tool: 'Bash', command: 'ls', tool_use_id: `b-${spent}` })
+    await clock.advance(5 * MINUTE)
+  }
+
+  expect(toasts).toHaveLength(1)
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  await work($, clock, 60)
+  expect(toasts).toEqual(['Hombros abajo, lejos de las orejas.', 'Pies apoyados en el suelo, espalda en la silla.'])
+})

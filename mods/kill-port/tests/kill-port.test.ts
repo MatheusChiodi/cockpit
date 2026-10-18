@@ -98,3 +98,56 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run('300'))).text).toBe('Nada escuta na porta 300.')
 })
+
+test('says the port is free when lsof finds no listener', async ($, on) => {
+  const calls: string[] = []
+  host(on, undefined, calls)
+
+  expect((await $.command.run(run(' 8080 '))).text).toBe('Nothing is listening on port 8080.')
+  expect(calls).toEqual([])
+})
+
+test('reports a lookup that fails', async ($, on) => {
+  on('env.get', () => ({ value: 'Windows_NT' }))
+  on('process.run', () => done(1))
+
+  expect((await $.command.run(run('3000'))).text).toBe('Could not look up the port (netstat / lsof missing).')
+})
+
+test('reports a kill that fails and names an unknown process', async ($, on) => {
+  on('env.get', () => ({ value: undefined }))
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    const [tool = ''] = e.argv
+
+    if (tool === 'lsof') return done(0, '41\n42\n41\n')
+    if (tool === 'ps') return done(1)
+
+    return done(e.argv[1] === '42' ? 1 : 0)
+  })
+  answer(on, 'yes')
+
+  expect((await $.command.run(run('5000'))).text).toBe('Could not end unknown process (pid 41), unknown process (pid 42).')
+})
+
+test('asks and answers in Spanish when the hub is set to es', async ($, on) => {
+  const calls: string[] = []
+  const asked: string[] = []
+  host(on, 'Windows_NT', calls)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('tool.call', { tool: 'AskUserQuestion' }, (_: unknown, e: any) => {
+    asked.push(e.questions[0].question)
+
+    return { result: { questions: e.questions, answers: { [e.questions[0].question]: 'sí' } } }
+  })
+
+  expect((await $.command.run(run('3000'))).text).toBe('Terminó node.exe (pid 4812).')
+  expect(asked).toEqual(['El puerto 3000 lo tiene node.exe (pid 4812). ¿Terminarlo?'])
+  expect(calls).toEqual(['taskkill /PID 4812 /F'])
+})
+
+test('shows the usage in Portuguese for a bad port', async ($, on) => {
+  host(on, 'Windows_NT', [])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  expect((await $.command.run(run('99999'))).text).toBe('Uso: /killport <porta>  (1-65535)')
+})

@@ -67,3 +67,62 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await $.command.run(run('--x'))
   expect(answer.text).toContain('Uso: /gb')
 })
+
+test('reports what git said when the switch fails', async ($, on) => {
+  on('process.run', (_, e) =>
+    e.argv[2] === 'switch' ? fail('error: Your local changes would be overwritten by checkout:\n\tsrc/a.ts') : ok(),
+  )
+
+  expect((await $.command.run(run('dev'))).text).toBe('git refused: error: Your local changes would be overwritten by checkout:')
+})
+
+test('says git is missing when the process cannot start or the list fails', async ($, on) => {
+  let throws = true
+  on('process.run', () => {
+    if (throws) {
+      throw new Error('spawn git ENOENT')
+    }
+
+    return done(128, '', 'not a git repository')
+  })
+
+  expect((await $.command.run(run(''))).text).toBe('git not found or not a repository.')
+  expect((await $.command.run(run('dev'))).text).toBe('git not found or not a repository.')
+  throws = false
+  expect((await $.command.run(run(''))).text).toBe('git not found or not a repository.')
+})
+
+test('says when there are no local branches', async ($, on) => {
+  on('process.run', () => ok('\n'))
+
+  expect((await $.command.run(run(''))).text).toBe('No local branches.')
+})
+
+test('refuses names with spaces or shell characters', async ($, on) => {
+  let ran = 0
+  on('process.run', () => {
+    ran += 1
+
+    return ok()
+  })
+
+  for (const name of ['two words', 'a;rm', '.hidden', 'x$y']) {
+    expect((await $.command.run(run(name))).text, name).toContain('Usage: /gb')
+  }
+
+  expect(ran).toBe(0)
+})
+
+test('speaks Spanish from the hub', async ($, on) => {
+  on('process.run', (_, e) => (e.argv[2] === 'rev-parse' ? fail() : ok()))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run('feat/y'))).text).toBe('Creó y cambió a feat/y.')
+})
+
+test('the Portuguese switch message', async ($, on) => {
+  on('process.run', () => ok())
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  expect((await $.command.run(run('dev'))).text).toBe('Trocou para dev.')
+})

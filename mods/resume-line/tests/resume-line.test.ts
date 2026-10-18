@@ -74,3 +74,65 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['Da última vez (há 3 h): corrigir o login'])
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  mock.store(on, { 'resume:/project': { text: 'arreglar el login', at: 10 * DAY } })
+  mock.clock(on, { now: 12 * DAY + HOUR })
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+
+  expect(toasts).toEqual(['La última vez (hace 2 días): arreglar el login'])
+})
+
+test('rounds a few seconds up to one minute and says yesterday in Portuguese', async ($, on) => {
+  mock.store(on, { 'resume:/project': { text: 'corrigir o login', at: 10 * DAY } })
+  const clock = mock.clock(on, { now: 10 * DAY + 10000 })
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  await $.session.start(START)
+  await clock.set(11 * DAY + HOUR)
+  await $.session.start(START)
+
+  expect(toasts).toEqual(['Da última vez (há 1 min): corrigir o login', 'Da última vez (ontem): corrigir o login'])
+})
+
+test('does not keep slash commands, and folds whitespace', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: 10 * DAY })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.prompt.submit({ text: '  write   the\n\nrelease notes  ', wait: false, origin: { kind: 'composer' } })
+  await $.prompt.submit({ text: '/compact keep the important parts', wait: false, origin: { kind: 'composer' } })
+  await clock.advance(2 * HOUR)
+  await $.session.start(START)
+
+  expect(toasts).toEqual(['Last time (2 h ago): write the release notes'])
+})
+
+test('keeps one line per project', async ($, on) => {
+  mock.store(on, { 'resume:/elsewhere': { text: 'work in another repo', at: 10 * DAY } })
+  mock.clock(on, { now: 10 * DAY + HOUR })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+
+  expect(toasts).toEqual([])
+})
+
+test('stays quiet when the kept line is from the future', async ($, on) => {
+  mock.store(on, { 'resume:/project': { text: 'clock skew happened here', at: 10 * DAY } })
+  mock.clock(on, { now: 9 * DAY })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+
+  expect(toasts).toEqual([])
+})

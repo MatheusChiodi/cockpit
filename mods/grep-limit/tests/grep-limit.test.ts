@@ -57,3 +57,60 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts[0]).toBe('grep-limit: Grep cortado em 100 linhas, Claude foi avisado para estreitar a busca')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const { toasts } = world(on, 250)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const ran = await $.tool.call({ tool: 'Grep', pattern: 'x', output_mode: 'content', tool_use_id: 'es1' })
+  expect(toasts[0]).toBe('grep-limit: Grep cortado en 100 líneas, se avisó a Claude que acote la búsqueda')
+  // The note for the model stays in English.
+  expect(ran.context?.[0]).toContain('Narrow the pattern, path or glob')
+})
+
+test('leaves a count Grep alone', async ($, on) => {
+  const { seen, toasts } = world(on, 500)
+
+  const ran = await $.tool.call({ tool: 'Grep', pattern: 'a', output_mode: 'count', tool_use_id: 'c1' })
+  expect(seen).toEqual([undefined])
+  expect(ran.context).toBeUndefined()
+  expect(toasts).toEqual([])
+})
+
+test('an answer without a line count is passed back untouched', async ($, on) => {
+  const toasts: string[] = []
+  on('tool.call', { tool: 'Grep' }, () => ({ result: { numFiles: 0, filenames: [] } }) as never)
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  const ran = await $.tool.call({ tool: 'Grep', pattern: 'a', output_mode: 'content', tool_use_id: 'n1' })
+  expect(ran.context).toBeUndefined()
+  expect(toasts).toEqual([])
+})
+
+test('passes an error back without a note', async ($, on) => {
+  const toasts: string[] = []
+  on('tool.call', { tool: 'Grep' }, () => ({ isError: true, result: 'regex parse error' }) as never)
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  const ran = await $.tool.call({ tool: 'Grep', pattern: '(', output_mode: 'content', tool_use_id: 'x1' })
+  expect(ran.isError).toBe(true)
+  expect(ran.context).toBeUndefined()
+  expect(toasts).toEqual([])
+})
+
+test('keeps the context the tool already returned', async ($, on) => {
+  on('tool.call', { tool: 'Grep' }, () => ({ result: { numFiles: 1, filenames: [], numLines: 100 }, context: ['earlier note'] }) as never)
+  on('ui.toast', () => ({ value: undefined }))
+
+  const ran = await $.tool.call({ tool: 'Grep', pattern: 'a', output_mode: 'content', tool_use_id: 'k1' })
+  expect(ran.context?.[0]).toBe('earlier note')
+  expect(ran.context?.[1]).toContain('grep-limit capped this Grep')
+})

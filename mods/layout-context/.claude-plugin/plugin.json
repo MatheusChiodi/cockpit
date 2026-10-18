@@ -1,0 +1,13 @@
+{
+  "name": "layout-context",
+  "version": "0.1.0",
+  "description": "Gives Claude the folder layout two levels deep, skipping node_modules and build output",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

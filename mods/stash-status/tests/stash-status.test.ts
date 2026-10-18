@@ -69,3 +69,58 @@ test('shows nothing while the hub lists it as off', async ($, on) => {
   expect(status.length).toBeGreaterThan(0)
   expect(status.every(text => text === undefined)).toBe(true)
 })
+
+test('runs git stash list with no shell', async ($, on) => {
+  mock.clock(on)
+  const argvs: (readonly string[])[] = []
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    argvs.push(e.argv)
+
+    return done(0, '')
+  })
+  on('ui.status', () => ({ value: undefined }))
+
+  await $.session.start(START)
+  expect(argvs).toEqual([['git', 'stash', 'list']])
+})
+
+test('shows nothing when git cannot start', async ($, on) => {
+  mock.clock(on)
+  const status: (string | undefined)[] = []
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('process.run', () => {
+    throw new Error('spawn git ENOENT')
+  })
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.session.start(START)
+  expect(status.every(text => text === undefined)).toBe(true)
+})
+
+test('a subagent turn also refreshes the count', async ($, on) => {
+  const list = { exitCode: 0, stdout: '' }
+  const { status } = world(on, list)
+
+  await $.session.start(START)
+  list.stdout = stashes(4)
+  await $.turn.complete({ ...TURN, agentId: 'sub' } as never)
+  expect(status.at(-1)).toBe('stash 4')
+})
+
+test('the label is the same in Portuguese and Spanish', async ($, on) => {
+  const list = { exitCode: 0, stdout: stashes(1) }
+  const { status } = world(on, list)
+  let lang = 'pt'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang as 'pt', version: 1 } }))
+
+  await $.session.start(START)
+  expect(status.at(-1)).toBe('stash 1')
+  lang = 'es'
+  await $.turn.complete(TURN)
+  expect(status.at(-1)).toBe('stash 1')
+})

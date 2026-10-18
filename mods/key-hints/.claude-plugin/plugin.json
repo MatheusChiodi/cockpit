@@ -1,0 +1,13 @@
+{
+  "name": "key-hints",
+  "version": "0.1.0",
+  "description": "Adds to the hint line under the prompt the keys that matter right now: typing, waiting on a turn or idle",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

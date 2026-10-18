@@ -74,3 +74,61 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(out.text).toBe('TL;DR: Resumo.')
   expect(system).toContain('Brazilian Portuguese')
 })
+
+test('asks for the summary in Spanish when the hub is set to es', async ($, on) => {
+  let system = ''
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('turn.complete', () => ({ text: 'base' }))
+  on('model.complete', (_$, e) => {
+    system = e.system ?? ''
+
+    return { value: { isAnswered: true, text: 'Resumen.', usage: USAGE } }
+  })
+
+  expect((await $.turn.complete(complete())).text).toBe('TL;DR: Resumen.')
+  expect(system).toContain('in Spanish')
+})
+
+test('starts at 1800 characters', async ($, on) => {
+  let calls = 0
+  on('turn.complete', () => ({ text: 'base' }))
+  on('model.complete', () => {
+    calls += 1
+
+    return { value: { isAnswered: true, text: 'Sum.', usage: USAGE } }
+  })
+
+  expect((await $.turn.complete(complete({ answer: 'a'.repeat(1799) }))).text).toBe('base')
+  expect(calls).toBe(0)
+
+  expect((await $.turn.complete(complete({ answer: 'a'.repeat(1800) }))).text).toBe('TL;DR: Sum.')
+  expect(calls).toBe(1)
+})
+
+test('sends at most 20000 characters of the answer', async ($, on) => {
+  let prompt = ''
+  on('turn.complete', () => ({ text: 'base' }))
+  on('model.complete', (_$, e) => {
+    prompt = e.prompt as string
+
+    return { value: { isAnswered: true, text: 'Sum.', usage: USAGE } }
+  })
+
+  await $.turn.complete(complete({ answer: `${'a'.repeat(20000)}TAIL` }))
+  expect(prompt).toHaveLength(20000)
+  expect(prompt.includes('TAIL')).toBe(false)
+})
+
+test('skips a refused turn', async ($, on) => {
+  let calls = 0
+  on('turn.complete', () => ({ text: 'base' }))
+  on('model.complete', () => {
+    calls += 1
+
+    return { value: { isAnswered: true, text: 'x', usage: USAGE } }
+  })
+
+  const out = await $.turn.complete(complete({ reason: 'refusal', refusal: { category: null, explanation: null } }))
+  expect(out.text).toBe('base')
+  expect(calls).toBe(0)
+})

@@ -1,0 +1,13 @@
+{
+  "name": "vague-name-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit exports a placeholder name such as tmp, foo, stuff or data2",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "retry-status",
+  "version": "0.1.0",
+  "description": "Status line counting how many times in a row the same command has failed, until it passes or another fails",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "panel"
+  ],
+  "dependencies": [
+    "cockpit"
+  ]
+}

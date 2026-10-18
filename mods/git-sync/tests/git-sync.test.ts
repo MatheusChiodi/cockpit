@@ -82,3 +82,104 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run(''))).text).toBe('feat/x vs origin/main: 2 à frente, 3 atrás')
 })
+
+// A configurable repository: answers each git call from the table, the rest with success.
+const table = (calls: string[], answers: Record<string, ReturnType<typeof done>>) => (_: unknown, e: any) => {
+  const call = e.argv.slice(2).join(' ')
+  calls.push(call)
+
+  return answers[call] ?? done(0)
+}
+
+test('says when the folder is not a git repository', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', table(calls, { 'rev-parse --abbrev-ref HEAD': done(128, '', 'fatal: not a git repository') }))
+
+  expect((await $.command.run(run(''))).text).toBe('Not a git repository (or git is not available).')
+  expect(calls).toEqual(['rev-parse --abbrev-ref HEAD'])
+})
+
+test('says when git cannot start', async ($, on) => {
+  on('process.run', () => {
+    throw new Error('ENOENT')
+  })
+
+  expect((await $.command.run(run('merge'))).text).toBe('Not a git repository (or git is not available).')
+})
+
+test('says when there is no base branch', async ($, on) => {
+  on(
+    'process.run',
+    table([], {
+      'rev-parse --abbrev-ref HEAD': done(0, 'feat/x\n'),
+      'symbolic-ref --short refs/remotes/origin/HEAD': done(1),
+      'rev-parse --verify --quiet origin/main': done(1),
+      'rev-parse --verify --quiet origin/master': done(1),
+    }),
+  )
+
+  expect((await $.command.run(run(''))).text).toBe('No base branch found (origin/HEAD, origin/main or origin/master).')
+})
+
+test('uses origin/HEAD when set, and tells to pull on the base branch itself', async ($, on) => {
+  const calls: string[] = []
+  on(
+    'process.run',
+    table(calls, {
+      'rev-parse --abbrev-ref HEAD': done(0, 'develop\n'),
+      'symbolic-ref --short refs/remotes/origin/HEAD': done(0, 'origin/develop\n'),
+    }),
+  )
+
+  expect((await $.command.run(run('rebase'))).text).toBe('You are on the base branch "develop". Use git pull.')
+  expect(calls.some(call => call.startsWith('rev-list'))).toBe(false)
+})
+
+test('falls back to origin/master and says when nothing is behind', async ($, on) => {
+  const calls: string[] = []
+  on(
+    'process.run',
+    table(calls, {
+      'rev-parse --abbrev-ref HEAD': done(0, 'feat/y\n'),
+      'symbolic-ref --short refs/remotes/origin/HEAD': done(1),
+      'rev-parse --verify --quiet origin/main': done(1),
+      'rev-list --left-right --count origin/master...HEAD': done(0, '0\t4\n'),
+    }),
+  )
+
+  expect((await $.command.run(run('merge'))).text).toBe('feat/y vs origin/master: 4 ahead, 0 behind\nAlready up to date with origin/master.')
+  expect(calls.some(call => call.startsWith('status') || call.startsWith('merge'))).toBe(false)
+})
+
+test('merges after a yes, with the argument in any case', async ($, on) => {
+  const calls: string[] = []
+  const questions: string[] = []
+  on('process.run', repo(calls))
+  on('tool.call', { tool: 'AskUserQuestion' }, (_: unknown, e: any) => {
+    questions.push(e.questions[0].question)
+
+    return { result: { questions: e.questions, answers: { [e.questions[0].question]: 'yes' } } }
+  })
+
+  expect((await $.command.run(run('  MERGE '))).text).toBe('merge origin/main: done.')
+  expect(calls).toContain('merge origin/main')
+  expect(questions).toEqual(['Merge 3 new commit(s) from origin/main onto this branch?'])
+})
+
+test('cancels when the question cannot be asked', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', repo(calls))
+  on('tool.call', { tool: 'AskUserQuestion' }, () => ({ deny: 'not interactive' }))
+
+  expect((await $.command.run(run('rebase'))).text).toBe('Cancelled.')
+  expect(calls).not.toContain('rebase origin/main')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('process.run', repo([], { dirty: true }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run(''))).text).toBe('feat/x vs origin/main: 2 adelante, 3 atrás')
+  expect((await $.command.run(run('rebase'))).text).toBe('Hay cambios sin commitear en archivos rastreados. Commitea o guarda antes (/gst).')
+  expect((await $.command.run(run('pull'))).text).toBe('Uso: /sync [rebase|merge]')
+})

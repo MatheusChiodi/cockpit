@@ -103,3 +103,100 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run())).text).toBe('Nenhum commit desde v1.4.2: nada para adicionar.')
 })
+
+test('starts at 0.1.0 from the last 30 commits when there is no tag', async ($, on) => {
+  const written: string[] = []
+  const calls: string[] = []
+  mock.clock(on, { now: NOW })
+  on('session.root', () => ({ value: '/repo' }))
+  on('process.run', (_: unknown, e: any) => {
+    const call = e.argv.join(' ')
+    calls.push(call)
+
+    if (call.includes('rev-parse')) return done(0, 'abc1234\n')
+    if (call.includes('describe')) return done(128, '', 'No names found')
+
+    return done(0, 'initial commit\n')
+  })
+  on('fs.read', () => {
+    throw new Error('ENOENT')
+  })
+  on('fs.write', (_: unknown, e: { text: string }) => {
+    written.push(e.text)
+
+    return { value: undefined }
+  })
+  answer(on, () => 'yes')
+
+  expect((await $.command.run(run())).text).toBe('CHANGELOG.md now has the entry for 0.1.0.')
+  expect(calls.some(call => call.endsWith('log --no-merges --format=%s -n 30'))).toBe(true)
+  expect(written[0]).toBe('# Changelog\n\n## [0.1.0] - 2026-10-13\n\n### Changed\n\n- initial commit\n')
+})
+
+test('a tag that is not semver also starts at 0.1.0', async ($, on) => {
+  const written = world(on, ['feat: x'], '# Changelog\n', 'release-candidate')
+  answer(on, () => 'yes')
+
+  await $.command.run(run())
+  expect(written[0]).toContain('## [0.1.0] - 2026-10-13')
+})
+
+test('BREAKING in the subject bumps major even without the bang', async ($, on) => {
+  const written = world(on, ['fix: BREAKING remove old flag'], '# Changelog\n')
+  answer(on, () => 'yes')
+
+  await $.command.run(run())
+  expect(written[0]).toContain('## [2.0.0] - 2026-10-13')
+})
+
+test('appends after an intro that has no entries yet', async ($, on) => {
+  const written = world(on, ['fix: typo'], '# Changelog\n\nAll notable changes.\n\n')
+  answer(on, () => 'yes')
+
+  await $.command.run(run('1.4.3'))
+  expect(written[0]).toBe('# Changelog\n\nAll notable changes.\n\n## [1.4.3] - 2026-10-13\n\n### Fixed\n\n- typo\n')
+})
+
+test('says so when the file cannot be written', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  on('session.root', () => ({ value: '/repo' }))
+  on('process.run', (_: unknown, e: any) => {
+    const call = e.argv.join(' ')
+
+    if (call.includes('rev-parse')) return done(0, 'abc1234\n')
+    if (call.includes('describe')) return done(0, 'v1.0.0\n')
+
+    return done(0, 'fix: typo\n')
+  })
+  on('fs.read', () => ({ value: '# Changelog\n' }))
+  on('fs.write', () => {
+    throw new Error('EACCES')
+  })
+  answer(on, () => 'yes')
+
+  expect((await $.command.run(run())).text).toBe('Could not write CHANGELOG.md.')
+})
+
+test('shows at most 12 lines of the entry in the question', async ($, on) => {
+  const many = Array.from({ length: 20 }, (_, i) => `feat: item ${i}`)
+  world(on, many, '# Changelog\n')
+  const asked: string[] = []
+  on('tool.call', { tool: 'AskUserQuestion' }, (_: unknown, e: any) => {
+    asked.push(e.questions[0].question)
+
+    return { result: { questions: e.questions, answers: { [e.questions[0].question]: 'no' } } }
+  })
+
+  expect((await $.command.run(run())).text).toBe('Cancelled.')
+  expect(asked[0]).toContain('Add to CHANGELOG.md?')
+  expect(asked[0]).toContain('  …')
+  expect(asked[0]).not.toContain('item 19')
+})
+
+test('speaks Spanish from the hub', async ($, on) => {
+  world(on, COMMITS, '# Changelog\n\n## [1.5.0] - 2026-10-01\n')
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run())).text).toBe('CHANGELOG.md ya tiene una entrada para 1.5.0.')
+  expect((await $.command.run(run('later'))).text).toBe('Uso: /changelog [versión]')
+})

@@ -1,0 +1,13 @@
+{
+  "name": "classname-build-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit builds a Tailwind className by concatenation, or assembles a class like bg-${color} that Tailwind never generates",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

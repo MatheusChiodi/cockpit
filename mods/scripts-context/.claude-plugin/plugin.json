@@ -1,0 +1,13 @@
+{
+  "name": "scripts-context",
+  "version": "0.1.0",
+  "description": "Tells Claude the test, lint, build and dev scripts of package.json and the package manager, so it stops guessing commands",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

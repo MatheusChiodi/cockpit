@@ -69,3 +69,68 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run('1 / 0'))).text).toContain('Divisão por zero')
 })
+
+test('uses the mouse selection when no expression is typed', async ($, on) => {
+  const copied: string[] = []
+  on('ui.selection', () => ({ value: { text: '  6 * 7  ' } as never }))
+  on('ui.copy', (_, e) => {
+    copied.push(e.text)
+
+    return { value: { isCopied: true } }
+  })
+
+  const answer = await $.command.run(run('   '))
+  expect(answer.text).toContain('6 * 7 = 42')
+  expect(copied).toEqual(['42'])
+})
+
+test('prints the usage when reading the selection fails', async ($, on) => {
+  on('ui.selection', () => {
+    throw new Error('no selection support')
+  })
+
+  expect((await $.command.run(run(''))).text).toContain('Usage: /calc')
+})
+
+test('copies nothing when the expression is wrong', async ($, on) => {
+  const copied: string[] = []
+  on('ui.copy', (_, e) => {
+    copied.push(e.text)
+
+    return { value: { isCopied: true } }
+  })
+
+  await $.command.run(run('2 +'))
+  await $.command.run(run('1e5'))
+  expect(copied).toEqual([])
+})
+
+test('rounds floating point noise to twelve significant digits', async ($, on) => {
+  on('ui.copy', () => ({ value: { isCopied: true } }))
+
+  expect((await $.command.run(run('1 / 3'))).text).toContain(' = 0.333333333333\n')
+  expect((await $.command.run(run('0.1 * 3'))).text).toContain(' = 0.3\n')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('ui.selection', () => ({ value: undefined }))
+
+  expect((await $.command.run(run('(1'))).text).toContain('El "(" de la posición 1 nunca se cierra')
+  expect((await $.command.run(run(''))).text).toContain('Uso: /calc <expresión>')
+})
+
+test('registers the command with a localized description at session start', async ($, on) => {
+  const registered: { name: string; description?: string }[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+  on('command.register', (_$, e) => {
+    registered.push(e)
+
+    return { value: { command: e.name } }
+  })
+
+  await $.session.start({ cwd: '/repo', surface: 'terminal', isInteractive: true })
+  expect(registered[0]?.name).toBe('calc')
+  expect(registered[0]?.description).toContain('Calcula uma expressão')
+})

@@ -100,3 +100,86 @@ test('shows nothing while the hub lists it as off', async ($, on) => {
   expect(status.length).toBeGreaterThan(0)
   expect(status.every(text => text === undefined)).toBe(true)
 })
+
+test('with parallel calls it shows the newest one still running', async ($, on) => {
+  const status: (string | undefined)[] = []
+  const gates: Record<string, () => void> = {}
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+  on('tool.call', { tool: 'Bash' }, (_: unknown, e: { tool_use_id: string }) =>
+    new Promise(resolve => {
+      gates[e.tool_use_id] = () => resolve({ result: {} as never })
+    }),
+  )
+
+  const first = $.tool.call({ tool: 'Bash', command: 'first', tool_use_id: 'b-1' })
+  await flush()
+  const second = $.tool.call({ tool: 'Bash', command: 'second', tool_use_id: 'b-2' })
+  await flush()
+  expect(status.at(-1)).toBe('▸ Bash second')
+
+  gates['b-2']?.()
+  await second
+  await flush()
+  expect(status.at(-1)).toBe('▸ Bash first')
+
+  gates['b-1']?.()
+  await first
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('a tool without a known field shows just its name, a fetch shows its url', async ($, on) => {
+  const during: (string | undefined)[] = []
+  const status: (string | undefined)[] = []
+  const answer = async () => {
+    await flush()
+    during.push(status.at(-1))
+
+    return { result: {} as never }
+  }
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+  on('tool.call', { tool: 'TodoWrite' }, answer as never)
+  on('tool.call', { tool: 'WebFetch' }, answer as never)
+
+  await $.tool.call({ tool: 'TodoWrite', todos: [], tool_use_id: 't-1' } as never)
+  await $.tool.call({ tool: 'WebFetch', url: 'https://example.com/docs', prompt: 'read', tool_use_id: 'w-1' } as never)
+  expect(during).toEqual(['▸ TodoWrite', '▸ WebFetch https://example.com/docs'])
+})
+
+test('clears the line even when the call throws', async ($, on) => {
+  const status: (string | undefined)[] = []
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+  on('tool.call', { tool: 'Bash' }, () => {
+    throw new Error('crashed')
+  })
+
+  await $.tool.call({ tool: 'Bash', command: 'boom', tool_use_id: 'b-1' }).catch(() => undefined)
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('a subagent finishing does not clear the main line', async ($, on) => {
+  const { status, gate } = world(on, [], true)
+
+  const open = $.tool.call({ tool: 'Bash', command: 'sleep 99', tool_use_id: 'b-1' })
+  await flush()
+  await flush()
+  await $.turn.complete({ ...TURN, agentId: 'sub-1' } as never)
+  await flush()
+  expect(status.at(-1)).toBe('▸ Bash sleep 99')
+
+  gate.release()
+  await open
+})

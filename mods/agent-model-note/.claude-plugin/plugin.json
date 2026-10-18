@@ -1,0 +1,13 @@
+{
+  "name": "agent-model-note",
+  "version": "0.1.0",
+  "description": "A toast naming the model a subagent resolved to when it differs from the main one, and /agentmodels lists them all",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "context"
+  ]
+}

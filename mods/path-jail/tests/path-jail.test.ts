@@ -74,3 +74,63 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await $.tool.call(write('/etc/hosts', 'pt-1'))
   expect(answer.deny).toContain('path-jail: /etc/hosts fica fora do projeto')
 })
+
+// The same disk with some variables set and more paths on it.
+const diskWith = (on: On, env: Record<string, string>, more: Record<string, string>) => {
+  on('session.root', () => ({ value: '/proj' }))
+  on('session.cwd', () => ({ value: '/proj' }))
+  mock.env(on, env)
+  on('fs.stat', ($, e) => {
+    const plain = e.path.replace(/^[A-Za-z]:/, '').replace(/\\/g, '/').replace(/\/+$/, '')
+    const realPath = { ...DISK, ...more }[plain]
+
+    return { value: { kind: 'file' as const, size: 0, mtimeMs: 0, isLink: false, realPath } }
+  })
+  on('tool.call', { tool: 'Write' }, () => ANSWER)
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+}
+
+test('lets writes into the temp folder and ~/.claude through', async ($, on) => {
+  diskWith(on, { TEMP: '/scratch', HOME: '/home/me' }, { '/scratch': '/scratch', '/home/me/.claude': '/home/me/.claude' })
+
+  expect((await $.tool.call(write('/scratch/out.txt', 't1'))).deny).toBeUndefined()
+  expect((await $.tool.call(write('/home/me/.claude/notes.md', 't2'))).deny).toBeUndefined()
+  expect((await $.tool.call(write('/home/me/.bashrc', 't3'))).deny).toContain('is outside the project')
+})
+
+test('refuses paths it cannot place: climbing out, drive-relative and network shares', async ($, on) => {
+  disk(on)
+
+  expect((await $.tool.call(write('/proj/../etc/x', 'c1'))).deny).toContain('is outside the project')
+  expect((await $.tool.call(write('C:notes.txt', 'c2'))).deny).toContain('is outside the project')
+  expect((await $.tool.call(write('//server/share/x.txt', 'c3'))).deny).toContain('is outside the project')
+  expect((await $.tool.call(write('/proj/src/..', 'c4'))).deny).toContain('is outside the project')
+})
+
+test('a prefix of the root is not the root', async ($, on) => {
+  diskWith(on, {}, { '/project2': '/project2' })
+
+  expect((await $.tool.call(write('/project2/a.ts', 'p1'))).deny).toContain('is outside the project')
+})
+
+test('refuses with a clear reason when the check throws', async ($, on) => {
+  let ran = 0
+  mock.env(on, {})
+  on('session.root', () => ({ deny: 'no root' }))
+  on('fs.stat', () => ({ value: { kind: 'file' as const, size: 0, mtimeMs: 0, isLink: false, realPath: '/proj/a.ts' } }))
+  on('tool.call', { tool: 'Write' }, () => {
+    ran += 1
+
+    return ANSWER
+  })
+
+  expect((await $.tool.call(write('/proj/a.ts', 'f1'))).deny).toBe('path-jail: the check failed, write refused.')
+  expect(ran).toBe(0)
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  disk(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.tool.call(write('/etc/hosts', 'es-1'))).deny).toContain('path-jail: /etc/hosts queda fuera del proyecto')
+})

@@ -71,3 +71,69 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(verdict.decision).toBe('ask')
   expect(verdict.reason).toContain('ou new Function em src/a.ts')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const { tool, input } = ASKED[4] as Call
+  const verdict = await $.tool.check({ tool, input })
+  expect(verdict.reason).toBe(
+    'dynamic-exec-guard: arma un comando de shell a partir de una variable en src/git.ts. Una entrada con comillas o punto y coma se vuelve un segundo comando; pasa los argumentos como lista.',
+  )
+})
+
+test('names the risk that matches: html, exec and eval each have their own reason', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const html = await $.tool.check({ tool: 'Write', input: { file_path: 'src/a.vue', content: '<div v-html="raw"></div>' } })
+  expect(html.reason).toContain('writes raw HTML into the page in src/a.vue')
+
+  const write = await $.tool.check({ tool: 'Edit', input: { file_path: 'src/a.js', old_string: '', new_string: 'document.writeln(msg)' } })
+  expect(write.reason).toContain('writes raw HTML')
+
+  const py = await $.tool.check({ tool: 'Write', input: { file_path: 'app/run.py', content: 'os.system(f"rm {name}")' } })
+  expect(py.reason).toContain('builds a shell command from a variable in app/run.py')
+
+  const shell = await $.tool.check({
+    tool: 'Write',
+    input: { file_path: 'app/run.py', content: 'subprocess.run(f"ls {d}", shell=True)' },
+  })
+  expect(shell.reason).toContain('builds a shell command')
+})
+
+test('lets tests, fixtures, docs and examples through', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  const body = 'const result = eval(userInput)'
+
+  for (const file_path of ['tests/a.ts', 'src/a.test.ts', 'src/__tests__/a.js', 'fixtures/x.js', 'docs/guide.ts', 'README.md', 'config.example']) {
+    const verdict = await $.tool.check({ tool: 'Edit', input: { file_path, old_string: '', new_string: body } })
+    expect(verdict.decision, file_path).toBe('allow')
+  }
+})
+
+test('ignores tools that do not write files', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command: 'node -e "eval(process.argv[1])"' } })
+  expect(verdict.decision).toBe('allow')
+})
+
+test('keeps the reason of a verdict that already asks', async ($, on) => {
+  on('tool.check', () => ({ decision: 'ask', reason: 'asked beneath' }))
+
+  const { tool, input } = ASKED[0] as Call
+  const verdict = await $.tool.check({ tool, input })
+  expect(verdict.decision).toBe('ask')
+  expect(verdict.reason).toBe('asked beneath')
+})
+
+test('a comment that mentions innerHTML is not a write', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const verdict = await $.tool.check({
+    tool: 'Edit',
+    input: { file_path: 'src/a.ts', old_string: '', new_string: '  * avoid el.innerHTML = html here\n  # os.system(f"x")' },
+  })
+  expect(verdict.decision).toBe('allow')
+})

@@ -68,3 +68,58 @@ test('speaks the language set in the hub', async ($, on) => {
   })
   expect(answer.deny).toContain('catch-swallow-guard bloqueou a edição: ela adiciona um bloco catch vazio')
 })
+
+const edit = (file_path: string, old_string: string, new_string: string, id: string) =>
+  ({ tool: 'Edit', file_path, old_string, new_string, tool_use_id: id }) as const
+
+test('a second empty catch next to one that was already there is refused', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  const answer = await $.tool.call(
+    edit('a.ts', 'try { a() } catch (e) {}', 'try { a() } catch (e) {}\ntry { b() } catch {}', 'two-1'),
+  )
+  expect(answer.deny).toContain('an empty catch block')
+})
+
+test('judges Kotlin, C#, Vue and Python stub files, and an except with an ellipsis', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  for (const [file_path, new_string] of [
+    ['A.kt', 'try { run() } catch (e: Exception) {}'],
+    ['A.cs', 'try { Run(); } catch (Exception) { }'],
+    ['A.vue', 'fetch(url).catch(err => {})'],
+    ['a.pyi', 'try:\n    run()\nexcept OSError:\n    ...'],
+  ] as const) {
+    expect((await $.tool.call(edit(file_path, 'x', new_string, `t-${file_path}`))).deny, file_path).toBeDefined()
+  }
+})
+
+test('a refused edit never reaches the tool; other file types pass untouched', async ($, on) => {
+  let ran = 0
+  on('tool.call', { tool: 'Write' }, () => {
+    ran += 1
+
+    return ANSWER
+  })
+
+  await $.tool.call({ tool: 'Write', file_path: 'a.ts', content: 'try {} catch {}', tool_use_id: 'r-1' })
+  expect(ran).toBe(0)
+
+  const go = await $.tool.call({ tool: 'Write', file_path: 'script.rb', content: 'begin; rescue; end; catch (e) {}', tool_use_id: 'r-2' })
+  expect(go.deny).toBeUndefined()
+  expect(ran).toBe(1)
+})
+
+test('speaks Spanish, and Portuguese for an except that passes', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+  let lang = 'es'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+
+  expect((await $.tool.call(edit('a.ts', 'x', 'try { a() } catch (e) {}', 'es-1'))).deny).toBe(
+    'catch-swallow-guard bloqueó la edición: añade un bloque catch vacío. Un error tragado oculta fallos; trátalo, regístralo o relánzalo.',
+  )
+  expect((await $.tool.call(edit('a.py', 'x', 'except:\n    pass', 'es-2'))).deny).toContain('añade un except que solo hace pass')
+
+  lang = 'pt'
+  expect((await $.tool.call(edit('a.py', 'x', 'except:\n    pass', 'pt-2'))).deny).toContain('ela adiciona um except que só faz pass')
+})

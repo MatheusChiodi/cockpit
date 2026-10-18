@@ -80,3 +80,58 @@ test('speaks the language set in the hub', async ($, on) => {
   expect((await $.command.run(run(''))).text).toContain('2 mensagem(ns) salva(s) em:')
   expect(written[0]?.text).toContain('## Você')
 })
+
+test('reports a file that cannot be written', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  on('session.messages', () => ({ value: MESSAGES as never }))
+  on('session.root', () => ({ value: '/work/app' }))
+  on('fs.write', () => ({ deny: 'disk full' }))
+
+  const text = (await $.command.run(run(''))).text ?? ''
+  expect(text).toContain('Could not write the file:')
+  expect(text).toContain('disk full')
+})
+
+test('drops leading dots and falls back to the time stamp when no name is left', async ($, on) => {
+  const written = world(on, MESSAGES)
+
+  await $.command.run(run('.hidden'))
+  await $.command.run(run('...'))
+  await $.command.run(run('dir\\sub\\win.txt'))
+  expect(written.map(file => file.path)).toEqual([
+    '/work/app/.claude-exports/hidden.md',
+    '/work/app/.claude-exports/session-2026-10-13-1542.md',
+    '/work/app/.claude-exports/win.txt.md',
+  ])
+})
+
+test('keeps a turn that only used tools, and counts it in the header', async ($, on) => {
+  const written = world(on, [
+    { role: 'user' as const, text: 'go', toolUses: [] },
+    { role: 'assistant' as const, text: '  ', toolUses: [{ tool_use_id: 't1', tool: 'Bash', input: {} }] },
+  ])
+
+  expect((await $.command.run(run(''))).text).toContain('Saved 2 message(s)')
+  const text = written[0]?.text ?? ''
+  expect(text).toContain('- Messages: 2')
+  expect(text).toContain('## Claude\n\n*Tools: Bash*')
+  expect(text).toContain(`- Date: ${new Date(NOW).toISOString()}`)
+})
+
+test('speaks Spanish in the answer and the file', async ($, on) => {
+  const written = world(on, MESSAGES)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run(''))).text).toContain('2 mensaje(s) guardado(s) en:')
+  const text = written[0]?.text ?? ''
+  expect(text).toContain('# Exportación de la sesión')
+  expect(text).toContain('## Tú')
+  expect(text).toContain('*Herramientas: Read, Edit*')
+})
+
+test('says the conversation is empty in Portuguese', async ($, on) => {
+  world(on, [{ role: 'user' as const, text: '   ', toolUses: [] }])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  expect((await $.command.run(run(''))).text).toBe('A conversa está vazia: nada para salvar.')
+})

@@ -1,0 +1,13 @@
+{
+  "name": "expo-status",
+  "version": "0.1.0",
+  "description": "Shows the Expo SDK version and the EAS build profiles on the status line of an Expo project",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}

@@ -92,3 +92,61 @@ test('speaks the language set in the hub', async ($, on) => {
   await probed($, on, () => [3000], [], 'pt')
   expect(await has(await $.ui.mount({ ...BAND, surface: 'terminal' }), /NO AR/)).toBe(true)
 })
+
+test('probes once as the session starts, before the first tick', async ($, on) => {
+  const clock = mock.clock(on)
+  world(on, () => [8080])
+  await $.session.start(START)
+  await clock.settle()
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await has(ui, /localhost:8080/)).toBe(true)
+  await ui.unmount()
+})
+
+test('a server that answers with an error status is still up', async ($, on) => {
+  const clock = mock.clock(on)
+  hub(on)
+  on('http.fetch', (_: unknown, e: { url: string }) =>
+    e.url === 'http://localhost:4200/'
+      ? { value: { status: 404, ok: false, headers: {}, text: '' } }
+      : { deny: 'connection refused' },
+  )
+  await $.session.start(START)
+  await clock.settle()
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await has(ui, /localhost:4200/)).toBe(true)
+  expect(await has(ui, /localhost:3000/)).toBe(false)
+  await ui.unmount()
+})
+
+test('keeps the band beneath and steps aside for a survey', async ($, on) => {
+  const clock = mock.clock(on)
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('http.fetch', (_: unknown, e: { url: string }) =>
+    e.url === 'http://localhost:3000/' ? { value: { status: 200, ok: true, headers: {}, text: '' } } : { deny: 'refused' },
+  )
+  on('ui.render', { component: 'AbovePrompt' }, ($: any, e: any) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>beneath</Text>
+  })
+  await $.session.start(START)
+  await clock.settle()
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await has(ui, /beneath/)).toBe(true)
+  expect(await has(ui, /LIVE/)).toBe(true)
+  await ui.unmount()
+
+  const survey = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await has(survey, /beneath/)).toBe(true)
+  expect(await has(survey, /LIVE/)).toBe(false)
+  await survey.unmount()
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  await probed($, on, () => [3000], [], 'es')
+  expect(await has(await $.ui.mount({ ...BAND, surface: 'terminal' }), /ACTIVO/)).toBe(true)
+})

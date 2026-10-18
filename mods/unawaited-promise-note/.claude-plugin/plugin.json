@@ -1,0 +1,13 @@
+{
+  "name": "unawaited-promise-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit calls an async function or fetch as a statement and drops the promise",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "quality"
+  ]
+}

@@ -116,3 +116,86 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(seen.status.at(-1)).toBe('timebox 20 min restantes · revisar')
 })
+
+test('a new box replaces the running one', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on)
+  const seen = world(on)
+
+  await $.session.start(START)
+  await $.command.run(run('10 first'))
+  expect((await $.command.run(run('5 second'))).text).toBe('Time box of 5 min started: second')
+  expect(seen.status.at(-1)).toBe('timebox 5 min left · second')
+
+  await clock.advance(5 * MINUTE)
+  expect(seen.notes).toEqual(['Time is up: second'])
+
+  await clock.advance(10 * MINUTE)
+  expect(seen.notes).toHaveLength(1)
+})
+
+test('bad input while a box runs says which box is running', async ($, on) => {
+  mock.store(on)
+  mock.clock(on)
+  world(on)
+
+  await $.session.start(START)
+  await $.command.run(run('10 deploy'))
+  expect((await $.command.run(run('later'))).text).toBe('A time box is running: deploy. Close it with /timebox done.')
+  expect((await $.command.run(run(''))).text).toContain('A time box is running')
+})
+
+test('an expired box in the store is dropped at the next session', async ($, on) => {
+  mock.store(on, { timebox: { startedAt: 0, endsAt: 10 * MINUTE, what: 'old' } })
+  const clock = mock.clock(on, { now: 30 * MINUTE })
+  const seen = world(on)
+
+  await $.session.start(START)
+  expect(seen.status).toHaveLength(0)
+  expect((await $.command.run(run('done'))).text).toBe('No time box is running.')
+
+  await clock.advance(60 * MINUTE)
+  expect(seen.toasts).toHaveLength(0)
+})
+
+test('a non-interactive session does not take up the stored box', async ($, on) => {
+  mock.store(on, { timebox: { startedAt: 0, endsAt: 10 * MINUTE, what: 'review' } })
+  const clock = mock.clock(on, { now: MINUTE })
+  const seen = world(on)
+
+  await $.session.start({ ...START, isInteractive: false })
+  expect(seen.status).toHaveLength(0)
+
+  await clock.advance(20 * MINUTE)
+  expect(seen.toasts).toHaveLength(0)
+})
+
+test('done stops the stored box from coming back', async ($, on) => {
+  mock.store(on)
+  mock.clock(on)
+  const seen = world(on)
+
+  await $.session.start(START)
+  await $.command.run(run('15 focus'))
+  await $.command.run(run('DONE'))
+  const before = seen.status.length
+
+  await $.session.start(START)
+  expect(seen.status).toHaveLength(before)
+})
+
+test('speaks Portuguese for the warning, the end and done', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on)
+  const seen = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  await $.session.start(START)
+  expect((await $.command.run(run('10 revisar PR'))).text).toBe('Time box de 10 min iniciado: revisar PR')
+  await clock.advance(8 * MINUTE)
+  expect(seen.toasts).toEqual(['80% do time box usado, restam 2 min: revisar PR'])
+  await clock.advance(2 * MINUTE)
+  expect(seen.notes).toEqual(['Acabou o tempo: revisar PR'])
+  expect((await $.command.run(run('done'))).text).toBe('Nenhum time box em andamento.')
+  expect((await $.command.run(run('x'))).text).toBe('Uso: /timebox <minutos, de 1 a 480> <o quê> ou /timebox done')
+})

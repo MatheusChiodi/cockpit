@@ -70,3 +70,55 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.session.start(START)
   expect(status.at(-1)).toBe('ativo 0h00 hoje')
 })
+
+test('a tool call counts as activity too, and no activity adds nothing', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: at(9, 0) })
+  const status = world(on)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await $.session.start(START)
+  await clock.advance(3 * MINUTE)
+  expect(status.at(-1)).toBe('active 0h00 today')
+
+  await $.tool.call({ tool: 'Bash', command: 'ls', tool_use_id: 'b1' })
+  await clock.advance(2 * MINUTE)
+  expect(status.at(-1)).toBe('active 0h02 today')
+})
+
+test('the minutes it counted are there for the next session of the day', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: at(14, 0) })
+  const status = world(on)
+
+  await $.session.start(START)
+  await $.prompt.submit({ text: 'go', wait: false, origin: { kind: 'composer' } })
+  await clock.advance(4 * MINUTE)
+  expect(status.at(-1)).toBe('active 0h04 today')
+
+  await $.session.start(START)
+  expect(status.at(-1)).toBe('active 0h04 today')
+})
+
+test('counts past the hour with two-digit minutes', async ($, on) => {
+  const day = new Date(at(9, 0))
+  const key = `minutes:${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`
+  mock.store(on, { [key]: 59 })
+  const clock = mock.clock(on, { now: at(9, 0) })
+  const status = world(on)
+
+  await $.session.start(START)
+  await $.prompt.submit({ text: 'go', wait: false, origin: { kind: 'composer' } })
+  await clock.advance(MINUTE)
+  expect(status.at(-1)).toBe('active 1h00 today')
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(9, 0) })
+  const status = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect(status.at(-1)).toBe('activo 0h00 hoy')
+})

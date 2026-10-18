@@ -19,7 +19,7 @@ const section = async ($: EngineInterface) => {
         id: 'reply-language:language',
         text: [
           '# Language',
-          INSTRUCTIONS[lang],
+          INSTRUCTIONS[lang] ?? INSTRUCTIONS.en,
           'Technical terms, API names, commands and code identifiers stay in the original.',
           'Commit messages and code comments follow the language already used in the repository.',
         ].join('\n'),

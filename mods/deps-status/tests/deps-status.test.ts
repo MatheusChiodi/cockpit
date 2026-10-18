@@ -118,3 +118,70 @@ test('speaks the language set in the hub', async ($, on) => {
   await started($)
   expect(status.at(-1)).toBe('deps 3 atrás · 1 major')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const status = world(on, fake(), [], 'es')
+
+  await started($)
+  expect(status.at(-1)).toBe('deps 3 atrasadas · 1 major')
+})
+
+test('shows nothing when npm cannot be started', async ($, on) => {
+  const status: (string | undefined)[] = []
+  mock.clock(on)
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.exists', () => ({ value: true }))
+  on('env.get', () => ({ value: undefined }))
+  on('process.run', () => {
+    throw new Error('spawn npm ENOENT')
+  })
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await started($)
+  expect(status).toEqual([])
+})
+
+test('counts a package whose versions it cannot read, without a major jump', async ($, on) => {
+  const status = world(on, fake({ outdated: JSON.stringify({ linked: { current: 'linked' }, left: { latest: '2.0.0' } }) }))
+
+  await started($)
+  expect(status.at(-1)).toBe('deps 2 behind · 1 major')
+})
+
+// Stands in for the hub: a /flip command that writes its own `off` list, as the settings pane does.
+const HUB = {
+  name: 'cockpit',
+  register: (on: any) => {
+    on('command.run', { command: 'flip' }, async ($: any) => {
+      await $.state.set({ plugin: 'cockpit', key: 'off' }, ['deps-status'])
+
+      return { text: 'flipped' }
+    })
+  },
+}
+
+test('clears the entry when the hub turns it off', { plugins: [HUB] }, async ($, on) => {
+  const status: (string | undefined)[] = []
+  mock.clock(on)
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.exists', () => ({ value: true }))
+  on('env.get', () => ({ value: undefined }))
+  on('process.run', () => done(1, OUTDATED))
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await started($)
+  expect(status.at(-1)).toBe('deps 3 behind · 1 major')
+
+  await $.command.run({ command: 'flip', args: '', origin: { kind: 'composer' }, presentation: { isFullscreen: false, columns: 80 } })
+  expect(status.at(-1)).toBeUndefined()
+})

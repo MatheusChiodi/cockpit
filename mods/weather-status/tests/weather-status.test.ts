@@ -70,3 +70,61 @@ test('shows nothing while the hub lists it as off', async ($, on) => {
   await clock.settle()
   expect(status).toEqual([undefined])
 })
+
+test('a failed refresh keeps the last forecast on the line', async ($, on) => {
+  const clock = mock.clock(on)
+  const fake = api()
+  const status = world(on, fake)
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status).toEqual(['London: ☀️ 18°C'])
+
+  fake.fails = true
+  await clock.advance(30 * MINUTE)
+  fake.fails = false
+  fake.status = 503
+  await clock.advance(30 * MINUTE)
+  expect(status).toEqual(['London: ☀️ 18°C'])
+})
+
+test('collapses whitespace and accepts a line of exactly 60 characters', async ($, on) => {
+  const clock = mock.clock(on)
+  const fake = api({ body: 'São Paulo,   Brazil:\t⛅  -2°C\n' })
+  const status = world(on, fake)
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status).toEqual(['São Paulo, Brazil: ⛅ -2°C'])
+
+  fake.body = `${'z'.repeat(54)}: +1°C`
+  await clock.advance(30 * MINUTE)
+  expect(status.at(-1)).toBe(`${'z'.repeat(54)}: 1°C`)
+})
+
+// Stands in for the hub: a /flip command that writes its own `off` list, as the settings pane does.
+const HUB = {
+  name: 'cockpit',
+  register: (on: any) => {
+    on('command.run', { command: 'flip' }, async ($: any) => {
+      await $.state.set({ plugin: 'cockpit', key: 'off' }, ['weather-status'])
+
+      return { text: 'flipped' }
+    })
+  },
+}
+
+test('clears the entry when the hub turns it off', { plugins: [HUB] }, async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on, api())
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status.at(-1)).toBe('London: ☀️ 18°C')
+
+  await $.command.run({ command: 'flip', args: '', origin: { kind: 'composer' }, presentation: { isFullscreen: false, columns: 80 } })
+  expect(status.at(-1)).toBeUndefined()
+
+  await clock.advance(30 * MINUTE)
+  expect(status.at(-1)).toBeUndefined()
+})

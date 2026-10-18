@@ -1,0 +1,13 @@
+{
+  "name": "mode-keys",
+  "version": "0.1.0",
+  "description": "Adds the key that switches modes to the mode labels in the prompt footer, so you can leave a mode you forgot you were in",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ]
+}

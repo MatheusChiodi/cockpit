@@ -48,3 +48,65 @@ test('speaks the language set in the hub', async ($, on) => {
     ['Turno mais caro: #1  US$ 1.00  (100% da sessão)', 'Pedido: (sem prompt digitado)', 'Ferramentas: nenhuma'].join('\n'),
   )
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(cmd)).text).toBe('Aún no hay costo registrado en esta sesión.')
+
+  await $.turn.start({ text: 'fix it', turnId: 't1' })
+  await $.session.measure(measure(0.5))
+  expect((await $.command.run(cmd)).text).toBe(
+    ['Turno más caro: #1  US$ 0.50  (100% de la sesión)', 'Pedido: fix it', 'Herramientas: ninguna'].join('\n'),
+  )
+})
+
+test('cuts the prompt at 80 characters', async ($, on) => {
+  world(on)
+
+  await $.turn.start({ text: `${'a'.repeat(80)}TAIL`, turnId: 't1' })
+  await $.session.measure(measure(0.2))
+  expect((await $.command.run(cmd)).text?.split('\n')[1]).toBe(`Asked: ${'a'.repeat(80)}`)
+})
+
+test('a total that goes down adds nothing to the turn', async ($, on) => {
+  world(on)
+
+  await $.turn.start({ text: 'one', turnId: 't1' })
+  await $.session.measure(measure(1))
+  await $.turn.start({ text: 'two', turnId: 't2' })
+  await $.session.measure(measure(0.4))
+  await $.session.measure(measure(0.6))
+
+  // The share never passes 100%, even when the session total fell below the turn's cost.
+  expect((await $.command.run(cmd)).text?.split('\n')[0]).toBe('Priciest turn: #1  US$ 1.00  (100% of the session)')
+})
+
+test('ignores measures without cost and calls made before any turn', async ($, on) => {
+  world(on)
+
+  await $.tool.call({ tool: 'Read', file_path: '/early', tool_use_id: 'early' })
+  await $.turn.start({ text: 'look', turnId: 't1' })
+  await $.session.measure({ context: { window: 200000 }, rateLimits: [], changed: ['context' as const] } as never)
+  expect((await $.command.run(cmd)).text).toBe('No cost recorded yet this session.')
+
+  await $.session.measure(measure(0.3))
+  expect((await $.command.run(cmd)).text?.split('\n')[2]).toBe('Tools: none')
+})
+
+test('on a tie the earlier turn stands, and tools are ordered by count', async ($, on) => {
+  world(on)
+
+  await $.turn.start({ text: 'first', turnId: 't1' })
+  await $.tool.call({ tool: 'Bash', command: 'ls', tool_use_id: 'x' })
+  await $.tool.call({ tool: 'Read', file_path: '/a', tool_use_id: 'y' })
+  await $.tool.call({ tool: 'Read', file_path: '/b', tool_use_id: 'z' })
+  await $.session.measure(measure(0.5))
+  await $.turn.start({ text: 'second', turnId: 't2' })
+  await $.session.measure(measure(1))
+
+  const lines = (await $.command.run(cmd)).text?.split('\n')
+  expect(lines?.[0]).toBe('Priciest turn: #1  US$ 0.50  (50% of the session)')
+  expect(lines?.[2]).toBe('Tools: Read×2  Bash×1')
+})

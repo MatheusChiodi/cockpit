@@ -72,3 +72,57 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await bash($, 'npm install zod')
   expect(answer.deny).toContain('pm-guard: este projeto usa yarn (yarn.lock); "npm install zod" geraria outro lockfile. Rode "yarn add zod".')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  project(on, ['yarn.lock'])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await bash($, 'npm install zod')
+  expect(answer.deny).toBe('pm-guard: este proyecto usa yarn (yarn.lock); "npm install zod" generaría otro lockfile. Ejecuta "yarn add zod".')
+})
+
+test('suggests the npm spelling in an npm project', async ($, on) => {
+  project(on, ['package-lock.json'])
+
+  const cases: [string, string][] = [
+    ['pnpm add zod', 'npm install zod'],
+    ['yarn remove zod', 'npm uninstall zod'],
+    ['pnpm install --frozen-lockfile', 'npm install'],
+    ['bun update', 'npm update'],
+    ['yarn test', 'npm test'],
+  ]
+
+  for (const [command, fix] of cases) {
+    expect((await bash($, command)).deny, command).toContain(`Run "${fix}"`)
+  }
+})
+
+test('suggests yarn upgrade for an update', async ($, on) => {
+  project(on, ['yarn.lock'])
+  expect((await bash($, 'npm update react')).deny).toContain('Run "yarn upgrade react"')
+})
+
+test('covers bun.lock and a command behind environment variables', async ($, on) => {
+  project(on, ['bun.lock'])
+
+  const answer = await bash($, 'CI=1 NODE_ENV=test npm ci')
+  expect(answer.deny).toContain('uses bun (bun.lock)')
+  expect(answer.deny).toContain('Run "bun install --frozen-lockfile"')
+})
+
+test('an unknown or invalid packageManager falls back to the lockfiles', async ($, on) => {
+  project(on, ['pnpm-lock.yaml'], JSON.stringify({ packageManager: 'deno@2.0.0' }))
+  expect((await bash($, 'npm i zod')).deny).toContain('uses pnpm (pnpm-lock.yaml)')
+})
+
+test('a package.json that is not JSON falls back to the lockfiles', async ($, on) => {
+  project(on, ['yarn.lock'], '{ nope')
+  expect((await bash($, 'npm i zod')).deny).toContain('uses yarn (yarn.lock)')
+})
+
+test('refuses with the failure text when the check itself fails', async ($, on) => {
+  on('session.root', () => ({ deny: 'no root' }))
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+
+  expect((await bash($, 'npm i')).deny).toBe('pm-guard: the check failed, run the command with the same package manager as the lockfile.')
+})

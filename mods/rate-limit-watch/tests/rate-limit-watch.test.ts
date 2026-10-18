@@ -82,3 +82,62 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.session.measure(measure(90))
   expect(toasts).toEqual(['Rate limit: janela de 5h em 90%'])
 })
+
+const toasting = (on: any) => {
+  const toasts: string[] = []
+  on('session.measure', () => ({ changed: [] }))
+  on('ui.toast', (_: unknown, e: { text: string }) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  return toasts
+}
+
+test('a jump straight past 95% toasts once', async ($, on) => {
+  const toasts = toasting(on)
+
+  await $.session.measure(measure(97))
+  await $.session.measure(measure(99))
+  expect(toasts).toEqual(['Rate limit: 5h window at 97%'])
+})
+
+test('the toast says when the window resets', async ($, on) => {
+  const toasts = toasting(on)
+
+  await $.session.measure({
+    context: { window: 200000 },
+    rateLimits: [{ kind: 'seven_day', percentUsed: 92, resetsAt: '2026-06-15T15:00:00Z' }],
+    changed: [],
+  } as never)
+  expect(toasts[0]).toMatch(/^Rate limit: 7-day window at 92% \(resets .+\)$/)
+})
+
+test('an unknown window kind is shown by its raw name', async ($, on) => {
+  const toasts = toasting(on)
+  on('session.usage', () => usage([{ kind: 'weekly_opus', percentUsed: 5 }]))
+
+  expect((await $.command.run(LIMITS)).text).toBe('weekly_opus: 5%')
+  await $.session.measure(measure(75, 'weekly_opus'))
+  expect(toasts).toEqual(['Rate limit: weekly_opus at 75%'])
+})
+
+test('registers /limits and speaks Spanish', async ($, on) => {
+  const toasts = toasting(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  const described: string[] = []
+  on('command.register', (_$, e) => {
+    described.push(`${e.name}: ${e.description}`)
+
+    return { value: { command: e.name } }
+  })
+  on('session.usage', () => usage([]))
+
+  await $.session.start({ cwd: '/p', surface: 'terminal', isInteractive: true })
+  expect(described).toEqual(['limits: Muestra el uso de las ventanas de rate limit de la cuenta'])
+  expect((await $.command.run(LIMITS)).text).toContain('Sin lectura de rate limit')
+  await $.session.measure(measure(80, 'spend_limit'))
+  expect(toasts).toEqual(['Rate limit: límite de gasto al 80%'])
+})

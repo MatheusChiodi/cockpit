@@ -1,0 +1,13 @@
+{
+  "name": "readme-context",
+  "version": "0.1.0",
+  "description": "Gives Claude the first paragraph of the README, so it knows what the project is without reading it",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}

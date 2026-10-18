@@ -104,3 +104,56 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await $.tool.call({ tool: 'Read', file_path: '/home/me/.aws/credentials', tool_use_id: 'pt-1' })
   expect(answer.deny).toContain('credential-file-guard bloqueou o acesso: "/home/me/.aws/credentials" guarda credenciais')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await $.tool.call({ tool: 'Bash', command: 'cat ~/.aws/credentials', tool_use_id: 'es-1' })
+  expect(answer.deny).toBe(
+    'credential-file-guard bloqueó el acceso: ".aws/credentials" guarda credenciales. Pide al usuario el valor específico que necesitas.',
+  )
+})
+
+test('names the whole path a Read asked for', async ($, on) => {
+  on('tool.call', { tool: 'Read' }, () => ANSWER)
+
+  const answer = await $.tool.call({ tool: 'Read', file_path: '/home/me/.git-credentials', tool_use_id: 'r-1' })
+  expect(answer.deny).toBe(
+    'credential-file-guard blocked the access: "/home/me/.git-credentials" holds credentials. Ask the user for the specific value you need instead.',
+  )
+})
+
+test('catches redirects, search tools and the Windows home', async ($, on) => {
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+  on('tool.call', { tool: 'PowerShell' }, () => ANSWER)
+
+  for (const command of ['wc -l < ~/.netrc', 'rg token ~/.git-credentials', 'sed -n 1p ~/.python_history', 'cat ~/.ssh/id_ecdsa']) {
+    expect((await $.tool.call({ tool: 'Bash', command, tool_use_id: `x-${command}` })).deny, command).toContain('credential-file-guard')
+  }
+
+  const npmrc = await $.tool.call({ tool: 'PowerShell', command: 'type %USERPROFILE%\\.npmrc', tool_use_id: 'ps-1' })
+  expect(npmrc.deny).toContain('credential-file-guard')
+})
+
+test('lets through commands that only name a store without reading it', async ($, on) => {
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+
+  for (const command of ['ssh-add ~/.ssh/id_rsa', 'aws configure list', 'ls -la ~/.aws', 'git config credential.helper store']) {
+    expect((await $.tool.call({ tool: 'Bash', command, tool_use_id: `ok-${command}` })).deny, command).toBeUndefined()
+  }
+})
+
+test('refuses with the failure text when the check itself fails', async ($, on) => {
+  let ran = 0
+  on('tool.call', { tool: 'Read' }, () => {
+    ran += 1
+
+    return ANSWER
+  })
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ deny: 'state unavailable' }))
+
+  const answer = await $.tool.call({ tool: 'Read', file_path: '/home/me/.netrc', tool_use_id: 'f-1' })
+  expect(answer.deny).toBe('credential-file-guard: the check failed, access refused.')
+  expect(ran).toBe(0)
+})

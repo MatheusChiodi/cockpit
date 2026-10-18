@@ -61,3 +61,65 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run('a.ts'))).text).toContain('último   Ana')
 })
+
+const argvOf = (on: any, stdout = log) => {
+  const argvs: string[][] = []
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    argvs.push([...e.argv])
+
+    return done(0, stdout)
+  })
+
+  return argvs
+}
+
+test('takes a quoted path and an absolute path inside the project', async ($, on) => {
+  root(on)
+  const argvs = argvOf(on)
+
+  await $.command.run(run('"docs/my notes.md"'))
+  expect(argvs[0]?.at(-1)).toBe('docs/my notes.md')
+
+  await $.command.run(run('/work/src/./lib/../app.ts'))
+  expect(argvs[1]?.at(-1)).toBe('src/app.ts')
+
+  await $.command.run(run('.'))
+  expect(argvs[2]?.at(-1)).toBe('.')
+})
+
+test('matches a Windows path without minding the case of the drive and folders', async ($, on) => {
+  on('session.root', () => ({ value: 'C:\\Work\\App' }))
+  on('env.get', () => ({ value: 'Windows_NT' }))
+  const argvs = argvOf(on)
+
+  await $.command.run(run('c:\\work\\app\\src\\a.ts'))
+  expect(argvs[0]?.at(-1)).toBe('src/a.ts')
+  expect((await $.command.run(run('D:\\other\\a.ts'))).text).toBe('Outside the project: D:\\other\\a.ts')
+})
+
+test('lists at most three authors, the busiest first', async ($, on) => {
+  root(on)
+  const many = ['Cid', 'Dee', 'Dee', 'Eve', 'Eve', 'Eve', 'Fay', 'Fay', 'Fay', 'Fay'].map(name => `${name}\tnow\tabc\tmsg`).join('\n')
+  argvOf(on, many)
+
+  const text = (await $.command.run(run('a.ts'))).text ?? ''
+  expect(text.split('\n')[2]).toBe('authors  Fay 4  Eve 3  Dee 2')
+  expect(text.split('\n')[0]).toBe('last     Cid  now  abc')
+})
+
+test('says git is not responding when it cannot start', async ($, on) => {
+  root(on)
+  on('process.run', () => ({ deny: 'spawn git ENOENT' }))
+
+  expect((await $.command.run(run('a.ts'))).text).toBe('Not a git repository, or git is not responding.')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  root(on)
+  on('process.run', () => done(0, ''))
+
+  expect((await $.command.run(run())).text).toBe('Uso: /who <ruta>')
+  expect((await $.command.run(run('../x'))).text).toBe('Fuera del proyecto: ../x')
+  expect((await $.command.run(run('a.ts'))).text).toBe('Ningún commit modifica a.ts.')
+})

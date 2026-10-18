@@ -1,0 +1,14 @@
+{
+  "name": "reply-outline",
+  "version": "0.1.0",
+  "description": "/outline opens a pane with the headings, file references and links of the last reply, to jump to what matters in a long answer",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "interface"
+  ],
+  "types": "./types/index.d.ts"
+}

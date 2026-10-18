@@ -1,0 +1,13 @@
+{
+  "name": "flatlist-note",
+  "version": "0.1.0",
+  "description": "Tells Claude when an edit renders a mapped list inside a vertical ScrollView, or nests a FlatList in one, in a React Native project",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "stack"
+  ]
+}
