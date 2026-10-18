@@ -1,0 +1,13 @@
+{
+  "name": "conventions-context",
+  "version": "0.1.0",
+  "description": "Points Claude at CONTRIBUTING.md or a conventions file with its path, size and headings, to read before writing code",
+  "author": {
+    "name": "Matheus Chiodi"
+  },
+  "keywords": [
+    "claude-code",
+    "mod",
+    "prompt"
+  ]
+}
