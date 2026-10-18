@@ -78,3 +78,90 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.session.measure(measure([{ kind: 'spend_limit', percentUsed: 50, resetsAt: inMinutes(60) }]))
   expect(status.at(-1)).toBe('limite gasto 50% · reseta 1h00')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  const status = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.measure(measure([{ kind: 'spend_limit', percentUsed: 33.6, resetsAt: inMinutes(45) }]))
+  expect(status.at(-1)).toBe('límite gasto 34% · se reinicia en 45min')
+})
+
+test('counts down every minute once the session started', async ($, on) => {
+  const clock = mock.clock(on, { now: NOW })
+  const status = world(on)
+
+  await $.session.start({ cwd: '/project', surface: 'terminal', isInteractive: true })
+  await $.session.measure(measure([{ kind: 'five_hour', percentUsed: 70, resetsAt: inMinutes(61) }]))
+  expect(status.at(-1)).toBe('limit 5h 70% · resets 1h01')
+
+  await clock.advance(MINUTE)
+  expect(status.at(-1)).toBe('limit 5h 70% · resets 1h00')
+
+  await clock.advance(MINUTE)
+  expect(status.at(-1)).toBe('limit 5h 70% · resets 59min')
+})
+
+test('formats a whole day and an unknown window kind', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  const status = world(on)
+
+  await $.session.measure(measure([{ kind: 'seven_day', percentUsed: 5, resetsAt: inMinutes(1440) }]))
+  expect(status.at(-1)).toBe('limit 7d 5% · resets 1d 0h')
+
+  await $.session.measure(measure([{ kind: 'opus_weekly', percentUsed: 12, resetsAt: inMinutes(30) }]))
+  expect(status.at(-1)).toBe('limit opus_weekly 12% · resets 30min')
+})
+
+test('a window without a reset time never wins, even when tighter', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  const status = world(on)
+
+  await $.session.measure(
+    measure([
+      { kind: 'five_hour', percentUsed: 99 },
+      { kind: 'seven_day', percentUsed: 30, resetsAt: inMinutes(120) },
+    ]),
+  )
+  expect(status.at(-1)).toBe('limit 7d 30% · resets 2h00')
+})
+
+// Stands in for the hub: a /flip command that writes its own `off` list, as the settings pane does.
+const HUB = {
+  name: 'cockpit',
+  register: (on: On) => {
+    on('command.run', { command: 'flip' }, async ($, e) => {
+      await $.state.set({ plugin: 'cockpit', key: 'off' }, e.args === 'off' ? ['reset-countdown'] : [])
+
+      return { text: 'flipped' }
+    })
+  },
+}
+
+test('clears the entry when the hub turns it off', { plugins: [HUB] }, async ($, on) => {
+  mock.clock(on, { now: NOW })
+  const status = world(on)
+
+  await $.session.measure(measure([{ kind: 'five_hour', percentUsed: 50, resetsAt: inMinutes(60) }]))
+  expect(status.at(-1)).toBe('limit 5h 50% · resets 1h00')
+
+  await $.command.run({ command: 'flip', args: 'off', origin: { kind: 'composer' }, presentation: { isFullscreen: false, columns: 80 } })
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('ignores a window whose reset time cannot be read', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  const status = world(on)
+
+  await $.session.measure(measure([{ kind: 'five_hour', percentUsed: 90, resetsAt: 'soon' }]))
+  expect(status).toEqual([])
+
+  await $.session.measure(
+    measure([
+      { kind: 'five_hour', percentUsed: 90, resetsAt: 'soon' },
+      { kind: 'seven_day', percentUsed: 40, resetsAt: inMinutes(30) },
+    ]),
+  )
+  expect(status.at(-1)).toBe('limit 7d 40% · resets 30min')
+})

@@ -57,7 +57,8 @@ export const register: Register = on => {
 
   on('session.measure', async ($, e, next) => {
     const worst = [...e.rateLimits]
-      .filter(limit => limit.resetsAt !== undefined)
+      // A reset time that does not parse cannot be counted down: such a window is left out.
+      .filter(limit => limit.resetsAt !== undefined && !Number.isNaN(Date.parse(limit.resetsAt)))
       .sort((a, b) => b.percentUsed - a.percentUsed)[0]
 
     if (worst?.resetsAt !== undefined) {
