@@ -64,7 +64,7 @@ export const register: Register = on => {
 
     return {
       text: [
-        s.head(top.n, top.usd.toFixed(2), Math.round((top.usd / session.total) * 100)),
+        s.head(top.n, top.usd.toFixed(2), Math.min(100, Math.round((top.usd / session.total) * 100))),
         top.text === '' ? s.noPrompt : s.asked(top.text),
         tools.length === 0 ? s.noTools : s.tools(tools.join('  ')),
       ].join('\n'),
