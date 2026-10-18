@@ -3,6 +3,7 @@ const en = {
   hint: '[n]',
   usage: 'Usage: /uuid [n]  (n from 1 to 20)',
   copied: (count: number) => `${count} UUID(s) copied to the clipboard.`,
+  noClipboard: 'The clipboard is not reachable on this surface.',
 }
 
 type Strings = typeof en
@@ -12,6 +13,7 @@ const pt: Strings = {
   hint: '[n]',
   usage: 'Uso: /uuid [n]  (n de 1 a 20)',
   copied: count => `${count} UUID(s) copiado(s) para a área de transferência.`,
+  noClipboard: 'Não foi possível acessar a área de transferência nesta superfície.',
 }
 
 const es: Strings = {
@@ -19,6 +21,7 @@ const es: Strings = {
   hint: '[n]',
   usage: 'Uso: /uuid [n]  (n de 1 a 20)',
   copied: count => `${count} UUID copiado(s) al portapapeles.`,
+  noClipboard: 'No se pudo acceder al portapapeles en esta superficie.',
 }
 
 export const STRINGS = { en, pt, es }
