@@ -1,8 +1,8 @@
-# Prompt and model — 30 mods
+# Prompt and model — 31 mods
 
 [← Back to the README](../../README.md)
 
-[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first) · [`verify-claims`](#verify-claims) · [`paste-fence`](#paste-fence) · [`file-mention-hint`](#file-mention-hint) · [`trace-helper`](#trace-helper) · [`branch-naming`](#branch-naming) · [`pr-style`](#pr-style) · [`a11y-rules`](#a11y-rules) · [`security-rules`](#security-rules) · [`react-rules`](#react-rules) · [`tailwind-rules`](#tailwind-rules) · [`rn-rules`](#rn-rules) · [`java-rules`](#java-rules) · [`oracle-rules`](#oracle-rules) · [`answer-format`](#answer-format)
+[`concise-mode`](#concise-mode) · [`persona`](#persona) · [`prompt-shortcuts`](#prompt-shortcuts) · [`tldr`](#tldr) · [`git-context`](#git-context) · [`stack-context`](#stack-context) · [`commit-style`](#commit-style) · [`reply-language`](#reply-language) · [`time-context`](#time-context) · [`os-context`](#os-context) · [`test-first`](#test-first) · [`explain-mode`](#explain-mode) · [`plan-first`](#plan-first) · [`no-comments`](#no-comments) · [`minimal-diff`](#minimal-diff) · [`ask-first`](#ask-first) · [`verify-claims`](#verify-claims) · [`paste-fence`](#paste-fence) · [`file-mention-hint`](#file-mention-hint) · [`trace-helper`](#trace-helper) · [`branch-naming`](#branch-naming) · [`pr-style`](#pr-style) · [`a11y-rules`](#a11y-rules) · [`security-rules`](#security-rules) · [`react-rules`](#react-rules) · [`tailwind-rules`](#tailwind-rules) · [`rn-rules`](#rn-rules) · [`java-rules`](#java-rules) · [`oracle-rules`](#oracle-rules) · [`answer-format`](#answer-format) · [`readme-context`](#readme-context)
 
 ## `concise-mode`
 
@@ -303,3 +303,13 @@ In Oracle projects, makes Claude write SQL that runs on Oracle 11g: ROWNUM, sequ
 ```
 
 ![answer-format](../previews/answer-format.svg)
+
+## `readme-context`
+
+Gives Claude the first paragraph of the README, so it knows what the project is without reading it.
+
+```
+/plugin install readme-context@cockpit
+```
+
+![readme-context](../previews/readme-context.svg)
