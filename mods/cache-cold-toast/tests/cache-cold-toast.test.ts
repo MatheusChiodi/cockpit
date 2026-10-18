@@ -69,3 +69,69 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['Cache de prompt expirou após 10 min parado: este turno relê cerca de 100.000 tokens'])
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const clock = mock.clock(on, { now: 1000 * MINUTE })
+  const toasts = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.measure(measure(60))
+  await $.turn.complete(TURN)
+  await clock.advance(7 * MINUTE)
+  await $.prompt.submit(send('sigue'))
+
+  expect(toasts).toEqual(['El caché de prompt expiró tras 7 min inactivo: este turno relee unos 120.000 tokens'])
+})
+
+test('stays quiet before any turn ended, and for prompts that were not typed', async ($, on) => {
+  const clock = mock.clock(on, { now: 1000 * MINUTE })
+  const toasts = world(on)
+
+  await $.session.measure(measure(50))
+  await clock.advance(30 * MINUTE)
+  await $.prompt.submit(send('first prompt of the session'))
+  expect(toasts).toEqual([])
+
+  await $.turn.complete(TURN)
+  await clock.advance(30 * MINUTE)
+  await $.prompt.submit({ text: 'from a task', wait: false, origin: { kind: 'task-notification' } })
+  expect(toasts).toEqual([])
+})
+
+test('a subagent finishing does not count as the last use of the cache', async ($, on) => {
+  const clock = mock.clock(on, { now: 1000 * MINUTE })
+  const toasts = world(on)
+
+  await $.session.measure(measure(50))
+  await $.turn.complete(TURN)
+  await clock.advance(5 * MINUTE)
+  await $.turn.complete({ ...TURN, turnId: 't-2', agentId: 'a1' })
+  await $.prompt.submit(send('next'))
+
+  expect(toasts).toEqual(['Prompt cache expired after 5 min idle: this turn re-reads about 100,000 tokens'])
+})
+
+test('keeps the last known size when a measure has no percent, and rounds to thousands', async ($, on) => {
+  const clock = mock.clock(on, { now: 1000 * MINUTE })
+  const toasts = world(on)
+
+  await $.session.measure(measure(10.2))
+  await $.session.measure({ context: { window: 200000, percent: undefined }, rateLimits: [], changed: ['context' as const] } as never)
+  await $.turn.complete(TURN)
+  await clock.advance(6 * MINUTE)
+  await $.prompt.submit(send('go'))
+
+  expect(toasts).toEqual(['Prompt cache expired after 6 min idle: this turn re-reads about 20,000 tokens'])
+})
+
+test('stays quiet just under 20,000 tokens', async ($, on) => {
+  const clock = mock.clock(on, { now: 1000 * MINUTE })
+  const toasts = world(on)
+
+  await $.session.measure(measure(9.99))
+  await $.turn.complete(TURN)
+  await clock.advance(30 * MINUTE)
+  await $.prompt.submit(send('go'))
+
+  expect(toasts).toEqual([])
+})

@@ -71,3 +71,48 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(verdict.decision).toBe('ask')
   expect(verdict.reason).toContain('afrouxa permissões de arquivo em deploy.sh')
 })
+
+test('catches symbolic modes, string modes and umask 0', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const input of [
+    { file_path: 'deploy.sh', content: 'chmod o+w shared.log' },
+    { file_path: 'src/fs.ts', content: 'await chmod(file, "666")' },
+    { file_path: 'entry.sh', content: 'umask 0\nexec app' },
+  ]) {
+    const verdict = await $.tool.check({ tool: 'Write', input })
+    expect(verdict.decision, input.content).toBe('ask')
+    expect(verdict.reason, input.content).toContain(`loosens file permissions in ${input.file_path}`)
+  }
+})
+
+test('skips commented lines, tests, examples and other tools', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const input of [
+    { file_path: 'deploy.sh', content: '# chmod 777 /var/app' },
+    { file_path: 'src/fs.test.ts', content: 'fs.chmodSync(f, 0o777)' },
+    { file_path: 'examples/setup.sh', content: 'chmod 777 x' },
+    { file_path: 'deploy.sh.example', content: 'chmod 777 x' },
+  ]) {
+    expect((await $.tool.check({ tool: 'Write', input })).decision, input.file_path).toBe('allow')
+  }
+
+  expect((await $.tool.check({ tool: 'Bash', input: { command: 'chmod 777 x' } })).decision).toBe('allow')
+})
+
+test('keeps an ask already made beneath with its own reason', async ($, on) => {
+  on('tool.check', () => ({ decision: 'ask', reason: 'asked beneath' }))
+
+  const { tool, input } = ASKED[0] as Call
+  const verdict = await $.tool.check({ tool, input })
+  expect(verdict.reason).toBe('asked beneath')
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const verdict = await $.tool.check({ tool: 'Write', input: { file_path: 'init.sh', content: 'umask 000' } })
+  expect(verdict.reason).toContain('afloja permisos de archivo en init.sh')
+})

@@ -88,3 +88,66 @@ test('speaks the language set in the hub', async ($, on) => {
   await started($)
   expect(status.at(-1)).toBe('dist 2,4 MB')
 })
+
+const bash = (command: string) => ({ tool: 'Bash', command, tool_use_id: `b-${command}` }) as const
+
+test('measures again after a build command, not after other commands', async ($, on) => {
+  const tree: Record<string, Entry[]> = { dist: [file('index.js', 1 * MB)] }
+  const status = world(on, tree)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+  on('tool.call', { tool: 'PowerShell' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await started($)
+  expect(status.at(-1)).toBe('dist 1 MB')
+
+  tree.dist = [file('index.js', 2 * MB)]
+  await $.tool.call(bash('git status'))
+  await flush()
+  expect(status.at(-1)).toBe('dist 1 MB')
+
+  await $.tool.call(bash('npm run build'))
+  await flush()
+  expect(status.at(-1)).toBe('dist 2 MB · +1 MB')
+
+  tree.dist = [file('index.js', 3 * MB)]
+  await $.tool.call({ tool: 'PowerShell', command: 'npx vite build', tool_use_id: 'p-1' } as never)
+  await flush()
+  expect(status.at(-1)).toBe('dist 3 MB · +2 MB')
+})
+
+test('shows a shrinking output with a minus sign', async ($, on) => {
+  const tree: Record<string, Entry[]> = { dist: [file('index.js', 2 * MB)] }
+  const status = world(on, tree)
+
+  await started($)
+  tree.dist = [file('index.js', 1 * MB + 512 * KB)]
+  await status.clock.advance(300000)
+  await flush()
+  expect(status.at(-1)).toBe('dist 1.5 MB · −512 KB')
+})
+
+test('hides a change smaller than one kilobyte', async ($, on) => {
+  const tree: Record<string, Entry[]> = { dist: [file('index.js', 100 * KB)] }
+  const status = world(on, tree)
+
+  await started($)
+  tree.dist = [file('index.js', 100 * KB + 500)]
+  await status.clock.advance(300000)
+  await flush()
+  expect(status.at(-1)).toBe('dist 100 KB')
+})
+
+test('skips node_modules and marks a walk cut short as a floor', async ($, on) => {
+  const many = Array.from({ length: 4100 }, (_, index) => file(`f${index}.js`, KB))
+  const status = world(on, { dist: [dir('node_modules'), ...many], 'dist/node_modules': [file('big', 90 * MB)] })
+
+  await started($)
+  expect(status.at(-1)).toBe('dist >3.9 MB')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const status = world(on, { '.output': [file('server.mjs', 2.4 * MB)] }, [], 'es')
+
+  await started($)
+  expect(status.at(-1)).toBe('.output 2,4 MB')
+})

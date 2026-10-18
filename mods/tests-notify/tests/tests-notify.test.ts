@@ -78,3 +78,75 @@ test('speaks the language set in the hub', async ($, on) => {
   await run
   expect(sent).toEqual(['Testes falharam após 40s: vitest run'])
 })
+
+// A test run that takes `ms` and answers `answer`; returns the notifications sent.
+const slow = (on: any, clock: { sleep: (ms: number) => Promise<void> }, ms: number, answer: () => unknown) => {
+  const sent: string[] = []
+  on('tool.call', { tool: 'Bash' }, async () => {
+    await clock.sleep(ms)
+
+    return answer()
+  })
+  on('tool.call', { tool: 'PowerShell' }, async () => {
+    await clock.sleep(ms)
+
+    return answer()
+  })
+  on('ui.notify', (_: unknown, e: { text: string }) => {
+    sent.push(e.text)
+
+    return SENT
+  })
+
+  return sent
+}
+
+test('stays quiet for an interrupted or refused run', async ($, on) => {
+  const clock = mock.clock(on)
+  let answer: unknown = { result: { stdout: '', stderr: '', interrupted: true } }
+  const sent = slow(on, clock, 60000, () => answer)
+
+  const interrupted = $.tool.call({ tool: 'Bash', command: 'npm test', tool_use_id: 'i-1' })
+  await clock.advance(60000)
+  await interrupted
+
+  answer = { deny: 'blocked' }
+  const refused = $.tool.call({ tool: 'Bash', command: 'npm test', tool_use_id: 'i-2' })
+  await clock.advance(60000)
+  await refused
+  expect(sent).toEqual([])
+})
+
+test('writes minutes and seconds, and cuts a long command to its first line', async ($, on) => {
+  const clock = mock.clock(on)
+  const sent = slow(on, clock, 65000, () => OK)
+
+  const command = `npx jest --runInBand ${'packages/very/long/path/'.repeat(4)}\necho done`
+  const run = $.tool.call({ tool: 'Bash', command, tool_use_id: 'm-1' })
+  await clock.advance(65000)
+  await run
+
+  const line = command.split('\n')[0]!
+  expect(sent).toEqual([`Tests passed after 1m 05s: ${line.slice(0, 59)}…`])
+})
+
+test('times test runs in PowerShell too', async ($, on) => {
+  const clock = mock.clock(on)
+  const sent = slow(on, clock, 30000, () => FAILED)
+
+  const run = $.tool.call({ tool: 'PowerShell', command: 'dotnet test', tool_use_id: 'p-1' })
+  await clock.advance(30000)
+  await run
+  expect(sent).toEqual(['Tests failed after 30s: dotnet test'])
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const clock = mock.clock(on)
+  const sent = slow(on, clock, 31000, () => OK)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const run = $.tool.call({ tool: 'Bash', command: 'cargo test', tool_use_id: 'es-1' })
+  await clock.advance(31000)
+  await run
+  expect(sent).toEqual(['Los tests pasaron tras 31s: cargo test'])
+})

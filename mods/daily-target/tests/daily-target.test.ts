@@ -139,3 +139,87 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(seen.toasts).toEqual(['Meta atingida: 2 de 2 commits hoje'])
 })
+
+test('says commits a day when git has no email, and never toasts', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(10) })
+  const toasts: string[] = []
+  on('session.root', () => ({ value: '/project' }))
+  on('turn.complete', (_$, e) => ({ text: e.answer }))
+  on('process.run', () => ({ value: { exitCode: 1, stdout: '', stderr: '', isStdoutTruncated: false, isStderrTruncated: false } }))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.command.run(run('3'))
+  expect((await $.command.run(run(''))).text).toBe('Daily target: 3 commits a day.')
+  await $.turn.complete(TURN)
+  expect(toasts).toHaveLength(0)
+})
+
+test('does not ask git after a turn when no target is set', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(10) })
+  const seen = world(on)
+
+  await $.turn.complete(TURN)
+  expect(seen.argvs).toHaveLength(0)
+})
+
+test('rounds half up for an odd target and accepts the singular and OFF', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(10) })
+  const seen = world(on)
+
+  expect((await $.command.run(run('1 commit'))).text).toBe('Daily target set: 1 commit')
+  expect((await $.command.run(run('5 Commits'))).text).toBe('Daily target set: 5 commits')
+
+  seen.commits = 2
+  await $.turn.complete(TURN)
+  expect(seen.toasts).toHaveLength(0)
+
+  seen.commits = 3
+  await $.turn.complete(TURN)
+  expect(seen.toasts).toEqual(['Halfway there: 3 of 5 commits today'])
+
+  expect((await $.command.run(run('OFF'))).text).toBe('Daily target removed.')
+  expect((await $.command.run(run(''))).text).toContain('No daily target')
+})
+
+test('keeps one target per repository', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(10) })
+  let root = '/a'
+  on('session.root', () => ({ value: root }))
+  on('process.run', () => ({ value: { exitCode: 1, stdout: '', stderr: '', isStdoutTruncated: false, isStderrTruncated: false } }))
+
+  await $.command.run(run('4'))
+  root = '/b'
+  expect((await $.command.run(run(''))).text).toContain('No daily target')
+  root = '/a'
+  expect((await $.command.run(run(''))).text).toBe('Daily target: 4 commits a day.')
+})
+
+test('accepts the largest target and rejects one more', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(10) })
+  world(on)
+
+  expect((await $.command.run(run('50'))).text).toBe('Daily target set: 50 commits')
+  expect((await $.command.run(run('51'))).text).toBe('Usage: /target <n, 1 to 50> commits, or /target off')
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(10) })
+  const seen = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run('4'))).text).toBe('Meta diaria definida: 4 commits')
+  seen.commits = 2
+  await $.turn.complete(TURN)
+  expect(seen.toasts).toEqual(['A la mitad: 2 de 4 commits hoy'])
+  expect((await $.command.run(run('x'))).text).toContain('Uso: /target')
+})

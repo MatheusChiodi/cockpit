@@ -83,3 +83,77 @@ test('stays silent when gh fails, and speaks the hub language', async ($, on) =>
   await clock.advance(120000)
   expect(sent).toEqual(['CI passou: ci'])
 })
+
+// A gh that answers with whatever `answer.stdout` holds; the notifications are recorded with their options.
+const world = (on: any, answer: { stdout: string }, lang = 'en') => {
+  const clock = mock.clock(on)
+  const sent: { text: string; title?: string }[] = []
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('process.run', () => ({ value: { exitCode: 0, stdout: answer.stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false } }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+  on('ui.notify', (_: unknown, e: { text: string; options?: { title?: string } }) => {
+    sent.push({ text: e.text, title: e.options?.title })
+
+    return SENT
+  })
+
+  return { clock, sent }
+}
+
+test('does not notify when a different run is the one completed', async ($, on) => {
+  const answer = { stdout: JSON.stringify([{ databaseId: 5, status: 'in_progress', conclusion: null, workflowName: 'a' }]) }
+  const { clock, sent } = world(on, answer)
+
+  await $.session.start(START)
+  await clock.advance(1)
+  answer.stdout = JSON.stringify([{ databaseId: 6, status: 'completed', conclusion: 'success', workflowName: 'b' }])
+  await clock.advance(120000)
+  expect(sent).toEqual([])
+})
+
+test('falls back to generic words for a run without name or conclusion', async ($, on) => {
+  const answer = { stdout: JSON.stringify([{ databaseId: 8, status: 'in_progress' }]) }
+  const { clock, sent } = world(on, answer)
+
+  await $.session.start(START)
+  await clock.advance(1)
+  answer.stdout = JSON.stringify([{ databaseId: 8, status: 'completed', conclusion: null }])
+  await clock.advance(120000)
+  expect(sent.map(item => item.text)).toEqual(['CI failed: workflow (unknown)'])
+})
+
+test('stays silent on an empty list or output that is not JSON', async ($, on) => {
+  const answer = { stdout: '[]' }
+  const { clock, sent } = world(on, answer)
+
+  await $.session.start(START)
+  await clock.advance(120000)
+  answer.stdout = '<html>rate limited</html>'
+  await clock.advance(120000)
+  expect(sent).toEqual([])
+})
+
+test('asks gh for the latest run only', async ($, on) => {
+  mock.clock(on)
+  const argvs: string[] = []
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    argvs.push(e.argv.join(' '))
+
+    return reply([])
+  })
+
+  await $.session.start(START)
+  expect(argvs[0]).toBe('gh run list --limit 1 --json databaseId,status,conclusion,workflowName')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const answer = { stdout: JSON.stringify([{ databaseId: 9, status: 'in_progress', workflowName: 'ci' }]) }
+  const { clock, sent } = world(on, answer, 'es')
+
+  await $.session.start(START)
+  await clock.advance(1)
+  answer.stdout = JSON.stringify([{ databaseId: 9, status: 'completed', conclusion: 'cancelled', workflowName: 'ci' }])
+  await clock.advance(120000)
+  expect(sent.map(item => item.text)).toEqual(['CI falló: ci (cancelled)'])
+})

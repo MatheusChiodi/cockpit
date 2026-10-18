@@ -72,3 +72,47 @@ test('leaves other prompts, commands, origins, missing issues and missing gh alo
   await $.prompt.submit(submit('issue #12'))
   expect(box.context).toBeUndefined()
 })
+
+test('asks for an issue named twice only once', async ($, on) => {
+  const calls: string[] = []
+  const box = seen(on)
+  on('process.run', (_, e) => {
+    calls.push(e.argv[3] ?? '')
+
+    return done(0, JSON.stringify(issue))
+  })
+
+  await $.prompt.submit(submit('issue 12 again, see https://github.com/o/r/issues/12'))
+  expect(calls).toEqual(['12'])
+  expect(box.context).toHaveLength(1)
+})
+
+test('keeps the context a prompt already carries', async ($, on) => {
+  const box = seen(on)
+  on('process.run', () => done(0, JSON.stringify(issue)))
+
+  await $.prompt.submit({ text: 'fix issue 12', wait: false, origin: { kind: 'composer' }, context: ['earlier note'] } as never)
+  expect(box.context?.[0]).toBe('earlier note')
+  expect(box.context?.[1]).toContain('GitHub issue #12')
+})
+
+test('writes a closed issue without labels or body', async ($, on) => {
+  const box = seen(on)
+  on('process.run', () => done(0, JSON.stringify({ number: 3, title: 'Old', state: 'CLOSED' })))
+
+  await $.prompt.submit(submit('was issue #3 done?'))
+  expect(box.context).toEqual(['GitHub issue #3: Old (closed)\n'])
+})
+
+test('adds nothing for output that is not JSON or has no number', async ($, on) => {
+  const box = seen(on)
+  let stdout = 'not json'
+  on('process.run', () => done(0, stdout))
+
+  await $.prompt.submit(submit('issue 4'))
+  expect(box.context).toBeUndefined()
+
+  stdout = JSON.stringify({ title: 'no number' })
+  await $.prompt.submit(submit('issue 4'))
+  expect(box.context).toBeUndefined()
+})

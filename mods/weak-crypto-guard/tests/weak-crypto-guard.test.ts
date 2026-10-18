@@ -70,3 +70,67 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(verdict.decision).toBe('ask')
   expect(verdict.reason).toContain('faz hash de senha ou segredo com MD5 ou SHA-1 em src/auth.ts')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const { tool, input } = ASKED[3] as Call
+  const verdict = await $.tool.check({ tool, input })
+  expect(verdict.reason).toBe(
+    'weak-crypto-guard: elige un cifrado débil o el modo ECB en crypto.py. Los patrones de los datos se ven en el resultado; usa AES-GCM.',
+  )
+})
+
+test('gives the reason of the rule that matched', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  const reason = async (tool: string, input: Record<string, string>) => (await $.tool.check({ tool, input })).reason
+
+  expect(await reason('Write', { file_path: 'a.py', content: 'digest = hashlib.sha1(secret.encode()).hexdigest()' })).toContain(
+    'hashes a password or secret with MD5 or SHA-1 in a.py',
+  )
+  expect(await reason('Write', { file_path: 'a.py', content: 'salt = random.choice(ALPHABET)' })).toContain(
+    'non-secure random generator for a token or secret in a.py',
+  )
+  expect(await reason('Write', { file_path: 'Gen.java', content: 'long sessionId = new Random().nextLong();' })).toContain(
+    'non-secure random generator',
+  )
+  expect(await reason('Edit', { file_path: 'src/enc.js', old_string: '', new_string: "crypto.createCipheriv('des-cbc', key, iv)" })).toContain(
+    'weak cipher or ECB mode in src/enc.js',
+  )
+  expect(await reason('Write', { file_path: 'Enc.java', content: 'Cipher.getInstance("AES");' })).toContain('weak cipher')
+  expect(await reason('Write', { file_path: 'auth.py', content: 'jwt.decode(token, options={}, verify=False)' })).toContain(
+    'unsigned, unverified or never-expiring JWTs in auth.py',
+  )
+  expect(await reason('Edit', { file_path: 'src/a.ts', old_string: '', new_string: 'jwt.verify(t, k, { ignoreExpiration: true })' })).toContain(
+    'never-expiring JWTs',
+  )
+})
+
+test('lets tests, fixtures, docs and comment lines through', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  const body = "const hash = crypto.createHash('md5').update(password).digest('hex')"
+
+  for (const file_path of ['tests/auth.ts', 'src/__tests__/a.ts', 'fixtures/a.js', 'docs/a.ts', 'NOTES.md', 'src/auth.spec.mjs']) {
+    const verdict = await $.tool.check({ tool: 'Edit', input: { file_path, old_string: '', new_string: body } })
+    expect(verdict.decision, file_path).toBe('allow')
+  }
+
+  const commented = await $.tool.check({ tool: 'Edit', input: { file_path: 'src/a.ts', old_string: '', new_string: `// ${body}\n# ${body}` } })
+  expect(commented.decision).toBe('allow')
+})
+
+test('ignores tools that do not write files', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command: 'echo -n "$password" | md5sum' } })
+  expect(verdict.decision).toBe('allow')
+})
+
+test('keeps the reason of a verdict that already asks', async ($, on) => {
+  on('tool.check', () => ({ decision: 'ask', reason: 'asked beneath' }))
+
+  const { tool, input } = ASKED[0] as Call
+  const verdict = await $.tool.check({ tool, input })
+  expect(verdict.reason).toBe('asked beneath')
+})

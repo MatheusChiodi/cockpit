@@ -86,3 +86,77 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await has(ui, /é protegida/)).toBe(true)
   expect(await has(ui, /git switch -c nome/)).toBe(true)
 })
+
+test('stays out of the way while a survey is shown', async ($, on) => {
+  hub(on)
+  branch(on, 'main')
+  await $.session.start(START)
+
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await has(ui, /is protected/)).toBe(false)
+})
+
+test('picks up a switch to a protected branch after the turn', async ($, on) => {
+  let name = 'feature/login'
+  hub(on)
+  mock.clock(on)
+  on('process.run', () => done(0, `${name}\n`))
+  on('turn.complete', (_: unknown, e: any) => ({ text: e.answer }))
+
+  const ui = await draw($)
+  expect(await has(ui, /is protected/)).toBe(false)
+  await ui.unmount()
+
+  name = 'main'
+  await $.turn.complete({ answer: '', durationMs: 1, isAborted: false, turnId: 't1', reason: 'answer' } as never)
+
+  const after = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await has(after, /is protected/)).toBe(true)
+})
+
+test('rechecks the branch every 30 seconds', async ($, on) => {
+  let name = 'main'
+  hub(on)
+  const clock = mock.clock(on)
+  on('process.run', () => done(0, `${name}\n`))
+
+  const ui = await draw($)
+  expect(await has(ui, /is protected/)).toBe(true)
+  await ui.unmount()
+
+  name = 'fix/typo'
+  await clock.advance(30000)
+
+  const after = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await has(after, /is protected/)).toBe(false)
+})
+
+test('keeps the bands drawn beneath it', async ($, on) => {
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('ui.render', { component: 'AbovePrompt' }, ($: any, e: any) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>other band</Text>
+  })
+  branch(on, 'master')
+
+  const ui = await draw($)
+  expect(await has(ui, /other band/)).toBe(true)
+  expect(await has(ui, /is protected/)).toBe(true)
+})
+
+test('a branch named like a protected one is not protected', async ($, on) => {
+  hub(on)
+  branch(on, 'main-redesign')
+  expect(await has(await draw($), /is protected/)).toBe(false)
+})
+
+test('speaks Spanish when the hub language is es', async ($, on) => {
+  hub(on, [], 'es')
+  branch(on, 'prod')
+
+  const ui = await draw($)
+  expect(await has(ui, /RAMA/)).toBe(true)
+  expect(await has(ui, /está protegida/)).toBe(true)
+  expect(await has(ui, /git switch -c nombre/)).toBe(true)
+})

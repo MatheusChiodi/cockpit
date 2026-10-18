@@ -62,3 +62,68 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts[0]).toBe('15 leituras e buscas neste turno: um subagente exploraria isso por menos')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const toasts = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  await $.turn.start({ text: 'go', turnId: 't-1' })
+
+  for (let at = 1; at <= 15; at += 1) {
+    await $.tool.call(glob(`s${at}`))
+  }
+
+  expect(toasts).toEqual(['15 lecturas y búsquedas en este turno: un subagente exploraría esto por menos'])
+})
+
+test('Read, Grep and Glob all count, and the context beneath is kept', async ($, on) => {
+  const toasts: string[] = []
+  on('turn.start', (_$, e) => ({ turnId: e.turnId }))
+  on('tool.call', { tool: 'Read' }, () => ({ result: undefined as never }))
+  on('tool.call', { tool: 'Grep' }, () => ({ result: undefined as never, context: ['from below'] }))
+  on('tool.call', { tool: 'Glob' }, () => ({ result: undefined as never }))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+  await $.turn.start({ text: 'go', turnId: 't-1' })
+
+  for (let at = 0; at < 7; at += 1) {
+    await $.tool.call({ tool: 'Read', file_path: `/a${at}.ts`, tool_use_id: `r${at}` })
+    await $.tool.call(glob(`g${at}`))
+  }
+
+  const fifteenth = await $.tool.call({ tool: 'Grep', pattern: 'x', tool_use_id: 'grep' })
+  expect(fifteenth.context).toEqual(['from below', expect.stringContaining('explore-nudge: 15 reads and searches')])
+  expect(toasts).toHaveLength(1)
+})
+
+test('subagent and denied calls are not counted', async ($, on) => {
+  const toasts: string[] = []
+  const answer = { deny: false }
+  on('turn.start', (_$, e) => ({ turnId: e.turnId }))
+  on('tool.call', { tool: 'Glob' }, () => (answer.deny ? { deny: 'refused' } : { result: undefined as never }))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+  await $.turn.start({ text: 'go', turnId: 't-1' })
+
+  for (let at = 0; at < 20; at += 1) {
+    await $.tool.call({ ...glob(`sub${at}`), agentId: 'explorer' } as never)
+  }
+
+  answer.deny = true
+  for (let at = 0; at < 20; at += 1) {
+    await $.tool.call(glob(`d${at}`))
+  }
+
+  answer.deny = false
+  for (let at = 0; at < 14; at += 1) {
+    await $.tool.call(glob(`m${at}`))
+  }
+
+  expect(toasts).toEqual([])
+  expect((await $.tool.call(glob('m15'))).context?.[0]).toContain('explore-nudge:')
+})

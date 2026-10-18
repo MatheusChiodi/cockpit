@@ -25,3 +25,33 @@ test('adds nothing when the stack is absent', async ($, on) => {
   const composed = await $.prompt.compose(COMPOSE)
   expect(composed.sections).toEqual([])
 })
+
+test('finds react-native among the devDependencies', async ($, on) => {
+  project(on, 'package.json', JSON.stringify({ devDependencies: { 'react-native': '0.76.0' } }))
+
+  const composed = await $.prompt.compose(COMPOSE)
+  expect(composed.sections.map(s => s.id)).toEqual(['rn-rules:rules'])
+  expect(composed.sections[0]?.text).toContain('FlatList')
+})
+
+test('adds nothing with a broken or missing package.json', async ($, on) => {
+  project(on, 'package.json', '{ not json')
+
+  expect((await $.prompt.compose(COMPOSE)).sections).toEqual([])
+})
+
+test('keeps the sections composed beneath, and reads the project once', async ($, on) => {
+  let reads = 0
+  on('session.root', () => ({ value: '/work' }))
+  on('prompt.compose', () => ({ sections: [{ id: 'base', text: 'base', scope: 'session' as const }] }))
+  on('fs.read', () => {
+    reads += 1
+
+    return { value: JSON.stringify({ dependencies: { expo: '52' } }) }
+  })
+
+  await $.prompt.compose(COMPOSE)
+  const composed = await $.prompt.compose(COMPOSE)
+  expect(composed.sections.map(s => s.id)).toEqual(['base', 'rn-rules:rules'])
+  expect(reads).toBe(1)
+})

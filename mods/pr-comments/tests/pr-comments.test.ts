@@ -65,3 +65,49 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run)).text).toBe('PR #42  nenhum comentário de revisão esperando você')
 })
+
+test('says one line when the branch has no pull request', async ($, on) => {
+  on('process.run', (_: unknown, e: any) => (e.argv[1] === 'pr' ? done(1, '', 'no pull requests found') : done(0, '[]')))
+
+  expect((await $.command.run(run)).text).toBe(
+    'GitHub CLI (gh) is missing, not signed in, or there is no pull request on this branch.',
+  )
+})
+
+test('says one line when the comments cannot be read or parsed', async ($, on) => {
+  const answer = { api: done(1) }
+  on('process.run', (_: unknown, e: any) => (e.argv[1] === 'api' ? answer.api : done(0, pr)))
+
+  expect((await $.command.run(run)).text).toContain('GitHub CLI (gh) is missing')
+
+  answer.api = done(0, 'not json')
+  expect((await $.command.run(run)).text).toContain('GitHub CLI (gh) is missing')
+})
+
+test('a reply by someone else does not answer the thread', async ($, on) => {
+  world(on, [
+    { id: 1, in_reply_to_id: null, user: { login: 'ana' }, path: 'a.ts', line: 1, body: 'why?' },
+    { id: 2, in_reply_to_id: 1, user: { login: 'bruno' }, path: 'a.ts', line: 1, body: '+1' },
+  ])
+
+  expect((await $.command.run(run)).text).toBe('PR #42  1 comment(s) waiting for you\n  ana  a.ts:1  why?')
+})
+
+test('shortens a long body and fills in missing fields', async ($, on) => {
+  world(on, [{ id: 7, in_reply_to_id: null, body: 'y'.repeat(100) }])
+
+  const lines = (await $.command.run(run)).text?.split('\n') ?? []
+  expect(lines[1]).toBe(`  ?  :  ${'y'.repeat(80)}…`)
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  world(
+    on,
+    Array.from({ length: 11 }, (_, i) => ({ id: i + 10, in_reply_to_id: null, user: { login: 'ana' }, path: 'f', line: i, body: 'x' })),
+  )
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const lines = (await $.command.run(run)).text?.split('\n') ?? []
+  expect(lines[0]).toBe('PR #42  11 comentario(s) esperándote')
+  expect(lines.at(-1)).toBe('  … y 1 más')
+})

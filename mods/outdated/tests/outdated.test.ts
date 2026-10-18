@@ -65,3 +65,55 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(text).toContain('pacote')
   expect(text).toContain('3 desatualizados, 1 salto maior')
 })
+
+test('says npm is not found when it cannot start', async ($, on) => {
+  on('env.get', () => ({ value: undefined }))
+  on('process.run', () => {
+    throw new Error('spawn npm ENOENT')
+  })
+
+  expect((await $.command.run(run)).text).toBe('npm not found.')
+})
+
+test('reports output that is not JSON by its first line', async ($, on) => {
+  npm(on, 1, 'npm WARN something\nnext', '')
+  expect((await $.command.run(run)).text).toBe('npm outdated failed: npm WARN something')
+})
+
+test('prefers stderr when the report is not JSON', async ($, on) => {
+  npm(on, 1, '<html>', 'npm ERR! network\nretry')
+  expect((await $.command.run(run)).text).toBe('npm outdated failed: npm ERR! network')
+})
+
+test('counts a jump from 0.x and pluralizes the jumps', async ($, on) => {
+  npm(
+    on,
+    1,
+    JSON.stringify({
+      a: { current: '0.9.0', wanted: '0.9.4', latest: '1.0.0' },
+      b: { current: '2.0.0', wanted: '2.0.0', latest: '3.0.0-beta.1' },
+      c: { current: 'git', wanted: 'git', latest: '2.0.0' },
+    }),
+  )
+
+  const text = (await $.command.run(run)).text ?? ''
+  expect(text.split('\n').at(-1)).toBe('3 outdated, 2 major jumps')
+})
+
+test('an empty report object is up to date', async ($, on) => {
+  npm(on, 0, '{}\n')
+  expect((await $.command.run(run)).text).toBe('Every dependency is up to date.')
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  let lang = 'es'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+  npm(on, 1, JSON.stringify({ x: { current: '1.0.0', wanted: '1.0.1', latest: '1.0.1' } }))
+
+  const text = (await $.command.run(run)).text ?? ''
+  expect(text.split('\n')[0]).toBe('paquete  actual  deseada  última')
+  expect(text).toContain('1 desactualizados, 0 saltos mayores')
+
+  lang = 'pt'
+  expect((await $.command.run(run)).text).toContain('0 saltos maiores')
+})

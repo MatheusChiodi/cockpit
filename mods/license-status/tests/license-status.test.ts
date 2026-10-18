@@ -92,3 +92,59 @@ test('speaks the language set in the hub', async ($, on) => {
   await started($)
   expect(status.at(-1)).toBe('licença ✗ nenhuma')
 })
+
+const write = (file_path: string) => ({ tool: 'Write', file_path, content: 'x', tool_use_id: `w-${file_path}` }) as const
+
+test('clears the warning once Claude writes a license file', async ($, on) => {
+  const files: Record<string, string> = { 'package.json': PUBLIC }
+  const status = world(on, files)
+  on('tool.call', { tool: 'Write' }, () => ({ result: undefined as never }))
+
+  await started($)
+  expect(status.at(-1)).toBe('license ✗ none')
+
+  files['src.ts'] = ''
+  await $.tool.call(write('/repo/src.ts'))
+  await flush()
+  expect(status).toHaveLength(1)
+
+  files['LICENSE.md'] = 'MIT'
+  await $.tool.call(write('/repo/LICENSE.md'))
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('reads the license of pyproject.toml', async ($, on) => {
+  const status = world(on, { 'pyproject.toml': '[project]\nname = "x"\nlicense = "MIT"\n' })
+
+  await started($)
+  expect(status).toEqual([])
+})
+
+test('warns on a pom.xml without licenses', async ($, on) => {
+  const status = world(on, { 'pom.xml': '<project><artifactId>app</artifactId></project>' })
+
+  await started($)
+  expect(status.at(-1)).toBe('license ✗ none')
+})
+
+test('a crate that is not published needs no license', async ($, on) => {
+  const status = world(on, { 'Cargo.toml': '[package]\nname = "x"\npublish = false\n' })
+
+  await started($)
+  expect(status).toEqual([])
+})
+
+test('a COPYING file counts, and a broken package.json says nothing', async ($, on) => {
+  const status = world(on, { 'package.json': '{ broken', 'copying.txt': 'GPL' })
+
+  await started($)
+  expect(status).toEqual([])
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const status = world(on, { 'package.json': PUBLIC }, [], 'es')
+
+  await started($)
+  expect(status.at(-1)).toBe('licencia ✗ ninguna')
+})

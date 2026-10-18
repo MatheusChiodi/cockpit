@@ -63,3 +63,72 @@ test('shows the empty state when there are no stashes', async ($, on) => {
   expect(await ui.find({ type: 'Text', text: /No stashes/ })).toBeDefined()
   await ui.unmount()
 })
+
+const has = async (ui: any, text: RegExp) => (await ui.find({ type: 'Text', text })) !== undefined
+
+test('says so outside a git repository', async ($, on) => {
+  mock.clock(on)
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => ({ value: { exitCode: 128, stdout: '', stderr: 'fatal', isStdoutTruncated: false, isStderrTruncated: false } }))
+
+  await $.command.run(RUN)
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await has(ui, /Not a git repository/)).toBe(true)
+  expect(await has(ui, /saved/)).toBe(false)
+  await ui.unmount()
+})
+
+test('shows Loading before the list was read', async ($, on) => {
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await has(ui, /Loading…/)).toBe(true)
+  await ui.unmount()
+})
+
+test('keeps a subject that is not in the usual shape', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer(`stash@{3}\t${1000 - 90}\tsomething odd\n`))
+
+  await $.command.run(RUN)
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await has(ui, /something odd/)).toBe(true)
+  expect(await has(ui, / 3/)).toBe(true)
+  expect(await has(ui, /1m/)).toBe(true)
+  await ui.unmount()
+})
+
+test('refresh reads the list again', async ($, on) => {
+  mock.clock(on, { now: 1_000_000 })
+  let stdout = ''
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer(stdout))
+
+  await $.command.run(RUN)
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await has(ui, /No stashes/)).toBe(true)
+
+  stdout = `stash@{0}\t${1000 - 10}\tOn main: quick save\n`
+  await ui.press({ key: 'refresh' })
+  expect(await has(ui, /1 saved/)).toBe(true)
+  expect(await has(ui, /quick save/)).toBe(true)
+  await ui.unmount()
+})
+
+test('speaks Portuguese and Spanish when the hub says so', async ($, on) => {
+  mock.clock(on)
+  let lang = 'pt'
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer(''))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+
+  expect((await $.command.run(RUN)).text).toContain('Painel de stashes aberto')
+  const pt = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await has(pt, /Nenhum stash/)).toBe(true)
+  await pt.unmount()
+
+  lang = 'es'
+  expect((await $.command.run(RUN)).text).toContain('Panel de stashes abierto')
+  const es = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await has(es, /Ningún stash/)).toBe(true)
+  await es.unmount()
+})

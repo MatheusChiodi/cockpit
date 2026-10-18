@@ -58,3 +58,57 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(answer.text).toContain('relativo')
   expect(answer.text).toContain('há ')
 })
+
+test('says now within a second and reads a fractional epoch as seconds', async ($, on) => {
+  mock.clock(on, { now: NOW })
+
+  const answer = await $.command.run(run('1709294400.5'))
+  expect(answer.text).toMatch(/relative\s+now\n/)
+  expect(answer.text).toMatch(/millis\s+1709294400500\n/)
+  expect(answer.text).toContain('Read as seconds.')
+})
+
+test('spells spans in seconds, minutes and hours', async ($, on) => {
+  mock.clock(on, { now: NOW })
+
+  expect((await $.command.run(run('1709294355'))).text).toContain('45s ago')
+  expect((await $.command.run(run('1709294530'))).text).toContain('in 2min 10s')
+  expect((await $.command.run(run('2024-03-01T09:30:00Z'))).text).toContain('2h 30min ago')
+})
+
+test('handles negative epochs and refuses moments past the date range', async ($, on) => {
+  mock.clock(on, { now: NOW })
+
+  const before = await $.command.run(run('-86400'))
+  expect(before.text).toContain('1969-12-31T00:00:00.000Z')
+  expect(before.text).toContain('Read as seconds.')
+
+  expect((await $.command.run(run('9000000000000000'))).text).toContain('Usage: /ts')
+  expect((await $.command.run(run('12abc'))).text).toContain('Usage: /ts')
+})
+
+test('treats eleven digits as milliseconds and ten as seconds', async ($, on) => {
+  mock.clock(on, { now: NOW })
+
+  expect((await $.command.run(run('99999999999'))).text).toContain('Read as seconds.')
+  expect((await $.command.run(run('100000000000'))).text).toContain('Read as milliseconds.')
+})
+
+test('leaves the unit line out for a date', async ($, on) => {
+  mock.clock(on, { now: NOW })
+
+  const answer = await $.command.run(run('2024-03-01T12:00:00Z'))
+  expect(answer.text).not.toContain('Read as')
+  expect(answer.text?.split('\n')).toHaveLength(5)
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await $.command.run(run('1700000000000'))
+  expect(answer.text).toContain('Leído como milisegundos.')
+  expect(answer.text).toContain('hace ')
+  expect(answer.text).toMatch(/milisegundos\s+1700000000000\n/)
+  expect((await $.command.run(run('nope'))).text).toContain('Uso: /ts [epoch | fecha]')
+})

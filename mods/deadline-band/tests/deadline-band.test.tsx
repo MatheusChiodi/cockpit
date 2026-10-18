@@ -136,3 +136,79 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(deadline('clear'))).text).toBe('Prazo removido.')
 })
+
+test('a deadline without a time falls at 18:00', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(12) })
+  world(on)
+
+  await $.session.start(START)
+  await $.command.run(deadline('2026-10-13'))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /in 6h 0min/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('counts in minutes under an hour and in days past one', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(12) })
+  world(on)
+
+  await $.session.start(START)
+  await $.command.run(deadline('2026-10-13 12:45 standup'))
+  const soon = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await soon.find({ type: 'Text', text: /in 45min/ })).toBeDefined()
+  await soon.unmount()
+
+  await $.command.run(deadline('2026-10-16 15:00 launch'))
+  const later = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await later.find({ type: 'Text', text: /in 3d 3h/ })).toBeDefined()
+  expect(await later.find({ type: 'Text', text: /launch/ })).toBeDefined()
+  await later.unmount()
+})
+
+test('cuts a long description to 60 characters', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(12) })
+  world(on)
+
+  await $.session.start(START)
+  const answer = await $.command.run(deadline(`2026-10-14 ${'x'.repeat(80)}`))
+  expect(answer.text).toContain(`"${'x'.repeat(60)}"`)
+  expect(answer.text).not.toContain('x'.repeat(61))
+})
+
+test('keeps the band of the mods beneath', async ($, on) => {
+  mock.store(on, { 'deadline:/project': { at: at(15), label: 'demo' } })
+  mock.clock(on, { now: at(12) })
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('session.root', () => ({ value: '/project' }))
+  on('command.register', (_$, e) => ({ value: { command: e.name } }))
+  on('ui.render', { component: 'AbovePrompt' }, ($, e) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>beneath</Text>
+  })
+
+  await $.session.start(START)
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /beneath/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /DEADLINE/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  mock.store(on, { 'deadline:/project': { at: at(11), label: '' } })
+  mock.clock(on, { now: at(12) })
+  world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /PLAZO/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /vencido hace 1h 0min/ })).toBeDefined()
+  await ui.unmount()
+
+  expect((await $.command.run(deadline('nope'))).text).toContain('Uso: /deadline')
+})

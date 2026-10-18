@@ -54,3 +54,60 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run('a'))).text).toBe('a não é ignorado.')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  root(on)
+  on('process.run', () => done(0, '.gitignore:2:*.log\tdebug.log\n'))
+
+  expect((await $.command.run(run('debug.log'))).text).toBe('debug.log es ignorado por "*.log" (.gitignore:2)')
+  expect((await $.command.run(run(''))).text).toBe('Uso: /ignored <ruta>')
+  expect((await $.command.run(run('../../etc'))).text).toBe('Fuera del proyecto: ../../etc')
+})
+
+test('accepts a quoted path, an absolute path inside the project and folds dot segments', async ($, on) => {
+  const argvs: string[] = []
+  root(on)
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    argvs.push(e.argv.at(-1) ?? '')
+
+    return done(1)
+  })
+
+  await $.command.run(run('"my dir/file.txt"'))
+  await $.command.run(run('/work/src/../dist/./a.js'))
+  await $.command.run(run('/work'))
+  expect(argvs).toEqual(['my dir/file.txt', 'dist/a.js', '.'])
+  expect((await $.command.run(run('/other/a.js'))).text).toBe('Outside the project: /other/a.js')
+})
+
+test('compares Windows paths without case', async ($, on) => {
+  const argvs: string[] = []
+  on('session.root', () => ({ value: 'C:\\Work\\App' }))
+  on('env.get', () => ({ value: 'Windows_NT' }))
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    argvs.push(e.argv.at(-1) ?? '')
+
+    return done(1)
+  })
+
+  expect((await $.command.run(run('c:\\work\\app\\Build\\out.txt'))).text).toBe('Build/out.txt is not ignored.')
+  expect(argvs).toEqual(['Build/out.txt'])
+  expect((await $.command.run(run('D:\\work\\app\\x'))).text).toContain('Outside the project')
+})
+
+test('says git is unavailable when it cannot start', async ($, on) => {
+  root(on)
+  on('process.run', () => {
+    throw new Error('spawn git ENOENT')
+  })
+
+  expect((await $.command.run(run('a'))).text).toBe('Not a git repository, or git is not responding.')
+})
+
+test('an answer it cannot read counts as not ignored', async ($, on) => {
+  root(on)
+  on('process.run', () => done(0, 'garbage'))
+
+  expect((await $.command.run(run('a'))).text).toBe('a is not ignored.')
+})

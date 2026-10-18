@@ -90,3 +90,96 @@ test('speaks the language set in the hub', async ($, on) => {
   await clock.advance(180000)
   expect(status.at(-1)).toBe('pr #7 rascunho')
 })
+
+test('shows nothing when gh cannot start', async ($, on) => {
+  const clock = mock.clock(on)
+  const status: (string | undefined)[] = []
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('process.run', () => {
+    throw new Error('spawn gh ENOENT')
+  })
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await started($, clock)
+  expect(status).toEqual([undefined])
+})
+
+test('reads an unknown review decision as open and clears when the PR goes away', async ($, on) => {
+  const fake = view({ number: 5, state: 'OPEN', reviewDecision: 'SOMETHING_NEW' })
+  const { clock, status } = world(on, fake)
+
+  await started($, clock)
+  expect(status.at(-1)).toBe('pr #5 open')
+
+  fake.exitCode = 1
+  await clock.advance(180000)
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('asks gh for the fields it reads', async ($, on) => {
+  const clock = mock.clock(on)
+  const argvs: string[] = []
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    argvs.push(e.argv.join(' '))
+
+    return done(1)
+  })
+  on('ui.status', () => ({ value: undefined }))
+
+  await started($, clock)
+  expect(argvs).toEqual(['gh pr view --json number,state,isDraft,reviewDecision'])
+})
+
+// Stands in for the hub: a /flip command that writes its own `off` list, as the settings pane does.
+const HUB = {
+  name: 'cockpit',
+  register: (on: any) => {
+    on('command.run', { command: 'flip' }, async ($: any, e: any) => {
+      await $.state.set({ plugin: 'cockpit', key: 'off' }, e.args === 'off' ? ['pr-status'] : [])
+
+      return { text: 'flipped' }
+    })
+  },
+}
+
+test('clears the entry when the hub turns it off and shows it again on the next refresh', { plugins: [HUB] }, async ($, on) => {
+  const clock = mock.clock(on)
+  const status: (string | undefined)[] = []
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('process.run', () => done(0, JSON.stringify({ number: 9, state: 'OPEN' })))
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+  const flip = (args: string) => ({ command: 'flip', args, origin: { kind: 'composer' } as const, presentation: { isFullscreen: false, columns: 80 } })
+
+  await started($, clock)
+  expect(status.at(-1)).toBe('pr #9 open')
+
+  await $.command.run(flip('off'))
+  expect(status.at(-1)).toBeUndefined()
+  await clock.advance(180000)
+  expect(status.at(-1)).toBeUndefined()
+
+  await $.command.run(flip('on'))
+  await clock.advance(180000)
+  expect(status.at(-1)).toBe('pr #9 open')
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const fake = view({ number: 4, state: 'OPEN', reviewDecision: 'CHANGES_REQUESTED' })
+  const { clock, status } = world(on, fake, [], 'es')
+
+  await started($, clock)
+  expect(status.at(-1)).toBe('pr #4 ✗ cambios solicitados')
+
+  fake.stdout = JSON.stringify({ number: 4, state: 'MERGED' })
+  await clock.advance(180000)
+  expect(status.at(-1)).toBe('pr #4 ⇄ fusionado')
+})

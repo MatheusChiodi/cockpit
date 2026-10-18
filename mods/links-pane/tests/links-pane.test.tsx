@@ -39,3 +39,82 @@ test('collects the URLs of the answers, newest first, and pressing one copies it
     await ui.unmount()
   }
 })
+
+const RUN = {
+  command: 'links',
+  args: '',
+  origin: { kind: 'composer' },
+  presentation: { isFullscreen: true, columns: 120 },
+} as const
+
+const turn = (answer: string, turnId: string, agentId?: string) => ({
+  answer,
+  durationMs: 1,
+  isAborted: false,
+  turnId,
+  reason: 'answer' as const,
+  ...(agentId === undefined ? {} : { agentId }),
+})
+
+test('explains itself while no URL was collected', async $ => {
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+
+  expect(await ui.find({ type: 'Text', text: /0 urls/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /No URL yet/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('ignores subagent answers and too short URLs, and strips trailing punctuation', async ($, on) => {
+  on('turn.complete', (_$, e) => ({ text: e.answer }))
+
+  await $.turn.complete(turn('Sub found https://sub.example.com/x', 't1', 'a1'))
+  await $.turn.complete(turn('Short http://a and real https://example.org/page!?', 't2'))
+
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /1 urls/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /^https:\/\/example\.org\/page$/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /sub\.example\.com/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('keeps only the last 100 URLs', async ($, on) => {
+  on('turn.complete', (_$, e) => ({ text: e.answer }))
+
+  const urls = Array.from({ length: 105 }, (_, at) => `https://example.com/p/${at}`)
+  await $.turn.complete(turn(urls.join(' '), 't1'))
+
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /100 urls/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /\/p\/104$/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('opens the pane in the language set in the hub', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+  const titles: string[] = []
+  on('ui.open', (_$, e) => {
+    titles.push(e.title ?? '')
+
+    return { value: { isPlaced: true } }
+  })
+
+  expect((await $.command.run(RUN)).text).toBe('Painel de links aberto.')
+  expect(titles).toEqual(['Links'])
+
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /Nenhuma URL ainda/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  const titles: string[] = []
+  on('ui.open', (_$, e) => {
+    titles.push(e.title ?? '')
+
+    return { value: { isPlaced: true } }
+  })
+
+  expect((await $.command.run(RUN)).text).toBe('Panel de enlaces abierto.')
+  expect(titles).toEqual(['Enlaces'])
+})

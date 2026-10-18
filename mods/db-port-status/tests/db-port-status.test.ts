@@ -103,3 +103,70 @@ test('speaks the language set in the hub', async ($, on) => {
   await started($)
   expect(status.at(-1)).toBe('db ✗ postgres:5432 fora do ar')
 })
+
+test('names mysql, mongodb and rabbitmq, with the port of the URL when it has one', async ($, on) => {
+  const status = world(on, {
+    files: { '.env.local': 'A=mariadb://localhost:3307/x\nB=mongodb://[::1]/x\nC=amqp://guest:guest@0.0.0.0\n' },
+    listening: [],
+  })
+
+  await started($)
+  expect(status.at(-1)).toBe('db ✗ mysql:3307 mongodb:27017 rabbitmq:5672 down')
+})
+
+test('counts a port named in two env files once', async ($, on) => {
+  const status = world(on, {
+    files: { '.env': 'DATABASE_URL=postgres://localhost/a\n', '.env.development': 'OTHER=postgresql://127.0.0.1:5432/b\n' },
+    listening: [],
+  })
+
+  await started($)
+  expect(status.at(-1)).toBe('db ✗ postgres:5432 down')
+})
+
+test('looks again after a service command and clears the entry once the port listens', async ($, on) => {
+  const machine: Machine = { files: { '.env': 'DATABASE_URL=postgres://localhost/a\n' }, listening: [] }
+  const status = world(on, machine)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await started($)
+  expect(status.at(-1)).toBe('db ✗ postgres:5432 down')
+
+  machine.listening.push(5432)
+  await $.tool.call({ tool: 'Bash', command: 'docker compose up -d db', tool_use_id: 'b-1' })
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('a command that is not about services does not look again', async ($, on) => {
+  const machine: Machine = { files: { '.env': 'DATABASE_URL=postgres://localhost/a\n' }, listening: [] }
+  const status = world(on, machine)
+  on('tool.call', { tool: 'Bash' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } }))
+
+  await started($)
+  machine.listening.push(5432)
+  await $.tool.call({ tool: 'Bash', command: 'npm test', tool_use_id: 'b-2' })
+  await flush()
+  expect(status.at(-1)).toBe('db ✗ postgres:5432 down')
+})
+
+test('looks again after a service command in PowerShell', async ($, on) => {
+  const machine: Machine = { files: { '.env': 'DATABASE_URL=postgres://localhost/a\n' }, listening: [] }
+  const status = world(on, machine)
+  on('tool.call', { tool: 'PowerShell' }, () => ({ result: { stdout: '', stderr: '', interrupted: false } as never }))
+
+  await started($)
+  expect(status.at(-1)).toBe('db ✗ postgres:5432 down')
+
+  machine.listening.push(5432)
+  await $.tool.call({ tool: 'PowerShell', command: 'Start-Service postgresql-x64-16; pg_ctl status', tool_use_id: 'p-1' })
+  await flush()
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const status = world(on, { files: { '.env': ENV }, listening: [5432] }, [], 'es')
+
+  await started($)
+  expect(status.at(-1)).toBe('db ✗ redis:6379 caído')
+})

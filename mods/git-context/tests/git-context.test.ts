@@ -74,3 +74,53 @@ test('keeps the context the prompt already carried', async ($, on) => {
   expect(seen).toHaveLength(2)
   expect(seen?.[0]).toBe('earlier')
 })
+
+test('adds nothing when git cannot start', async ($, on) => {
+  let seen: readonly string[] | undefined = ['untouched']
+  on('process.run', () => {
+    throw new Error('spawn git ENOENT')
+  })
+  on('prompt.submit', (_$, e) => {
+    seen = e.context
+
+    return { text: e.text }
+  })
+
+  const entered = await $.prompt.submit(submit('hello'))
+  expect(seen).toBeUndefined()
+  expect(entered.text).toBe('hello')
+})
+
+test('runs git status in porcelain form with the branch', async ($, on) => {
+  const argvs: (readonly string[])[] = []
+  on('process.run', (_$, e) => {
+    argvs.push(e.argv)
+
+    return ran(0, '## main\n')
+  })
+  on('prompt.submit', (_$, e) => ({ text: e.text }))
+
+  await $.prompt.submit(submit('go'))
+  expect(argvs).toEqual([['git', 'status', '--porcelain=v1', '--branch']])
+})
+
+test('lists exactly twenty files without a "more" line', async ($, on) => {
+  let seen: readonly string[] | undefined
+  on('process.run', () => ran(0, `## dev\n${Array.from({ length: 20 }, (_, i) => ` M f${i}.ts`).join('\n')}\n`))
+  on('prompt.submit', (_$, e) => {
+    seen = e.context
+
+    return { text: e.text }
+  })
+
+  await $.prompt.submit(submit('go'))
+  expect(seen?.[0]).toContain(' M f19.ts')
+  expect(seen?.[0]).not.toContain('more')
+})
+
+test('keeps the prompt text as typed', async ($, on) => {
+  on('process.run', () => ran(0, '## main\n M a.ts\n'))
+  on('prompt.submit', (_$, e) => ({ text: e.text }))
+
+  expect((await $.prompt.submit(submit('explain   this\nplease'))).text).toBe('explain   this\nplease')
+})

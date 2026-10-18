@@ -96,3 +96,90 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await write($, '/work/app/cart/page.tsx', COUNTER)
   expect(answer.deny).toContain("next-boundary-guard: useState só funciona em componente cliente. Ponha 'use client' na primeira linha de app/cart/page.tsx")
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  project(on, ['next'])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await write($, '/work/app/error.tsx', `export default function Error() { return <p>oops</p> }`)
+  expect(answer.deny).toBe("next-boundary-guard: un error boundary debe ser un componente cliente. Pon 'use client' como primera línea de app/error.tsx.")
+})
+
+test('refuses node built-ins under use client and accepts a comment before the directive', async ($, on) => {
+  project(on, ['next'])
+
+  const fs = await write($, '/work/app/Files.tsx', `'use client'\nimport { readFile } from 'node:fs/promises'\nexport default function F() { return null }`)
+  expect(fs.deny).toContain('imports "node:fs/promises"')
+
+  const child = await write($, '/work/app/Run.tsx', `'use client'\nimport { exec } from 'child_process'\nexport default function R() { return null }`)
+  expect(child.deny).toContain('imports "child_process"')
+
+  const commented = `// counter widget\n/* client side */\n'use client'\n${COUNTER}`
+  expect((await write($, '/work/app/Counter.tsx', commented)).deny).toBeUndefined()
+})
+
+test('a use client written after code does not count as the directive', async ($, on) => {
+  project(on, ['next'])
+
+  const late = `import x from 'y'\n'use client'\n${COUNTER}`
+  expect((await write($, '/work/app/page.tsx', late)).deny).toContain('useState only works in a client component')
+})
+
+test('leaves files outside the project and outside app/ alone', async ($, on) => {
+  project(on, ['next'])
+
+  expect((await write($, '/other/app/page.tsx', COUNTER)).deny).toBeUndefined()
+  expect((await write($, '/work/pages/index.tsx', COUNTER)).deny).toBeUndefined()
+  expect((await write($, '/work/app/page.ts', COUNTER)).deny).toBeUndefined()
+})
+
+test('a file that already broke the boundary is not refused again for it', async ($, on) => {
+  project(on, ['next'], { '/work/app/page.tsx': COUNTER })
+
+  const ran = await $.tool.call({
+    tool: 'Edit',
+    file_path: '/work/app/page.tsx',
+    old_string: '{n}',
+    new_string: '{n * 2}',
+    tool_use_id: 'e-old',
+  })
+  expect(ran.deny).toBeUndefined()
+})
+
+test('an Edit on a file it cannot read goes through', async ($, on) => {
+  project(on, ['next'])
+
+  const ran = await $.tool.call({
+    tool: 'Edit',
+    file_path: '/work/app/page.tsx',
+    old_string: 'a',
+    new_string: 'useState(0)',
+    tool_use_id: 'e-missing',
+  })
+  expect(ran.deny).toBeUndefined()
+})
+
+test('detects Next.js among devDependencies', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.read', (_: unknown, e: { path: string }) =>
+    slashed(e.path).endsWith('/work/package.json') ? { value: JSON.stringify({ devDependencies: { next: '15' } }) } : { deny: 'ENOENT' },
+  )
+  on('tool.call', { tool: 'Write' }, () => ({ result: undefined as never }))
+
+  expect((await write($, '/work/app/page.tsx', COUNTER)).deny).toContain('useState')
+})
+
+test('refuses with the failure text when the check itself fails', async ($, on) => {
+  let ran = 0
+  on('session.root', () => ({ deny: 'no root' }))
+  on('fs.read', () => ({ deny: 'ENOENT' }))
+  on('tool.call', { tool: 'Write' }, () => {
+    ran += 1
+
+    return { result: undefined as never }
+  })
+
+  const answer = await write($, '/work/app/page.tsx', COUNTER)
+  expect(answer.deny).toBe('next-boundary-guard: the check failed, confirm the client/server boundary of the file.')
+  expect(ran).toBe(0)
+})

@@ -25,3 +25,40 @@ test('adds nothing when the stack is absent', async ($, on) => {
   const composed = await $.prompt.compose(COMPOSE)
   expect(composed.sections).toEqual([])
 })
+
+test('finds Tailwind in dependencies too', async ($, on) => {
+  project(on, 'package.json', JSON.stringify({ dependencies: { tailwindcss: '3' } }))
+
+  expect((await $.prompt.compose(COMPOSE)).sections.map(s => s.id)).toEqual(['tailwind-rules:rules'])
+})
+
+test('adds nothing when package.json is missing or not valid JSON', async ($, on) => {
+  project(on, 'package.json', '{ "devDependencies": { "tailwindcss": ')
+
+  expect((await $.prompt.compose(COMPOSE)).sections).toEqual([])
+})
+
+test('adds nothing when there is no package.json at all', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('prompt.compose', () => ({ sections: [] }))
+  on('fs.read', () => ({ deny: 'ENOENT' }))
+
+  expect((await $.prompt.compose(COMPOSE)).sections).toEqual([])
+})
+
+test('keeps the sections beneath, adds its own last and reads package.json once', async ($, on) => {
+  let reads = 0
+  on('session.root', () => ({ value: '/work' }))
+  on('prompt.compose', () => ({ sections: [{ id: 'other', text: 'kept', scope: 'session' as const }] }))
+  on('fs.read', () => {
+    reads += 1
+
+    return { value: JSON.stringify({ devDependencies: { tailwindcss: '4' } }) }
+  })
+
+  const composed = await $.prompt.compose(COMPOSE)
+  await $.prompt.compose(COMPOSE)
+  expect(composed.sections.map(s => s.id)).toEqual(['other', 'tailwind-rules:rules'])
+  expect((composed.sections[1] as { text: string }).text.startsWith('# Tailwind rules\n')).toBe(true)
+  expect(reads).toBe(1)
+})

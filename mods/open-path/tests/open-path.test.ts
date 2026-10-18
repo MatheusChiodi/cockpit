@@ -74,3 +74,53 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run('../x'))).text).toBe('Fora do projeto: ../x')
 })
+
+test('says when the opener fails on Linux', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('env.get', () => ({ value: undefined }))
+  on('fs.exists', () => ({ value: true }))
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => (e.argv[0] === 'uname' ? done(0, 'Linux\n') : done(4)))
+
+  expect((await $.command.run(run('a.txt'))).text).toBe('Could not start the system opener.')
+})
+
+test('says when the opener cannot start at all', async ($, on) => {
+  on('session.root', () => ({ value: 'D:\\work' }))
+  on('env.get', () => ({ value: 'Windows_NT' }))
+  on('fs.exists', () => ({ value: true }))
+  on('process.run', () => {
+    throw new Error('ENOENT')
+  })
+
+  expect((await $.command.run(run('a.txt'))).text).toBe('Could not start the system opener.')
+})
+
+test('strips quotes and opens the project root itself', async ($, on) => {
+  const spawned: string[][] = []
+  project(on, '/work', undefined, spawned)
+
+  expect((await $.command.run(run('  "my docs/plan v2.pdf"  '))).text).toBe('Opened my docs/plan v2.pdf')
+  expect((await $.command.run(run('.'))).text).toBe('Opened .')
+  expect(spawned).toEqual([
+    ['xdg-open', '/work/my docs/plan v2.pdf'],
+    ['xdg-open', '/work'],
+  ])
+})
+
+test('compares Windows paths without case', async ($, on) => {
+  const spawned: string[][] = []
+  project(on, 'D:\\Work', 'Windows_NT', spawned)
+
+  expect((await $.command.run(run('d:\\work\\README.md'))).text).toBe('Opened README.md')
+  expect((await $.command.run(run('C:\\Windows'))).text).toBe('Outside the project: C:\\Windows')
+  expect(spawned).toEqual([['explorer', 'd:\\work\\README.md']])
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  project(on, '/work', undefined, [])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run(''))).text).toBe('Uso: /open <ruta>')
+  expect((await $.command.run(run('missing.txt'))).text).toBe('No encontrado: missing.txt')
+  expect((await $.command.run(run('a.txt'))).text).toBe('Abrió a.txt')
+})

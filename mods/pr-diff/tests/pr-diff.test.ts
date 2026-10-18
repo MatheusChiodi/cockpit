@@ -78,3 +78,54 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run())).text).toContain('3 arquivo(s)')
 })
+
+test('says one line when gh fails, prints no JSON or finds no pull request', async ($, on) => {
+  let answer = done(1, '', 'no pull requests found')
+  on('process.run', () => answer)
+
+  expect((await $.command.run(run())).text).toContain('GitHub CLI (gh) is missing')
+  answer = done(0, 'not json')
+  expect((await $.command.run(run())).text).toContain('GitHub CLI (gh) is missing')
+  answer = done(0, '{}')
+  expect((await $.command.run(run())).text).toContain('GitHub CLI (gh) is missing')
+})
+
+test('fills what gh left out with a question mark and the file count', async ($, on) => {
+  on('process.run', () => done(0, JSON.stringify({ number: 7, files: [{ path: 'a.ts', additions: 1, deletions: 0 }] })))
+
+  expect((await $.command.run(run())).text?.split('\n')).toEqual(['PR #7  ? → ?  1 file(s)  +0 -0', '  +1  -0  a.ts'])
+})
+
+test('shows only the head line for a pull request with no files', async ($, on) => {
+  on('process.run', () => done(0, JSON.stringify({ ...pr, files: [], changedFiles: 0, additions: 0, deletions: 0 })))
+
+  expect((await $.command.run(run())).text).toBe('PR #42  feat/login → main  0 file(s)  +0 -0')
+})
+
+test('a bare # is the current pull request', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', (_, e) => {
+    calls.push(e.argv.join(' '))
+
+    return done(0, JSON.stringify(pr))
+  })
+
+  await $.command.run(run('#'))
+  expect(calls[0]).toBe('gh pr view --json number,headRefName,baseRefName,additions,deletions,changedFiles,files')
+  expect((await $.command.run(run('12 34'))).text).toBe('Usage: /prdiff [number]')
+  expect(calls).toHaveLength(1)
+})
+
+test('speaks Spanish for the cap and the errors', async ($, on) => {
+  let ok = true
+  const files = Array.from({ length: 26 }, (_, i) => ({ path: `f${i}.ts`, additions: 1, deletions: 1 }))
+  on('process.run', () => (ok ? done(0, JSON.stringify({ ...pr, files })) : done(1)))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const text = (await $.command.run(run())).text ?? ''
+  expect(text).toContain('3 archivo(s)')
+  expect(text.split('\n').at(-1)).toBe('  … y 1 archivo(s) más')
+  ok = false
+  expect((await $.command.run(run())).text).toContain('no hay pull request aquí')
+  expect((await $.command.run(run('x'))).text).toBe('Uso: /prdiff [número]')
+})

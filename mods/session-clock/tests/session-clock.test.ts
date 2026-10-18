@@ -72,3 +72,36 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.session.start(START)
   expect(statuses.at(-1)).toBe('sessão 5min · 0 prompts')
 })
+
+test('switches from minutes to hours at the hour mark', async ($, on) => {
+  const statuses: (string | undefined)[] = []
+  const clock = world(on, statuses)
+
+  await $.session.start(START)
+  await clock.advance(54 * 60000 + 30000)
+  expect(statuses.at(-1)).toBe('session 59min · 0 prompts')
+
+  await clock.advance(30000)
+  expect(statuses.at(-1)).toBe('session 1h00 · 0 prompts')
+
+  await clock.advance(2 * 60 * 60000 + 9 * 60000)
+  expect(statuses.at(-1)).toBe('session 3h09 · 0 prompts')
+})
+
+test('rounds the minutes down', async ($, on) => {
+  const statuses: (string | undefined)[] = []
+  const clock = world(on, statuses)
+
+  await $.session.start(START)
+  await clock.advance(90000)
+  expect(statuses.at(-1)).toBe('session 6min · 0 prompts')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const statuses: (string | undefined)[] = []
+  world(on, statuses, { count: 4 })
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect(statuses.at(-1)).toBe('sesión 5min · 4 prompts')
+})

@@ -100,3 +100,86 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await write($, '/work/src/api.ts', 'const url = import.meta.env.API_URL')
   expect(answer.deny).toContain('client-env-guard: o Vite esconde API_URL do navegador (src/api.ts)')
 })
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  project(on, ['vite', 'next'])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await write($, '/work/src/a.ts', 'const a = import.meta.env.API_URL')).deny).toContain(
+    'client-env-guard: Vite oculta API_URL del navegador (src/a.ts). Renómbrala VITE_API_URL',
+  )
+  expect((await write($, '/work/src/b.ts', 'const a = process.env.API_URL')).deny).toContain(
+    'Vite no define process.env en el navegador (src/b.ts)',
+  )
+  expect((await write($, '/work/app/C.tsx', `'use client'\nprocess.env.KEY`)).deny).toContain(
+    'KEY es undefined en el navegador (app/C.tsx es un componente cliente)',
+  )
+})
+
+test('Portuguese for process.env under Vite and a Next.js client component', async ($, on) => {
+  project(on, ['vite', 'next'])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  expect((await write($, '/work/src/b.ts', 'const a = process.env.API_URL')).deny).toContain(
+    'o Vite não define process.env no navegador (src/b.ts)',
+  )
+  expect((await write($, '/work/app/C.tsx', `'use client'\nprocess.env.KEY`)).deny).toContain(
+    'KEY é undefined no navegador (app/C.tsx é um componente cliente)',
+  )
+})
+
+test('Vite: test, spec and declaration files and non-source files are not judged', async ($, on) => {
+  project(on, ['vite'])
+
+  for (const path of ['/work/src/a.test.ts', '/work/src/a.spec.tsx', '/work/src/env.d.ts', '/work/src/notes.md']) {
+    expect((await write($, path, 'const a = import.meta.env.SECRET')).deny, path).toBeUndefined()
+  }
+})
+
+test('Next.js: finds the directive after comments and in double quotes', async ($, on) => {
+  project(on, ['next'])
+
+  const commented = await write($, '/work/app/A.tsx', `// banner\n/* license */\n'use client'\nprocess.env.TOKEN`)
+  expect(commented.deny).toContain('TOKEN is undefined in the browser')
+
+  const doubled = await write($, '/work/app/B.tsx', `"use client"\nprocess.env.TOKEN`)
+  expect(doubled.deny).toContain('TOKEN is undefined in the browser')
+
+  expect((await write($, '/work/app/C.tsx', `'use client'\nprocess.env.NODE_ENV`)).deny).toBeUndefined()
+})
+
+test('a Write that keeps a problem the file already had is let through', async ($, on) => {
+  project(on, ['vite'], { '/work/src/old.ts': 'const a = import.meta.env.API_URL' })
+
+  expect((await write($, '/work/src/old.ts', 'const a = import.meta.env.API_URL\nconst b = 1')).deny).toBeUndefined()
+})
+
+test('an Edit on an unreadable file is judged on its new text', async ($, on) => {
+  project(on, ['vite'])
+
+  const answer = await $.tool.call({
+    tool: 'Edit',
+    file_path: '/work/src/new.ts',
+    old_string: 'x',
+    new_string: 'import.meta.env.HIDDEN',
+    tool_use_id: 'e-new',
+  })
+  expect(answer.deny).toContain('Vite hides HIDDEN')
+})
+
+test('refuses with the failure text when the check itself throws', async ($, on) => {
+  on('session.root', () => {
+    throw new Error('no root')
+  })
+  on('fs.read', () => ({ deny: 'ENOENT' }))
+  let ran = 0
+  on('tool.call', { tool: 'Write' }, () => {
+    ran += 1
+
+    return { result: undefined as never }
+  })
+
+  const answer = await write($, '/work/src/a.ts', 'x')
+  expect(answer.deny).toBe('client-env-guard: the check failed, confirm the variable is exposed to the browser.')
+  expect(ran).toBe(0)
+})

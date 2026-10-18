@@ -95,3 +95,91 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['20 edições e 1h 15m sem commit. Bom momento para salvar um ponto de retorno.'])
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  await stretch($, clock, 125, 22)
+
+  expect(toasts).toEqual(['22 ediciones y 2h 05m sin commit. Buen momento para guardar un punto de retorno.'])
+})
+
+test('counts Edit calls too', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('tool.call', { tool: 'Edit' }, () => ANSWER)
+
+  await $.session.start(START)
+
+  for (let i = 0; i < 20; i += 1) {
+    await $.tool.call({ tool: 'Edit', file_path: '/project/a.ts', old_string: 'a', new_string: 'b', tool_use_id: `e-${i}` })
+  }
+
+  await clock.advance(61 * MINUTE)
+  await $.turn.complete(DONE)
+  expect(toasts).toEqual(['20 edits and 1h 01m without a commit. A good moment to save a checkpoint.'])
+})
+
+test('a commit through PowerShell starts the stretch over too', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+  on('tool.call', { tool: 'PowerShell' }, () => ANSWER)
+
+  await $.session.start(START)
+  await edits($, 20)
+  await clock.advance(70 * MINUTE)
+  await $.tool.call({ tool: 'PowerShell', command: 'git add -A; git commit -m wip', tool_use_id: 'ps-1' })
+  await $.turn.complete(DONE)
+
+  expect(toasts).toEqual([])
+})
+
+test('commands that only mention commit do not reset the stretch', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await edits($, 20)
+  await bash($, 'git log --grep commit')
+  await bash($, 'echo commit')
+  await clock.advance(61 * MINUTE)
+  await $.turn.complete(DONE)
+
+  expect(toasts).toHaveLength(1)
+})
+
+test('a subagent turn does not trigger the toast', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await edits($, 20)
+  await clock.advance(61 * MINUTE)
+  await $.turn.complete({ ...DONE, agentId: 'a1' })
+  expect(toasts).toEqual([])
+
+  await $.turn.complete(DONE)
+  expect(toasts).toHaveLength(1)
+})
+
+test('a new session starts the count over', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await edits($, 20)
+  await clock.advance(61 * MINUTE)
+  await $.session.start(START)
+  await $.turn.complete(DONE)
+
+  expect(toasts).toEqual([])
+})

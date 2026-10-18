@@ -55,3 +55,58 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(verdict.reason).toContain('editar o crontab')
   expect(verdict.reason).toContain('Confirme antes de rodar')
 })
+
+test('names what each command would set up', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  const NAMED: readonly (readonly [string, string])[] = [
+    ['crontab -u deploy jobs.txt', 'editing the crontab'],
+    ['echo job >> /etc/crontab', 'writing a cron job under /etc/cron*'],
+    ['schtasks.exe /Create /tn x /tr y.bat /sc onlogon', 'creating a Windows scheduled task'],
+    ['systemctl --user enable app.service', 'enabling a systemd unit'],
+    ['launchctl bootstrap gui/501 app.plist', 'loading a launchd job'],
+    ['register-scheduledtask -TaskName X', 'registering a scheduled task'],
+    ['New-Item -ItemType SymbolicLink -Path shell:startup/app.lnk -Target app.exe', 'writing into a Startup folder'],
+  ]
+
+  for (const [command, what] of NAMED) {
+    const verdict = await $.tool.check({ tool: 'PowerShell', input: { command } })
+    expect(verdict.reason, command).toBe(`persistence-guard: ${what}. This makes something run on its own later. Confirm before running.`)
+  }
+})
+
+test('stays quiet on crontab -r, systemctl disable and reading the Startup folder', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const command of ['crontab -r', 'systemctl disable app', 'launchctl list', 'explorer shell:startup']) {
+    expect((await $.tool.check({ tool: 'Bash', input: { command } })).decision, command).toBe('allow')
+  }
+})
+
+test('keeps a deny or an ask from beneath as it was', async ($, on) => {
+  let verdict: any = { decision: 'deny', reason: 'blocked beneath' }
+  on('tool.check', () => verdict)
+
+  expect(await $.tool.check({ tool: 'Bash', input: { command: 'crontab -e' } })).toEqual({ decision: 'deny', reason: 'blocked beneath' })
+  verdict = { decision: 'ask', reason: 'asked beneath' }
+  expect(await $.tool.check({ tool: 'Bash', input: { command: 'crontab -e' } })).toEqual({ decision: 'ask', reason: 'asked beneath' })
+})
+
+test('asks with a clear reason when the check fails', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ deny: 'state down' }))
+
+  expect(await $.tool.check({ tool: 'Bash', input: { command: 'crontab -e' } })).toEqual({
+    decision: 'ask',
+    reason: 'persistence-guard: the check failed, confirm manually.',
+  })
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command: 'sudo systemctl enable nginx' } })
+  expect(verdict.reason).toBe(
+    'persistence-guard: habilitar una unit de systemd. Esto hace que algo se ejecute solo después. Confirma antes de ejecutar.',
+  )
+})

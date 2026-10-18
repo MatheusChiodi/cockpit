@@ -25,3 +25,50 @@ test('adds nothing when the stack is absent', async ($, on) => {
   const composed = await $.prompt.compose(COMPOSE)
   expect(composed.sections).toEqual([])
 })
+
+test('reads react from devDependencies too, and keeps the sections beneath', async ($, on) => {
+  on('session.root', () => ({ value: '/work' }))
+  on('prompt.compose', () => ({ sections: [{ id: 'other', text: 'kept', scope: 'session' }] }))
+  on('fs.read', () => ({ value: JSON.stringify({ devDependencies: { react: '19' } }) }))
+  on('fs.exists', () => ({ value: true }))
+
+  const composed = await $.prompt.compose(COMPOSE)
+  expect(composed.sections.map(s => s.id)).toEqual(['other', 'react-rules:rules'])
+  expect(composed.sections[1]?.text).toContain('# React rules')
+  expect(composed.sections[1]?.scope).toBe('session')
+})
+
+test('adds nothing without a package.json', async ($, on) => {
+  const files = { text: '' }
+  on('session.root', () => ({ value: '/work' }))
+  on('prompt.compose', () => ({ sections: [] }))
+  on('fs.read', () => (files.text === '' ? { deny: 'ENOENT' } : { value: files.text }))
+  on('fs.exists', () => ({ value: false }))
+
+  expect((await $.prompt.compose(COMPOSE)).sections).toEqual([])
+})
+
+test('a package name that only contains react does not count', async ($, on) => {
+  project(on, 'package.json', JSON.stringify({ dependencies: { 'react-dom': '19', preact: '10' } }))
+
+  expect((await $.prompt.compose(COMPOSE)).sections).toEqual([])
+})
+
+test('decides once per session: a later package.json change is not read', async ($, on) => {
+  const held = { text: JSON.stringify({ dependencies: { react: '19' } }) }
+  on('session.root', () => ({ value: '/work' }))
+  on('prompt.compose', () => ({ sections: [] }))
+  on('fs.read', () => ({ value: held.text }))
+  on('fs.exists', () => ({ value: true }))
+
+  expect((await $.prompt.compose(COMPOSE)).sections).toHaveLength(1)
+
+  held.text = '{}'
+  expect((await $.prompt.compose(COMPOSE)).sections).toHaveLength(1)
+})
+
+test('adds nothing for a package.json that does not parse', async ($, on) => {
+  project(on, 'package.json', '{ "dependencies": { "react": ')
+
+  expect((await $.prompt.compose(COMPOSE)).sections).toEqual([])
+})

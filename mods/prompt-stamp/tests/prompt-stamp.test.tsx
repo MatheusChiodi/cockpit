@@ -62,3 +62,74 @@ test('leaves unknown prompts and expanded rows untouched', async ($, on) => {
   expect(await open.find({ type: 'Text', text: /\d\d:\d\d/ })).toBeUndefined()
   await open.unmount()
 })
+
+test('does not stamp a prompt that was dropped beneath', async ($, on) => {
+  mock.clock(on, { now: noon })
+  on('prompt.submit', () => ({ drop: 'blocked' }))
+  on('ui.render', { component: 'UserMessage' }, ($, e) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>&gt; {e.props.text}</Text>
+  })
+
+  await $.prompt.submit({ text: 'secret prompt', wait: false, origin: { kind: 'composer' } })
+
+  const ui = await $.ui.mount({ ...(message('secret prompt') as object), surface: 'terminal' } as never)
+  expect(await ui.find({ type: 'Text', text: /\d\d:\d\d/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('does not stamp a prompt that did not come from the composer', async ($, on) => {
+  mock.clock(on, { now: noon })
+  bottom(on)
+
+  await $.prompt.submit({ text: 'from the sdk', wait: false, origin: { kind: 'sdk' } })
+
+  const ui = await $.ui.mount({ ...(message('from the sdk') as object), surface: 'terminal' } as never)
+  expect(await ui.find({ type: 'Text', text: /\d\d:\d\d/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('a prompt typed twice shows the time of the latest one', async ($, on) => {
+  const clock = mock.clock(on, { now: noon })
+  bottom(on)
+
+  await $.prompt.submit({ text: 'run the tests', wait: false, origin: { kind: 'composer' } })
+  await clock.advance(42 * 60000)
+  await $.prompt.submit({ text: 'run the tests', wait: false, origin: { kind: 'composer' } })
+
+  const ui = await $.ui.mount({ ...(message('run the tests') as object), surface: 'terminal' } as never)
+  expect(await ui.find({ type: 'Text', text: /14:47/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /14:05/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('names the sender in English and Spanish', async ($, on) => {
+  mock.clock(on)
+  bottom(on)
+  let lang = 'en'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }) as never)
+
+  const peer = { ...(message('done', { origin: { kind: 'peer' }, from: { name: 'reviewer' } }) as object), surface: 'terminal' }
+
+  let ui = await $.ui.mount(peer as never)
+  expect(await ui.find({ type: 'Text', text: /from reviewer/ })).toBeDefined()
+  await ui.unmount()
+
+  lang = 'es'
+  ui = await $.ui.mount(peer as never)
+  expect(await ui.find({ type: 'Text', text: /de reviewer/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('uses a 24-hour clock in every language', async ($, on) => {
+  mock.clock(on, { now: new Date(2026, 9, 13, 21, 9, 0).getTime() })
+  bottom(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  await $.prompt.submit({ text: 'late one', wait: false, origin: { kind: 'composer' } })
+
+  const ui = await $.ui.mount({ ...(message('late one') as object), surface: 'terminal' } as never)
+  expect(await ui.find({ type: 'Text', text: /21:09/ })).toBeDefined()
+  await ui.unmount()
+})

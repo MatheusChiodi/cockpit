@@ -7,8 +7,8 @@ const run = (args: string) => ({
   presentation: { isFullscreen: true, columns: 120 },
 })
 
-const dir = (name: string) => ({ name, kind: 'dir' as const, size: 0, mtimeMs: 0 })
-const file = (name: string) => ({ name, kind: 'file' as const, size: 1, mtimeMs: 0 })
+const dir = (name: string) => ({ name, kind: 'dir' as const, size: 0, mtimeMs: 0, isLink: false })
+const file = (name: string) => ({ name, kind: 'file' as const, size: 1, mtimeMs: 0, isLink: false })
 
 // A fake disk: the entries of each folder, keyed by the folder's path below /work.
 const disk = (on: any, folders: Record<string, unknown[]>) => {
@@ -59,4 +59,52 @@ test('speaks the language set in the hub', async ($, on) => {
   on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
 
   expect((await $.command.run(run('x'))).text).toBe('No es una carpeta legible: x')
+})
+
+test('takes an absolute or quoted folder as it is given', async ($, on) => {
+  const asked: string[] = []
+  on('session.root', () => ({ value: '/work' }))
+  on('fs.list', (_: unknown, e: { path: string }) => {
+    asked.push(e.path.replaceAll('\\', '/'))
+
+    return { value: [file('x.ts')] }
+  })
+
+  expect((await $.command.run(run('/elsewhere/lib'))).text).toBe('x.ts')
+  expect((await $.command.run(run('"my folder"'))).text).toBe('x.ts')
+  expect((await $.command.run(run('C:\\data\\'))).text).toBe('x.ts')
+  // The engine resolves a rooted path on the session's drive.
+  expect(asked.map(path => path.replace(/^[A-Z]:(?=\/(?:elsewhere|work)\/)/, ''))).toEqual(['/elsewhere/lib', '/work/my folder', 'C:/data'])
+})
+
+test('a subfolder it cannot read is listed without children, and the third level never shows', async ($, on) => {
+  disk(on, {
+    '': [dir('locked'), dir('src')],
+    src: [dir('deep')],
+    'src/deep': [file('hidden.ts')],
+  })
+
+  expect((await $.command.run(run(''))).text).toBe(['locked/', 'src/', '  deep/'].join('\n'))
+})
+
+test('stops opening folders once the cap is reached', async ($, on) => {
+  disk(on, {
+    '': [...Array.from({ length: 79 }, (_, i) => dir(`d${String(i).padStart(2, '0')}`)), dir('zz')],
+    ...Object.fromEntries(Array.from({ length: 79 }, (_, i) => [`d${String(i).padStart(2, '0')}`, []])),
+    d00: [file('a.ts')],
+    zz: [file('never.ts')],
+  })
+
+  const text = (await $.command.run(run(''))).text ?? ''
+  expect(text).toContain('  a.ts')
+  expect(text).not.toContain('never.ts')
+  expect(text.split('\n').at(-1)).toBe('… 1 more not shown')
+})
+
+test('speaks Portuguese when the hub says so', async ($, on) => {
+  disk(on, { vazia: [dir('.cache')] })
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  expect((await $.command.run(run('x'))).text).toBe('Não é uma pasta legível: x')
+  expect((await $.command.run(run('vazia'))).text).toBe('Pasta vazia.')
 })

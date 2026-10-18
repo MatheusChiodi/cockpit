@@ -75,3 +75,69 @@ test('treats exit 1 as no match', async ($, on) => {
   expect(await ui.find({ type: 'Text', text: /No TODO, FIXME or HACK/ })).toBeDefined()
   await ui.unmount()
 })
+
+test('says loading before the command ran once', async ($, on) => {
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /Loading…/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('says it is not a repository when git grep exits above 1', async ($, on) => {
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer(128, ''))
+
+  await $.command.run(RUN)
+
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /Not a git repository/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /found/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('ignores lines without a tag or without a file and line', async ($, on) => {
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer(0, ['a.ts:3:// TODOS are fine', 'garbage line', 'b.ts:9:// FIXME real', ''].join('\n')))
+
+  await $.command.run(RUN)
+
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /1 found/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /b\.ts:9/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /a\.ts:3/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('reloads when Refresh is pressed', async ($, on) => {
+  let out = 'a.ts:1:// TODO one\n'
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer(0, out))
+
+  await $.command.run(RUN)
+
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /1 found/ })).toBeDefined()
+
+  out = 'a.ts:1:// TODO one\nb.ts:2:// HACK two\n'
+  await ui.press({ key: 'refresh' })
+  expect(await ui.find({ type: 'Text', text: /2 found/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /b\.ts:2/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('speaks Portuguese and Spanish when the hub says so', async ($, on) => {
+  let lang = 'pt'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+  on('ui.open', () => ({ value: { isPlaced: true } }))
+  on('process.run', () => answer(1, ''))
+
+  expect((await $.command.run(RUN)).text).toBe('Painel de TODOs do código aberto.')
+  const pt = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await pt.find({ type: 'Text', text: /Nenhum TODO, FIXME ou HACK/ })).toBeDefined()
+  await pt.unmount()
+
+  lang = 'es'
+  expect((await $.command.run(RUN)).text).toBe('Panel de TODOs del código abierto.')
+  const es = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect(await es.find({ type: 'Text', text: /Ningún TODO, FIXME o HACK/ })).toBeDefined()
+  await es.unmount()
+})

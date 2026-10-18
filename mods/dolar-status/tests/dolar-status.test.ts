@@ -91,3 +91,48 @@ test('formats the numbers in the language set in the hub', async ($, on) => {
   await clock.settle()
   expect(status.at(-1)).toBe('usd R$ 5,43 ▲0,52%')
 })
+
+test('leaves the trend out when the change is missing', async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on, api({ body: JSON.stringify({ USDBRL: { bid: '5.1' } }) }))
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status.at(-1)).toBe('usd R$ 5.10')
+})
+
+test('shows nothing on an answer without the USDBRL pair', async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on, api({ body: JSON.stringify({ EURBRL: { bid: '6.0', pctChange: '1' } }) }))
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status).toEqual([])
+})
+
+test('keeps the last rate when a later refresh fails', async ($, on) => {
+  const clock = mock.clock(on)
+  const fake = api()
+  const status = world(on, fake)
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status).toEqual(['usd R$ 5.43 ▲0.52%'])
+
+  fake.status = 500
+  await clock.advance(15 * MINUTE)
+  fake.status = 200
+  fake.body = 'garbage'
+  await clock.advance(15 * MINUTE)
+  expect(status).toEqual(['usd R$ 5.43 ▲0.52%'])
+})
+
+test('formats the numbers in Spanish when the hub is set to es', async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on, api({ body: quote('5.4321', '-0.5') }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status.at(-1)).toBe('usd R$ 5,43 ▼0,50%')
+})

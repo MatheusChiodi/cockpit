@@ -62,3 +62,78 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run(''))).text).toContain('Nada no stage')
 })
+
+// Something is staged and the target exists; `commit` answers the commit call.
+const staged = (on: any, commit: ReturnType<typeof done>, calls: string[] = []) =>
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    const call = e.argv.slice(2).join(' ')
+    calls.push(call)
+
+    return call.startsWith('diff') ? done(1) : call.startsWith('log') ? done(0, 'abc1234 add login\n') : commit
+  })
+
+test('says git is missing when it cannot start', async ($, on) => {
+  on('process.run', () => {
+    throw new Error('spawn git ENOENT')
+  })
+
+  expect((await $.command.run(run(''))).text).toBe('Not a git repository (or git is not available).')
+})
+
+test('reports the first line of what git said when the commit fails', async ($, on) => {
+  staged(on, done(1, '', 'error: pre-commit hook failed\ndetails'))
+  answer(on, () => 'yes')
+
+  expect((await $.command.run(run(''))).text).toBe('git failed: error: pre-commit hook failed')
+})
+
+test('uses only the first word as the target', async ($, on) => {
+  const calls: string[] = []
+  staged(on, done(0), calls)
+  answer(on, () => 'yes')
+
+  await $.command.run(run('  abc1234 extra words '))
+  expect(calls).toContain('log -1 --format=%h %s abc1234 --')
+  expect(calls).toContain('commit --fixup=abc1234')
+})
+
+test('cancels when the question cannot be asked', async ($, on) => {
+  const calls: string[] = []
+  staged(on, done(0), calls)
+  on('tool.call', { tool: 'AskUserQuestion' }, () => ({ deny: 'not interactive' }))
+
+  expect((await $.command.run(run(''))).text).toBe('Cancelled.')
+  expect(calls.some(call => call.startsWith('commit'))).toBe(false)
+})
+
+test('speaks Portuguese: asks in Portuguese and confirms with "sim"', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+  staged(on, done(0))
+  let question = ''
+  on('tool.call', { tool: 'AskUserQuestion' }, (_: unknown, e: any) => {
+    question = e.questions[0].question
+
+    return { result: { questions: e.questions, answers: { [question]: 'sim' } } }
+  })
+
+  expect((await $.command.run(run(''))).text).toBe('Fixup criado para abc1234 add login. Junte com: git rebase -i --autosquash <base>')
+  expect(question).toBe('Criar um commit fixup de "abc1234 add login" com o que está no stage?')
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  let stagedNothing = true
+  on('process.run', (_, e) => {
+    const call = e.argv.slice(2).join(' ')
+
+    if (call.startsWith('diff')) {
+      return done(stagedNothing ? 0 : 1)
+    }
+
+    return call.startsWith('log') ? done(128, '', 'bad') : done(0)
+  })
+
+  expect((await $.command.run(run(''))).text).toBe('Nada en el stage. Agrega los cambios primero (/stage).')
+  stagedNothing = false
+  expect((await $.command.run(run('zzz'))).text).toBe('Commit inexistente: zzz')
+})

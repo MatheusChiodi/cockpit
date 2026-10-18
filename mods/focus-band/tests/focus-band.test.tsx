@@ -138,3 +138,78 @@ test('speaks the language set in the hub', async ($, on) => {
   await ui.unmount()
   await $.command.run(focus('stop'))
 })
+
+test('hides while a survey is shown above the prompt', async ($, on) => {
+  mock.clock(on, { now: 1000 * MINUTE })
+  world(on)
+
+  await $.session.start(START)
+  await $.command.run(focus('10'))
+
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /FOCUS/ })).toBeUndefined()
+  await ui.unmount()
+  await $.command.run(focus('stop'))
+})
+
+test('a new block replaces the running one and finishes only once', async ($, on) => {
+  const clock = mock.clock(on, { now: 1000 * MINUTE })
+  const seen = world(on)
+
+  await $.session.start(START)
+  await $.command.run(focus('30'))
+  expect((await $.command.run(focus('5'))).text).toBe('5 min focus block started.')
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: / of 5/ })).toBeDefined()
+  await ui.unmount()
+
+  await clock.advance(6 * MINUTE)
+  expect(seen.toasts).toEqual(['Focus block finished. Time for a break.'])
+
+  await clock.advance(30 * MINUTE)
+  expect(seen.toasts).toHaveLength(1)
+})
+
+test('accepts STOP in any case and decimal minutes', async ($, on) => {
+  mock.clock(on, { now: 1000 * MINUTE })
+  world(on)
+
+  await $.session.start(START)
+  expect((await $.command.run(focus('1.5'))).text).toBe('1.5 min focus block started.')
+  expect((await $.command.run(focus('  STOP '))).text).toBe('Focus block cancelled.')
+  expect((await $.command.run(focus('240'))).text).toBe('240 min focus block started.')
+  await $.command.run(focus('stop'))
+})
+
+test('still toasts when the desktop notification fails', async ($, on) => {
+  const clock = mock.clock(on, { now: 1000 * MINUTE })
+  const toasts: string[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('command.register', (_$, e) => ({ value: { command: e.name } }))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+  on('ui.notify', () => {
+    throw new Error('no notifier')
+  })
+
+  await $.session.start(START)
+  await $.command.run(focus('1'))
+  await clock.advance(2 * MINUTE)
+  expect(toasts).toEqual(['Focus block finished. Time for a break.'])
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const clock = mock.clock(on, { now: 1000 * MINUTE })
+  const seen = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect((await $.command.run(focus('nunca'))).text).toBe('Uso: /focus [minutos de 1 a 240 | stop]')
+  expect((await $.command.run(focus('1'))).text).toBe('Bloque de foco de 1 min iniciado.')
+  await clock.advance(2 * MINUTE)
+  expect(seen.toasts).toEqual(['Bloque de foco terminado. Hora de descansar.'])
+})

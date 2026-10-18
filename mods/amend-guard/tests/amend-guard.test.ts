@@ -43,3 +43,54 @@ test('speaks the language set in the hub', async ($, on) => {
   const verdict = await $.tool.check({ tool: 'Bash', input: { command: 'git rebase main' } })
   expect(verdict.reason).toContain('reescreve commits que já estão em origin/main')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('process.run', () => done('  origin/main\n'))
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const verdict = await $.tool.check({ tool: 'PowerShell', input: { command: 'git commit --amend -m "fix"' } })
+  expect(verdict.reason).toBe(
+    'amend-guard: git commit --amend reescribe commits que ya están en origin/main; el push exigirá --force. Confirma antes de ejecutar.',
+  )
+})
+
+test('skips the symbolic origin/HEAD line and a git that fails', async ($, on) => {
+  const git = { stdout: '  origin/HEAD -> origin/main\n', exitCode: 0 }
+  on('process.run', () => done(git.stdout, git.exitCode))
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  expect((await $.tool.check({ tool: 'Bash', input: { command: 'git commit --amend' } })).decision).toBe('allow')
+
+  git.stdout = '  origin/main\n'
+  git.exitCode = 128
+  expect((await $.tool.check({ tool: 'Bash', input: { command: 'git commit --amend' } })).decision).toBe('allow')
+})
+
+test('lets rebase --abort, --skip and --quit through, and other tools', async ($, on) => {
+  let looked = 0
+  on('process.run', () => {
+    looked += 1
+
+    return done('  origin/main\n')
+  })
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const command of ['git rebase --abort', 'git rebase --skip', 'git rebase --quit', 'git status && git log']) {
+    expect((await $.tool.check({ tool: 'Bash', input: { command } })).decision, command).toBe('allow')
+  }
+
+  expect((await $.tool.check({ tool: 'Write', input: { file_path: 'a', content: 'git commit --amend' } })).decision).toBe('allow')
+  expect(looked).toBe(0)
+})
+
+test('asks with the fallback reason when git cannot be run', async ($, on) => {
+  on('process.run', () => {
+    throw new Error('spawn git ENOENT')
+  })
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command: 'git rebase -i HEAD~3' } })
+  expect(verdict.decision).toBe('ask')
+  expect(verdict.reason).toBe('amend-guard: the check failed, confirm before running.')
+})

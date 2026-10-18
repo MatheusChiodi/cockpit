@@ -85,3 +85,76 @@ test('shows nothing while the hub lists it as off', async ($, on) => {
   expect(status.length).toBeGreaterThan(0)
   expect(status.every(text => text === undefined)).toBe(true)
 })
+
+test('asks the public Anthropic status page', async ($, on) => {
+  const clock = mock.clock(on)
+  const urls: string[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('http.fetch', (_$, e) => {
+    urls.push(e.url)
+
+    return { value: { status: 200, ok: true, headers: {}, text: page('none', 'ok') } }
+  })
+  on('ui.status', () => ({ value: undefined }))
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(urls).toEqual(['https://status.anthropic.com/api/v2/status.json'])
+})
+
+test('falls back to the indicator when there is no description', async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on, api({ body: JSON.stringify({ status: { indicator: 'critical' } }) }))
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status.at(-1)).toBe('api ⚠ critical')
+})
+
+test('clears the entry when the network drops after a good reading', async ($, on) => {
+  const clock = mock.clock(on)
+  const fake = api()
+  const status = world(on, fake)
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status.at(-1)).toBe('api ✓')
+
+  fake.fails = true
+  await clock.advance(5 * MINUTE)
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('does not ask again before five minutes', async ($, on) => {
+  const clock = mock.clock(on)
+  let asked = 0
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('http.fetch', () => {
+    asked += 1
+
+    return { value: { status: 200, ok: true, headers: {}, text: page('none', 'ok') } }
+  })
+  on('ui.status', () => ({ value: undefined }))
+
+  await $.session.start(START)
+  await clock.settle()
+  await clock.advance(4 * MINUTE)
+  expect(asked).toBe(1)
+  await clock.advance(MINUTE)
+  expect(asked).toBe(2)
+})
+
+test('the label reads the same in Portuguese and Spanish', async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on, api())
+  let lang = 'pt'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang as 'pt', version: 1 } }))
+
+  await $.session.start(START)
+  await clock.settle()
+  expect(status.at(-1)).toBe('api ✓')
+
+  lang = 'es'
+  await clock.advance(5 * MINUTE)
+  expect(status.at(-1)).toBe('api ✓')
+})

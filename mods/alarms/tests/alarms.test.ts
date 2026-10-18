@@ -102,3 +102,98 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(added.text).toContain('Alarme 1 definido para 12:30')
 })
+
+test('lists nothing yet and refuses an unknown index', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(9, 0) })
+  world(on, [], [])
+
+  await $.session.start(START)
+  expect((await $.command.run(run('list'))).text).toBe('No alarms yet. Add one with /alarm <HH:MM> <text>.')
+  expect((await $.command.run(run('rm abc'))).text).toBe('No such alarm: abc')
+  expect((await $.command.run(run('rm'))).text).toBe('No such alarm: ')
+  expect((await $.command.run(run(''))).text).toContain('Usage')
+  expect((await $.command.run(run('12:60 late'))).text).toContain('Usage')
+  expect((await $.command.run(run('12:30'))).text).toContain('Usage')
+})
+
+test('refuses a 21st alarm', async ($, on) => {
+  mock.store(on, { alarms: Array.from({ length: 20 }, (_, at) => ({ time: '10:00', text: `a${at}`, day: '' })) })
+  mock.clock(on, { now: at(9, 0) })
+  world(on, [], [])
+
+  await $.session.start(START)
+  expect((await $.command.run(run('11:00 one more'))).text).toBe('Limit of 20 alarms reached. Remove one with /alarm rm <n>.')
+})
+
+test('rings at once when an interactive session opens within the grace period', async ($, on) => {
+  mock.store(on, { alarms: [{ time: '12:30', text: 'lunch', day: '' }] })
+  const clock = mock.clock(on, { now: at(12, 45) })
+  const toasts: string[] = []
+  const notes: string[] = []
+  world(on, toasts, notes)
+
+  await $.session.start(START)
+  await clock.settle()
+
+  expect(toasts).toEqual(['12:30  lunch'])
+  expect(notes).toEqual(['lunch'])
+})
+
+test('never rings in a non-interactive session', async ($, on) => {
+  mock.store(on, { alarms: [{ time: '12:30', text: 'lunch', day: '' }] })
+  const clock = mock.clock(on, { now: at(12, 45) })
+  const toasts: string[] = []
+  world(on, toasts, [])
+
+  await $.session.start({ ...START, isInteractive: false })
+  await clock.advance(5 * MINUTE)
+
+  expect(toasts).toEqual([])
+})
+
+test('an alarm set for a time already past today waits for tomorrow', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: at(12, 40) })
+  const toasts: string[] = []
+  world(on, toasts, [])
+
+  await $.session.start(START)
+  await $.command.run(run('12:30 lunch'))
+  await clock.advance(MINUTE)
+
+  expect(toasts).toEqual([])
+})
+
+test('still shows the toast when the notification fails', async ($, on) => {
+  mock.store(on, { alarms: [{ time: '12:30', text: 'lunch', day: '' }] })
+  const clock = mock.clock(on, { now: at(12, 31) })
+  const toasts: string[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('command.register', (_$, e) => ({ value: { command: e.name } }))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+  on('ui.notify', () => {
+    throw new Error('no notifier')
+  })
+
+  await $.session.start(START)
+  await clock.settle()
+
+  expect(toasts).toEqual(['12:30  lunch'])
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  mock.store(on)
+  mock.clock(on, { now: at(9, 0) })
+  world(on, [], [])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect((await $.command.run(run('12:30 comida'))).text).toBe('Alarma 1 fijada a las 12:30 todos los días: comida')
+  expect((await $.command.run(run('rm 1'))).text).toBe('Alarma 1 borrada.')
+  expect((await $.command.run(run('list'))).text).toBe('Todavía no hay alarmas. Añade una con /alarm <HH:MM> <texto>.')
+})

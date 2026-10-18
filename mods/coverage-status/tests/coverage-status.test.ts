@@ -64,3 +64,74 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.session.start(START)
   expect(statuses.at(-1)).toBe('cob 70%')
 })
+
+test('refreshes at the end of each turn', async ($, on) => {
+  let pct = 50
+  const statuses = project(on, () => ({ 'coverage/coverage-summary.json': summary(pct) }))
+  on('turn.complete', (_: unknown, e: { answer: string }) => ({ text: e.answer }))
+
+  await $.session.start(START)
+  pct = 55
+  await $.turn.complete({ answer: '', durationMs: 1, isAborted: false, turnId: 't1', reason: 'answer' } as never)
+
+  expect(statuses.at(-1)).toBe('cov 55% ↑5')
+})
+
+test('hides when the report is not valid JSON or holds no number', async ($, on) => {
+  let text = '{ broken'
+  const statuses = project(on, () => ({ 'coverage/coverage-summary.json': text }))
+
+  await $.session.start(START)
+  expect(statuses.at(-1)).toBeUndefined()
+
+  text = JSON.stringify({ total: { lines: { pct: 'Unknown' } } })
+  await $.tool.call({ tool: 'Bash', command: 'npm test', tool_use_id: 'b1' })
+  expect(statuses.at(-1)).toBeUndefined()
+})
+
+test('falls back to coverage.py when the istanbul summary has no number', async ($, on) => {
+  const statuses = project(on, () => ({
+    'coverage/coverage-summary.json': JSON.stringify({ total: {} }),
+    'coverage.json': JSON.stringify({ totals: { percent_covered: 77.4 } }),
+  }))
+
+  await $.session.start(START)
+  expect(statuses.at(-1)).toBe('cov 77%')
+})
+
+test('refreshes after test commands in PowerShell and other runners', async ($, on) => {
+  let pct = 40
+  const statuses = project(on, () => ({ 'coverage/coverage-summary.json': summary(pct) }))
+  on('tool.call', { tool: 'PowerShell' }, () => SHELL)
+
+  await $.session.start(START)
+
+  for (const [command, value] of [['pytest -q', 41], ['cargo test', 42], ['go test ./...', 43]] as const) {
+    pct = value
+    await $.tool.call({ tool: 'Bash', command, tool_use_id: command })
+    expect(statuses.at(-1), command).toBe(`cov ${value}% ↑1`)
+  }
+
+  pct = 50
+  await $.tool.call({ tool: 'PowerShell', command: 'pnpm test', tool_use_id: 'p1' })
+  expect(statuses.at(-1)).toBe('cov 50% ↑7')
+})
+
+test('shows nothing while the hub lists it as off', async ($, on) => {
+  const statuses = project(on, () => ({ 'coverage/coverage-summary.json': summary(90) }))
+  on('state.get', { plugin: 'cockpit', key: 'off' }, () => ({ value: { value: ['coverage-status'], version: 1 } }))
+
+  await $.session.start(START)
+  await $.tool.call({ tool: 'Bash', command: 'npm test', tool_use_id: 'b1' })
+
+  expect(statuses.length).toBeGreaterThan(0)
+  expect(statuses.every(text => text === undefined)).toBe(true)
+})
+
+test('speaks Spanish when the hub language is es', async ($, on) => {
+  const statuses = project(on, () => ({ 'coverage/coverage-summary.json': summary(33) }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect(statuses.at(-1)).toBe('cob 33%')
+})

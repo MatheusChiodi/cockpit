@@ -53,3 +53,53 @@ test('speaks the language set in the hub', async ($, on) => {
   })
   expect(answer.deny).toContain('sql-guard bloqueou o comando: DELETE sem WHERE apaga a tabela toda')
 })
+
+const bash = ($: any, command: string) => $.tool.call({ tool: 'Bash', command, tool_use_id: `x-${command}` })
+
+test('names the reason for each kind of statement', async ($, on) => {
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+
+  const CASES: [string, string][] = [
+    ['psql -c "drop database app"', 'DROP deletes the whole object'],
+    ["mysql -e 'DROP SCHEMA reporting'", 'DROP deletes the whole object'],
+    ['psql -c "TRUNCATE orders"', 'TRUNCATE deletes every row with no rollback'],
+    ["sqlite3 app.db 'delete from sessions'", 'DELETE without WHERE empties the whole table'],
+    ["psql -c 'update accounts set balance = 0'", 'UPDATE without WHERE changes every row'],
+  ]
+
+  for (const [command, reason] of CASES) {
+    expect((await bash($, command)).deny, command).toBe(`sql-guard blocked the command: ${reason}. Ask the user to run it by hand if it is intended.`)
+  }
+})
+
+test('never runs a refused command', async ($, on) => {
+  let ran = 0
+  on('tool.call', { tool: 'Bash' }, () => {
+    ran += 1
+
+    return ANSWER
+  })
+
+  for (const command of BLOCKED) {
+    await bash($, command)
+  }
+
+  expect(ran).toBe(0)
+})
+
+test('lets other DROP targets and look-alike words through', async ($, on) => {
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+
+  for (const command of ['psql -c "DROP INDEX idx_users_email"', 'psql -c "DROP VIEW v_report"', 'echo "update docs"', 'echo "deleted from cache"', 'apt-get update']) {
+    expect((await bash($, command)).deny, command).toBeUndefined()
+  }
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.call', { tool: 'Bash' }, () => ANSWER)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await bash($, 'psql -c "UPDATE users SET active = false;"')).deny).toBe(
+    'sql-guard bloqueó el comando: UPDATE sin WHERE modifica todas las filas. Pide al usuario que lo ejecute a mano si es intencional.',
+  )
+})

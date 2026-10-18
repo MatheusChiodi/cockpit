@@ -86,3 +86,61 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await ui.find({ type: 'Text', text: /linhas em 2 edições/ })).toBeDefined()
   await ui.unmount()
 })
+
+test('speaks Spanish and uses the singular for one edit', async ($, on) => {
+  world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.tool.call(edit('e6', 'a', 'b'))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /ESCRITO/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /líneas en 1 edición/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('uses the singular in English and Portuguese', async ($, on) => {
+  world(on)
+
+  await $.tool.call(edit('e7', 'a', 'b'))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /lines in 1 edit$/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('counts an edit that empties text as removed lines only', async ($, on) => {
+  world(on)
+
+  await $.tool.call(edit('e8', 'one\ntwo', ''))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /\+0/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /−2/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('does not count a tool that errored', async ($, on) => {
+  on('tool.call', { tool: 'Edit' }, () => ({ isError: true, result: 'old_string not found' }))
+  on('ui.render', { component: 'AbovePrompt' }, ($, e) => {
+    const { Box } = $.ui.resolve(e)
+
+    return <Box />
+  })
+
+  await $.tool.call(edit('e9', 'a', 'b'))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /WRITTEN/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('hides while a survey takes the space above the prompt', async ($, on) => {
+  world(on)
+
+  await $.tool.call(edit('e10', 'a', 'b'))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, hasSurvey: true } })
+  expect(await ui.find({ type: 'Text', text: /WRITTEN/ })).toBeUndefined()
+  await ui.unmount()
+})

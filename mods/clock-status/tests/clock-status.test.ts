@@ -49,3 +49,48 @@ test('formats the date in the language set in the hub', async ($, on) => {
   await $.session.start(START)
   expect(status.at(-1)).toMatch(/^ter,? 13\/10 · 14:05$/)
 })
+
+test('formats the date in Spanish when the hub language is es', async ($, on) => {
+  mock.clock(on, { now: at(9, 30) })
+  const status = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect(status.at(-1)).toMatch(/^mar,? 13\/10 · 0?9:30$/)
+})
+
+test('refreshes every 20 seconds', async ($, on) => {
+  const clock = mock.clock(on, { now: at(14, 5) })
+  const status = world(on)
+
+  await $.session.start(START)
+  const first = status.length
+  await clock.advance(MINUTE)
+
+  expect(status.length - first).toBe(3)
+})
+
+test('comes back on the next tick once the hub turns it on again', async ($, on) => {
+  const clock = mock.clock(on, { now: at(14, 5) })
+  const status = world(on)
+  let off = ['clock-status']
+  on('state.get', { plugin: 'cockpit', key: 'off' }, () => ({ value: { value: off, version: 1 } }))
+
+  await $.session.start(START)
+  expect(status.at(-1)).toBeUndefined()
+
+  off = []
+  await clock.advance(20000)
+  expect(status.at(-1)).toMatch(/0?2:05 PM$/)
+})
+
+test('rolls the day over at midnight', async ($, on) => {
+  const clock = mock.clock(on, { now: at(23, 59) })
+  const status = world(on)
+
+  await $.session.start(START)
+  expect(status.at(-1)).toMatch(/^Tue,? 10\/13 · 11:59 PM$/)
+
+  await clock.advance(2 * MINUTE)
+  expect(status.at(-1)).toMatch(/^Wed,? 10\/14 · 12:0[01] AM$/)
+})

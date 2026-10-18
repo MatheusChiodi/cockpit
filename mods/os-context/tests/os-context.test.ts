@@ -29,3 +29,48 @@ test('names the system, the shell and the tools that are installed', async ($, o
 })
 
 
+
+test('names macOS from uname, the shell from SHELL, and falls back to python3', async ($, on) => {
+  mock.env(on, { SHELL: '/bin/zsh' })
+  on('prompt.compose', () => ({ sections: [] }))
+  on('process.run', (_, e) => {
+    const [tool = ''] = e.argv
+
+    if (tool === 'uname') return ok('Darwin\n')
+    if (tool === 'python3') return ok('Python 3.11.4\n')
+
+    return missing
+  })
+
+  const text = (await $.prompt.compose(FACTS)).sections.find(item => item.id === 'os-context:env')?.text
+  expect(text).toBe(['# Environment', 'OS: macOS', 'Shell: zsh', 'Installed: python 3.11.4', 'Write commands for this OS and shell.'].join('\n'))
+})
+
+test('says unknown with no uname and leaves out what it cannot find', async ($, on) => {
+  mock.env(on, {})
+  on('prompt.compose', () => ({ sections: [{ id: 'other', text: 'kept', scope: 'session' as const }] }))
+  on('process.run', () => missing)
+
+  const sections = (await $.prompt.compose(FACTS)).sections
+  expect(sections.map(item => item.id)).toEqual(['other', 'os-context:env'])
+  expect(sections[1]?.text).toBe(['# Environment', 'OS: unknown', 'Write commands for this OS and shell.'].join('\n'))
+})
+
+test('looks once and reuses the section for later prompts', async ($, on) => {
+  let runs = 0
+  mock.env(on, {})
+  on('prompt.compose', () => ({ sections: [] }))
+  on('process.run', (_, e) => {
+    runs += 1
+
+    return e.argv[0] === 'uname' ? ok('Linux\n') : missing
+  })
+
+  const first = (await $.prompt.compose(FACTS)).sections[0]?.text
+  const seen = runs
+  const second = (await $.prompt.compose(FACTS)).sections[0]?.text
+
+  expect(first).toContain('OS: Linux')
+  expect(second).toBe(first)
+  expect(runs).toBe(seen)
+})

@@ -69,3 +69,69 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run(''))).text).toContain('árvore de trabalho está limpa')
 })
+
+test('says it is not a repository when git status fails or git is missing', async ($, on) => {
+  let fails = true
+  on('process.run', () => {
+    if (fails) {
+      return done(128, '', 'fatal: not a git repository')
+    }
+
+    throw new Error('spawn git ENOENT')
+  })
+
+  expect((await $.command.run(run(''))).text).toBe('Not a git repository (or git is not available).')
+  fails = false
+  expect((await $.command.run(run('  '))).text).toBe('Not a git repository (or git is not available).')
+})
+
+test('reports the first line of git failing to stage', async ($, on) => {
+  on('process.run', () => done(128, '', "fatal: pathspec 'x.ts' did not match any files\nmore"))
+  answer(on, () => 'yes')
+
+  expect((await $.command.run(run('x.ts'))).text).toBe("git failed: fatal: pathspec 'x.ts' did not match any files")
+})
+
+test('cancels when the question cannot be asked', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', (_, e) => {
+    calls.push(e.argv.join(' '))
+
+    return done(0)
+  })
+  on('tool.call', { tool: 'AskUserQuestion' }, () => ({ deny: 'no dialog here' }))
+
+  expect((await $.command.run(run('a.ts'))).text).toBe('Cancelled.')
+  expect(calls).toEqual([])
+})
+
+test('asks with the count and the paths named', async ($, on) => {
+  const asked: string[] = []
+  on('process.run', () => done(0))
+  on('tool.call', { tool: 'AskUserQuestion' }, (_: unknown, e: any) => {
+    asked.push(e.questions[0].question)
+
+    return { result: { questions: e.questions, answers: { [e.questions[0].question]: 'yes' } } }
+  })
+
+  await $.command.run(run('-r  a.ts   b.ts'))
+  expect(asked).toEqual(['Unstage 2 path(s)? a.ts b.ts'])
+})
+
+test('a lone -r shows the overview', async ($, on) => {
+  on('process.run', () => done(0, 'A  new.ts\n'))
+
+  expect((await $.command.run(run('-r'))).text).toBe(['Staged (1)', '  A new.ts'].join('\n'))
+})
+
+test('stages in Portuguese and Spanish with the localized yes', async ($, on) => {
+  let lang = 'pt'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+  on('process.run', () => done(0, '?? n.ts\n'))
+  answer(on, () => (lang === 'pt' ? 'sim' : 'sí'))
+
+  expect((await $.command.run(run('a.ts'))).text).toBe('1 caminho(s) no stage.')
+  lang = 'es'
+  expect((await $.command.run(run('-r a.ts'))).text).toBe('1 ruta(s) fuera del stage.')
+  expect((await $.command.run(run(''))).text).toBe(['Nuevos (1)', '  n.ts'].join('\n'))
+})

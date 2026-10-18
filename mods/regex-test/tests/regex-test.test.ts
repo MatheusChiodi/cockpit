@@ -49,3 +49,48 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run('/z/ abc'))).text).toContain('sem correspondência')
 })
+
+test('lists 20 matches and counts the rest', async $ => {
+  const lines = ((await $.command.run(run(`/x/g ${'x'.repeat(25)}`))).text ?? '').split('\n')
+
+  expect(lines[0]).toBe('/x/g  25 match(es)')
+  expect(lines).toHaveLength(22)
+  expect(lines[20]).toBe('#20  @19  "x"')
+  expect(lines[21]).toBe('... and 5 more')
+})
+
+test('shortens a long match and shows a group that did not take part', async $ => {
+  const lines = ((await $.command.run(run(`/(q)?a+/ ${'a'.repeat(80)}`))).text ?? '').split('\n')
+
+  expect(lines[1]).toBe(`#1  @0  "${'a'.repeat(56)}..."`)
+  expect(lines[2]).toBe('      $1  undefined')
+})
+
+test('reads an escaped slash as part of the pattern', async $ => {
+  expect((await $.command.run(run('/a\\/b/ x a/b'))).text).toContain('#1  @2  "a/b"')
+})
+
+test('prints the usage when reading the selection fails', async ($, on) => {
+  on('ui.selection', () => {
+    throw new Error('no selection support')
+  })
+
+  expect((await $.command.run(run('/\\d+/'))).text).toContain('Usage: /re')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run('/z/ abc'))).text).toBe('/z/  sin coincidencias')
+  expect((await $.command.run(run('/b/ abc'))).text).toContain('1 coincidencia(s)')
+  expect((await $.command.run(run('/(/ abc'))).text).toContain('Patrón no válido:')
+  expect((await $.command.run(run('nope'))).text).toContain('Uso: /re /patrón/flags <texto>')
+})
+
+test('counts in Portuguese with the overflow line', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  const text = (await $.command.run(run(`/x/ ${'x'.repeat(21)}`))).text ?? ''
+  expect(text).toContain('21 ocorrência(s)')
+  expect(text).toContain('... e mais 1')
+})

@@ -73,3 +73,67 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(verdict.decision).toBe('ask')
   expect(verdict.reason).toContain('desliga a verificação do certificado TLS em src/client.ts')
 })
+
+test('asks for the other command forms it knows', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const command of [
+    'GIT_SSL_NO_VERIFY=1 git clone https://x/y',
+    'PYTHONHTTPSVERIFY=0 python app.py',
+    'npm config set strict-ssl false',
+    'curl --insecure https://x',
+  ]) {
+    expect((await $.tool.check({ tool: 'Bash', input: { command } })).decision, command).toBe('ask')
+  }
+
+  const ps = await $.tool.check({ tool: 'PowerShell', input: { command: 'Invoke-WebRequest https://x -SkipCertificateCheck' } })
+  expect(ps.decision).toBe('ask')
+  expect(ps.reason).toContain('runs a command with TLS verification off (Invoke-WebRequest https://x -SkipCertificateCheck)')
+})
+
+test('lets commented lines and docs, examples and fixtures through', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const calls: Call[] = [
+    { tool: 'Write', input: { file_path: 'src/a.ts', content: '// never do rejectUnauthorized: false' } },
+    { tool: 'Write', input: { file_path: 'src/a.py', content: '# verify=False is unsafe' } },
+    { tool: 'Write', input: { file_path: 'docs/tls.ts', content: 'rejectUnauthorized: false' } },
+    { tool: 'Write', input: { file_path: 'README.md', content: 'verify=False' } },
+    { tool: 'Write', input: { file_path: 'config.example', content: 'strictSSL: false' } },
+    { tool: 'Write', input: { file_path: String.raw`src\fixtures\a.go`, content: 'InsecureSkipVerify: true' } },
+  ]
+
+  for (const { tool, input } of calls) {
+    expect((await $.tool.check({ tool, input })).decision, JSON.stringify(input)).toBe('allow')
+  }
+})
+
+test('leaves other tools and an ask beneath as they are', async ($, on) => {
+  let decision: 'allow' | 'ask' = 'allow'
+  on('tool.check', () => (decision === 'ask' ? { decision, reason: 'beneath' } : { decision }))
+
+  expect((await $.tool.check({ tool: 'Read', input: { file_path: 'a.ts', content: 'verify=False' } })).decision).toBe('allow')
+
+  decision = 'ask'
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command: 'curl -k https://x' } })
+  expect(verdict.reason).toBe('beneath')
+})
+
+test('names the file and spells the command in Spanish', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const code = await $.tool.check({ tool: 'Write', input: { file_path: 'api.php', content: 'curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);' } })
+  expect(code.reason).toContain('desactiva la verificación del certificado TLS en api.php')
+
+  const command = await $.tool.check({ tool: 'Bash', input: { command: 'wget --no-check-certificate https://x' } })
+  expect(command.reason).toContain('ejecuta un comando con la verificación TLS desactivada')
+})
+
+test('cuts a long command to 60 characters in the reason', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const long = `curl -k https://example.io/${'a'.repeat(100)}`
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command: long } })
+  expect(verdict.reason).toContain(`(${long.slice(0, 60)})`)
+})

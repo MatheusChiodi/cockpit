@@ -68,3 +68,54 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(verdict.decision).toBe('ask')
   expect(verdict.reason).toContain('monta um comando SQL juntando strings em src/repo.ts')
 })
+
+const check = (tool: string, file_path: string, text: string) =>
+  ({ tool, input: tool === 'Write' ? { file_path, content: text } : { file_path, old_string: '', new_string: text } }) as const
+
+test('also catches INSERT and str.format built queries', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const call of [
+    check('Edit', 'src/repo.js', 'const q = "INSERT INTO logs (msg) VALUES (" + msg + ")"'),
+    check('Write', 'repo.py', 'cur.execute("DELETE FROM users WHERE id = {}".format(uid))'),
+    check('Edit', 'src/repo.ts', 'await db.run(`UPDATE users SET name = ${name} WHERE id = 1`)'),
+  ]) {
+    expect((await $.tool.check(call)).decision, JSON.stringify(call)).toBe('ask')
+  }
+})
+
+test('ignores commented-out lines, tagged templates and documentation', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  for (const call of [
+    check('Edit', 'src/repo.ts', '// const q = "SELECT * FROM users WHERE id = " + id'),
+    check('Write', 'repo.py', '# cur.execute(f"SELECT * FROM users WHERE id = {uid}")'),
+    check('Edit', 'src/repo.ts', 'await prisma.$queryRaw(Prisma.sql`SELECT * FROM users WHERE id = ${id}`)'),
+    check('Write', 'docs/queries.md', 'const q = "SELECT * FROM users WHERE id = " + id'),
+    check('Write', 'src/fixtures/sql.ts', 'const q = "SELECT * FROM users WHERE id = " + id'),
+  ]) {
+    expect((await $.tool.check(call)).decision, JSON.stringify(call)).toBe('allow')
+  }
+})
+
+test('leaves tools other than Write and Edit alone', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+
+  const verdict = await $.tool.check({ tool: 'Bash', input: { command: 'psql -c "SELECT * FROM users WHERE id = " + id' } })
+  expect(verdict.decision).toBe('allow')
+})
+
+test('keeps an ask from beneath as it was', async ($, on) => {
+  on('tool.check', () => ({ decision: 'ask', reason: 'asked beneath' }))
+
+  const { tool, input } = ASKED[0] as Call
+  expect(await $.tool.check({ tool, input })).toMatchObject({ decision: 'ask', reason: 'asked beneath' })
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('tool.check', () => ({ decision: 'allow' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const { tool, input } = ASKED[3] as Call
+  expect((await $.tool.check({ tool, input })).reason).toContain('arma una sentencia SQL uniendo strings en Dao.java')
+})

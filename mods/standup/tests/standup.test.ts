@@ -79,3 +79,63 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(answer.text).toContain('2026-10-12 (ontem)')
   expect(answer.text).toContain('2026-10-13 (hoje)')
 })
+
+test('reports the error when git cannot start', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  on('process.run', () => {
+    throw new Error('spawn git ENOENT')
+  })
+
+  expect((await $.command.run(run())).text).toMatch(/^Could not read the git history: ./)
+})
+
+test('keeps tabs inside a subject and skips blank or malformed lines', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  on('process.run', (_, e) =>
+    e.argv[1] === 'config' ? done(0, 'me@example.com') : done(0, '2026-10-13\tfix\ttabs\n\nno-tab-line\n2026-10-13\t\n'),
+  )
+  on('ui.copy', () => ({ value: { isCopied: true } }))
+
+  const answer = await $.command.run(run())
+  expect(answer.text).toBe('2026-10-13 (today)\n- fix\ttabs\n\nCopied to the clipboard.')
+})
+
+test('looks back across a month boundary and leaves older days unlabelled', async ($, on) => {
+  const first = new Date(2026, 10, 1, 9, 0).getTime()
+  mock.clock(on, { now: first })
+  const asked: (readonly string[])[] = []
+  on('process.run', (_, e) => {
+    asked.push(e.argv)
+
+    return e.argv[1] === 'config' ? done(0, 'me@example.com') : done(0, '2026-10-30\tlate commit')
+  })
+  on('ui.copy', () => ({ value: { isCopied: true } }))
+
+  const answer = await $.command.run(run())
+  expect(asked[1]).toContain('--since=2026-10-31 00:00')
+  expect(answer.text).toContain('2026-10-30\n- late commit')
+  expect(answer.text).not.toContain('2026-10-30 (')
+})
+
+test('speaks Portuguese for the empty and the no-email answers', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  let email = 'me@example.com'
+  on('process.run', (_, e) => (e.argv[1] === 'config' ? done(0, email) : done(0, '')))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  expect((await $.command.run(run())).text).toBe('Nenhum commit seu desde 2026-10-12 00:00.')
+  email = '  '
+  expect((await $.command.run(run())).text).toContain('O git não tem user.email definido')
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  on('process.run', (_, e) => (e.argv[1] === 'config' ? done(0, 'me@example.com') : done(0, LOG)))
+  on('ui.copy', () => ({ value: { isCopied: true } }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  const answer = await $.command.run(run())
+  expect(answer.text).toContain('2026-10-12 (ayer)')
+  expect(answer.text).toContain('2026-10-13 (hoy)')
+  expect(answer.text).toContain('Copiado al portapapeles.')
+})

@@ -48,3 +48,55 @@ test('speaks the language set in the hub', async ($, on) => {
   await clock.advance(FIFTY)
   expect(toasts[0]).toBe('50 min de sessão. Olhe para longe por 20 segundos: regra 20-20-20.')
 })
+
+test('keeps reminding for hours, each toast held 20 seconds', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: { text: string; timeoutMs?: number }[] = []
+  on('session.start', () => ({ cwd: '/p' }))
+  on('ui.toast', ($, e) => {
+    toasts.push({ text: e.text, timeoutMs: e.timeoutMs })
+
+    return { value: undefined }
+  })
+
+  await $.session.start(START)
+  await clock.advance(FIFTY * 6)
+
+  expect(toasts).toHaveLength(6)
+  expect(toasts.every(toast => toast.timeoutMs === 20000)).toBe(true)
+  expect(toasts[5]?.text).toBe('300 min of session. A quick walk helps more than one more prompt.')
+})
+
+test('says nothing before the first 50 minutes', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  on('session.start', () => ({ cwd: '/p' }))
+  on('ui.toast', ($, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.session.start(START)
+  await clock.advance(30 * 60000)
+  expect(toasts).toEqual([])
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const clock = mock.clock(on)
+  const toasts: string[] = []
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('session.start', () => ({ cwd: '/p' }))
+  on('ui.toast', ($, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.session.start(START)
+  await clock.advance(FIFTY * 2)
+  expect(toasts).toEqual([
+    '50 min de sesión. Mira a lo lejos durante 20 segundos: regla 20-20-20.',
+    '100 min de sesión. Un paseo corto ayuda más que otro prompt.',
+  ])
+})

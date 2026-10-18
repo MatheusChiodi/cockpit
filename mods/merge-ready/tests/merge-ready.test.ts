@@ -95,3 +95,71 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run())).text).toContain('PR #42  ✓ pronto para mesclar')
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  world(on, view({ isDraft: true, reviewDecision: 'REVIEW_REQUIRED' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run())).text?.split('\n')).toEqual([
+    'PR #42  ✗ no está listo',
+    '  ✗ sigue como borrador',
+    '  ✓ sin conflictos',
+    '  ✓ checks pasando',
+    '  … revisión necesaria',
+  ])
+})
+
+test('says closed in Portuguese and Spanish for a closed pull request', async ($, on) => {
+  world(on, view({ state: 'CLOSED' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  expect((await $.command.run(run())).text).toBe('PR #42  já está fechado')
+})
+
+test('passes the number to gh, with or without a leading #', async ($, on) => {
+  const calls: (readonly string[])[] = []
+  on('process.run', (_: unknown, e: { argv: readonly string[] }) => {
+    calls.push(e.argv)
+
+    return done(0, JSON.stringify(view({})))
+  })
+
+  await $.command.run(run('#7'))
+  await $.command.run(run(''))
+  expect(calls[0]?.slice(0, 4)).toEqual(['gh', 'pr', 'view', '7'])
+  expect(calls[1]?.slice(0, 4)).toEqual(['gh', 'pr', 'view', '--json'])
+})
+
+test('says the one gh line when gh fails or answers something that is not JSON', async ($, on) => {
+  let answer = done(1, '', 'no pull requests found')
+  on('process.run', () => answer)
+
+  expect((await $.command.run(run())).text).toContain('GitHub CLI (gh) is missing')
+
+  answer = done(0, 'not json')
+  expect((await $.command.run(run())).text).toContain('GitHub CLI (gh) is missing')
+})
+
+test('a pull request without checks or required review is ready', async ($, on) => {
+  world(on, { number: 9, state: 'OPEN', isDraft: false, mergeable: 'MERGEABLE' })
+
+  expect((await $.command.run(run())).text?.split('\n')).toEqual([
+    'PR #9  ✓ ready to merge',
+    '  ✓ no conflicts',
+    '  ✓ checks passing',
+    '  ✓ no review required',
+  ])
+})
+
+test('a failing check outweighs a running one', async ($, on) => {
+  world(
+    on,
+    view({
+      statusCheckRollup: [{ status: 'IN_PROGRESS' }, { status: 'COMPLETED', conclusion: 'TIMED_OUT' }, { state: 'ERROR' }],
+    }),
+  )
+
+  const text = (await $.command.run(run())).text ?? ''
+  expect(text).toContain('✗ 2 check(s) failing')
+  expect(text).not.toContain('running')
+})

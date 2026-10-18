@@ -63,3 +63,46 @@ test('speaks the language set in the hub', async ($, on) => {
   await started($, clock)
   expect(toasts).toEqual(['#37 "Refactor billing" está como rascunho há 5 dias. Pronto para revisão?'])
 })
+
+test('speaks Spanish when the hub is set to es, with the others counted', async ($, on) => {
+  const { clock, toasts } = world(on, { exitCode: 0, stdout: drafts([37, 'Refactor billing', 5], [40, 'WIP search', 3]) }, 'es')
+
+  await started($, clock)
+  expect(toasts).toEqual(['#37 "Refactor billing" lleva 5 días como borrador. ¿Listo para revisión? (+1 borrador(es))'])
+})
+
+test('the six-hour check catches a draft that has just turned stale', async ($, on) => {
+  const updatedAt = new Date(NOW - 2.9 * DAY).toISOString()
+  const { clock, toasts } = world(on, { exitCode: 0, stdout: JSON.stringify([{ number: 9, title: 'Almost', updatedAt }]) })
+
+  await started($, clock)
+  expect(toasts).toEqual([])
+
+  await clock.advance(6 * 3600000)
+  expect(toasts).toEqual(['#9 "Almost" has been a draft for 3 days. Ready for review?'])
+})
+
+test('a later check tells only about drafts not yet told', async ($, on) => {
+  const gh = { exitCode: 0, stdout: drafts([37, 'Refactor billing', 5]) }
+  const { clock, toasts } = world(on, gh)
+
+  await started($, clock)
+  gh.stdout = drafts([37, 'Refactor billing', 5], [52, 'New idea', 4])
+  await clock.advance(6 * 3600000)
+
+  expect(toasts).toEqual([
+    '#37 "Refactor billing" has been a draft for 5 days. Ready for review?',
+    '#52 "New idea" has been a draft for 4 days. Ready for review?',
+  ])
+})
+
+test('ignores output it cannot parse and drafts without a date or number', async ($, on) => {
+  const gh = { exitCode: 0, stdout: 'not json' }
+  const { clock, toasts } = world(on, gh)
+
+  await started($, clock)
+  gh.stdout = JSON.stringify([{ number: 3, title: 'No date' }, { title: 'No number', updatedAt: ago(10) }])
+  await clock.advance(6 * 3600000)
+
+  expect(toasts).toEqual([])
+})

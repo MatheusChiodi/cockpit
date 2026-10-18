@@ -58,3 +58,66 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.tool.call(edit('/repo/src/other.ts', 'e1'))
   expect(toasts).toEqual(['other.ts agora tem 700 linhas: considere dividi-lo'])
 })
+
+test('says nothing for an edit that failed, was denied or a file it cannot read', async ($, on) => {
+  const toasts: string[] = []
+  let answer: object = { result: undefined, isError: true }
+  let readable = true
+  on('tool.call', { tool: 'Edit' }, () => answer as never)
+  on('fs.read', () => (readable ? { value: lines(800) } : { deny: 'ENOENT' }))
+  on('ui.toast', (_: unknown, e: { text: string }) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.tool.call(edit('/repo/src/a.ts', 'e1'))
+  answer = { deny: 'no' }
+  await $.tool.call(edit('/repo/src/a.ts', 'e2'))
+  answer = ANSWER
+  readable = false
+  await $.tool.call(edit('/repo/src/a.ts', 'e3'))
+  expect(toasts).toEqual([])
+})
+
+test('announces again after the file shrank below 500 and grew back', async ($, on) => {
+  let size = 520
+  const toasts = setup(on, () => size)
+
+  await $.tool.call(edit('/repo/src/a.ts', 'e1'))
+  size = 450
+  await $.tool.call(edit('/repo/src/a.ts', 'e2'))
+  size = 505
+  await $.tool.call(edit('/repo/src/a.ts', 'e3'))
+  expect(toasts).toEqual(['a.ts is now 520 lines: consider splitting it', 'a.ts is now 505 lines: consider splitting it'])
+})
+
+test('does not announce a file that shrank but stays long', async ($, on) => {
+  let size = 720
+  const toasts = setup(on, () => size)
+
+  await $.tool.call(edit('/repo/src/a.ts', 'e1'))
+  size = 610
+  await $.tool.call(edit('/repo/src/a.ts', 'e2'))
+  size = 790
+  await $.tool.call(edit('/repo/src/a.ts', 'e3'))
+  expect(toasts).toEqual(['a.ts is now 720 lines: consider splitting it'])
+})
+
+test('keeps each file on its own count and skips Java test classes', async ($, on) => {
+  const toasts = setup(on, () => 650)
+
+  await $.tool.call(edit('/repo/src/a.ts', 'e1'))
+  await $.tool.call(edit('/repo/src/b.go', 'e2'))
+  await $.tool.call(edit('/repo/src/OrderTest.java', 'e3'))
+  await $.tool.call(edit('/repo/src/a.ts', 'e4'))
+  expect(toasts).toEqual(['a.ts is now 650 lines: consider splitting it', 'b.go is now 650 lines: consider splitting it'])
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const toasts = setup(on, () => 500)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.tool.call(edit('/repo/src/x.rb', 'e1'))
+  expect(toasts).toEqual(['x.rb ahora tiene 500 líneas: considera dividirlo'])
+})

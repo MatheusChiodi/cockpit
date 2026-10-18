@@ -79,3 +79,52 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.session.start(START)
   expect(status.at(-1)).toBe('commits 1 hoje')
 })
+
+test('asks git for the commits since midnight only', async ($, on) => {
+  const fake = git({ log: 'a1 one\n' })
+  world(on, fake)
+
+  await $.session.start(START)
+  const log = fake.argv.find(argv => argv.includes('log'))
+  expect(log).toEqual(['git', '--no-pager', 'log', '--since=midnight', '--oneline', '--author=me@example.com'])
+})
+
+test('counts every author when git config cannot run', async ($, on) => {
+  const argv: string[][] = []
+  const status: (string | undefined)[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('process.run', (_$, e) => {
+    argv.push([...e.argv])
+
+    return e.argv.includes('config') ? { deny: 'not allowed' } : ran(0, 'a1 one\nb2 two\n')
+  })
+  on('ui.status', (_$, e) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.session.start(START)
+  expect(status.at(-1)).toBe('commits 2 today')
+  expect(argv.some(args => args.some(arg => arg.startsWith('--author')))).toBe(false)
+})
+
+test('clears the entry when the repository goes away mid-session', async ($, on) => {
+  const fake = git({ log: 'a1 one\n' })
+  const status = world(on, fake)
+
+  await $.session.start(START)
+  expect(status.at(-1)).toBe('commits 1 today')
+
+  fake.inRepo = false
+  await $.turn.complete(TURN)
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const status = world(on, git({ log: 'a1 one\nb2 two\n' }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect(status.at(-1)).toBe('commits 2 hoy')
+})

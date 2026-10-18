@@ -105,3 +105,75 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts[0]).toBe('Semana passada: 3 dias ativos, 6 sessões, 75 prompts')
 })
+
+test('speaks Spanish when the hub is set to es, with the singulars', async ($, on) => {
+  mock.store(on, { week: '2026-10-05', days: { '2026-10-06': { sessions: 1, prompts: 1 } } })
+  mock.clock(on, { now: at(13) })
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+
+  expect(toasts).toEqual(['Semana pasada: 1 día activo, 1 sesión, 1 prompt'])
+})
+
+test('uses the English singulars for one of each', async ($, on) => {
+  mock.store(on, { week: '2026-10-05', days: { '2026-10-09': { sessions: 1, prompts: 1 } } })
+  mock.clock(on, { now: at(13) })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+
+  expect(toasts).toEqual(['Last week: 1 day active, 1 session, 1 prompt'])
+})
+
+test('a Sunday belongs to the week that began the Monday before', async ($, on) => {
+  mock.store(on, { week: '2026-09-28', days: LAST_WEEK })
+  mock.clock(on, { now: at(11, 23) })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+
+  // Sunday the 11th: last week ran from Monday 28 September to Sunday 4 October.
+  expect(toasts).toEqual(['Last week: 1 day active, 9 sessions, 99 prompts'])
+})
+
+test('a non-interactive session shows no recap', async ($, on) => {
+  mock.store(on, { week: '2026-10-05', days: LAST_WEEK })
+  mock.clock(on, { now: at(13) })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start({ ...START, isInteractive: false })
+
+  expect(toasts).toEqual([])
+})
+
+test('counts prompts from the bridge but not from plugins', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: at(7) })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await $.prompt.submit({ ...PROMPT, origin: { kind: 'bridge' } })
+  await $.prompt.submit({ ...PROMPT, origin: { kind: 'plugin', name: 'x' } } as never)
+  await clock.set(at(13))
+  await $.session.start(START)
+
+  expect(toasts).toEqual(['Last week: 1 day active, 1 session, 1 prompt'])
+})
+
+test('treats a store that holds something odd as empty', async ($, on) => {
+  mock.store(on, { week: '2026-10-05', days: ['not', 'a', 'record'] })
+  mock.clock(on, { now: at(13) })
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+
+  expect(toasts).toEqual([])
+})

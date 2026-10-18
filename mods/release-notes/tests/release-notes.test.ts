@@ -92,3 +92,61 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run())).text).toBe('Já existe uma release v1.4.3.')
 })
+
+test('says so outside a git repository', async ($, on) => {
+  on('process.run', () => done(128, '', 'fatal: not a git repository'))
+  expect((await $.command.run(run())).text).toBe('Not a git repository (or git is not available).')
+})
+
+test('without tags, proposes v0.0.1 from the last 30 commits', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', repo(calls, { tag: undefined }))
+  answer(on, () => 'yes')
+
+  await $.command.run(run())
+  expect(calls).toContain('git --no-pager log --no-merges --format=- %s (%h) -n 30')
+  expect(calls.find(call => call.startsWith('gh release create')) ?? '').toContain('create v0.0.1 --title v0.0.1')
+})
+
+test('shows at most 8 commits in the question and counts the rest', async ($, on) => {
+  const commits = Array.from({ length: 11 }, (_, i) => `- change ${i + 1} (c${i})`)
+  const questions: string[] = []
+  on('process.run', repo([], { commits }))
+  on('tool.call', { tool: 'AskUserQuestion' }, (_: unknown, e: any) => {
+    questions.push(e.questions[0].question)
+
+    return { result: { questions: e.questions, answers: { [e.questions[0].question]: 'no' } } }
+  })
+
+  await $.command.run(run())
+  expect(questions[0]).toContain('Create release v1.4.3 with 11 commit(s)?')
+  expect(questions[0]).toContain('- change 8 (c7)')
+  expect(questions[0]).not.toContain('- change 9 (c8)')
+  expect(questions[0]).toContain('… +3')
+})
+
+test('reports the first line of a failed gh release create', async ($, on) => {
+  const base = repo([])
+  on('process.run', (_: unknown, e: any) =>
+    e.argv.join(' ').startsWith('gh release create') ? done(1, '', 'HTTP 403: forbidden\ndetails') : base(_, e),
+  )
+  answer(on, () => 'yes')
+
+  expect((await $.command.run(run())).text).toBe('gh failed: HTTP 403: forbidden')
+})
+
+test('treats a gh error other than not found as gh unavailable', async ($, on) => {
+  const base = repo([])
+  on('process.run', (_: unknown, e: any) =>
+    e.argv.join(' ').startsWith('gh release view') ? done(1, '', 'gh auth login required') : base(_, e),
+  )
+
+  expect((await $.command.run(run())).text).toContain('GitHub CLI (gh) is missing')
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('process.run', repo([], { commits: [] }))
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run())).text).toBe('Ningún commit desde v1.4.2: nada que publicar.')
+})

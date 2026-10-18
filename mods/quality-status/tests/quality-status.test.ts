@@ -113,3 +113,47 @@ test('speaks the language set in the hub', async ($, on) => {
   await all($, outcome, [true, false, true])
   expect(status.at(-1)).toBe('lint ✓ · tipos ✗ · build ✓')
 })
+
+test('shows only the checks that ran so far', async ($, on) => {
+  const { status } = world(on)
+
+  await bash($, 'npm run build')
+  expect(status.at(-1)).toBe('build ✓')
+
+  await bash($, 'pyright')
+  expect(status.at(-1)).toBe('types ✓ · build ✓')
+})
+
+test('one command that runs several checks updates each of them', async ($, on) => {
+  const { status, outcome } = world(on)
+
+  outcome.isError = true
+  await bash($, 'npm run lint && npm run typecheck && npm run build')
+  expect(status.at(-1)).toBe('lint ✗ · types ✗ · build ✗')
+})
+
+test('recognises more lint, type and build commands', async ($, on) => {
+  const { status } = world(on)
+
+  for (const [command, line] of [
+    ['biome check src', 'lint ✓'],
+    ['yarn type-check', 'lint ✓ · types ✓'],
+    ['mvn package -DskipTests', 'lint ✓ · types ✓ · build ✓'],
+  ] as const) {
+    await bash($, command)
+    expect(status.at(-1), command).toBe(line)
+  }
+
+  const seen = status.length
+  for (const command of ['npm test', 'npm run dev', 'vite']) {
+    await bash($, command)
+  }
+  expect(status.length).toBe(seen)
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  const { status, outcome } = world(on, [], 'es')
+
+  await all($, outcome, [false, true, true])
+  expect(status.at(-1)).toBe('lint ✗ · tipos ✓ · build ✓')
+})

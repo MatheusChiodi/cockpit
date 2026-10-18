@@ -86,3 +86,92 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect((await $.command.run(run)).text).toBe('Cancelado.')
 })
+
+test('reports the branches git refused to delete', async ($, on) => {
+  const calls: string[] = []
+  const inner = repo(calls)
+  on('process.run', (_: unknown, e: any) =>
+    e.argv.join(' ') === 'git --no-pager branch -D feat/squashed' ? done(1, '', 'error') : inner(_, e),
+  )
+  answer(on, () => 'yes')
+
+  expect((await $.command.run(run)).text).toBe('Deleted 1 branch(es); could not delete: feat/squashed')
+})
+
+test('never offers main, master, develop or dev, nor the default branch of origin', async ($, on) => {
+  const calls: string[] = []
+  const asked: string[] = []
+  on('process.run', (_: unknown, e: any) => {
+    const call = e.argv.join(' ')
+    calls.push(call)
+
+    if (e.argv[0] === 'gh') return done(0, '[]')
+    if (call.includes('for-each-ref')) return done(0, 'master a\ndevelop b\ndev c\ntrunk d\nold e\n')
+    if (call.includes('--show-current')) return done(0, 'master\n')
+    if (call.includes('symbolic-ref')) return done(0, 'origin/trunk\n')
+    if (call.includes('--merged')) return done(0, 'master\ndevelop\ndev\ntrunk\nold\n')
+
+    return done(0)
+  })
+  on('tool.call', { tool: 'AskUserQuestion' }, (_: unknown, e: any) => {
+    asked.push(e.questions[0].question)
+
+    return { result: { questions: e.questions, answers: { [e.questions[0].question]: 'yes' } } }
+  })
+
+  expect((await $.command.run(run)).text).toBe('Deleted 1 branch(es).')
+  expect(calls).toContain('git --no-pager branch --merged origin/trunk --format=%(refname:short)')
+  expect(asked[0]).toContain('Delete 1 merged branch(es)? old')
+})
+
+test('falls back to origin/main and ignores gh output that is not JSON', async ($, on) => {
+  const calls: string[] = []
+  on('process.run', (_: unknown, e: any) => {
+    const call = e.argv.join(' ')
+    calls.push(call)
+
+    if (e.argv[0] === 'gh') return done(0, 'not json')
+    if (call.includes('for-each-ref')) return done(0, 'main a\nfeat/x b\n')
+    if (call.includes('symbolic-ref')) return done(128, '', 'no origin/HEAD')
+    if (call.includes('--merged')) return done(0, '')
+
+    return done(0, '')
+  })
+
+  expect((await $.command.run(run)).text).toBe('No merged branches to delete.')
+  expect(calls).toContain('git --no-pager branch --merged origin/main --format=%(refname:short)')
+})
+
+test('lists every candidate in the question', async ($, on) => {
+  const asked: string[] = []
+  on('process.run', repo([]))
+  on('tool.call', { tool: 'AskUserQuestion' }, (_: unknown, e: any) => {
+    asked.push(e.questions[0].question)
+
+    return { result: { questions: e.questions, answers: { [e.questions[0].question]: 'no' } } }
+  })
+
+  await $.command.run(run)
+  expect(asked).toEqual(['Delete 2 merged branch(es)? feat/login, feat/squashed'])
+})
+
+test('registers /merged at session start', async ($, on) => {
+  const names: string[] = []
+  on('session.start', (_$: unknown, e: any) => ({ cwd: e.cwd }))
+  on('command.register', (_$: unknown, e: any) => {
+    names.push(e.name)
+
+    return { value: { command: e.name } }
+  })
+
+  await $.session.start({ cwd: '/work', surface: 'terminal', isInteractive: true })
+  expect(names).toEqual(['merged'])
+})
+
+test('speaks Spanish when the hub language is es', async ($, on) => {
+  on('process.run', repo([]))
+  answer(on, () => 'sí')
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(run)).text).toBe('2 rama(s) eliminada(s).')
+})

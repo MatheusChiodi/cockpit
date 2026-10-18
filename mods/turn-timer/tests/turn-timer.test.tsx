@@ -103,3 +103,62 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await ui.find({ key: 'hide', text: /Ocultar/ })).toBeDefined()
   await ui.unmount()
 })
+
+test('counts tools from the start of the turn only', async ($, on) => {
+  world(on)
+  on('turn.start', (_$, e) => ({ turnId: e.turnId }))
+  await $.tool.call({ tool: 'Bash', command: 'ls', tool_use_id: 'a' })
+  await $.tool.call({ tool: 'Bash', command: 'ls', tool_use_id: 'b' })
+  await $.turn.start({ text: 'go', turnId: 't2' })
+  await $.tool.call({ tool: 'Bash', command: 'ls', tool_use_id: 'c' })
+  await $.turn.complete(complete())
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /1 tools/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('leaves subagent tool calls out of the count', async ($, on) => {
+  world(on)
+  await $.tool.call({ tool: 'Bash', command: 'ls', tool_use_id: 'a', ...{ agentId: 'sub' } })
+  await $.tool.call({ tool: 'Bash', command: 'ls', tool_use_id: 'b' })
+  await $.turn.complete(complete())
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /1 tools/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('shows small token counts as is and rounds the seconds', async ($, on) => {
+  world(on)
+  await $.turn.complete(
+    complete({ durationMs: 1600, usage: { input_tokens: 1, output_tokens: 999, cache_read_input_tokens: 0, cache_creation_input_tokens: 0, model: 'm' } }),
+  )
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /2s/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /999 tokens/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('replaces the band with the newest turn', async ($, on) => {
+  world(on)
+  await $.turn.complete(complete())
+  await $.turn.complete(complete({ durationMs: 45000 }))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /45s/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /12s/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  await $.turn.complete(complete({ isAborted: true, reason: 'aborted' }))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /TURNO/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /interrumpido/ })).toBeDefined()
+  await ui.unmount()
+})

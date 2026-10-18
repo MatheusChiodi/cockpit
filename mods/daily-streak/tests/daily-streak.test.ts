@@ -75,3 +75,66 @@ test('speaks the language set in the hub', async ($, on) => {
   await $.session.start(START)
   expect(toasts.at(-1)).toBe('◆ 1 dia seguido de Claude Code (recorde: 1)')
 })
+
+test('extends a streak kept in the store from yesterday and keeps the best', async ($, on) => {
+  const yesterday = new Date(NOON - DAY)
+  const day = [yesterday.getFullYear(), String(yesterday.getMonth() + 1).padStart(2, '0'), String(yesterday.getDate()).padStart(2, '0')].join('-')
+  mock.store(on, { streak: { day, count: 4, best: 9 } })
+  mock.clock(on, { now: NOON })
+  const toasts: string[] = []
+  sessions(on, toasts)
+
+  await $.session.start(START)
+  expect(toasts).toEqual(['◆ 5 days in a row with Claude Code (best: 9)'])
+})
+
+test('starts over from a broken store value', async ($, on) => {
+  mock.store(on, { streak: 'broken' })
+  mock.clock(on, { now: NOON })
+  const toasts: string[] = []
+  sessions(on, toasts)
+
+  expect((await $.command.run(STREAK)).text).toBe('No streak started yet.')
+  await $.session.start(START)
+  expect(toasts).toEqual(['◆ 1 day in a row with Claude Code (best: 1)'])
+})
+
+test('counts the next day even a minute after midnight', async ($, on) => {
+  mock.store(on)
+  const late = new Date(2026, 5, 15, 23, 59).getTime()
+  const clock = mock.clock(on, { now: late })
+  const toasts: string[] = []
+  sessions(on, toasts)
+
+  await $.session.start(START)
+  await clock.advance(2 * 60000)
+  await $.session.start(START)
+  expect(toasts.at(-1)).toBe('◆ 2 days in a row with Claude Code (best: 2)')
+})
+
+test('speaks Spanish, singular and plural', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: NOON })
+  const toasts: string[] = []
+  sessions(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await $.command.run(STREAK)).text).toBe('Aún no has empezado una racha.')
+  await $.session.start(START)
+  expect(toasts.at(-1)).toBe('◆ 1 día seguido con Claude Code (récord: 1)')
+  await clock.advance(DAY)
+  await $.session.start(START)
+  expect(toasts.at(-1)).toBe('◆ 2 días seguidos con Claude Code (récord: 2)')
+})
+
+test('speaks Portuguese in the plural', async ($, on) => {
+  mock.store(on)
+  const clock = mock.clock(on, { now: NOON })
+  sessions(on, [])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => PT)
+
+  await $.session.start(START)
+  await clock.advance(DAY)
+  await $.session.start(START)
+  expect((await $.command.run(STREAK)).text).toBe('◆ 2 dias seguidos de Claude Code (recorde: 2)')
+})

@@ -82,3 +82,61 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(statuses.at(-1)).toBe('ctx ━━━━━━━━━━ 95% · US$ 1.00')
   expect(toasts).toEqual(['Contexto em 95%. Considere /compact ou /clear.'])
 })
+
+// The engine beneath the mod; returns the status entries and toasts.
+const world = (on: any) => {
+  const statuses: (string | undefined)[] = []
+  const toasts: string[] = []
+  on('session.measure', () => ({ changed: [] }))
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    statuses.push(e.text)
+
+    return { value: undefined }
+  })
+  on('ui.toast', (_: unknown, e: { text: string }) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  return { statuses, toasts }
+}
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  const { statuses, toasts } = world(on)
+
+  await $.session.measure(measure(83, 2.5))
+  expect(statuses).toEqual(['ctx ━━━━━━━━── 83% · US$ 2.50'])
+  expect(toasts).toEqual(['Contexto al 83%. Considera /compact o /clear.'])
+})
+
+test('rounds the gauge to tenths and keeps it full past 100%', async ($, on) => {
+  const { statuses } = world(on)
+
+  await $.session.measure(measure(0))
+  await $.session.measure(measure(4))
+  await $.session.measure(measure(5))
+  await $.session.measure(measure(120))
+
+  expect(statuses).toEqual(['ctx ────────── 0%', 'ctx ────────── 4%', 'ctx ━───────── 5%', 'ctx ━━━━━━━━━━ 120%'])
+})
+
+test('jumping straight past 90 warns once', async ($, on) => {
+  const { toasts } = world(on)
+
+  await $.session.measure(measure(92))
+  await $.session.measure(measure(95))
+
+  expect(toasts).toEqual(['Context at 92%. Consider /compact or /clear.'])
+})
+
+test('the exact thresholds count', async ($, on) => {
+  const { toasts } = world(on)
+
+  await $.session.measure(measure(79))
+  await $.session.measure(measure(80))
+  await $.session.measure(measure(90))
+
+  expect(toasts).toEqual(['Context at 80%. Consider /compact or /clear.', 'Context at 90%. Consider /compact or /clear.'])
+})

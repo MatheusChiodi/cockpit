@@ -112,3 +112,74 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(status[0]).toBe('deploy vercel …')
   expect(status.at(-1)).toMatch(new RegExp(`^deploy ✓ vercel ${TIME} · 1s$`))
 })
+
+test('writes durations past a minute as minutes and seconds', async ($, on) => {
+  const { clock, status } = world(on)
+  shell(on, clock, 125000)
+
+  await bash($, 'cdk deploy --all')
+  expect(status.at(-1)).toMatch(new RegExp(`^deploy ✓ cdk ${TIME} · 2m5s$`))
+})
+
+test('names the target of the other deploy tools', async ($, on) => {
+  const { clock, status } = world(on)
+  shell(on, clock, 10)
+
+  for (const [command, target] of [
+    ['npx wrangler publish', 'wrangler'],
+    ['flyctl deploy --remote-only', 'flyctl'],
+    ['yarn run deploy', 'yarn'],
+    ['sls deploy --stage prod', 'sls'],
+    ['railway up', 'railway'],
+    ['helm upgrade api ./chart', 'helm'],
+    ['cd infra && kubectl apply -f k8s/', 'kubectl'],
+    ['eas submit -p ios', 'eas'],
+  ] as const) {
+    status.length = 0
+    await bash($, command)
+    expect(status[0], command).toBe(`deploy ${target} …`)
+  }
+
+  for (const command of ['terraform plan', 'kubectl get pods', 'helm list', 'eas login']) {
+    status.length = 0
+    await bash($, command)
+    expect(status, command).toEqual([])
+  }
+})
+
+test('uses a 24-hour clock in Spanish', async ($, on) => {
+  const { clock, status } = world(on, [], 'es')
+  shell(on, clock, 3000)
+
+  await bash($, 'netlify deploy')
+  expect(status.at(-1)).toMatch(/^deploy ✓ netlify \d{2}:\d{2} · 3s$/)
+})
+
+// Stands in for the hub: a /flip command that writes its own `off` list, as the settings pane does.
+const HUB = {
+  name: 'cockpit',
+  register: (on: any) => {
+    on('command.run', { command: 'flip' }, async ($: any) => {
+      await $.state.set({ plugin: 'cockpit', key: 'off' }, ['deploy-status'])
+
+      return { text: 'flipped' }
+    })
+  },
+}
+
+test('clears the entry when the hub turns it off', { plugins: [HUB] }, async ($, on) => {
+  const clock = mock.clock(on)
+  const status: (string | undefined)[] = []
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+  shell(on, clock, 100)
+
+  await bash($, 'vercel deploy')
+  expect(status.at(-1)).toMatch(/^deploy ✓ vercel/)
+
+  await $.command.run({ command: 'flip', args: '', origin: { kind: 'composer' }, presentation: { isFullscreen: false, columns: 80 } })
+  expect(status.at(-1)).toBeUndefined()
+})

@@ -66,3 +66,52 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(lines[0]).toBe('yarn (yarn.lock)')
   expect(lines).toContain('adicionar  yarn add <package>')
 })
+
+test('two bun lockfiles are one manager, not a conflict', async ($, on) => {
+  project(on, ['bun.lockb', 'bun.lock'])
+
+  const lines = ((await $.command.run(run)).text ?? '').split('\n')
+  expect(lines[0]).toBe('bun (bun.lockb)')
+  expect(lines).toContain('exec     bunx <bin>')
+})
+
+test('an unknown packageManager falls back to the lockfile', async ($, on) => {
+  project(on, ['yarn.lock'], JSON.stringify({ packageManager: 'deno@2.0.0' }))
+
+  expect(((await $.command.run(run)).text ?? '').split('\n')[0]).toBe('yarn (yarn.lock)')
+})
+
+test('the packageManager field settles a lockfile conflict', async ($, on) => {
+  project(on, ['yarn.lock', 'package-lock.json'], JSON.stringify({ packageManager: 'yarn@4.1.0' }))
+
+  const lines = ((await $.command.run(run)).text ?? '').split('\n')
+  expect(lines[0]).toBe('yarn (package.json packageManager)')
+  expect(lines.some(line => line.includes('several lockfiles'))).toBe(false)
+})
+
+test('an invalid package.json lets the lockfile decide', async ($, on) => {
+  project(on, ['package-lock.json'], '{ not json')
+
+  const lines = ((await $.command.run(run)).text ?? '').split('\n')
+  expect(lines[0]).toBe('npm (package-lock.json)')
+  expect(lines).toContain('one-off  npx <package>')
+})
+
+test('registers /pm and speaks Spanish', async ($, on) => {
+  project(on, [])
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  const names: string[] = []
+  on('command.register', (_$, e) => {
+    names.push(e.name)
+
+    return { value: { command: e.name } }
+  })
+
+  await $.session.start({ cwd: '/work', surface: 'terminal', isInteractive: true })
+  expect(names).toEqual(['pm'])
+
+  const lines = ((await $.command.run(run)).text ?? '').split('\n')
+  expect(lines[0]).toBe('npm (sin lockfile y sin campo packageManager: npm es el predeterminado)')
+  expect(lines).toContain('quitar    npm uninstall <package>')
+})

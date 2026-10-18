@@ -96,3 +96,41 @@ test('shows nothing while the hub lists it as off', async ($, on) => {
   expect(status.length).toBeGreaterThan(0)
   expect(status.every(text => text === undefined)).toBe(true)
 })
+
+test('uses the folder name with the version when the package has no name', async ($, on) => {
+  const status = world(on, { files: { 'package.json': JSON.stringify({ version: '0.1.0' }) }, node: 'v22.1.0' })
+
+  await started($)
+  expect(status.at(-1)).toBe('shop@0.1.0 · node 22.1.0')
+})
+
+test('the first lockfile in order wins when there are several', async ($, on) => {
+  const status = world(on, { files: { 'package.json': MANIFEST, 'package-lock.json': '', 'yarn.lock': '', 'pnpm-lock.yaml': '' }, node: null })
+
+  await started($)
+  expect(status.at(-1)).toBe('shop-app@1.2.3 · pnpm')
+})
+
+test('shows the manager but not Node when there is no package.json', async ($, on) => {
+  const status = world(on, { files: { 'yarn.lock': '' }, node: 'v20.0.0' })
+
+  await started($)
+  expect(status.at(-1)).toBe('shop · yarn')
+})
+
+test('takes the last folder of a Windows root', async ($, on) => {
+  const status: (string | undefined)[] = []
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('session.root', () => ({ value: 'C:\\Users\\me\\repos\\billing\\' }))
+  on('fs.exists', () => ({ value: false }))
+  on('fs.read', () => ({ deny: 'ENOENT' }))
+  on('process.run', () => done(0, 'v20.0.0\n'))
+  on('ui.status', (_: unknown, e: { text: string | undefined }) => {
+    status.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await started($)
+  expect(status.at(-1)).toBe('billing')
+})

@@ -89,3 +89,78 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await has(ui, /1 faltando/)).toBe(true)
   await ui.unmount()
 })
+
+test('reads .env.sample when there is no .env.example, and counts a repeated key once', async ($, on) => {
+  world(on, { '.env.sample': 'API_KEY=\nAPI_KEY=\n' })
+
+  const ui = await draw($)
+  expect(await has(ui, /1 missing/)).toBe(true)
+  expect(await has(ui, /API_KEY/)).toBe(true)
+  await ui.unmount()
+})
+
+test('counts keys from .env.development and ignores lines without a name', async ($, on) => {
+  world(on, {
+    '.env.example': 'A=\n  # B=\nnot a key\nC =\n',
+    '.env.development': 'A=1\n',
+  })
+
+  const ui = await draw($)
+  expect(await has(ui, /1 missing/)).toBe(true)
+  expect(await has(ui, /^C$|\bC\b/)).toBe(true)
+  await ui.unmount()
+})
+
+test('rereads the files after a Write, so the band clears once .env has the key', async ($, on) => {
+  const files: Record<string, string> = { '.env.example': 'TOKEN=\n', '.env': '' }
+  world(on, files)
+  on('tool.call', { tool: 'Write' }, () => ({ result: undefined as never }))
+
+  const ui = await draw($)
+  expect(await has(ui, /1 missing/)).toBe(true)
+  await ui.unmount()
+
+  files['.env'] = 'TOKEN=abc\n'
+  await $.tool.call({ tool: 'Write', file_path: '/repo/.env', content: 'TOKEN=abc\n', tool_use_id: 'w1' })
+  await $.tool.call({ tool: 'Write', file_path: '/repo/x', content: '', tool_use_id: 'w2' })
+
+  const after = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await has(after, /ENV/)).toBe(false)
+  await after.unmount()
+})
+
+test('stays out of the way while a survey is shown', async ($, on) => {
+  world(on, { '.env.example': 'A=\n' })
+  await $.session.start(START)
+
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await has(ui, /ENV/)).toBe(false)
+  await ui.unmount()
+})
+
+test('keeps the bands drawn beneath it', async ($, on) => {
+  mock.clock(on)
+  on('session.start', (_: unknown, e: any) => ({ cwd: e.cwd }))
+  on('session.root', () => ({ value: '/repo' }))
+  on('fs.read', (_: unknown, e: { path: string }) => ({
+    value: (e.path.replaceAll('\\', '/').endsWith('/.env.example') ? 'A=\n' : undefined) as never,
+  }))
+  on('ui.render', { component: 'AbovePrompt' }, ($: any, e: any) => {
+    const { Text } = $.ui.resolve(e)
+
+    return <Text>other band</Text>
+  })
+
+  const ui = await draw($)
+  expect(await has(ui, /other band/)).toBe(true)
+  expect(await has(ui, /1 missing/)).toBe(true)
+  await ui.unmount()
+})
+
+test('speaks Spanish when the hub language is es', async ($, on) => {
+  world(on, { '.env.example': 'A=\nB=\n' }, [], 'es')
+
+  const ui = await draw($)
+  expect(await has(ui, /2 faltan/)).toBe(true)
+  await ui.unmount()
+})

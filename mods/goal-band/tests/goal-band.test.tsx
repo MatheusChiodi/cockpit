@@ -110,3 +110,65 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await has(await $.ui.mount({ ...BAND, surface: 'terminal' }), /OBJETIVO/)).toBe(true)
   expect((await $.command.run(goal('clear'))).text).toBe('Objetivo removido.')
 })
+
+test('hides while a survey is shown above the prompt', async ($, on) => {
+  world(on, 'a goal behind the survey')
+  await $.session.start(START)
+
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await has(ui, /GOAL/)).toBe(false)
+})
+
+test('keeps the goal per project, under the root of the session', async ($, on) => {
+  const sets: { key: string; value: unknown }[] = []
+  hub(on)
+  on('session.root', () => ({ value: '/work' }))
+  on('command.register', (_: unknown, e: { name: string }) => ({ value: { command: e.name } }))
+  on('store.get', (_: unknown, e: { key: string }) => ({ value: e.key === 'goal:/other' ? 'not this project' : undefined }))
+  on('store.set', (_: unknown, e: { key: string; value: unknown }) => {
+    sets.push(e)
+
+    return { value: undefined }
+  })
+
+  expect(await has(await draw($), /not this project/)).toBe(false)
+  await $.command.run(goal('  trimmed goal  '))
+  await $.command.run(goal('clear'))
+  expect(sets).toEqual([
+    { key: 'goal:/work', value: 'trimmed goal' },
+    { key: 'goal:/work', value: '' },
+  ])
+})
+
+test('ignores a stored value that is not text', async ($, on) => {
+  mock.store(on, { 'goal:/work': { not: 'a string' } })
+  hub(on)
+  on('session.root', () => ({ value: '/work' }))
+  on('command.register', (_: unknown, e: { name: string }) => ({ value: { command: e.name } }))
+  on('prompt.compose', () => ({ sections: [] }))
+
+  expect(await has(await draw($), /GOAL/)).toBe(false)
+  expect((await $.command.run(goal(''))).text).toBe('No goal. Use /goal <goal>.')
+  expect((await $.prompt.compose(INPUT)).sections).toEqual([])
+})
+
+test('adds its section after the ones composed beneath', async ($, on) => {
+  mock.store(on, { 'goal:/work': 'stay on track' })
+  hub(on)
+  on('session.root', () => ({ value: '/work' }))
+  on('prompt.compose', () => ({ sections: [{ id: 'base', text: 'base text', scope: 'session' as const }] }))
+
+  const composed = await $.prompt.compose(INPUT)
+  expect(composed.sections.map(section => section.id)).toEqual(['base', 'goal-band:goal'])
+  expect(composed.sections[1]?.text).toContain("# The user's current goal\nstay on track")
+})
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  world(on, undefined, [], 'es')
+  await $.session.start(START)
+
+  expect((await $.command.run(goal(''))).text).toBe('Sin objetivo. Usa /goal <objetivo>.')
+  expect((await $.command.run(goal('lanzar el login'))).text).toBe('Objetivo fijado (Claude lo verá desde el próximo prompt).')
+  expect((await $.command.run(goal(''))).text).toBe('Objetivo: lanzar el login')
+  expect((await $.command.run(goal('clear'))).text).toBe('Objetivo eliminado.')
+})

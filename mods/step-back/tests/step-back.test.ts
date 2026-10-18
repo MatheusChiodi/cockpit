@@ -90,3 +90,80 @@ test('speaks the language set in the hub', async ($, on) => {
 
   expect(toasts).toEqual(['4 tentativas falhas de "cargo build". Dê um passo atrás e olhe a causa.'])
 })
+
+test('speaks Spanish when the hub is set to es', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+
+  for (let i = 0; i < 4; i += 1) {
+    await bash($, 'go test ./...')
+  }
+
+  expect(toasts).toEqual(['4 intentos fallidos de "go test". Da un paso atrás y mira la causa.'])
+})
+
+test('counts PowerShell failures too, and folds the case of runner commands', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+  on('tool.call', { tool: 'PowerShell' }, () => fails)
+
+  await $.session.start(START)
+
+  for (const command of ['NPM Test', 'npm TEST', 'npm test', 'Npm test']) {
+    await $.tool.call({ tool: 'PowerShell', command, tool_use_id: `p-${(id += 1)}` })
+  }
+
+  expect(toasts).toEqual(['4 failed attempts at "npm test". Step back and look at the cause.'])
+})
+
+test('a refused call is not a failure', async ($, on) => {
+  const toasts: string[] = []
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('tool.call', { tool: 'Bash' }, (_$, e) => (e.command.includes('deny') ? { deny: 'no' } : fails))
+  on('ui.toast', (_$, e) => {
+    toasts.push(e.text)
+
+    return { value: undefined }
+  })
+
+  await $.session.start(START)
+  await bash($, 'tsc')
+  await bash($, 'tsc')
+  await bash($, 'tsc')
+  await bash($, 'tsc deny')
+  expect(toasts).toEqual([])
+
+  await bash($, 'tsc')
+  expect(toasts).toHaveLength(1)
+})
+
+test('a success at another thing does not break the streak', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await bash($, 'tsc')
+  await bash($, 'tsc')
+  await bash($, 'tsc')
+  await bash($, 'git status ok')
+  await bash($, 'tsc')
+
+  expect(toasts).toEqual(['4 failed attempts at "tsc". Step back and look at the cause.'])
+})
+
+test('a new session starts the count over', async ($, on) => {
+  const toasts: string[] = []
+  world(on, toasts)
+
+  await $.session.start(START)
+  await bash($, 'tsc')
+  await bash($, 'tsc')
+  await bash($, 'tsc')
+  await $.session.start(START)
+  await bash($, 'tsc')
+
+  expect(toasts).toEqual([])
+})

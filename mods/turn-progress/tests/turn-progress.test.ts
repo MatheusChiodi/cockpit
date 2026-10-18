@@ -80,3 +80,69 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(status.at(-1)).toBe('turno 1s · 2 herramientas')
   await $.turn.complete(TURN)
 })
+
+test('a new turn restarts the clock and the tool count', async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on)
+
+  await $.turn.start({ text: 'go', turnId: 't-5' })
+  await call($, 'b6')
+  await clock.advance(10000)
+  expect(status.at(-1)).toBe('turn 10s · 1 tool')
+
+  await $.turn.start({ text: 'again', turnId: 't-6' })
+  await clock.advance(2000)
+  expect(status.at(-1)).toBe('turn 2s · 0 tools')
+  await $.turn.complete(TURN)
+})
+
+test('stops ticking once the turn completes', async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on)
+
+  await $.turn.start({ text: 'go', turnId: 't-7' })
+  await clock.advance(3000)
+  await $.turn.complete(TURN)
+  const after = status.length
+
+  await clock.advance(10000)
+  expect(status.length).toBe(after)
+  expect(status.at(-1)).toBeUndefined()
+})
+
+test('counts every tool, not only Bash', async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on)
+  on('tool.call', { tool: 'Write' }, () => ANSWER as never)
+
+  await $.turn.start({ text: 'go', turnId: 't-8' })
+  await call($, 'b7')
+  await $.tool.call({ tool: 'Write', file_path: '/a.ts', content: 'x', tool_use_id: 'w1' })
+  await clock.advance(1000)
+
+  expect(status.at(-1)).toBe('turn 1s · 2 tools')
+  await $.turn.complete(TURN)
+})
+
+test('passes the turn result beneath through', async ($, on) => {
+  mock.clock(on)
+  world(on)
+
+  await $.turn.start({ text: 'go', turnId: 't-9' })
+  const done = await $.turn.complete({ ...TURN, answer: 'all good' })
+
+  expect(done.text).toBe('all good')
+})
+
+test('speaks Portuguese when the hub language is pt', async ($, on) => {
+  const clock = mock.clock(on)
+  const status = world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  await $.turn.start({ text: 'go', turnId: 't-10' })
+  await call($, 'b8')
+  await clock.advance(61000)
+
+  expect(status.at(-1)).toBe('turno 1m01s · 1 tool')
+  await $.turn.complete(TURN)
+})

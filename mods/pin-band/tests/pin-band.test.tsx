@@ -130,3 +130,83 @@ test('speaks the language set in the hub', async ($, on) => {
   expect(await ui.find({ type: 'Text', text: /LEMBRETE/ })).toBeDefined()
   await ui.unmount()
 })
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  await $.session.start(START)
+  expect((await $.command.run(pin(''))).text).toBe('Uso: /pin <texto> | rm <n> | clear')
+  expect((await $.command.run(pin('llamar a Ana'))).text).toBe('Recordatorio 1 fijado.')
+  expect((await $.command.run(pin('rm 5'))).text).toBe('El recordatorio no existe: 5')
+  expect((await $.command.run(pin('rm 1'))).text).toBe('Recordatorio 1 eliminado.')
+  expect((await $.command.run(pin('clear'))).text).toBe('Recordatorios eliminados.')
+})
+
+test('Portuguese answers for the limit, a missing reminder and clearing', async ($, on) => {
+  world(on)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'pt', version: 1 } }))
+
+  await $.session.start(START)
+  for (const n of [1, 2, 3, 4]) {
+    await $.command.run(pin(`nota ${n}`))
+  }
+
+  expect((await $.command.run(pin('nota 5'))).text).toBe('Limite de 4 lembretes. Remova um com /pin rm <n>.')
+  expect((await $.command.run(pin('rm 0'))).text).toBe('Lembrete inexistente: 0')
+  expect((await $.command.run(pin('rm 2'))).text).toBe('Lembrete 2 removido.')
+  expect((await $.command.run(pin('clear'))).text).toBe('Lembretes removidos.')
+})
+
+test('cuts a long reminder to 100 characters', async ($, on) => {
+  world(on)
+
+  await $.session.start(START)
+  await $.command.run(pin(`${'a'.repeat(100)}TAIL`))
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /a{100}/ })).toBeDefined()
+  expect(await ui.find({ type: 'Text', text: /TAIL/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('treats a word that is not a number after rm as missing', async ($, on) => {
+  world(on)
+
+  await $.session.start(START)
+  await $.command.run(pin('keep me'))
+  expect((await $.command.run(pin('rm abc'))).text).toBe('No such reminder: abc')
+
+  const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /keep me/ })).toBeDefined()
+  await ui.unmount()
+})
+
+test('draws nothing while a survey is open or with no reminders', async ($, on) => {
+  world(on)
+
+  await $.session.start(START)
+  const empty = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await empty.find({ type: 'Text', text: /REMINDER/ })).toBeUndefined()
+  await empty.unmount()
+
+  await $.command.run(pin('survey time'))
+  const ui = await $.ui.mount({ ...BAND, props: { ...BAND.props, hasSurvey: true }, surface: 'terminal' })
+  expect(await ui.find({ type: 'Text', text: /survey time/ })).toBeUndefined()
+  await ui.unmount()
+})
+
+test('ignores a store entry that is not a list', async ($, on) => {
+  mock.store(on, { 'pins:/project': 'not a list' })
+  on('session.start', (_$, e) => ({ cwd: e.cwd }))
+  on('session.root', () => ({ value: '/project' }))
+  on('command.register', (_$, e) => ({ value: { command: e.name } }))
+  on('ui.render', { component: 'AbovePrompt' }, ($, e) => {
+    const { Box } = $.ui.resolve(e)
+
+    return <Box />
+  })
+
+  await $.session.start(START)
+  expect((await $.command.run(pin('fresh'))).text).toBe('Reminder 1 pinned.')
+})

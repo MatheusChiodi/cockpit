@@ -69,3 +69,61 @@ test('speaks the language set in the hub', async ($, on) => {
   const answer = await bash($, 'npm run lint')
   expect(answer.deny).toContain('script-guard: o package.json não tem o script "lint". Disponíveis: dev, build, test, build:prod.')
 })
+
+test('speaks Spanish when the hub says so', async ($, on) => {
+  project(on, PACKAGE)
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: 'es', version: 1 } }))
+
+  expect((await bash($, 'npm run lint')).deny).toBe(
+    'script-guard: package.json no tiene el script "lint". Disponibles: dev, build, test, build:prod.',
+  )
+})
+
+test('says when package.json declares no scripts at all, in each language', async ($, on) => {
+  project(on, JSON.stringify({ name: 'web' }))
+  let lang = 'en'
+  on('state.get', { plugin: 'cockpit', key: 'lang' }, () => ({ value: { value: lang, version: 1 } }))
+
+  expect((await bash($, 'npm run dev')).deny).toBe('script-guard: package.json has no "dev" script. It declares no scripts.')
+  lang = 'pt'
+  expect((await bash($, 'npm t')).deny).toBe('script-guard: o package.json não tem o script "test". Ele não declara scripts.')
+  lang = 'es'
+  expect((await bash($, 'pnpm test')).deny).toBe('script-guard: package.json no tiene el script "test". No declara scripts.')
+})
+
+test('stays silent when package.json is not valid JSON', async ($, on) => {
+  project(on, '{ broken')
+
+  expect((await bash($, 'npm run lint')).deny).toBeUndefined()
+})
+
+test('reads env prefixes and every segment of a chain or a pipe', async ($, on) => {
+  project(on, PACKAGE)
+
+  expect((await bash($, 'NODE_ENV=production npm run deploy')).deny).toContain('no "deploy" script')
+  expect((await bash($, 'npm run build; npm run ship')).deny).toContain('no "ship" script')
+  expect((await bash($, 'npm run build || npm run fallback')).deny).toContain('no "fallback" script')
+})
+
+test('does not judge npm run without a name, or a name that is a pattern or option', async ($, on) => {
+  project(on, PACKAGE)
+
+  for (const command of ['npm run', 'npm run --silent', 'pnpm run "lint:*"', 'npx eslint .', 'bun run lint']) {
+    expect((await bash($, command)).deny, command).toBeUndefined()
+  }
+})
+
+test('refuses with the failure text when the check itself throws', async ($, on) => {
+  on('session.root', () => {
+    throw new Error('no root')
+  })
+  let ran = 0
+  on('tool.call', { tool: 'Bash' }, () => {
+    ran += 1
+
+    return ANSWER
+  })
+
+  expect((await bash($, 'npm run dev')).deny).toBe('script-guard: the check failed, confirm the script exists in package.json.')
+  expect(ran).toBe(0)
+})
